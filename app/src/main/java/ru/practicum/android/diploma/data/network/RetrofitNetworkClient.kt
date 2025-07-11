@@ -6,7 +6,6 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.models.vacancies.Response
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
-import ru.practicum.android.diploma.util.NetworkHelper
 import ru.practicum.android.diploma.util.NetworkHelper.isConnected
 
 class RetrofitNetworkClient(private val service: VacanciesApi, private val context: Context) : SearchNetworkClient {
@@ -15,15 +14,20 @@ class RetrofitNetworkClient(private val service: VacanciesApi, private val conte
             return Response().apply { resultCode = -1 }
         }
         if (dto !is VacanciesRequest) {
-            return Response().apply { resultCode = 400 }
+            return Response().apply { resultCode = SEARCH_FAILED }
         }
         return withContext(Dispatchers.IO) {
             try {
                 val response = service.getVacancies(text = dto.text)
-                response.apply { resultCode = 200 }
+                response.apply { resultCode = SEARCH_SUCCESS }
             } catch (e: Throwable) {
-                Response().apply { resultCode = 500 }
+                Response().apply { resultCode = SERVER_ERROR }
             }
         }
+    }
+    companion object {
+        private const val SEARCH_SUCCESS = 200
+        private const val SEARCH_FAILED = 400
+        private const val SERVER_ERROR = 500
     }
 }

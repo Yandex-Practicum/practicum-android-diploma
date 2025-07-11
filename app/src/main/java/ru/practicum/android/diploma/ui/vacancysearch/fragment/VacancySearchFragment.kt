@@ -49,7 +49,7 @@ class VacancySearchFragment : Fragment() {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
 
-        searchViewModel.vacancies.observe(viewLifecycleOwner){vacancies ->
+        searchViewModel.vacancies.observe(viewLifecycleOwner){ vacancies ->
             Log.d("Vacancies", vacancies.toString())
         }
 
