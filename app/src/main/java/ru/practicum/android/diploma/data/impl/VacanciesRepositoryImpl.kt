@@ -9,10 +9,9 @@ import ru.practicum.android.diploma.data.models.vacancies.VacanciesResponseDto
 import ru.practicum.android.diploma.data.network.SearchNetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
-import java.io.IOException
 
 class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : VacanciesRepository {
-    override fun search(text: String): Flow<List<Vacancy>> = flow {
+    override fun search(text: String): Flow<List<Vacancy>?> = flow {
         try {
             val response = networkClient.doRequest(VacanciesRequest(text))
             val code = response.resultCode
@@ -26,8 +25,7 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
                         emit(emptyList())
                     }
                 }
-                SEARCH_FAILED -> throw IOException("API error: $code")
-                SERVER_ERROR -> throw IOException("API error: $code")
+                else -> emit(null)
             }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Search error", e)
@@ -36,7 +34,5 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
     }
     companion object {
         private const val SEARCH_SUCCESS = 200
-        private const val SEARCH_FAILED = 404
-        private const val SERVER_ERROR = 500
     }
 }
