@@ -11,21 +11,21 @@ import ru.practicum.android.diploma.util.NetworkHelper.isConnected
 
 class RetrofitNetworkClient(private val service: VacanciesApi, private val context: Context) : SearchNetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-        if (!isConnected(context)) {
-            return Response().apply { resultCode = -1 }
-        }
-        if (dto !is VacanciesRequest) {
-            return Response().apply { resultCode = SEARCH_FAILED }
-        }
+
         return withContext(Dispatchers.IO) {
-            try {
-                val response = service.getVacancies(text = dto.text)
-                response.apply { resultCode = SEARCH_SUCCESS }
-            } catch (e: retrofit2.HttpException) {
-                Log.e("Repository", "Search error", e)
-                Response().apply { resultCode = SERVER_ERROR }
+            when {
+                !isConnected(context) -> Response().apply { resultCode = -1 }
+                dto !is VacanciesRequest -> Response().apply { resultCode = SEARCH_FAILED }
+                else -> try {
+                    val response = service.getVacancies(text = dto.text)
+                    response.apply { resultCode = SEARCH_SUCCESS }
+                } catch (e: retrofit2.HttpException) {
+                    Log.e("Repository", "Search error", e)
+                    Response().apply { resultCode = SERVER_ERROR }
+                }
             }
         }
+
     }
 
     companion object {
