@@ -40,4 +40,8 @@ class FavouriteVacanciesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 2000L
+    }
 }
