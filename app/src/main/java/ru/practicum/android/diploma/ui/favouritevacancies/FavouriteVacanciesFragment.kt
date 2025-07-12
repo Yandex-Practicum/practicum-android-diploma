@@ -33,8 +33,6 @@ class FavouriteVacanciesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.header.toolbarTitle.text = getString(R.string.favorite)
-
-
     }
 
     override fun onDestroyView() {
