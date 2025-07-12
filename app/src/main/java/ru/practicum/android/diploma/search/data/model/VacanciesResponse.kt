@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.search.data.model
 import com.google.gson.annotations.SerializedName
 
 data class VacanciesResponse(
-    val found : Int,
+    val found: Int,
     val items: List<Vacancy>
 ) : Response()
 
