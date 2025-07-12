@@ -1,3 +1,38 @@
 package ru.practicum.android.diploma.search.data.network
 
-class RetrofitNetworkClient(private val networkService: RetrofitClient) : NetworkClient
+import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import ru.practicum.android.diploma.search.data.model.Response
+import ru.practicum.android.diploma.search.data.model.VacancyRequest
+import ru.practicum.android.diploma.util.InternetConnectionChecker
+
+class RetrofitNetworkClient(
+    private val networkService: RetrofitClient,
+    private val internetConnectionChecker: InternetConnectionChecker,
+) : NetworkClient {
+
+    override suspend fun getVacancies(vacancyRequest: VacancyRequest): Response {
+        return try {
+            withContext(Dispatchers.IO) {
+                if (internetConnectionChecker.isInternetAvailable()) {
+                    val response = networkService.hhApi.getVacancyByName(
+                        filters = vacancyRequest.toQueryMap()
+                    )
+                    response.resultCode = 200
+                    response
+                } else {
+                    Response().apply {
+                        resultCode = -1
+                    }
+                }
+            }
+        } catch (e: HttpException) {
+            Response().apply {
+                resultCode = e.code()
+            }
+        }
+    }
+
+}
