@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converter.toData
 import ru.practicum.android.diploma.data.db.converter.toDomain
-import ru.practicum.android.diploma.domain.favouriteVacancies.repository.FavouriteVacanciesRepository
+import ru.practicum.android.diploma.domain.favouriteVacancies.repository.FavouriteVacanciesDbRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
-class FavouriteVacanciesImpl(private val appDataBase: AppDatabase): FavouriteVacanciesRepository {
+class FavouriteVacanciesDbRepositoryImpl(private val appDataBase: AppDatabase): FavouriteVacanciesDbRepository {
     override suspend fun insertVacancy(vacancy: Vacancy) {
         val currentVacancy = appDataBase.favouriteVacancyDao().getVacancyById(vacancy.id)
         if (currentVacancy == null) {

@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.domain.favouriteVacancies.repository
+package ru.practicum.android.diploma.domain.favouriteVacancies.use_cases
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
-interface FavouriteVacanciesRepository {
+interface FavouriteVacanciesDbInteractor {
     suspend fun insertVacancy(vacancy: Vacancy)
     suspend fun deleteVacancy(vacancy: Vacancy)
     fun getFavouriteVacancies(): Flow<List<Vacancy>>
