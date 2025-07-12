@@ -11,8 +11,8 @@ import ru.practicum.android.diploma.data.models.areas.AreasApi
 import ru.practicum.android.diploma.data.models.industries.IndustriesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsApi
-import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
-import ru.practicum.android.diploma.data.network.SearchNetworkClient
+import ru.practicum.android.diploma.data.vacancysearchscreen.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.data.vacancysearchscreen.network.SearchNetworkClient
 
 val dataModule = module {
     // retrofit

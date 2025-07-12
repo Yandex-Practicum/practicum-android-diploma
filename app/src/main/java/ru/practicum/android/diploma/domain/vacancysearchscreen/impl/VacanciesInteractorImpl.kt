@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.impl
+package ru.practicum.android.diploma.domain.vacancysearchscreen.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first

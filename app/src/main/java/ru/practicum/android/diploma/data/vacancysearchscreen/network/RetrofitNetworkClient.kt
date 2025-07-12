@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.vacancysearchscreen.network
 
 import android.content.Context
 import android.util.Log
@@ -11,13 +11,13 @@ import ru.practicum.android.diploma.util.NetworkHelper.isConnected
 
 class RetrofitNetworkClient(private val service: VacanciesApi, private val context: Context) : SearchNetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-        if (isConnected(context) == false) {
-            return Response().apply { resultCode = -1 }
-        }
-        return withContext(Dispatchers.IO) {
-            when {
-                dto !is VacanciesRequest -> Response().apply { resultCode = SEARCH_FAILED }
-                else -> try {
+        return if (isConnected(context) == false) {
+            Response().apply { resultCode = NO_CONNECTION }
+        } else if (dto !is VacanciesRequest) {
+            Response().apply { resultCode = SEARCH_FAILED }
+        } else {
+            withContext(Dispatchers.IO) {
+                try {
                     val response = service.getVacancies(text = dto.text)
                     response.apply { resultCode = SEARCH_SUCCESS }
                 } catch (e: retrofit2.HttpException) {
@@ -29,8 +29,9 @@ class RetrofitNetworkClient(private val service: VacanciesApi, private val conte
     }
 
     companion object {
-        private const val SEARCH_SUCCESS = 200
-        private const val SEARCH_FAILED = 400
-        private const val SERVER_ERROR = 500
+        private const val NO_CONNECTION = -1
+        private const val SEARCH_SUCCESS = 2
+        private const val SEARCH_FAILED = 1
+        private const val SERVER_ERROR = 5
     }
 }

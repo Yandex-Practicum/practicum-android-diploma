@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.impl
+package ru.practicum.android.diploma.data.vacancysearchscreen.impl
 
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.mappers.toDomain
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesResponseDto
-import ru.practicum.android.diploma.data.network.SearchNetworkClient
+import ru.practicum.android.diploma.data.vacancysearchscreen.network.SearchNetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
@@ -15,24 +15,24 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
         try {
             val response = networkClient.doRequest(VacanciesRequest(text))
             val code = response.resultCode
-            when (code) {
-                SEARCH_SUCCESS -> {
-                    val res = (response as VacanciesResponseDto).items
-                    if (res.isNotEmpty()) {
-                        val data = res.map { it.toDomain() }
-                        emit(data)
-                    } else {
-                        emit(emptyList())
-                    }
+            if (code == SEARCH_SUCCESS) {
+                val res = (response as VacanciesResponseDto).items
+                if (res.isNotEmpty()) {
+                    val data = res.map { it.toDomain() }
+                    emit(data)
+                } else {
+                    emit(emptyList())
                 }
-                else -> emit(null)
+            } else {
+                emit(null)
             }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Search error", e)
             throw e
         }
     }
+
     companion object {
-        private const val SEARCH_SUCCESS = 200
+        private const val SEARCH_SUCCESS = 2
     }
 }

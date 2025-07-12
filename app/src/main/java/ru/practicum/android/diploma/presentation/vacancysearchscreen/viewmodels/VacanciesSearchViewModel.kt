@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.viewmodels
+package ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.vacancysearchscreen.network
 
 import ru.practicum.android.diploma.data.models.vacancies.Response
 
