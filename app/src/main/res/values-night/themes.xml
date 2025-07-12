@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/gray</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnContainer">@color/white</item>
 
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
