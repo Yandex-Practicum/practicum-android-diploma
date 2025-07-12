@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.favouritevacancies.use_cases
+package ru.practicum.android.diploma.domain.favouritevacancies.usecases
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
