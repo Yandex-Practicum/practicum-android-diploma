@@ -24,8 +24,8 @@ class FavouriteVacanciesViewModel(
                     if (uiList.isEmpty()) {
                         _favouriteUiState.postValue(
                             FavouriteVacanciesUiState.Placeholder(
-                            R.drawable.empty_list_favorites_placeholder,
-                            R.string.empty_list
+                                R.drawable.empty_list_favorites_placeholder,
+                                R.string.empty_list
                             )
                         )
                     } else {
