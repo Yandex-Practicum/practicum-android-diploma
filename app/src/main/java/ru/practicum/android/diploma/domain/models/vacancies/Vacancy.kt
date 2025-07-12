@@ -9,5 +9,6 @@ data class Vacancy(
     val employerName: String?,
     val logo: String?,
     val salary: Salary,
-    val city: String?
+    val city: String?,
+    var timestamp: Long? = null
 )

@@ -7,5 +7,7 @@ data class VacancyUiModel(
     val employerName: String?,
     val logo: String?,
     val salary: String,
-    val city: String?
+    val city: String?,
+    var isFavourite: Boolean = false,
+    var timestamp: Long? = null
 )
