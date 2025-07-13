@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.mappers.toDomain
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesResponseDto
-import ru.practicum.android.diploma.data.vacancysearchscreen.network.SearchNetworkClient
+import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
-class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : VacanciesRepository {
+class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
     override fun search(text: String): Flow<List<Vacancy>?> = flow {
         try {
             val response = networkClient.doRequest(VacanciesRequest(text))
