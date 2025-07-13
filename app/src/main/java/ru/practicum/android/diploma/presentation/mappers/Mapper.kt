@@ -21,8 +21,8 @@ fun Vacancy.toUiModel(context: Context): VacancyUiModel {
 fun Salary.format(context: Context): String {
     return when (this) {
         is Salary.NotSpecifies -> context.getString(R.string.salary_not_specified)
-        is Salary.Fixed -> context.getString(R.string.salary_fixed)
-        is Salary.From -> context.getString(R.string.salary_from)
-        else -> context.getString(R.string.salary_range)
+        is Salary.Fixed -> context.getString(R.string.salary_fixed, amount, currency)
+        is Salary.From -> context.getString(R.string.salary_from, amount, currency)
+        is Salary.Range -> context.getString(R.string.salary_range, from, to, currency)
     }
 }
