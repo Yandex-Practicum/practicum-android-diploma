@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels.VacanciesSearchViewModel
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
+import ru.practicum.android.diploma.util.DebounceConstants.SEARCH_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.util.Debouncer
 
 class VacancySearchFragment : Fragment() {
@@ -96,9 +97,5 @@ class VacancySearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
