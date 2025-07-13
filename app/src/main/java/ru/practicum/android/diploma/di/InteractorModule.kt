@@ -5,7 +5,6 @@ import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.sharing.SharingInteractor
 import ru.practicum.android.diploma.domain.sharing.impl.SharingInteractorImpl
 import ru.practicum.android.diploma.domain.vacancysearchscreen.impl.VacanciesInteractorImpl
-import ru.practicum.android.diploma.domain.vacancysearchscreen.impl.VacanciesInteractorImpl
 import ru.practicum.android.diploma.domain.favouritevacancies.impl.FavouriteVacanciesDbInteractorImpl
 import ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository
 import ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor
