@@ -34,7 +34,7 @@ class VacancyDetailsFragment : Fragment() {
             viewModel.shareVacancy(linkVacancy)
         }
 
-        binding.btnFavorite.setOnClickListener {  }
+        binding.btnFavorite.setOnClickListener {}
     }
 
     override fun onDestroyView() {
