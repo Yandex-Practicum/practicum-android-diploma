@@ -19,7 +19,7 @@ class VacancyItemAdapter(
         val vacancy = vacancies[position]
         holder.bind(vacancy)
         holder.itemView.setOnClickListener {
-            listener.onClick()
+            listener.onClick(vacancy.id)
         }
     }
 
@@ -28,6 +28,6 @@ class VacancyItemAdapter(
     }
 
     interface Listener {
-        fun onClick()
+        fun onClick(id: String)
     }
 }

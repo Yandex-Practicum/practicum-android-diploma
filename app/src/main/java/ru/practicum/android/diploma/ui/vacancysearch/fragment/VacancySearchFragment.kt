@@ -83,6 +83,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     vacanciesList.clear()
                     vacanciesList.addAll(state.vacancies.map { it.toUiModel(requireContext()) })
                     adapter.notifyDataSetChanged()
+                    Log.d("Vacancies", vacanciesList.toString())
                 }
                 VacanciesState.Empty -> {
                     binding.progressBar.visibility = View.GONE
@@ -191,7 +192,8 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         private const val RECYCLER_MARGIN_TOP = 38F
     }
 
-    override fun onClick() {
+    override fun onClick(id: String) {
+        Log.d("VacanciesID", id)
         // ...
     }
 }
