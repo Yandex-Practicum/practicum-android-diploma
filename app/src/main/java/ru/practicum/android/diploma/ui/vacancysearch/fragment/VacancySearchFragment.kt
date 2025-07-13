@@ -53,7 +53,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
         binding.header.toolbarTitle.text = getString(R.string.search_vacancy)
         binding.header.iconFilter.visibility = View.VISIBLE
-        binding.recyclerViewSearch.addItemDecoration(TopSpacingItemDecoration(dpToPx(38F,requireContext())))
+        binding.recyclerViewSearch.addItemDecoration(TopSpacingItemDecoration(dpToPx(RECYCLER_MARGIN_TOP, requireContext())))
 
         binding.header.iconFilter.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
@@ -184,9 +184,10 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private const val SEARCH_ERROR_DELAY = 700L
+        private const val RECYCLER_MARGIN_TOP = 38F
     }
 
     override fun onClick() {
-        //...
+        // ...
     }
 }

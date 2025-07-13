@@ -27,7 +27,7 @@ class VacancyItemAdapter(
         return vacancies.size
     }
 
-    interface Listener{
+    interface Listener {
         fun onClick()
     }
 }
