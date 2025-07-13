@@ -70,4 +70,10 @@
         <item name="android:fontWeight">500</item>
     </style>
 
+    <style name="HeaderInDetailsVacancyStyle" parent="TextMedium22">
+        <item name="android:layout_marginTop">19dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
 </resources>

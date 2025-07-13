@@ -31,4 +31,10 @@
     <string name="salary_range">от %1$d до %2$d %3$s</string>
     <string name="salary_fixed">%1$d %2$s</string>
 
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="key_skills">Ключевые навыки</string>
+
+    <string name="vacancy_not_found_or_deleted">Вакансия не найдена или \nудалена</string>
+
 </resources>

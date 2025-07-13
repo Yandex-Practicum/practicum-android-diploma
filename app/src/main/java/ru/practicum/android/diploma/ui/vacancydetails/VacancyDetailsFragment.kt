@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyDetailsFragmentBinding
 
 class VacancyDetailsFragment : Fragment() {
@@ -20,7 +19,6 @@ class VacancyDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.header.toolbarTitle.text = getString(R.string.vacancy_details)
     }
 
     override fun onDestroyView() {
