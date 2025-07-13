@@ -23,7 +23,6 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         )
 
         when (response.resultCode) {
-
             200 -> {
                 val data = (response as VacanciesResponse).items.map {
                     VacancyPreview(
