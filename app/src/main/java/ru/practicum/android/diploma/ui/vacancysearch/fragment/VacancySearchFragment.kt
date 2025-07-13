@@ -53,7 +53,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
         binding.header.toolbarTitle.text = getString(R.string.search_vacancy)
         binding.header.iconFilter.visibility = View.VISIBLE
-        binding.recyclerViewSearch.addItemDecoration(TopSpacingItemDecoration(dpToPx(RECYCLER_MARGIN_TOP, requireContext())))
+        binding.recyclerViewSearch.addItemDecoration(
+            TopSpacingItemDecoration(
+                dpToPx(RECYCLER_MARGIN_TOP, requireContext())))
 
         binding.header.iconFilter.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
