@@ -22,7 +22,6 @@ class FavouriteVacanciesViewModel(
                     val uiList = vacanciesList.map { vacancy -> vacancy.toUiModel() }
                         _favouriteUiState.postValue(FavouriteVacanciesUiState.Content(uiList))
                     }
-                }
         }
     }
 }
