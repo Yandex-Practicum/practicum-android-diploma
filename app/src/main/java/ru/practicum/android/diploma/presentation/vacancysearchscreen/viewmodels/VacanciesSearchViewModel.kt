@@ -28,11 +28,16 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
                 .collect { resource ->
                     when (resource) {
                         is Resource.Success -> {
-                            val vacancies = resource.data ?: emptyList()
-                            _state.value = if (vacancies.isEmpty()) {
-                                VacanciesState.Empty
-                            } else {
-                                VacanciesState.Success(vacancies)
+                            when (val data = resource.data) {
+                                null -> _state.value = VacanciesState.Empty
+                                else -> {
+                                    val (vacancies, totalFound) = data
+                                    _state.value = if (vacancies.isEmpty()) {
+                                        VacanciesState.Empty
+                                    } else {
+                                        VacanciesState.Success(vacancies, totalFound)
+                                    }
+                                }
                             }
                         }
                         is Resource.Error -> {

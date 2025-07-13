@@ -12,17 +12,18 @@ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : VacanciesRepository {
-    override fun search(text: String): Flow<Resource<List<Vacancy>>> = flow {
+    override fun search(text: String): Flow<Resource<Pair<List<Vacancy>, Int>>> = flow {
         try {
             val response = networkClient.doRequest(VacanciesRequest(text))
             when (response.resultCode) {
                 SEARCH_SUCCESS -> {
                     val res = (response as VacanciesResponseDto).items
+                    val vacanciesResponse = response as VacanciesResponseDto
                     if (res.isNotEmpty()) {
                         val data = res.map { it.toDomain() }
-                        emit(Resource.Success(data))
+                        emit(Resource.Success(data to vacanciesResponse.found))
                     } else {
-                        emit(Resource.Success(emptyList()))
+                        emit(Resource.Success(emptyList<Vacancy>() to 0))
                     }
                 }
                 NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))

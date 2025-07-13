@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
 sealed class VacanciesState {
     object Loading : VacanciesState()
-    data class Success(val vacancies: List<Vacancy>) : VacanciesState()
+    data class Success(val vacancies: List<Vacancy>, val totalFound: Int) : VacanciesState()
     object Empty : VacanciesState()
     object NoInternet : VacanciesState()
     object ServerError : VacanciesState()

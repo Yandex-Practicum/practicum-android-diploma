@@ -72,7 +72,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     binding.errorText.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
                     binding.searchMessage.visibility = View.VISIBLE
-                    binding.searchMessage.text = "Найдено ${state.vacancies.size} вакансий"
+                    binding.searchMessage.text = "Найдено ${state.totalFound} вакансий"
                     binding.recyclerViewSearch.visibility = View.VISIBLE
                     binding.searchMainPlaceholder.visibility = View.GONE
 
