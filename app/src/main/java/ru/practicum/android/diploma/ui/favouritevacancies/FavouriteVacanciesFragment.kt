@@ -61,7 +61,14 @@ class FavouriteVacanciesFragment : Fragment() {
         favouriteVacanciesViewModel.favouriteUiState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FavouriteVacanciesUiState.Content -> {
-                    showVacancies(state.vacancies)
+                    if (state.vacancies.isEmpty()) {
+                        showPlaceholder(
+                            R.drawable.empty_list_favorites_placeholder,
+                            R.string.empty_list
+                        )
+                    } else {
+                        showVacancies(state.vacancies)
+                    }
                 }
                 is FavouriteVacanciesUiState.Placeholder -> {
                     showPlaceholder(state.drawable, state.message)

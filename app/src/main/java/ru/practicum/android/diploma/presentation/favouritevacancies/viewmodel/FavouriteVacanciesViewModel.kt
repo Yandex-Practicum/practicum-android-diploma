@@ -20,18 +20,7 @@ class FavouriteVacanciesViewModel(
             favouriteVacanciesDbInteractor.getFavouriteVacancies()
                 .collect { vacanciesList ->
                     val uiList = vacanciesList.map { vacancy -> vacancy.toUiModel() }
-
-                    if (uiList.isEmpty()) {
-                        _favouriteUiState.postValue(
-                            FavouriteVacanciesUiState.Placeholder(
-                                R.drawable.empty_list_favorites_placeholder,
-                                R.string.empty_list
-                            )
-                        )
-                    } else {
-                        _favouriteUiState.postValue(
-                            FavouriteVacanciesUiState.Content(uiList)
-                        )
+                        _favouriteUiState.postValue(FavouriteVacanciesUiState.Content(uiList))
                     }
                 }
         }
