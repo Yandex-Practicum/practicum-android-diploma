@@ -14,6 +14,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/favorite_title" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_favourites_vacancies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/placeholder_description_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
+
     <LinearLayout
         android:id="@+id/placeholder_problems_with_vacancies"
         android:layout_width="wrap_content"
