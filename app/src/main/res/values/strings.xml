@@ -33,4 +33,10 @@
     <string name="found">Найдено</string>
     <string name="vacancies">вакансий</string>
 
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="key_skills">Ключевые навыки</string>
+
+    <string name="vacancy_not_found_or_deleted">Вакансия не найдена или \nудалена</string>
+
 </resources>

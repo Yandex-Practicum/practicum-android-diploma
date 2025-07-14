@@ -58,7 +58,7 @@
     </style>
 
     <style name="ItemVacancyTypeSalaryStyle" parent="TextRegular16">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">12dp</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
@@ -68,6 +68,12 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/dimen_22sp</item>
         <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="HeaderInDetailsVacancyStyle" parent="TextMedium22">
+        <item name="android:layout_marginTop">19dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
 </resources>

@@ -8,18 +8,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
+import ru.practicum.android.diploma.ui.extensions.format
 import ru.practicum.android.diploma.util.dpToPx
 
 class VacancyItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val coverVacancy = itemView.findViewById<ImageView>(R.id.cover_vacancy)
-    private val nameVacancy = itemView.findViewById<TextView>(R.id.name_vacancy)
+    private val nameVacancy = itemView.findViewById<TextView>(R.id.tv_name_vacancy)
     private val employeeName = itemView.findViewById<TextView>(R.id.employee_name)
-    private val salaryVacancy = itemView.findViewById<TextView>(R.id.salary_vacancy)
+    private val salaryVacancy = itemView.findViewById<TextView>(R.id.tv_salary_vacancy)
 
     fun bind(vacancy: VacancyUiModel) {
         nameVacancy.text = vacancy.nameVacancy
         employeeName.text = vacancy.employerName
-        salaryVacancy.text = vacancy.salary
+        salaryVacancy.text = vacancy.salary.format(itemView.context)
         vacancy.logo?.let { loadImage(it) }
     }
 
