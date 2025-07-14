@@ -45,12 +45,12 @@
     <string name="vacancy_title">Вакансия</string>
     <string name="vacancy_notfound_error">Вакансия не найдена или\nудалена</string>
     <string name="vacancy_server_error">Ошибка сервера</string>
-    <string name="vacancy_jobtitle">Android Developer</string>
-    <string name="vacancy_jobprice">from 100 000 P</string>
-    <string name="vacancy_jobexptitle">Expected experience</string>
-    <string name="vacancy_jobexpdescription">From 1 to 3 years</string>
-    <string name="vacancy_jobtimetype">Full Time, Remote</string>
-    <string name="vacancy_jobdescription">HTML description</string>
+    <string name="vacancy_jobtitle">Android-разработчик</string>
+    <string name="vacancy_jobprice">от 100 000 Р</string>
+    <string name="vacancy_jobexptitle">Требуемый опыт</string>
+    <string name="vacancy_jobexpdescription">От 1 года до 3 лет</string>
+    <string name="vacancy_jobtimetype">Полная занятость, удаленная работа</string>
+    <string name="vacancy_jobdescription">HTML описание</string>
     <string name="vacancy_jobdescription_title">Описание вакансии</string>
 
     <string name="company_name_example">Яндекс Еда</string>

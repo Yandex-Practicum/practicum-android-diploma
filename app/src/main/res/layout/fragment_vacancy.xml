@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="@dimen/padding_standard">
 
         <ImageView
             android:id="@+id/back_button"
@@ -26,8 +26,8 @@
             android:id="@+id/title_vacancy"
             style="@style/Text.Title"
             android:layout_width="0dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_standard"
             android:text="@string/vacancy_title"
             app:layout_constraintBottom_toBottomOf="@id/back_button"
             app:layout_constraintEnd_toStartOf="@id/share_button"
@@ -47,7 +47,7 @@
             android:id="@+id/share_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_standard"
             android:src="@drawable/share_icon_light"
             android:contentDescription="@string/cd_share_vacancy"
             app:layout_constraintBottom_toBottomOf="@id/like_button"
@@ -57,7 +57,7 @@
         <TextView
             android:id="@+id/job_title"
             style="@style/Text.Main.Bold"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:text="@string/vacancy_jobtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/back_button" />
@@ -65,7 +65,7 @@
         <TextView
             android:id="@+id/job_price"
             style="@style/Text.Title"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_tiny"
             android:text="@string/vacancy_jobprice"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/job_title" />
@@ -75,14 +75,14 @@
             layout="@layout/card_company_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/margin_medium"
             app:layout_constraintTop_toBottomOf="@id/job_price"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/experience_title"
             style="@style/Text.DevInfo"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/vacancy_jobexptitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/company_card" />
@@ -97,7 +97,7 @@
         <TextView
             android:id="@+id/employment_type"
             style="@style/Text.Body"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_extra_small"
             android:text="@string/vacancy_jobtimetype"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/experience_description" />
@@ -105,7 +105,7 @@
         <TextView
             android:id="@+id/job_description_title"
             style="@style/Text.Title"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:text="@string/vacancy_jobdescription_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/employment_type"/>
@@ -114,7 +114,7 @@
             android:id="@+id/job_description"
             style="@style/Text.Body"
             android:layout_width="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_extra_small"
             android:text="@string/vacancy_jobdescription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
