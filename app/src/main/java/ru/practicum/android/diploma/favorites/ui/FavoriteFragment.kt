@@ -23,8 +23,7 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-
-    //Моковые данные для просмотра разметки
+    // Моковые данные для просмотра разметки
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
