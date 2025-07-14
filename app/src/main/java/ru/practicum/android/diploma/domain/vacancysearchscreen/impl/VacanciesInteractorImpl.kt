@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.domain.vacancysearchscreen.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
@@ -20,13 +19,7 @@ class VacanciesInteractorImpl(private val repository: VacanciesRepository) : Vac
         }
     }
 
-    override fun getVacancyDetailsById(id: String): Flow<Pair<VacancyDetails?, String?>> {
-        return repository.getVacancyDetailsById(id).map { result ->
-            when(result) {
-                is Resource.Success -> Pair(result.data, null)
-                is Resource.Error -> Pair(null, result.message)
-                else -> throw IllegalStateException("Unexpected Resource type: $result")
-            }
-        }
-    }
+    override fun getVacancyDetailsById(id: String): Flow<Resource<VacancyDetails>> =
+        repository.getVacancyDetailsById(id)
 }
+

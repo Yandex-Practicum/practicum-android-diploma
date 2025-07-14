@@ -36,15 +36,13 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
         }
     }
 
-    override fun getVacancyDetailsById(id: String): Flow<Resource<VacancyDetails>?> = flow {
+    override fun getVacancyDetailsById(id: String): Flow<Resource<VacancyDetails>> = flow {
         val response = networkClient.doRequest(VacancyDetailsRequest(id))
         when (response.resultCode) {
             SEARCH_SUCCESS -> {
                 val data = (response as VacancyDetailsResponseDto).toDomain()
                 emit(Resource.Success(data))
             }
-
-            -1 -> {}
 
             else -> emit(Resource.Error(message = "$ERROR: ${response.resultCode}"))
         }

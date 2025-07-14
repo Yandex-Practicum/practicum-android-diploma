@@ -7,5 +7,5 @@ import ru.practicum.android.diploma.util.Resource
 
 interface VacanciesRepository {
     fun search(text: String): Flow<List<Vacancy>?>
-    fun getVacancyDetailsById(id: String): Flow<Resource<VacancyDetails>?>
+    fun getVacancyDetailsById(id: String): Flow<Resource<VacancyDetails>>
 }
