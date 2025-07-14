@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.data.models.vacancydetails
 
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.models.vacancies.Response
+import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 
 data class VacancyDetailsResponseDto(
     @SerializedName("id") val id: String,
@@ -12,9 +13,10 @@ data class VacancyDetailsResponseDto(
     @SerializedName("experience") val experience: ExperienceDto?,
     @SerializedName("employment_form") val employmentForm: EmploymentFormDto?,
     @SerializedName("description") val description: String,
-    @SerializedName("key_skills") val keySkills: List<KeySkills>,
+    @SerializedName("key_skills") val keySkills: List<KeySkills>?,
     @SerializedName("work_format") val workFormat: WorkFormatDto?,
-    @SerializedName("alternate_url") val alternateUrl: String
+    @SerializedName("alternate_url") val alternateUrl: String,
+    @SerializedName("address") val address: Address?,
 ) : Response()
 
 data class AreaDto(
@@ -22,10 +24,8 @@ data class AreaDto(
     @SerializedName("name") val name: String
 )
 
-data class SalaryRangeDto(
-    @SerializedName("currency") val currency: String,
-    @SerializedName("from") val from: Int?,
-    @SerializedName("to") val to: Int?
+data class Address(
+    @SerializedName("city") val city: String?
 )
 
 data class EmployerDto(
@@ -46,7 +46,7 @@ data class EmploymentFormDto(
 )
 
 data class WorkFormatDto(
-    @SerializedName("work_format") val workFormat: String?
+    @SerializedName("name") val name: String?
 )
 
 data class KeySkills(

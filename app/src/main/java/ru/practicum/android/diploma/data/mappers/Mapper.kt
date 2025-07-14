@@ -2,8 +2,10 @@ package ru.practicum.android.diploma.data.mappers
 
 import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
+import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
 import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 
 fun VacanciesDto.toDomain(): Vacancy {
     return Vacancy(
@@ -14,6 +16,23 @@ fun VacanciesDto.toDomain(): Vacancy {
         logo = employer?.logoUrls?.logo90,
         salary = salaryRange.toDomain(),
         city = address?.city
+    )
+}
+
+fun VacancyDetailsResponseDto.toDomain(): VacancyDetails {
+    return VacancyDetails(
+        id = id,
+        name = name,
+        salary = salaryRange.toDomain(),
+        employer = employer?.name,
+        experience = experience?.name,
+        employmentForm = employmentForm?.name,
+        description = description,
+        workFormat = workFormat?.name,
+        alternateUrl = alternateUrl,
+        keySkills = keySkills?.map { it.name } ?: listOf(),
+        city = area.name,
+        logoUrl = employer?.logoUrls?.logo90
     )
 }
 

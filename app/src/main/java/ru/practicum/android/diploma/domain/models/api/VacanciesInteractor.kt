@@ -2,8 +2,10 @@ package ru.practicum.android.diploma.domain.models.api
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 import ru.practicum.android.diploma.util.Resource
 
 interface VacanciesInteractor {
     fun search(text: String): Flow<Resource<List<Vacancy>>>
+    fun getVacancyDetailsById(id: String): Flow<Pair<VacancyDetails?, String?>>
 }
