@@ -5,5 +5,7 @@
     <dimen name="text_size_22">22sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
+    <dimen name="toolbar_size_64">64dp</dimen>
 
+    <dimen name="placeholder_description_margin">16dp</dimen>
 </resources>
