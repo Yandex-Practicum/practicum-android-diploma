@@ -41,4 +41,28 @@
         <item name="itemTextColor">@color/nav_item_color</item>
     </style>
 
+    <style name="MaterialToolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_size_64</item>
+        <item name="titleTextColor">@color/hh_mode_text</item>
+        <item name="titleTextAppearance">@style/Text.Title</item>
+    </style>
+
+    <style name="TextViewHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">12dp</item>
+
+        <item name="android:fontFamily">@font/ys_text_medium</item>
+        <item name="android:textColor">?attr/textAppearanceBody2</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+    </style>
+
+    <style name="NoConnectionImagePlaceholder">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
 </resources>
