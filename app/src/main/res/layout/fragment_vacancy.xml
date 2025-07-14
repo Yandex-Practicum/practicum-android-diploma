@@ -15,7 +15,8 @@
 
         <ImageView
             android:id="@+id/back_button"
-            style="@style/Widget.App.Icon.Action"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:src="@drawable/back_light"
             android:contentDescription="@string/cd_navigate_back"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,8 @@
 
         <ImageView
             android:id="@+id/like_button"
-            style="@style/Widget.App.Icon.Action"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:src="@drawable/like_unchecked_icon_light"
             android:contentDescription="@string/cd_add_to_favorites"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +45,8 @@
 
         <ImageView
             android:id="@+id/share_button"
-            style="@style/Widget.App.Icon.Action"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_marginEnd="16dp"
             android:src="@drawable/share_icon_light"
             android:contentDescription="@string/cd_share_vacancy"
