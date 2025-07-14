@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    tools:context=".vacancy.ui.VacancyFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/back_button"
+            style="@style/Widget.App.Icon.Action"
+            android:src="@drawable/back_light"
+            android:contentDescription="@string/cd_navigate_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_vacancy"
+            style="@style/Text.Title"
+            android:layout_width="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/vacancy_title"
+            app:layout_constraintBottom_toBottomOf="@id/back_button"
+            app:layout_constraintEnd_toStartOf="@id/share_button"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="@id/back_button" />
+
+        <ImageView
+            android:id="@+id/like_button"
+            style="@style/Widget.App.Icon.Action"
+            android:src="@drawable/like_unchecked_icon_light"
+            android:contentDescription="@string/cd_add_to_favorites"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/share_button"
+            style="@style/Widget.App.Icon.Action"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/share_icon_light"
+            android:contentDescription="@string/cd_share_vacancy"
+            app:layout_constraintBottom_toBottomOf="@id/like_button"
+            app:layout_constraintEnd_toStartOf="@id/like_button"
+            app:layout_constraintTop_toTopOf="@id/like_button" />
+
+        <TextView
+            android:id="@+id/job_title"
+            style="@style/Text.Main.Bold"
+            android:layout_marginTop="32dp"
+            android:text="@string/vacancy_jobtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+        <TextView
+            android:id="@+id/job_price"
+            style="@style/Text.Title"
+            android:layout_marginTop="4dp"
+            android:text="@string/vacancy_jobprice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/job_title" />
+
+        <include
+            android:id="@+id/company_card"
+            layout="@layout/card_company_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/job_price"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/experience_title"
+            style="@style/Text.DevInfo"
+            android:layout_marginTop="24dp"
+            android:text="@string/vacancy_jobexptitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/company_card" />
+
+        <TextView
+            android:id="@+id/experience_description"
+            style="@style/Text.Body"
+            android:text="@string/vacancy_jobexpdescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/experience_title" />
+
+        <TextView
+            android:id="@+id/employment_type"
+            style="@style/Text.Body"
+            android:layout_marginTop="8dp"
+            android:text="@string/vacancy_jobtimetype"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/experience_description" />
+
+        <TextView
+            android:id="@+id/job_description_title"
+            style="@style/Text.Title"
+            android:layout_marginTop="32dp"
+            android:text="@string/vacancy_jobdescription_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/employment_type"/>
+
+        <TextView
+            android:id="@+id/job_description"
+            style="@style/Text.Body"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/vacancy_jobdescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/job_description_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

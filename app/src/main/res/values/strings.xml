@@ -45,10 +45,27 @@
     <string name="vacancy_title">Вакансия</string>
     <string name="vacancy_notfound_error">Вакансия не найдена или\nудалена</string>
     <string name="vacancy_server_error">Ошибка сервера</string>
+    <string name="vacancy_jobtitle">Android Developer</string>
+    <string name="vacancy_jobprice">from 100 000 P</string>
+    <string name="vacancy_jobexptitle">Expected experience</string>
+    <string name="vacancy_jobexpdescription">From 1 to 3 years</string>
+    <string name="vacancy_jobtimetype">Full Time, Remote</string>
+    <string name="vacancy_jobdescription">HTML description</string>
+    <string name="vacancy_jobdescription_title">Описание вакансии</string>
+
+    <string name="company_name_example">Яндекс Еда</string>
+    <string name="company_location_example">Москва</string>
+    <string name="apply_for_job">Откликнуться</string>
 
     <string name="favorite_title">Избранное</string>
     <string name="favorite_empty_error">Список пуст</string>
     <string name="favorite_nointernet_error">Не удалось получить\nсписок вакансий</string>
     <string name="main_title">Главная</string>
+
+    <string name="cd_navigate_back">Вернуться назад</string>
+    <string name="cd_add_to_favorites">Добавить в избранное</string>
+    <string name="cd_share_vacancy">Поделиться вакансией</string>
+    <string name="cd_company_logo">Логотип компании</string>
+
 
 </resources>
