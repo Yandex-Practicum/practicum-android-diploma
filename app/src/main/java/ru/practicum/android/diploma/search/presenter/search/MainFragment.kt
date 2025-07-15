@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
@@ -53,6 +54,8 @@ class MainFragment : Fragment() {
 
         binding.editTextId.addTextChangedListener(textWatcher)
         clearEditText()
+
+        goToFilters()
     }
 
     override fun onDestroyView() {
@@ -87,6 +90,12 @@ class MainFragment : Fragment() {
                     binding.editTextId.text.clear()
                 }
             }
+        }
+    }
+
+    private fun goToFilters(){
+        binding.filterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_filtersFragment)
         }
     }
 

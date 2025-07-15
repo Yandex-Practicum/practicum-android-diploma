@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".search.presenter.filter.FiltersFragment">
-
-
     <ImageView
         android:id="@+id/backButtonId"
         android:layout_width="wrap_content"
@@ -31,7 +29,135 @@
         android:text="@string/filter_title">
     </TextView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeContainerId"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp"
+        app:layout_constraintTop_toBottomOf="@id/backButtonId">
+
+        <TextView
+            android:id="@+id/filterText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_work"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/ys_text_regular"
+            android:textSize="16sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/filterText"
+            app:layout_constraintBottom_toBottomOf="@id/filterText"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/arrow_right_icon_light"
+            android:layout_marginEnd="22dp"
+            >
+        </ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fieldId"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeContainerId">
+
+        <TextView
+            android:id="@+id/filterField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/ys_text_regular"
+            android:textSize="16sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/filterField"
+            app:layout_constraintBottom_toBottomOf="@id/filterField"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/arrow_right_icon_light"
+            android:layout_marginEnd="22dp"
+            >
+        </ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editTextContainerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/search_edit_text_background"
+        app:layout_constraintTop_toBottomOf="@id/fieldId"
+        android:layout_marginHorizontal="16dp">
+
+        <EditText
+            android:id="@+id/editTextId"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:hint="@string/filter_entersum"
+            android:paddingStart="16dp"
+            android:fontFamily="@font/ys_text_regular"
+            android:backgroundTint="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/hint_color"
+            app:layout_constraintTop_toTopOf="parent">
+        </EditText>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/salaryCheckBoxContainer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextContainerId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            android:id="@+id/noSalaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:text="@string/filter_nosumhidden"
+            android:textSize="16sp"
+            android:fontFamily="@font/ys_text_regular">
+        </TextView>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/noSalaryTextView"
+            app:layout_constraintBottom_toBottomOf="@id/noSalaryTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:buttonCompat="@drawable/custom_checkbox_selector"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
