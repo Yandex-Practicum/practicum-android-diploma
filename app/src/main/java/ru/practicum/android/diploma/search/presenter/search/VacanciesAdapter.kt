@@ -37,7 +37,6 @@ class VacanciesAdapter(
     }
 
     override fun onBindViewHolder(holder: VacanciesViewHolder, position: Int) {
-
         val vacancy = vacanciesList[position]
         Glide.with(context)
             .load(vacancy.url)

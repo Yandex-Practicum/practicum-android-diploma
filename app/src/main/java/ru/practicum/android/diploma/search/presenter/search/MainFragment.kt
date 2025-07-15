@@ -31,7 +31,6 @@ class MainFragment : Fragment() {
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,10 +44,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRv()
 
-
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -57,13 +54,12 @@ class MainFragment : Fragment() {
                     searchViewModel.searchVacancies(s.toString())
                 }
                 if (s.isNullOrBlank()) {
-                    hideAllContent()                }
+                    hideAllContent()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
-
             }
-
         }
 
         binding.editTextId.addTextChangedListener(textWatcher)
@@ -79,7 +75,6 @@ class MainFragment : Fragment() {
     }
 
     private fun onVacancyClick(preview: VacancyPreview) {
-
     }
 
     private fun initRv() {
@@ -96,7 +91,6 @@ class MainFragment : Fragment() {
             binding.searchIcon.tag = R.drawable.cross_light
         }
     }
-
 
     private fun clearEditText() {
         binding.searchIcon.setOnClickListener {
@@ -119,7 +113,6 @@ class MainFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchViewModel.state.collect { state ->
                     when (state) {
-
                         is SearchState.Loading -> {
                             showProgressBar()
                         }
@@ -129,7 +122,6 @@ class MainFragment : Fragment() {
                         }
 
                         else -> {
-
                         }
                     }
                 }
@@ -146,7 +138,7 @@ class MainFragment : Fragment() {
         binding.vacanciesRvId.visibility = View.VISIBLE
     }
 
-    private fun hideAllContent(){
+    private fun hideAllContent() {
         binding.progressBarId.visibility = View.GONE
         binding.searchPreviewId.visibility = View.VISIBLE
         binding.noInternetPreviewId.visibility = View.GONE
@@ -157,12 +149,6 @@ class MainFragment : Fragment() {
     private fun showProgressBar() {
         binding.progressBarId.visibility = View.VISIBLE
         binding.searchPreviewId.visibility = View.GONE
-    }
-
-
-    private fun hideProgressBar() {
-        binding.progressBarId.visibility = View.GONE
-        binding.searchPreviewId.visibility = View.VISIBLE
     }
 
 }

@@ -23,14 +23,14 @@ class SearchViewModel(
             searchInteractor.getVacancies(text, area).onStart {
                 _state.value = SearchState.Loading
             }.collect { pair ->
-                //val data = pair.first
+                // val data = pair.first
                 val data = listOf(
                     VacancyPreview(
                         id = 1,
                         name = "Android Developer",
                         employerName = "Google",
-                        from = 150000,
-                        to = 250000,
+                        from = 150_000,
+                        to = 250_000,
                         currency = "RUB",
                         url = null
                     ),
@@ -38,24 +38,14 @@ class SearchViewModel(
                         id = 2,
                         name = "Backend Developer",
                         employerName = "Yandex",
-                        from = 120000,
+                        from = 120_000,
                         to = null,
                         currency = "RUB",
                         url = null
                     ),
-                    VacancyPreview(
-                        id = 3,
-                        name = "Fullstack Engineer",
-                        employerName = "Tinkoff",
-                        from = null,
-                        to = 200000,
-                        currency = "RUB",
-                        url = null
-                    )
                 )
                 val message = pair.second
                 when {
-
                     !data.isNullOrEmpty() -> {
                         _state.value = SearchState.Content(data)
                     }
