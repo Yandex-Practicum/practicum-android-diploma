@@ -24,7 +24,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         )
 
         when (response.resultCode) {
-            200 -> {
+            OK_RESPONSE -> {
                 val data = (response as VacanciesResponse).items.map {
                     VacancyPreview(
                         it.id,
@@ -39,11 +39,11 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                 emit(Resource.Success(data))
             }
 
-            404 -> {
+            NOT_FOUND -> {
                 emit(Resource.Failed(FailureType.NotFound))
             }
 
-            -1 -> {
+            NO_INTERNET -> {
                 emit(Resource.Failed(FailureType.NoInternet))
             }
 
@@ -52,5 +52,11 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                 emit(Resource.Failed(FailureType.ApiError))
             }
         }
+    }
+
+    companion object {
+        const val OK_RESPONSE = 200
+        const val NO_INTERNET = -1
+        const val NOT_FOUND = 404
     }
 }

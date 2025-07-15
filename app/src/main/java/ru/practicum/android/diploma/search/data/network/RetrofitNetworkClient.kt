@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.data.network
 
-import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -20,11 +19,11 @@ class RetrofitNetworkClient(
                     val response = networkService.hhApi.getVacancyByName(
                         filters = vacancyRequest.toQueryMap()
                     )
-                    response.resultCode = 200
+                    response.resultCode = OK_RESPONSE
                     response
                 } else {
                     Response().apply {
-                        resultCode = -1
+                        resultCode = NO_INTERNET
                     }
                 }
             }
@@ -33,6 +32,11 @@ class RetrofitNetworkClient(
                 resultCode = e.code()
             }
         }
+    }
+
+    companion object {
+        const val OK_RESPONSE = 200
+        const val NO_INTERNET = -1
     }
 
 }

@@ -14,7 +14,6 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
         Flow<Pair<List<VacancyPreview>?, FailureType?>> {
         return searchRepository.getVacancies(text, area).map { result ->
             when (result) {
-
                 is Resource.Success -> {
                     val previewData = result.data
                     Pair(previewData, null)

@@ -70,7 +70,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    //Okhttp
+    // Okhttp
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 

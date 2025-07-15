@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.data.model
 
-data class VacancyRequest(
+class VacancyRequest(
     val page: Int = 0,
     val perPage: Int = 20,
     val text: String,
