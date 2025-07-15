@@ -4,13 +4,11 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import ru.practicum.android.diploma.search.data.filtersbd.FiltersDataBase
 import ru.practicum.android.diploma.search.data.network.NetworkClient
-import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
-import ru.practicum.android.diploma.search.data.vacancydb.VacancyDataBase
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
+import ru.practicum.android.diploma.sharing.bd.database.AppDatabase
 import ru.practicum.android.diploma.util.InternetConnectionChecker
 
 val dataModule = module {
@@ -18,26 +16,17 @@ val dataModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),
-            VacancyDataBase::class.java,
-            "vacancy_database.db"
+            AppDatabase::class.java,
+            "app_database.db"
         ).build()
     }
 
-    single {
-        Room.databaseBuilder(
-            androidContext(),
-            FiltersDataBase::class.java,
-            "filter_database.db"
-        ).build()
-    }
+    // Предоставляем DAO из AppDatabase
+    single { get<AppDatabase>().vacancyDao() }
+    single { get<AppDatabase>().vacancyDetailsDao() }
+    single { get<AppDatabase>().filterDao() }
 
-//    single<NetworkClient> {
-//        RetrofitNetworkClient(get())
-//    }
-
-    single<RetrofitClient> {
-        RetrofitClient
-    }
+    // --- СЕТЬ ---
 
     single<NetworkClient> {
         RetrofitNetworkClient(get(), get())

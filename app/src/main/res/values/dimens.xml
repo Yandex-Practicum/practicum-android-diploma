@@ -5,5 +5,18 @@
     <dimen name="text_size_22">22sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
+    <dimen name="toolbar_size_64">64dp</dimen>
+
+    <dimen name="placeholder_description_margin">16dp</dimen>
+
+    <dimen name="padding_standard">16dp</dimen>
+    <dimen name="padding_small_9">9dp</dimen>
+    <dimen name="margin_standard">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_medium">24dp</dimen>
+    <dimen name="margin_small">12dp</dimen>
+    <dimen name="margin_extra_small">8dp</dimen>
+    <dimen name="margin_tiny">4dp</dimen>
+
 
 </resources>
