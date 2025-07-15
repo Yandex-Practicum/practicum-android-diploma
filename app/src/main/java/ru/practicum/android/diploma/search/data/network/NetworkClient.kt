@@ -6,5 +6,5 @@ import ru.practicum.android.diploma.search.data.model.VacancyRequest
 interface NetworkClient {
     suspend fun getVacancies(
         vacancyRequest: VacancyRequest
-    ) : Response
+    ): Response
 }
