@@ -65,7 +65,6 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
         searchViewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-
                 is VacanciesState.Initial -> {
                     showInitialState()
                 }
@@ -158,7 +157,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         // ...
     }
 
-    private fun showInitialState(){
+    private fun showInitialState() {
         binding.errorText.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         binding.searchMessage.visibility = View.GONE
@@ -167,7 +166,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMainPlaceholder.setImageResource(R.drawable.search_main_placeholder)
     }
 
-    private fun showLoadingState(){
+    private fun showLoadingState() {
         binding.errorText.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
         binding.searchMessage.visibility = View.GONE
@@ -175,7 +174,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMainPlaceholder.visibility = View.GONE
     }
 
-    private fun showSuccessState(){
+    private fun showSuccessState() {
         binding.errorText.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         binding.searchMessage.visibility = View.VISIBLE
@@ -183,7 +182,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMainPlaceholder.visibility = View.GONE
     }
 
-    private fun showEmptyState(){
+    private fun showEmptyState() {
         binding.progressBar.visibility = View.GONE
         binding.searchMessage.visibility = View.VISIBLE
         binding.searchMessage.text = getString(R.string.no_vacancies)
@@ -194,7 +193,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMainPlaceholder.setImageResource(R.drawable.nothing_found_placeholder)
     }
 
-    private fun showNoInternetState(){
+    private fun showNoInternetState() {
         binding.searchMessage.visibility = View.GONE
         binding.recyclerViewSearch.visibility = View.GONE
         binding.searchMainPlaceholder.setImageResource(R.drawable.no_internet_placeholder)
@@ -208,7 +207,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         }
     }
 
-    private fun showServerErrorState(){
+    private fun showServerErrorState() {
         binding.searchMessage.visibility = View.GONE
         binding.recyclerViewSearch.visibility = View.GONE
         binding.searchMainPlaceholder.setImageResource(R.drawable.server_error_placeholder)
@@ -222,7 +221,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         }
     }
 
-    private fun showNonEmptyInput(){
+    private fun showNonEmptyInput() {
         binding.icon.setImageResource(R.drawable.close_24px)
         binding.searchMainPlaceholder.visibility = View.GONE
         binding.errorText.visibility = View.GONE
@@ -244,7 +243,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         }
     }
 
-    private fun showEmptyInput(){
+    private fun showEmptyInput() {
         debouncer?.cancel()
         binding.searchMainPlaceholder.visibility = View.VISIBLE
         binding.icon.setImageResource(R.drawable.search_24px)
