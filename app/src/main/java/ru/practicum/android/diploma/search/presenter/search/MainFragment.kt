@@ -99,4 +99,8 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun stataObserver(){
+
+    }
+
 }
