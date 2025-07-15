@@ -5,6 +5,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.search.data.network.NetworkClient
+import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
@@ -30,6 +31,10 @@ val dataModule = module {
 
     single<NetworkClient> {
         RetrofitNetworkClient(get(), get())
+    }
+
+    single {
+        RetrofitClient
     }
 
     single<InternetConnectionChecker> {
