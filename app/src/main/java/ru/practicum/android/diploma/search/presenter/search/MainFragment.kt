@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.presenter
+package ru.practicum.android.diploma.search.presenter.search
 
 import android.os.Bundle
 import android.text.Editable

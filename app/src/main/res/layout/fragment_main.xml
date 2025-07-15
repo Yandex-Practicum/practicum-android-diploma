@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/hh_back_theme"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".search.presenter.MainFragment">
+    tools:context=".search.presenter.search.MainFragment">
 
     <TextView
         android:id="@+id/searchTitleId"
@@ -83,7 +83,7 @@
         android:id="@+id/searchPreviewId"
         android:layout_width="328dp"
         android:layout_height="223dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextContainerId"
