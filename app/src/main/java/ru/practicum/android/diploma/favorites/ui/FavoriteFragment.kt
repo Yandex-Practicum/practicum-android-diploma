@@ -21,9 +21,9 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavoriteVacancyViewModel by viewModel{ parametersOf(requireContext()) }
+    private val viewModel: FavoriteVacancyViewModel by viewModel { parametersOf(requireContext()) }
 
-    private lateinit var adapter: VacancyAdapter
+    private val adapter = VacancyAdapter { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,8 +44,8 @@ class FavoriteFragment : Fragment() {
                 employerName = "Яндекс",
                 areaName = "Москва",
                 descriptionHtml = "<p>Разработка мобильных приложений</p>",
-                salaryFrom = 150000,
-                salaryTo = 200000,
+                salaryFrom = 150_000,
+                salaryTo = 200_000,
                 currency = "RUR",
                 experience = "От 1 года до 3 лет",
                 employment = "Полная занятость",
@@ -60,8 +60,8 @@ class FavoriteFragment : Fragment() {
                 employerName = "VK",
                 areaName = "СПб",
                 descriptionHtml = "<p>Разработка микросервисов</p>",
-                salaryFrom = 180000,
-                salaryTo = 220000,
+                salaryFrom = 180_000,
+                salaryTo = 220_000,
                 currency = "RUR",
                 experience = "3–6 лет",
                 employment = "Полная занятость",
@@ -74,9 +74,6 @@ class FavoriteFragment : Fragment() {
 
         lifecycleScope.launch {
             testVacancies.forEach { viewModel.addToFavorites(it) }
-        }
-        adapter = VacancyAdapter { vacancy ->
-            // TODO: обработка нажатия на вакансию (переход на экран деталей)
         }
 
         binding.recyclerViewFavouritesVacancies.layoutManager = LinearLayoutManager(requireContext())

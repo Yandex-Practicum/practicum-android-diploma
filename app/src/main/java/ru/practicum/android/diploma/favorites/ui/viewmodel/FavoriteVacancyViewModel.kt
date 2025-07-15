@@ -49,7 +49,6 @@ class FavoriteVacancyViewModel(private val interactor: FavoriteVacancyInteractor
         }
     }
 
-
     fun addToFavorites(vacancy: FavoriteVacancyEntity) {
         viewModelScope.launch {
             interactor.add(vacancy)
