@@ -7,12 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
+import ru.practicum.android.diploma.search.presenter.SearchViewModel
+import ru.practicum.android.diploma.search.presenter.model.SearchState
 
 class MainFragment : Fragment() {
 
@@ -22,6 +29,8 @@ class MainFragment : Fragment() {
         VacanciesAdapter(requireContext(), mutableListOf(), ::onVacancyClick)
     }
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
+    private val searchViewModel: SearchViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +53,11 @@ class MainFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateSearchIcon(s)
+                if (!s.isNullOrBlank()) {
+                    searchViewModel.searchVacancies(s.toString())
+                }
+                if (s.isNullOrBlank()) {
+                    hideAllContent()                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -56,6 +70,7 @@ class MainFragment : Fragment() {
         clearEditText()
 
         goToFilters()
+        stataObserver()
     }
 
     override fun onDestroyView() {
@@ -93,14 +108,61 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun goToFilters(){
+    private fun goToFilters() {
         binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_filtersFragment)
         }
     }
 
-    private fun stataObserver(){
+    private fun stataObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.state.collect { state ->
+                    when (state) {
 
+                        is SearchState.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is SearchState.Content -> {
+                            showContent(state.data)
+                        }
+
+                        else -> {
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showContent(data: List<VacancyPreview>) {
+        adapter.setList(data)
+        binding.progressBarId.visibility = View.GONE
+        binding.searchPreviewId.visibility = View.GONE
+        binding.noInternetPreviewId.visibility = View.GONE
+        binding.notFoundPreview.visibility = View.GONE
+        binding.vacanciesRvId.visibility = View.VISIBLE
+    }
+
+    private fun hideAllContent(){
+        binding.progressBarId.visibility = View.GONE
+        binding.searchPreviewId.visibility = View.VISIBLE
+        binding.noInternetPreviewId.visibility = View.GONE
+        binding.notFoundPreview.visibility = View.GONE
+        binding.vacanciesRvId.visibility = View.GONE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBarId.visibility = View.VISIBLE
+        binding.searchPreviewId.visibility = View.GONE
+    }
+
+
+    private fun hideProgressBar() {
+        binding.progressBarId.visibility = View.GONE
+        binding.searchPreviewId.visibility = View.VISIBLE
     }
 
 }

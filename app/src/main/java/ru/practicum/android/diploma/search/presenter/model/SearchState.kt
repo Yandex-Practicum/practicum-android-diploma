@@ -8,5 +8,6 @@ sealed interface SearchState {
     object NotFound : SearchState
     object Loading : SearchState
     object Error : SearchState
+    object Empty: SearchState
 
 }

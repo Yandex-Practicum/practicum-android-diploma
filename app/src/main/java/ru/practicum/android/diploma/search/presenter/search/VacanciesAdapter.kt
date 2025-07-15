@@ -46,10 +46,19 @@ class VacanciesAdapter(
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.imageView)
 
+        holder.titleTextView.text = vacancy.name
+        holder.teamTextView.text = vacancy.employerName
+        holder.salaryTextView.text = "100 000р"
+
         holder.vacancyContainer.setOnClickListener {
             onVacancyClick(vacancy)
         }
+    }
 
+    fun setList(newVacancies: List<VacancyPreview>) {
+        vacanciesList.clear()
+        vacanciesList.addAll(newVacancies)
+        notifyDataSetChanged()
     }
 
 }
