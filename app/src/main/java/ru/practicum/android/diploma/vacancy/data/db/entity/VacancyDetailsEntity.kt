@@ -1,12 +1,14 @@
-package ru.practicum.android.diploma.search.data.vacancydb.entity
+package ru.practicum.android.diploma.vacancy.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// Этот класс пока в разработке, поля могут быть добавлены/изменены
+// Этот класс для хранения детальной информации о вакансии.
+// Поля будут добавлены позже.
 @Entity(tableName = "vacancy_details_table")
 data class VacancyDetailsEntity(
-    @PrimaryKey val id: String,
+    @PrimaryKey
+    val id: String,
     val name: String,
     val employerName: String,
     val logoUrls: String,

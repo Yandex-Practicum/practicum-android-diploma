@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.favouritesModule
 import ru.practicum.android.diploma.di.filterModule
 import ru.practicum.android.diploma.di.searchModule
+import ru.practicum.android.diploma.di.vacancyModule
 
 class App : Application() {
 
@@ -15,7 +16,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             Log.d("Koin", "Koin initialized")
-            modules(listOf(appModule, dataModule, favouritesModule, filterModule, searchModule))
+            modules(listOf(appModule, dataModule, favouritesModule, filterModule, searchModule, vacancyModule))
         }
     }
 }
