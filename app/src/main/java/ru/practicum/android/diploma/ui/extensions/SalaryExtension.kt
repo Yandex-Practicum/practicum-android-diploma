@@ -9,15 +9,18 @@ import java.util.Locale
 
 fun Salary.format(context: Context): String {
     return when (this) {
-        is Salary.From -> context.getString(R.string.salary_from,
+        is Salary.From -> context.getString(
+            R.string.salary_from,
             formatSalaryAmount(amount),
             CurrencyUtils.getCurrencySymbol(currency)
         )
-        is Salary.Fixed -> context.getString(R.string.salary_fixed,
+        is Salary.Fixed -> context.getString(
+            R.string.salary_fixed,
             formatSalaryAmount(amount),
             CurrencyUtils.getCurrencySymbol(currency)
         )
-        is Salary.Range -> context.getString(R.string.salary_range,
+        is Salary.Range -> context.getString(
+            R.string.salary_range,
             formatSalaryAmount(from),
             formatSalaryAmount(to),
             CurrencyUtils.getCurrencySymbol(currency)
