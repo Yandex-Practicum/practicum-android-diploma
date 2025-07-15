@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.search.data.model.VacanciesResponse
 import ru.practicum.android.diploma.search.data.model.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
+import ru.practicum.android.diploma.search.domain.model.FailureType
 import ru.practicum.android.diploma.search.domain.model.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 
@@ -39,15 +40,16 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
             }
 
             404 -> {
-                emit(Resource.Failed("not found"))
+                emit(Resource.Failed(FailureType.NotFound))
             }
 
             -1 -> {
-                emit(Resource.Failed("no internet"))
+                emit(Resource.Failed(FailureType.NoInternet))
             }
 
             else -> {
                 Log.d("SearchRepositoryImpl", "Result code: ${response.resultCode}")
+                emit(Resource.Failed(FailureType.ApiError))
             }
         }
     }
