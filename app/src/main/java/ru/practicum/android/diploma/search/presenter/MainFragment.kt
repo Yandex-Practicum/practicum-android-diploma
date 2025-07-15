@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.main.ui
+package ru.practicum.android.diploma.search.presenter
 
 import android.os.Bundle
 import android.view.LayoutInflater

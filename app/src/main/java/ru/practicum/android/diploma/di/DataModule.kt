@@ -27,9 +27,9 @@ val dataModule = module {
         ).build()
     }
 
-    single<NetworkClient> {
-        RetrofitNetworkClient(get())
-    }
+//    single<NetworkClient> {
+//        RetrofitNetworkClient(get())
+//    }
 
     single<RetrofitClient> {
         RetrofitClient

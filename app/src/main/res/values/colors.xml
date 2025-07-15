@@ -13,4 +13,9 @@
     <color name="black_alpha50">#1A1B2280</color>
 
     <color name="divider_color">#FDFDFD</color>
+
+    <color name="hint_color">#AEAFB4</color>
+
+    <color name="edit_text_background">#E6E8EB</color>
+
 </resources>
