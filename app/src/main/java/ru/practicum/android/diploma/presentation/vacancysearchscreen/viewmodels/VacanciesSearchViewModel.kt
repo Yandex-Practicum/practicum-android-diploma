@@ -18,6 +18,11 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
     val state: LiveData<VacanciesState> = _state
 
     fun searchVacancies(query: String) {
+        if (query.isEmpty()) {
+            resetState()
+            return
+        }
+
         _state.value = VacanciesState.Loading
 
         viewModelScope.launch {

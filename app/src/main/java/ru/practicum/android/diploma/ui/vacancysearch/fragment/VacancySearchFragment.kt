@@ -104,16 +104,18 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.isNotEmpty() == true) {
+                val query = s?.toString()?.trim()
+                if (query?.isNotEmpty() == true) {
                     showNonEmptyInput()
                     debouncer?.submit {
                         activity?.runOnUiThread {
                             binding.progressBar.visibility = View.VISIBLE
-                            searchViewModel.searchVacancies(s.toString())
+                            searchViewModel.searchVacancies(query)
                         }
                     }
                 } else {
                     showEmptyInput()
+                    searchViewModel.resetState()
                 }
             }
 
@@ -125,9 +127,10 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
         binding.inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val query = binding.inputEditText.text.toString().trim()
                 debouncer?.cancel()
                 binding.progressBar.visibility = View.VISIBLE
-                searchViewModel.searchVacancies(binding.inputEditText.text.toString())
+                searchViewModel.searchVacancies(query)
                 true
             }
             false
@@ -139,12 +142,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        debouncer?.cancel()
         debounceForPlaceholder?.cancel()
-        debouncer = null
         debounceForPlaceholder = null
         _binding = null
-        searchViewModel.resetState()
     }
 
     companion object {
