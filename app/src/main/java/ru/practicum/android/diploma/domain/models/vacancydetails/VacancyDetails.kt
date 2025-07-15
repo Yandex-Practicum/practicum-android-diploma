@@ -12,7 +12,7 @@ data class VacancyDetails(
     val description: String,
     val workFormat: String?,
     val alternateUrl: String,
-    val keySkills: List<String?>,
+    val keySkills: List<String>?,
     val city: String?,
     val logoUrl: String?,
 )
