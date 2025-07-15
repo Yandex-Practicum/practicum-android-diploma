@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.mappers.toVacancy
+import ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor
 import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 import ru.practicum.android.diploma.domain.sharing.SharingInteractor
@@ -13,6 +15,7 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacancyDetailsViewModel(
     private val vacancyId: String,
+    private val favouriteVacanciesDbInteractor: FavouriteVacanciesDbInteractor,
     private val sharingInteractor: SharingInteractor,
     private val vacancyInteractor: VacanciesInteractor
 ) : ViewModel() {
@@ -20,12 +23,15 @@ class VacancyDetailsViewModel(
     private val _vacancyDetailsState = MutableLiveData<VacancyDetailsUiState>()
     val getVacancyDetailsState: LiveData<VacancyDetailsUiState> = _vacancyDetailsState
 
+    private val _isFavouriteVacancy = MutableLiveData<Boolean>()
+    val getIsFavouriteVacancy: LiveData<Boolean> = _isFavouriteVacancy
+
     init {
         getVacancyDetails()
     }
 
 
-    fun getVacancyDetails() {
+    private fun getVacancyDetails() {
         viewModelScope.launch {
             _vacancyDetailsState.postValue(VacancyDetailsUiState.Loading)
             vacancyInteractor.getVacancyDetailsById(vacancyId)
@@ -53,7 +59,23 @@ class VacancyDetailsViewModel(
         )
     }
 
+
     fun shareVacancy(linkVacancy: String) {
         sharingInteractor.shareVacancy(linkVacancy)
+    }
+
+    fun onFavouriteClicked() {
+        val vacancyDetails = (_vacancyDetailsState.value as? VacancyDetailsUiState.Content)?.data ?: return
+        val vacancy = vacancyDetails.toVacancy()
+
+        val isFavourite = _isFavouriteVacancy.value ?: false
+
+        viewModelScope.launch {
+            if (!isFavourite) {
+                favouriteVacanciesDbInteractor.insertVacancy(vacancy)
+            } else {
+                favouriteVacanciesDbInteractor.deleteVacancy(vacancy)
+            }
+        }
     }
 }

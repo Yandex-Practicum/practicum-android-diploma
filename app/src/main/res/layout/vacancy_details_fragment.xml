@@ -244,7 +244,7 @@
             android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="187dp"
-            android:src="@drawable/placeholder__details_vacancy_not_found"
+            android:src="@drawable/placeholder_details_vacancy_not_found"
             app:layout_constraintBottom_toTopOf="@id/tv_placeholder"
             app:layout_constraintEnd_toEndOf="@id/rightGuidelineIn16Dp"
             app:layout_constraintStart_toStartOf="@id/leftGuidelineIn16Dp"
