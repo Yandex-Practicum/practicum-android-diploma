@@ -49,4 +49,9 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
                 }
         }
     }
+
+    fun resetState() {
+        _state.value = VacanciesState.Initial
+    }
+
 }
