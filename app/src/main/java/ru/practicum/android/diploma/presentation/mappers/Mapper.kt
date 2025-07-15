@@ -14,3 +14,4 @@ fun Vacancy.toUiModel(): VacancyUiModel {
         city = city
     )
 }
+

@@ -9,12 +9,5 @@ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class VacanciesInteractorImpl(private val repository: VacanciesRepository) : VacanciesInteractor {
-    override fun search(text: String): Flow<Resource<List<Vacancy>>> = flow {
-        val vacanciesList = repository.search(text).first()
-        if (vacanciesList == null) {
-            emit(Resource.Error(""))
-        } else {
-            emit(Resource.Success(vacanciesList))
-        }
-    }
+    override fun search(text: String): Flow<Resource<Pair<List<Vacancy>, Int>>> = repository.search(text)
 }

@@ -7,7 +7,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 
 class VacancyItemAdapter(
-    private val vacancies: MutableList<VacancyUiModel>
+    private val vacancies: MutableList<VacancyUiModel>,
+    private val listener: Listener
 ) : RecyclerView.Adapter<VacancyItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_vacancy, parent, false)
@@ -17,9 +18,16 @@ class VacancyItemAdapter(
     override fun onBindViewHolder(holder: VacancyItemViewHolder, position: Int) {
         val vacancy = vacancies[position]
         holder.bind(vacancy)
+        holder.itemView.setOnClickListener {
+            listener.onClick(vacancy.id)
+        }
     }
 
     override fun getItemCount(): Int {
         return vacancies.size
+    }
+
+    interface Listener {
+        fun onClick(id: String)
     }
 }

@@ -59,25 +59,10 @@
         </LinearLayout>
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/search_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/top_btn"
-        android:text="@string/no_vacancies"
-        style="@style/TextRegular16"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:layout_marginTop="3dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_zone"/>
-
     <ImageView
         android:id="@+id/search_main_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="328dp"
+        android:layout_height="233dp"
         android:src="@drawable/search_main_placeholder"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,14 +70,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_zone" />
 
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextMedium22"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_main_placeholder"
+        android:layout_marginTop="16dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="38dp"
         android:layout_weight="1"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_zone" />
+
+    <TextView
+        android:id="@+id/search_message"
+        style="@style/TextRegular16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/top_btn"
+        android:backgroundTint="@color/blue"
+        android:gravity="center"
+        android:paddingHorizontal="12dp"
+        android:text="@string/no_vacancies"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_zone" />
 
     <ProgressBar
