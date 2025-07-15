@@ -28,7 +28,6 @@ val dataModule = module {
     single { get<AppDatabase>().vacancyDetailsDao() }
     single { get<AppDatabase>().filterDao() }
 
-
     // --- СЕТЬ ---
 
     single<NetworkClient> {
