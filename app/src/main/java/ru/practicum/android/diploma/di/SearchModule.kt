@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.interactor.SearchInteractorImpl
-import ru.practicum.android.diploma.search.presenter.SearchViewModel
+import ru.practicum.android.diploma.search.presenter.search.SearchViewModel
 import ru.practicum.android.diploma.util.InternetConnectionChecker
 
 val searchModule = module {

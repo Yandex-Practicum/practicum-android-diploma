@@ -20,7 +20,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
-import ru.practicum.android.diploma.search.presenter.SearchViewModel
 import ru.practicum.android.diploma.search.presenter.model.SearchState
 import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
 import ru.practicum.android.diploma.util.Debouncer
@@ -162,7 +161,6 @@ class MainFragment : Fragment() {
         binding.infoShieldId.text = "Найдено ${VacancyFormatter.changeEnding(dataSize)}"
 
     }
-
 
     private fun showProgressBar() {
         binding.progressBarId.visibility = View.VISIBLE
