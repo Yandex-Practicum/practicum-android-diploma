@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,14 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.search.presenter.model.SearchState
 import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
-import ru.practicum.android.diploma.util.Debouncer
 import ru.practicum.android.diploma.util.VacancyFormatter
 
 class MainFragment : Fragment() {
@@ -34,7 +32,6 @@ class MainFragment : Fragment() {
     }
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
-    private val debouncer: Debouncer by inject { parametersOf(viewLifecycleOwner.lifecycleScope) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,27 +48,21 @@ class MainFragment : Fragment() {
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d("before", s.toString())
+                // Not implemented
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateSearchIcon(s)
-                if (!s.isNullOrBlank()) {
-                    searchVacancies(s.toString())
-                }
-                if (s.isNullOrBlank()) {
-                    showEmpty()
-                }
+                searchViewModel.searchVacancies(s.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("after", s.toString())
+                // Not implemented
             }
         }
 
         binding.editTextId.addTextChangedListener(textWatcher)
         clearEditText()
-
         goToFilters()
         stataObserver()
     }
@@ -81,10 +72,11 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
-    private fun onVacancyClick(preview: VacancyPreviewUi) {
-        if (debouncer.clickDebounce()) {
-            Log.d("click", preview.name)
-        }
+    private fun onVacancyClick(vacancyId: Int) {
+        findNavController().navigate(
+            R.id.action_mainFragment_to_vacancyFragment,
+            bundleOf("vacancyId" to vacancyId.toString())
+        )
     }
 
     private fun initRv() {
@@ -104,10 +96,8 @@ class MainFragment : Fragment() {
 
     private fun clearEditText() {
         binding.searchIcon.setOnClickListener {
-            when {
-                binding.searchIcon.tag == R.drawable.cross_light -> {
-                    binding.editTextId.text.clear()
-                }
+            if (binding.searchIcon.tag == R.drawable.cross_light) {
+                binding.editTextId.text.clear()
             }
         }
     }
@@ -123,26 +113,11 @@ class MainFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchViewModel.state.collect { state ->
                     when (state) {
-                        is SearchState.Loading -> {
-                            showProgressBar()
-                        }
-
-                        is SearchState.Content -> {
-                            showContent(state.data)
-                        }
-
-                        is SearchState.NotFound -> {
-                            showNotFound()
-                        }
-
-                        is SearchState.Error -> {
-                            showError()
-                        }
-
-                        is SearchState.Empty -> {
-                            showEmpty()
-                        }
-
+                        is SearchState.Loading -> showProgressBar()
+                        is SearchState.Content -> showContent(state.data)
+                        is SearchState.NotFound -> showNotFound()
+                        is SearchState.Error -> showError()
+                        is SearchState.Empty -> showEmpty()
                     }
                 }
             }
@@ -159,7 +134,6 @@ class MainFragment : Fragment() {
         binding.infoShieldId.visibility = View.VISIBLE
         val dataSize = data.size
         binding.infoShieldId.text = "Найдено ${VacancyFormatter.changeEnding(dataSize)}"
-
     }
 
     private fun showProgressBar() {
@@ -178,6 +152,7 @@ class MainFragment : Fragment() {
         binding.notFoundPreview.visibility = View.VISIBLE
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.VISIBLE
+        binding.infoShieldId.text = "Таких вакансий нет"
     }
 
     private fun showError() {
@@ -196,11 +171,5 @@ class MainFragment : Fragment() {
         binding.notFoundPreview.visibility = View.GONE
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
-    }
-
-    private fun searchVacancies(text: String, itSphere: Int? = null) {
-        debouncer.searchDebounce {
-            searchViewModel.searchVacancies(text)
-        }
     }
 }
