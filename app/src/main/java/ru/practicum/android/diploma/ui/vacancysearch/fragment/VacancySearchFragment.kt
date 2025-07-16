@@ -163,7 +163,8 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
                 val isNotLoadingAndHasMore = !isLoading && hasMore
                 val isScrolledToEnd = visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                val isFirstItemVisibleAndisTotalCountValid = firstVisibleItemPosition >= 0 && totalItemCount >= TOTAL_COUNT
+                val isFirstItemVisibleAndisTotalCountValid =
+                    firstVisibleItemPosition >= 0 && totalItemCount >= TOTAL_COUNT
 
                 if (isNotLoadingAndHasMore && isScrolledToEnd && isFirstItemVisibleAndisTotalCountValid) {
                     searchViewModel.loadMore()
