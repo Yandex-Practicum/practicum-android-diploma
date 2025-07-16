@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converter.toData
 import ru.practicum.android.diploma.data.db.converter.toDomain
+import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
 import ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
@@ -30,5 +31,9 @@ class FavouriteVacanciesDbRepositoryImpl(private val appDataBase: AppDatabase) :
                     favouriteVacancy.toDomain()
                 }
             }
+    }
+
+    override suspend fun getVacancyById(id: String): FavouriteVacancy? {
+        return appDataBase.favouriteVacancyDao().getVacancyById(id)
     }
 }

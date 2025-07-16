@@ -29,6 +29,7 @@ class VacancyDetailsViewModel(
 
     init {
         getVacancyDetails()
+        checkIfFavourite()
     }
 
     private fun getVacancyDetails() {
@@ -62,6 +63,13 @@ class VacancyDetailsViewModel(
         )
     }
 
+    private fun checkIfFavourite() {
+        viewModelScope.launch {
+            val isFavourite = favouriteVacanciesDbInteractor.getVacancyById(vacancyId) != null
+            _isFavouriteVacancy.postValue(isFavourite)
+        }
+    }
+
     fun shareVacancy(linkVacancy: String) {
         sharingInteractor.shareVacancy(linkVacancy)
     }
@@ -70,13 +78,15 @@ class VacancyDetailsViewModel(
         val vacancyDetails = (_vacancyDetailsState.value as? VacancyDetailsUiState.Content)?.data ?: return
         val vacancy = vacancyDetails.toVacancy()
 
-        val isFavourite = _isFavouriteVacancy.value ?: false
 
         viewModelScope.launch {
+            val isFavourite = favouriteVacanciesDbInteractor.getVacancyById(vacancyId) != null
             if (!isFavourite) {
                 favouriteVacanciesDbInteractor.insertVacancy(vacancy)
+                _isFavouriteVacancy.value = true
             } else {
                 favouriteVacanciesDbInteractor.deleteVacancy(vacancy)
+                _isFavouriteVacancy.value = false
             }
         }
     }

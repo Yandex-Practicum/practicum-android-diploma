@@ -1,0 +1,494 @@
+Index: app/src/main/java/ru/practicum/android/diploma/presentation/vacancydetailsscreen/viewmodel/VacancyDetailsViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.presentation.vacancydetailsscreen.viewmodel\r\n\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport kotlinx.coroutines.launch\r\nimport ru.practicum.android.diploma.data.mappers.toVacancy\r\nimport ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType\r\nimport ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor\r\nimport ru.practicum.android.diploma.domain.models.api.VacanciesInteractor\r\nimport ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails\r\nimport ru.practicum.android.diploma.domain.sharing.SharingInteractor\r\nimport ru.practicum.android.diploma.presentation.vacancydetailsscreen.uistate.VacancyDetailsUiState\r\nimport ru.practicum.android.diploma.util.Resource\r\n\r\nclass VacancyDetailsViewModel(\r\n    private val vacancyId: String,\r\n    private val favouriteVacanciesDbInteractor: FavouriteVacanciesDbInteractor,\r\n    private val sharingInteractor: SharingInteractor,\r\n    private val vacancyInteractor: VacanciesInteractor\r\n) : ViewModel() {\r\n\r\n    private val _vacancyDetailsState = MutableLiveData<VacancyDetailsUiState>()\r\n    val getVacancyDetailsState: LiveData<VacancyDetailsUiState> = _vacancyDetailsState\r\n\r\n    private val _isFavouriteVacancy = MutableLiveData<Boolean>()\r\n    val getIsFavouriteVacancy: LiveData<Boolean> = _isFavouriteVacancy\r\n\r\n    init {\r\n        getVacancyDetails()\r\n    }\r\n\r\n    private fun getVacancyDetails() {\r\n        viewModelScope.launch {\r\n            _vacancyDetailsState.postValue(VacancyDetailsUiState.Loading)\r\n            vacancyInteractor.getVacancyDetailsById(vacancyId)\r\n                .collect {\r\n                    statusVacancy(it)\r\n                }\r\n        }\r\n    }\r\n\r\n    private fun statusVacancy(resource: Resource<VacancyDetails>) {\r\n        _vacancyDetailsState.postValue(\r\n            when (resource) {\r\n                is Resource.Error -> {\r\n                    when (resource.errorType) {\r\n                        ErrorType.NO_INTERNET -> VacancyDetailsUiState.NothingFound\r\n                        else -> VacancyDetailsUiState.ServerError\r\n                    }\r\n                }\r\n\r\n                is Resource.Success -> {\r\n                    if (resource.data == null) {\r\n                        VacancyDetailsUiState.NothingFound\r\n                    } else {\r\n                        VacancyDetailsUiState.Content(resource.data)\r\n                    }\r\n                }\r\n            }\r\n        )\r\n    }\r\n\r\n    fun shareVacancy(linkVacancy: String) {\r\n        sharingInteractor.shareVacancy(linkVacancy)\r\n    }\r\n\r\n    fun onFavouriteClicked() {\r\n        val vacancyDetails = (_vacancyDetailsState.value as? VacancyDetailsUiState.Content)?.data ?: return\r\n        val vacancy = vacancyDetails.toVacancy()\r\n\r\n        val isFavourite = _isFavouriteVacancy.value ?: false\r\n\r\n        viewModelScope.launch {\r\n            if (!isFavourite) {\r\n                favouriteVacanciesDbInteractor.insertVacancy(vacancy)\r\n            } else {\r\n                favouriteVacanciesDbInteractor.deleteVacancy(vacancy)\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/presentation/vacancydetailsscreen/viewmodel/VacancyDetailsViewModel.kt b/app/src/main/java/ru/practicum/android/diploma/presentation/vacancydetailsscreen/viewmodel/VacancyDetailsViewModel.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/presentation/vacancydetailsscreen/viewmodel/VacancyDetailsViewModel.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/presentation/vacancydetailsscreen/viewmodel/VacancyDetailsViewModel.kt	(date 1752694670537)
+@@ -1,5 +1,6 @@
+ package ru.practicum.android.diploma.presentation.vacancydetailsscreen.viewmodel
+ 
++import android.content.Context
+ import androidx.lifecycle.LiveData
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
+@@ -7,11 +8,13 @@
+ import kotlinx.coroutines.launch
+ import ru.practicum.android.diploma.data.mappers.toVacancy
+ import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
++import ru.practicum.android.diploma.domain.converter.toDomain
+ import ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor
+ import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
+ import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
+ import ru.practicum.android.diploma.domain.sharing.SharingInteractor
+ import ru.practicum.android.diploma.presentation.vacancydetailsscreen.uistate.VacancyDetailsUiState
++import ru.practicum.android.diploma.util.NetworkHelper
+ import ru.practicum.android.diploma.util.Resource
+ 
+ class VacancyDetailsViewModel(
+@@ -28,16 +31,27 @@
+     val getIsFavouriteVacancy: LiveData<Boolean> = _isFavouriteVacancy
+ 
+     init {
+-        getVacancyDetails()
++        checkIfFavourite()
+     }
+ 
+-    private fun getVacancyDetails() {
++    fun loadVacancyDetailsOfflineAware(context: Context) {
+         viewModelScope.launch {
++            val isConnected = NetworkHelper.isConnected(context)
+             _vacancyDetailsState.postValue(VacancyDetailsUiState.Loading)
+-            vacancyInteractor.getVacancyDetailsById(vacancyId)
+-                .collect {
++
++            if (isConnected) {
++                vacancyInteractor.getVacancyDetailsById(vacancyId).collect {
+                     statusVacancy(it)
+                 }
++            } else {
++                val vacancy = favouriteVacanciesDbInteractor.getVacancyById(vacancyId)
++                if (vacancy != null) {
++                    val vacancyDetails = vacancy.toDomain()
++                    _vacancyDetailsState.postValue(VacancyDetailsUiState.Content(vacancyDetails))
++                } else {
++                    _vacancyDetailsState.postValue(VacancyDetailsUiState.NothingFound)
++                }
++            }
+         }
+     }
+ 
+@@ -62,6 +76,13 @@
+         )
+     }
+ 
++    private fun checkIfFavourite() {
++        viewModelScope.launch {
++            val isFavourite = favouriteVacanciesDbInteractor.getVacancyById(vacancyId) != null
++            _isFavouriteVacancy.postValue(isFavourite)
++        }
++    }
++
+     fun shareVacancy(linkVacancy: String) {
+         sharingInteractor.shareVacancy(linkVacancy)
+     }
+@@ -70,13 +91,14 @@
+         val vacancyDetails = (_vacancyDetailsState.value as? VacancyDetailsUiState.Content)?.data ?: return
+         val vacancy = vacancyDetails.toVacancy()
+ 
+-        val isFavourite = _isFavouriteVacancy.value ?: false
+-
+         viewModelScope.launch {
++            val isFavourite = favouriteVacanciesDbInteractor.getVacancyById(vacancy.id) != null
+             if (!isFavourite) {
+                 favouriteVacanciesDbInteractor.insertVacancy(vacancy)
++                _isFavouriteVacancy.value = true
+             } else {
+                 favouriteVacanciesDbInteractor.deleteVacancy(vacancy)
++                _isFavouriteVacancy.value = false
+             }
+         }
+     }
+Index: app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/impl/FavouriteVacanciesDbInteractorImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.domain.favouritevacancies.impl\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository\r\nimport ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor\r\nimport ru.practicum.android.diploma.domain.models.vacancies.Vacancy\r\n\r\nclass FavouriteVacanciesDbInteractorImpl(\r\n    private val favouriteVacanciesDbRepository: FavouriteVacanciesDbRepository\r\n) : FavouriteVacanciesDbInteractor {\r\n    override suspend fun insertVacancy(vacancy: Vacancy) {\r\n        favouriteVacanciesDbRepository.insertVacancy(vacancy)\r\n    }\r\n\r\n    override suspend fun deleteVacancy(vacancy: Vacancy) {\r\n        favouriteVacanciesDbRepository.deleteVacancy(vacancy)\r\n    }\r\n\r\n    override fun getFavouriteVacancies(): Flow<List<Vacancy>> {\r\n        return favouriteVacanciesDbRepository.getFavouriteVacancies()\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/impl/FavouriteVacanciesDbInteractorImpl.kt b/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/impl/FavouriteVacanciesDbInteractorImpl.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/impl/FavouriteVacanciesDbInteractorImpl.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/impl/FavouriteVacanciesDbInteractorImpl.kt	(date 1752694725479)
+@@ -1,8 +1,11 @@
+ package ru.practicum.android.diploma.domain.favouritevacancies.impl
+ 
+ import kotlinx.coroutines.flow.Flow
++import kotlinx.coroutines.flow.map
++import ru.practicum.android.diploma.data.db.converter.toDomain
+ import ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository
+ import ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor
++import ru.practicum.android.diploma.domain.models.favourite.FavouriteVacancyEntity
+ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+ 
+ class FavouriteVacanciesDbInteractorImpl(
+@@ -18,5 +21,12 @@
+ 
+     override fun getFavouriteVacancies(): Flow<List<Vacancy>> {
+         return favouriteVacanciesDbRepository.getFavouriteVacancies()
++            .map { list ->
++                list.sortedByDescending { it.timestamp }
++            }
++    }
++
++    override suspend fun getVacancyById(id: String): FavouriteVacancyEntity? {
++        return favouriteVacanciesDbRepository.getVacancyById(id)
+     }
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/usecases/FavouriteVacanciesDbInteractor.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.domain.favouritevacancies.usecases\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport ru.practicum.android.diploma.domain.models.vacancies.Vacancy\r\n\r\ninterface FavouriteVacanciesDbInteractor {\r\n    suspend fun insertVacancy(vacancy: Vacancy)\r\n    suspend fun deleteVacancy(vacancy: Vacancy)\r\n    fun getFavouriteVacancies(): Flow<List<Vacancy>>\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/usecases/FavouriteVacanciesDbInteractor.kt b/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/usecases/FavouriteVacanciesDbInteractor.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/usecases/FavouriteVacanciesDbInteractor.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/usecases/FavouriteVacanciesDbInteractor.kt	(date 1752694725476)
+@@ -1,10 +1,13 @@
+ package ru.practicum.android.diploma.domain.favouritevacancies.usecases
+ 
+ import kotlinx.coroutines.flow.Flow
++import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
++import ru.practicum.android.diploma.domain.models.favourite.FavouriteVacancyEntity
+ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+ 
+ interface FavouriteVacanciesDbInteractor {
+     suspend fun insertVacancy(vacancy: Vacancy)
+     suspend fun deleteVacancy(vacancy: Vacancy)
+     fun getFavouriteVacancies(): Flow<List<Vacancy>>
++    suspend fun getVacancyById(id: String): FavouriteVacancyEntity?
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/repository/FavouriteVacanciesDbRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.domain.favouritevacancies.repository\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport ru.practicum.android.diploma.domain.models.vacancies.Vacancy\r\n\r\ninterface FavouriteVacanciesDbRepository {\r\n    suspend fun insertVacancy(vacancy: Vacancy)\r\n    suspend fun deleteVacancy(vacancy: Vacancy)\r\n    fun getFavouriteVacancies(): Flow<List<Vacancy>>\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/repository/FavouriteVacanciesDbRepository.kt b/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/repository/FavouriteVacanciesDbRepository.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/repository/FavouriteVacanciesDbRepository.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/domain/favouritevacancies/repository/FavouriteVacanciesDbRepository.kt	(date 1752694725483)
+@@ -1,10 +1,13 @@
+ package ru.practicum.android.diploma.domain.favouritevacancies.repository
+ 
+ import kotlinx.coroutines.flow.Flow
++import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
++import ru.practicum.android.diploma.domain.models.favourite.FavouriteVacancyEntity
+ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+ 
+ interface FavouriteVacanciesDbRepository {
+     suspend fun insertVacancy(vacancy: Vacancy)
+     suspend fun deleteVacancy(vacancy: Vacancy)
+     fun getFavouriteVacancies(): Flow<List<Vacancy>>
++    suspend fun getVacancyById(id: String): FavouriteVacancyEntity?
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/ui/vacancydetails/VacancyDetailsFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.ui.vacancydetails\r\n\r\nimport android.os.Bundle\r\nimport android.text.Html\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.core.view.isVisible\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.navigation.fragment.navArgs\r\nimport com.bumptech.glide.Glide\r\nimport com.bumptech.glide.load.resource.bitmap.RoundedCorners\r\nimport org.koin.androidx.viewmodel.ext.android.viewModel\r\nimport org.koin.core.parameter.parametersOf\r\nimport ru.practicum.android.diploma.R\r\nimport ru.practicum.android.diploma.databinding.VacancyDetailsFragmentBinding\r\nimport ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm\r\nimport ru.practicum.android.diploma.presentation.vacancydetailsscreen.uistate.VacancyDetailsUiState\r\nimport ru.practicum.android.diploma.presentation.vacancydetailsscreen.viewmodel.VacancyDetailsViewModel\r\nimport ru.practicum.android.diploma.ui.extensions.format\r\nimport ru.practicum.android.diploma.util.dpToPx\r\n\r\nclass VacancyDetailsFragment : Fragment() {\r\n\r\n    private var _binding: VacancyDetailsFragmentBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private val args: VacancyDetailsFragmentArgs by navArgs()\r\n    private val vacancyId by lazy { args.vacancyId }\r\n\r\n    private var vacancyUrl: String? = null\r\n\r\n    private val viewModel by viewModel<VacancyDetailsViewModel> {\r\n        parametersOf(vacancyId)\r\n    }\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {\r\n        _binding = VacancyDetailsFragmentBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        viewModel.getVacancyDetailsState.observe(viewLifecycleOwner) {\r\n            vacancyState(it)\r\n        }\r\n\r\n        viewModel.getIsFavouriteVacancy.observe(viewLifecycleOwner) {\r\n            renderLikeButton(it)\r\n        }\r\n\r\n        binding.btnArrowBack.setOnClickListener {\r\n            findNavController().popBackStack()\r\n        }\r\n\r\n        binding.btnShare.setOnClickListener {\r\n            vacancyUrl?.let { link ->\r\n                viewModel.shareVacancy(link)\r\n            } ?: \"$LINK_VACANCY_HH${vacancyId}\"\r\n        }\r\n\r\n        binding.btnFavorite.setOnClickListener {\r\n            viewModel.onFavouriteClicked()\r\n        }\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n\r\n    private fun bind(state: VacancyDetailsUiState.Content) {\r\n        val combinedEmployment = formatEmployment(\r\n            state.data.employmentForm,\r\n            state.data.workFormat\r\n        )\r\n\r\n        val skillsText = formattedKeySkills(state.data.keySkills)\r\n\r\n        with(binding) {\r\n            tvNameVacancy.text = state.data.name\r\n            tvSalaryVacancy.text = state.data.salary.format(requireContext())\r\n            tvEmployeeName.text = state.data.employer\r\n            tvCityName.text = state.data.city ?: \"\"\r\n            tvExperienceValue.text = state.data.experience ?: \"\"\r\n            tvDescriptionValue.text = descriptionHtml(state.data.description)\r\n\r\n            if (skillsText != null) {\r\n                keySkillsTitle.isVisible = true\r\n                keySkillsValue.isVisible = true\r\n                keySkillsValue.text = skillsText\r\n            } else {\r\n                keySkillsTitle.isVisible = false\r\n                keySkillsValue.isVisible = false\r\n            }\r\n\r\n            if (combinedEmployment.isNotBlank()) {\r\n                tvEmploymentFormValue.text = combinedEmployment\r\n                tvEmploymentFormValue.isVisible = true\r\n            } else {\r\n                tvEmploymentFormValue.isVisible = false\r\n            }\r\n\r\n            Glide.with(this@VacancyDetailsFragment)\r\n                .load(state.data.logoUrl)\r\n                .placeholder(R.drawable.vacancy_placeholder)\r\n                .transform(RoundedCorners(dpToPx(COVER_ROUND, requireContext())))\r\n                .into(ivCoverVacancy)\r\n        }\r\n    }\r\n\r\n    private fun vacancyState(state: VacancyDetailsUiState) {\r\n        binding.progressBar.isVisible = false\r\n        when (state) {\r\n            is VacancyDetailsUiState.Content -> {\r\n                binding.groupContent.isVisible = true\r\n                binding.groupPlaceholder.isVisible = false\r\n\r\n                vacancyUrl = state.data.alternateUrl\r\n\r\n                bind(state)\r\n\r\n            }\r\n\r\n            is VacancyDetailsUiState.Loading -> {\r\n                binding.progressBar.isVisible = true\r\n                binding.groupPlaceholder.isVisible = false\r\n                binding.groupContent.isVisible = false\r\n            }\r\n\r\n            is VacancyDetailsUiState.NothingFound -> {\r\n                binding.groupPlaceholder.isVisible = true\r\n                binding.groupContent.isVisible = false\r\n                binding.ivPlaceholderCover.setImageResource(R.drawable.placeholder_details_vacancy_not_found)\r\n                binding.tvPlaceholder.setText(R.string.vacancy_not_found_or_deleted)\r\n            }\r\n\r\n            is VacancyDetailsUiState.ServerError -> {\r\n                binding.groupPlaceholder.isVisible = true\r\n                binding.groupContent.isVisible = false\r\n                binding.ivPlaceholderCover.setImageResource(R.drawable.placeholder_details_vacancy_server_error)\r\n                binding.tvPlaceholder.setText(R.string.server_error)\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun renderLikeButton(active: Boolean) {\r\n        if (active) {\r\n            binding.btnFavorite.setImageResource(R.drawable.favourites_off_24px)\r\n        } else {\r\n            binding.btnFavorite.setImageResource(R.drawable.favourites_empty_24px)\r\n        }\r\n    }\r\n\r\n    private fun descriptionHtml(description: String): String {\r\n        val descWithSep = listOf(description).joinToString(separator = \"<br>•\") { it }\r\n        return Html.fromHtml(descWithSep, Html.FROM_HTML_MODE_COMPACT).toString()\r\n    }\r\n\r\n    private fun formattedKeySkills(keySkills: List<String>?): String? {\r\n        if (keySkills.isNullOrEmpty()) return null\r\n\r\n        val skillsWithSep = keySkills.joinToString(separator = \"<br>•\") { it }\r\n        return Html.fromHtml(skillsWithSep, Html.FROM_HTML_MODE_COMPACT).toString()\r\n    }\r\n\r\n    private fun formatEmployment(employmentForm: EmploymentForm?, workFormat: List<String>?): String {\r\n        return buildList {\r\n            employmentForm?.let {\r\n                val text = if (it.requiresSuffix) \"${it.name} ${getString(R.string.employment)}\" else it.name\r\n                add(text)\r\n            }\r\n            workFormat?.let { addAll(it) }\r\n        }.joinToString(separator = \", \")\r\n    }\r\n\r\n    companion object {\r\n        private const val COVER_ROUND = 12f\r\n        private const val LINK_VACANCY_HH = \"https://hh.ru/vacancy/\"\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/ui/vacancydetails/VacancyDetailsFragment.kt b/app/src/main/java/ru/practicum/android/diploma/ui/vacancydetails/VacancyDetailsFragment.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/ui/vacancydetails/VacancyDetailsFragment.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/ui/vacancydetails/VacancyDetailsFragment.kt	(date 1752691948590)
+@@ -2,6 +2,7 @@
+ 
+ import android.os.Bundle
+ import android.text.Html
++import android.util.Log
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+@@ -64,6 +65,8 @@
+         binding.btnFavorite.setOnClickListener {
+             viewModel.onFavouriteClicked()
+         }
++
++        viewModel.loadVacancyDetailsOfflineAware(requireContext())
+     }
+ 
+     override fun onDestroyView() {
+Index: app/src/main/java/ru/practicum/android/diploma/presentation/mappers/Mapper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.presentation.mappers\r\n\r\nimport ru.practicum.android.diploma.domain.models.vacancies.Vacancy\r\nimport ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel\r\n\r\nfun Vacancy.toUiModel(): VacancyUiModel {\r\n    return VacancyUiModel(\r\n        nameVacancy = nameVacancy,\r\n        alternateUrl = alternateUrl,\r\n        id = id,\r\n        employerName = employerName,\r\n        logo = logo,\r\n        salary = salary,\r\n        city = city\r\n    )\r\n}\r\n\r\nfun VacancyUiModel.toDomainModel(): Vacancy {\r\n    return Vacancy(\r\n        nameVacancy = nameVacancy,\r\n        alternateUrl = alternateUrl,\r\n        id = id,\r\n        employerName = employerName,\r\n        logo = logo,\r\n        salary = salary,\r\n        city = city\r\n    )\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/presentation/mappers/Mapper.kt b/app/src/main/java/ru/practicum/android/diploma/presentation/mappers/Mapper.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/presentation/mappers/Mapper.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/presentation/mappers/Mapper.kt	(date 1752693401428)
+@@ -26,4 +26,3 @@
+         city = city
+     )
+ }
+-
+Index: app/src/main/java/ru/practicum/android/diploma/data/db/converter/ConverterDb.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.db.converter\r\n\r\nimport ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy\r\nimport ru.practicum.android.diploma.domain.models.salary.Salary\r\nimport ru.practicum.android.diploma.domain.models.vacancies.Vacancy\r\n\r\nfun FavouriteVacancy.toDomain(): Vacancy {\r\n    return Vacancy(\r\n        nameVacancy = name,\r\n        alternateUrl = \"\",\r\n        id = id,\r\n        employerName = null,\r\n        logo = null,\r\n        salary = Salary.NotSpecifies,\r\n        city = null,\r\n        timestamp = timestamp\r\n    )\r\n}\r\n\r\nfun Vacancy.toData(): FavouriteVacancy {\r\n    return FavouriteVacancy(\r\n        id = id,\r\n        name = nameVacancy,\r\n        timestamp = timestamp ?: System.currentTimeMillis()\r\n    )\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/db/converter/ConverterDb.kt b/app/src/main/java/ru/practicum/android/diploma/data/db/converter/ConverterDb.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/db/converter/ConverterDb.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/db/converter/ConverterDb.kt	(date 1752694265023)
+@@ -1,26 +1,46 @@
+ package ru.practicum.android.diploma.data.db.converter
+ 
+-import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
++import androidx.room.TypeConverter
++import com.google.gson.Gson
++import com.google.gson.reflect.TypeToken
+ import ru.practicum.android.diploma.domain.models.salary.Salary
+-import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
++import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
++import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentFormType
++
++class ConverterDb {
++    private val gson = Gson()
++
++    @TypeConverter
++    fun fromSalary(salary: Salary): String {
++        return gson.toJson(salary)
++    }
++
++    @TypeConverter
++    fun toSalary(value: String): Salary {
++        return gson.fromJson(value, Salary::class.java)
++    }
+ 
+-fun FavouriteVacancy.toDomain(): Vacancy {
+-    return Vacancy(
+-        nameVacancy = name,
+-        alternateUrl = "",
+-        id = id,
+-        employerName = null,
+-        logo = null,
+-        salary = Salary.NotSpecifies,
+-        city = null,
+-        timestamp = timestamp
+-    )
+-}
++    @TypeConverter
++    fun fromEmploymentForm(form: EmploymentForm?): String? {
++        return form?.name
++    }
+ 
+-fun Vacancy.toData(): FavouriteVacancy {
+-    return FavouriteVacancy(
+-        id = id,
+-        name = nameVacancy,
+-        timestamp = timestamp ?: System.currentTimeMillis()
+-    )
++    @TypeConverter
++    fun toEmploymentForm(value: String?): EmploymentForm? {
++        if (value == null) return null
++        val type = EmploymentFormType.fromId(value) ?: return null
++        return EmploymentForm(type.name, type.requiresSuffix)
++    }
++
++    @TypeConverter
++    fun fromStringList(list: List<String>?): String? {
++        return list?.let { gson.toJson(it) }
++    }
++
++    @TypeConverter
++    fun toStringList(value: String?): List<String>? {
++        return value?.let {
++            gson.fromJson(it, object : TypeToken<List<String>>() {}.type)
++        }
++    }
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/data/db/entyties/FavouriteVacancy.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.db.entyties\r\n\r\nimport androidx.room.Entity\r\nimport androidx.room.PrimaryKey\r\n\r\n@Entity(tableName = \"favourites_vacancies\")\r\ndata class FavouriteVacancy(\r\n    @PrimaryKey\r\n    val id: String,\r\n    val name: String,\r\n    val timestamp: Long\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/db/entyties/FavouriteVacancy.kt b/app/src/main/java/ru/practicum/android/diploma/data/db/entyties/FavouriteVacancy.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/db/entyties/FavouriteVacancy.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/db/entyties/FavouriteVacancy.kt	(date 1752693345499)
+@@ -2,11 +2,22 @@
+ 
+ import androidx.room.Entity
+ import androidx.room.PrimaryKey
++import ru.practicum.android.diploma.domain.models.salary.Salary
++import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
+ 
+ @Entity(tableName = "favourites_vacancies")
+ data class FavouriteVacancy(
+     @PrimaryKey
+     val id: String,
+     val name: String,
+-    val timestamp: Long
++    val salary: Salary,
++    val employer: String?,
++    val experience: String?,
++    val employmentForm: EmploymentForm?,
++    val description: String,
++    val workFormat: List<String>?,
++    val alternateUrl: String,
++    val keySkills: List<String>?,
++    val city: String?,
++    val timestamp: Long = System.currentTimeMillis()
+ )
+Index: app/src/main/java/ru/practicum/android/diploma/data/db/converter/FavouriteVacancyConverters.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/db/converter/FavouriteVacancyConverters.kt b/app/src/main/java/ru/practicum/android/diploma/data/db/converter/FavouriteVacancyConverters.kt
+new file mode 100644
+--- /dev/null	(date 1752694670532)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/db/converter/FavouriteVacancyConverters.kt	(date 1752694670532)
+@@ -0,0 +1,53 @@
++package ru.practicum.android.diploma.data.db.converter
++
++import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
++import ru.practicum.android.diploma.domain.models.favourite.FavouriteVacancyEntity
++import ru.practicum.android.diploma.domain.models.salary.Salary
++import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
++
++fun FavouriteVacancy.toDomain(): Vacancy {
++    return Vacancy(
++        nameVacancy = name,
++        alternateUrl = "",
++        id = id,
++        employerName = null,
++        logo = null,
++        salary = Salary.NotSpecifies,
++        city = null,
++        timestamp = timestamp
++    )
++}
++
++fun Vacancy.toData(): FavouriteVacancy {
++    return FavouriteVacancy(
++        id = id,
++        name = nameVacancy,
++        salary = salary,
++        employer = employerName,
++        experience = null,
++        employmentForm = null,
++        description = "",
++        workFormat = null,
++        alternateUrl = alternateUrl,
++        keySkills = null,
++        city = city,
++        timestamp = timestamp ?: System.currentTimeMillis()
++    )
++}
++
++fun FavouriteVacancy.toFavouriteVacancyDomain(): FavouriteVacancyEntity {
++    return FavouriteVacancyEntity(
++        id = id,
++        name = name,
++        salary = salary,
++        employer = employer,
++        experience = experience,
++        employmentForm = employmentForm,
++        description = description,
++        workFormat = workFormat,
++        alternateUrl = alternateUrl,
++        keySkills = keySkills,
++        city = city,
++        timestamp = timestamp
++    )
++}
+Index: app/src/main/java/ru/practicum/android/diploma/domain/models/favourite/FavouriteVacancyEntity.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/models/favourite/FavouriteVacancyEntity.kt b/app/src/main/java/ru/practicum/android/diploma/domain/models/favourite/FavouriteVacancyEntity.kt
+new file mode 100644
+--- /dev/null	(date 1752693190127)
++++ b/app/src/main/java/ru/practicum/android/diploma/domain/models/favourite/FavouriteVacancyEntity.kt	(date 1752693190127)
+@@ -0,0 +1,19 @@
++package ru.practicum.android.diploma.domain.models.favourite
++
++import ru.practicum.android.diploma.domain.models.salary.Salary
++import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
++
++data class FavouriteVacancyEntity(
++    val id: String,
++    val name: String,
++    val salary: Salary,
++    val employer: String?,
++    val experience: String?,
++    val employmentForm: EmploymentForm?,
++    val description: String,
++    val workFormat: List<String>?,
++    val alternateUrl: String,
++    val keySkills: List<String>?,
++    val city: String?,
++    val timestamp: Long = System.currentTimeMillis()
++)
+Index: app/src/main/java/ru/practicum/android/diploma/ui/favouritevacancies/FavouriteVacanciesFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.ui.favouritevacancies\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.lifecycleScope\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport org.koin.androidx.viewmodel.ext.android.viewModel\r\nimport ru.practicum.android.diploma.R\r\nimport ru.practicum.android.diploma.databinding.FavouriteVacanciesFragmentBinding\r\nimport ru.practicum.android.diploma.presentation.favouritevacancies.uistate.FavouriteVacanciesUiState\r\nimport ru.practicum.android.diploma.presentation.favouritevacancies.viewmodel.FavouriteVacanciesViewModel\r\nimport ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel\r\nimport ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter\r\nimport ru.practicum.android.diploma.util.DebounceConstants.SEARCH_DEBOUNCE_DELAY\r\nimport ru.practicum.android.diploma.util.Debouncer\r\n\r\nclass FavouriteVacanciesFragment : Fragment(), VacancyItemAdapter.Listener {\r\n\r\n    private var _binding: FavouriteVacanciesFragmentBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private val vacancies = mutableListOf<VacancyUiModel>()\r\n    private val adapter = VacancyItemAdapter(vacancies, this)\r\n\r\n    private val debounce by lazy {\r\n        Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)\r\n    }\r\n\r\n    private val favouriteVacanciesViewModel by viewModel<FavouriteVacanciesViewModel>()\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {\r\n        _binding = FavouriteVacanciesFragmentBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        binding.header.toolbarTitle.text = getString(R.string.favorite)\r\n\r\n        binding.recyclerViewFavourite.adapter = adapter\r\n        binding.recyclerViewFavourite.layoutManager = LinearLayoutManager(requireContext())\r\n\r\n        observeViewModel()\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        favouriteVacanciesViewModel.refreshVacancies()\r\n    }\r\n\r\n    private fun observeViewModel() {\r\n        favouriteVacanciesViewModel.favouriteUiState.observe(viewLifecycleOwner) { state ->\r\n            when (state) {\r\n                is FavouriteVacanciesUiState.Content -> {\r\n                    if (state.vacancies.isEmpty()) {\r\n                        showPlaceholder(\r\n                            R.drawable.empty_list_favorites_placeholder,\r\n                            R.string.empty_list\r\n                        )\r\n                    } else {\r\n                        showVacancies(state.vacancies)\r\n                    }\r\n                }\r\n                is FavouriteVacanciesUiState.Placeholder -> {\r\n                    showPlaceholder(state.drawable, state.message)\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun showVacancies(vacanciesList: List<VacancyUiModel>) {\r\n        binding.recyclerViewFavourite.visibility = View.VISIBLE\r\n        binding.favouritePlaceholder.visibility = View.GONE\r\n\r\n        vacancies.clear()\r\n        vacancies.addAll(vacanciesList)\r\n        adapter.notifyDataSetChanged()\r\n    }\r\n\r\n    private fun showPlaceholder(imageRes: Int, message: Int) {\r\n        binding.recyclerViewFavourite.visibility = View.GONE\r\n        binding.favouritePlaceholder.visibility = View.VISIBLE\r\n\r\n        binding.favouriteCoverPlaceholder.setImageResource(imageRes)\r\n        binding.favouriteTextPlaceholder.setText(message)\r\n    }\r\n\r\n    companion object {\r\n        private const val CLICK_DEBOUNCE_DELAY = 2000L\r\n    }\r\n\r\n    override fun onClick(id: String) {\r\n        val action = FavouriteVacanciesFragmentDirections.actionFavouriteVacanciesFragmentToVacancyDetailsFragment(id)\r\n        findNavController().navigate(action)\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/ui/favouritevacancies/FavouriteVacanciesFragment.kt b/app/src/main/java/ru/practicum/android/diploma/ui/favouritevacancies/FavouriteVacanciesFragment.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/ui/favouritevacancies/FavouriteVacanciesFragment.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/ui/favouritevacancies/FavouriteVacanciesFragment.kt	(date 1752688301353)
+@@ -95,10 +95,6 @@
+         binding.favouriteTextPlaceholder.setText(message)
+     }
+ 
+-    companion object {
+-        private const val CLICK_DEBOUNCE_DELAY = 2000L
+-    }
+-
+     override fun onClick(id: String) {
+         val action = FavouriteVacanciesFragmentDirections.actionFavouriteVacanciesFragmentToVacancyDetailsFragment(id)
+         findNavController().navigate(action)
+Index: app/src/main/java/ru/practicum/android/diploma/domain/converter/VacancyDetailsConverter.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/converter/VacancyDetailsConverter.kt b/app/src/main/java/ru/practicum/android/diploma/domain/converter/VacancyDetailsConverter.kt
+new file mode 100644
+--- /dev/null	(date 1752693215739)
++++ b/app/src/main/java/ru/practicum/android/diploma/domain/converter/VacancyDetailsConverter.kt	(date 1752693215739)
+@@ -0,0 +1,21 @@
++package ru.practicum.android.diploma.domain.converter
++
++import ru.practicum.android.diploma.domain.models.favourite.FavouriteVacancyEntity
++import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
++
++fun FavouriteVacancyEntity.toDomain(): VacancyDetails {
++    return VacancyDetails(
++        id = id,
++        name = name,
++        salary = salary,
++        employer = employer,
++        experience = experience,
++        employmentForm = employmentForm,
++        description = description,
++        workFormat = workFormat,
++        alternateUrl = alternateUrl,
++        keySkills = keySkills,
++        city = city,
++        logoUrl = null
++    )
++}
+Index: app/src/main/java/ru/practicum/android/diploma/data/favouritevacancies/impl/FavouriteVacanciesDbRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.favouritevacancies.impl\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport kotlinx.coroutines.flow.map\r\nimport ru.practicum.android.diploma.data.db.AppDatabase\r\nimport ru.practicum.android.diploma.data.db.converter.toData\r\nimport ru.practicum.android.diploma.data.db.converter.toDomain\r\nimport ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository\r\nimport ru.practicum.android.diploma.domain.models.vacancies.Vacancy\r\n\r\nclass FavouriteVacanciesDbRepositoryImpl(private val appDataBase: AppDatabase) : FavouriteVacanciesDbRepository {\r\n    override suspend fun insertVacancy(vacancy: Vacancy) {\r\n        val currentVacancy = appDataBase.favouriteVacancyDao().getVacancyById(vacancy.id)\r\n        if (currentVacancy == null) {\r\n            appDataBase.favouriteVacancyDao().insertVacancy(vacancy.toData())\r\n        }\r\n    }\r\n\r\n    override suspend fun deleteVacancy(vacancy: Vacancy) {\r\n        val currentVacancy = appDataBase.favouriteVacancyDao().getVacancyById(vacancy.id)\r\n        if (currentVacancy != null) {\r\n            appDataBase.favouriteVacancyDao().deleteVacancy(vacancy.toData())\r\n        }\r\n    }\r\n\r\n    override fun getFavouriteVacancies(): Flow<List<Vacancy>> {\r\n        return appDataBase.favouriteVacancyDao().getFavouriteVacancies()\r\n            .map { favouriteList ->\r\n                favouriteList.map { favouriteVacancy ->\r\n                    favouriteVacancy.toDomain()\r\n                }\r\n            }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/favouritevacancies/impl/FavouriteVacanciesDbRepositoryImpl.kt b/app/src/main/java/ru/practicum/android/diploma/data/favouritevacancies/impl/FavouriteVacanciesDbRepositoryImpl.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/favouritevacancies/impl/FavouriteVacanciesDbRepositoryImpl.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/favouritevacancies/impl/FavouriteVacanciesDbRepositoryImpl.kt	(date 1752694725470)
+@@ -5,7 +5,9 @@
+ import ru.practicum.android.diploma.data.db.AppDatabase
+ import ru.practicum.android.diploma.data.db.converter.toData
+ import ru.practicum.android.diploma.data.db.converter.toDomain
++import ru.practicum.android.diploma.data.db.converter.toFavouriteVacancyDomain
+ import ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository
++import ru.practicum.android.diploma.domain.models.favourite.FavouriteVacancyEntity
+ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+ 
+ class FavouriteVacanciesDbRepositoryImpl(private val appDataBase: AppDatabase) : FavouriteVacanciesDbRepository {
+@@ -31,4 +33,8 @@
+                 }
+             }
+     }
++
++    override suspend fun getVacancyById(id: String): FavouriteVacancyEntity? {
++        return appDataBase.favouriteVacancyDao().getVacancyById(id)?.toFavouriteVacancyDomain()
++    }
+ }
