@@ -6,13 +6,13 @@ import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 
 fun FavouriteVacancy.toDomain(): Vacancy {
     return Vacancy(
-        nameVacancy = name,
-        alternateUrl = "",
+        nameVacancy = nameVacancy,
+        alternateUrl = alternateUrl,
         id = id,
-        employerName = null,
-        logo = null,
-        salary = Salary.NotSpecifies,
-        city = null,
+        employerName = employerName,
+        logo = logo,
+        salary = salary,
+        city = city,
         timestamp = timestamp
     )
 }
@@ -20,7 +20,12 @@ fun FavouriteVacancy.toDomain(): Vacancy {
 fun Vacancy.toData(): FavouriteVacancy {
     return FavouriteVacancy(
         id = id,
-        name = nameVacancy,
+        nameVacancy = nameVacancy,
+        alternateUrl = alternateUrl,
+        employerName = employerName,
+        logo = logo,
+        salary = salary,
+        city = city,
         timestamp = timestamp ?: System.currentTimeMillis()
     )
 }
