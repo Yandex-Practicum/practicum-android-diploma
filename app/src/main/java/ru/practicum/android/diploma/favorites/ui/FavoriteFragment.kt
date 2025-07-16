@@ -13,19 +13,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.favorites.ui.viewmodel.FavoriteVacancyViewModel
-import ru.practicum.android.diploma.util.mock.MockData
-import ru.practicum.android.diploma.vacancy.data.db.entity.FavoriteVacancyEntity
 
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavoriteVacancyViewModel by viewModel { parametersOf(requireContext()) }
+    private val viewModel: FavoriteVacancyViewModel by viewModel()
 
     private val adapter = VacancyAdapter { vacancyId ->
         findNavController().navigate(
@@ -46,17 +43,15 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val testVacancies = MockData.testVacancies
-
-        lifecycleScope.launch {
-            testVacancies.forEach { viewModel.addToFavorites(it) }
-        }
-
         binding.recyclerViewFavouritesVacancies.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewFavouritesVacancies.adapter = adapter
 
         observeFavorites()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun observeFavorites() {

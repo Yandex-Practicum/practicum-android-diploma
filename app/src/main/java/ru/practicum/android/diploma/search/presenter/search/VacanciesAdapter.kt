@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
 class VacanciesAdapter(
     private val context: Context,
     private val vacanciesList: MutableList<VacancyPreviewUi>,
-    private val onVacancyClick: (VacancyPreviewUi) -> Unit
+    private val onVacancyClick: (Int) -> Unit
 ) : RecyclerView.Adapter<VacanciesAdapter.VacanciesViewHolder>() {
 
     class VacanciesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,7 +50,7 @@ class VacanciesAdapter(
         holder.salaryTextView.text = vacancy.salary
 
         holder.vacancyContainer.setOnClickListener {
-            onVacancyClick(vacancy)
+            onVacancyClick(vacancy.id)
         }
     }
 

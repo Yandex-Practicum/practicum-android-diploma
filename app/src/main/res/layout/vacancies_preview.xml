@@ -7,27 +7,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="16dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageId"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ImageRounded"
         android:src="@drawable/notfound_icon"
-        android:layout_marginTop="9dp">
-    </ImageView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/titleId"
+        style="@style/Text.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/imageId"
-        app:layout_constraintTop_toTopOf="@id/imageId"
-        style="@style/Text.Title"
         android:layout_marginLeft="12dp"
         android:text="Android-разработчик"
-        >
-    </TextView>
+        app:layout_constraintStart_toEndOf="@id/imageId"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/teamId"
