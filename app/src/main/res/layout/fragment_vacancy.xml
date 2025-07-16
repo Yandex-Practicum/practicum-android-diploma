@@ -13,12 +13,71 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_standard">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/blue"
+            android:indeterminateTintMode="src_in"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/placeholder_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
+
+            <ImageView
+                android:id="@+id/placeholder_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/placeholder_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:src="@drawable/notfound2_icon" />
+
+            <TextView
+                android:id="@+id/placeholder_text"
+                style="@style/Text.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/placeholder_image"
+                tools:text="@string/vacancy_notfound_error" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/content_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="back_button,title_vacancy,like_button,share_button,job_title,job_price,company_card,experience_title,experience_description,employment_type,job_description_title,job_description"
+            tools:visibility="visible" />
+
         <ImageView
             android:id="@+id/back_button"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/back_light"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/cd_navigate_back"
+            android:src="@drawable/back_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,20 +95,20 @@
 
         <ImageView
             android:id="@+id/like_button"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/like_unchecked_icon_light"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/cd_add_to_favorites"
+            android:src="@drawable/like_unchecked_icon_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/share_button"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_standard"
-            android:src="@drawable/share_icon_light"
             android:contentDescription="@string/cd_share_vacancy"
+            android:src="@drawable/share_icon_light"
             app:layout_constraintBottom_toBottomOf="@id/like_button"
             app:layout_constraintEnd_toStartOf="@id/like_button"
             app:layout_constraintTop_toTopOf="@id/like_button" />
@@ -76,8 +135,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            app:layout_constraintTop_toBottomOf="@id/job_price"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/job_price" />
 
         <TextView
             android:id="@+id/experience_title"
@@ -108,7 +167,7 @@
             android:layout_marginTop="@dimen/margin_large"
             android:text="@string/vacancy_jobdescription_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/employment_type"/>
+            app:layout_constraintTop_toBottomOf="@id/employment_type" />
 
         <TextView
             android:id="@+id/job_description"
