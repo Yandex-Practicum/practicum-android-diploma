@@ -113,8 +113,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                 if (query == currentQuery) {
                     if (query.isNotEmpty()) {
                         showNonEmptyInput()
-                    }
-                    else {
+                    } else {
                         showEmptyInput()
                         searchViewModel.resetState()
                     }
@@ -162,13 +161,12 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                 val totalItemCount = layoutManager.itemCount
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                if (!isLoading && hasMore) {
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                        && firstVisibleItemPosition >= 0
-                        && totalItemCount >= TOTAL_COUNT
-                    ) {
-                        searchViewModel.loadMore()
-                    }
+                if (!isLoading && hasMore
+                    && visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= TOTAL_COUNT
+                ) {
+                    searchViewModel.loadMore()
                 }
             }
         })
