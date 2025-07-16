@@ -58,7 +58,14 @@ class VacancyFragment : Fragment() {
         binding.serverError.isVisible = state is VacancyState.Error && state.message == "server_error"
         binding.notfoundError.isVisible = state is VacancyState.Error && state.message == "not_found"
 
-        val contentViews = listOf(binding.jobTitle, binding.jobPrice, binding.companyCard.root, binding.experienceTitle, binding.experienceDescription, binding.employmentType, binding.jobDescriptionTitle, binding.jobDescription)
+        val contentViews = listOf(
+            binding.jobTitle,
+            binding.jobPrice,
+            binding.companyCard.root,
+            binding.experienceTitle,
+            binding.experienceDescription,
+            binding.employmentType,
+        )
         contentViews.forEach { it.isVisible = state is VacancyState.Content }
 
         if (state is VacancyState.Content) {

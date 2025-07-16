@@ -4,12 +4,26 @@ import ru.practicum.android.diploma.vacancy.data.db.entity.FavoriteVacancyEntity
 
 object MockData {
 
+    // --- Константы для повторяющихся строк (решение для StringLiteralDuplication) ---
+    private const val CURRENCY_RUR = "RUR"
+    private const val AREA_MOSCOW = "Москва"
+    private const val EXPERIENCE_1_TO_3_YEARS = "От 1 года до 3 лет"
+    private const val EMPLOYMENT_FULL = "Полная занятость"
+    private const val SCHEDULE_FULL_DAY = "Полный день"
+
+    // --- Константы для длинных URL (решение для MaxLineLength) ---
+    private const val URL_YANDEX_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Yandex_icon.svg/1200px-Yandex_icon.svg.png"
+    private const val URL_VK_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/2048px-VK_Compact_Logo_%282021-present%29.svg.png"
+    private const val URL_SBER_LOGO = "https://habrastorage.org/getpro/moikrug/uploads/company/100/006/341/2/logo/big_32156f1572916e1f7fb432e67e1defc2.png"
+    private const val URL_TINKOFF_LOGO = "https://www.m24.ru/b/d/nBkSUhL2hFkvkciyI76BrNOp2Z318Ji-mijFnuWR9mOBdDebBizCnTY8qdJf6ReJ58vU9meMMok3Ee2nhSR6ISeO9G1N_wjJ=zOF_5VePNY4jUG1rQIo8_g.jpg"
+
+
     val testVacancies = listOf(
         FavoriteVacancyEntity(
             id = "1",
             name = "Android-разработчик",
             employerName = "Яндекс",
-            areaName = "Москва",
+            areaName = AREA_MOSCOW,
             descriptionHtml = """
                 <p><strong>Обязанности:</strong></p>
                 <ul>
@@ -32,12 +46,12 @@ object MockData {
             """.trimIndent(),
             salaryFrom = 150_000,
             salaryTo = 200_000,
-            currency = "RUR",
-            experience = "От 1 года до 3 лет",
-            employment = "Полная занятость",
-            schedule = "Полный день",
+            currency = CURRENCY_RUR,
+            experience = EXPERIENCE_1_TO_3_YEARS,
+            employment = EMPLOYMENT_FULL,
+            schedule = SCHEDULE_FULL_DAY,
             keySkills = "Kotlin,Android,Jetpack,Coroutines,Dagger",
-            logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Yandex_icon.svg/1200px-Yandex_icon.svg.png",
+            logoUrl = URL_YANDEX_LOGO,
             url = "https://hh.ru/vacancy/1"
         ),
         FavoriteVacancyEntity(
@@ -55,12 +69,12 @@ object MockData {
             """.trimIndent(),
             salaryFrom = 180_000,
             salaryTo = 220_000,
-            currency = "RUR",
+            currency = CURRENCY_RUR,
             experience = "3–6 лет",
-            employment = "Полная занятость",
+            employment = EMPLOYMENT_FULL,
             schedule = "Удалёнка",
             keySkills = "Kotlin,Spring,PostgreSQL,Kafka,Highload",
-            logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/2048px-VK_Compact_Logo_%282021-present%29.svg.png",
+            logoUrl = URL_VK_LOGO,
             url = "https://hh.ru/vacancy/2"
         ),
         FavoriteVacancyEntity(
@@ -68,12 +82,14 @@ object MockData {
             name = "Flutter-разработчик",
             employerName = "Ozon",
             areaName = "Иннополис",
-            descriptionHtml = "<p>Разработка кросс-платформенных приложений для e-commerce. Мы ценим чистоту кода и внимание к деталям. Присоединяйся к нашей команде, чтобы создавать лучшие продукты для миллионов пользователей!</p>",
+            descriptionHtml = "<p>Разработка кросс-платформенных приложений для e-commerce. " +
+                "Мы ценим чистоту кода и внимание к деталям. Присоединяйся к нашей команде, " +
+                "чтобы создавать лучшие продукты для миллионов пользователей!</p>",
             salaryFrom = 120_000,
             salaryTo = null,
-            currency = "RUR",
-            experience = "От 1 года до 3 лет",
-            employment = "Полная занятость",
+            currency = CURRENCY_RUR,
+            experience = EXPERIENCE_1_TO_3_YEARS,
+            employment = EMPLOYMENT_FULL,
             schedule = "Гибкий график",
             keySkills = "Flutter,Dart,Bloc,Firebase",
             logoUrl = null,
@@ -83,7 +99,7 @@ object MockData {
             id = "4",
             name = "Data Scientist",
             employerName = "Sber",
-            areaName = "Москва",
+            areaName = AREA_MOSCOW,
             descriptionHtml = """
                 <h3>Присоединяйся к команде AI в Сбере!</h3>
                 <p>Мы ищем Data Scientist'а для работы над проектами в области рекомендательных систем и предсказания оттока клиентов.</p>
@@ -98,12 +114,12 @@ object MockData {
             """.trimIndent(),
             salaryFrom = 200_000,
             salaryTo = 280_000,
-            currency = "RUR",
+            currency = CURRENCY_RUR,
             experience = "От 3 до 6 лет",
-            employment = "Полная занятость",
-            schedule = "Полный день",
+            employment = EMPLOYMENT_FULL,
+            schedule = SCHEDULE_FULL_DAY,
             keySkills = "Python,Pandas,Scikit-learn,SQL,Machine Learning",
-            logoUrl = "https://habrastorage.org/getpro/moikrug/uploads/company/100/006/341/2/logo/big_32156f1572916e1f7fb432e67e1defc2.png",
+            logoUrl = URL_SBER_LOGO,
             url = "https://hh.ru/vacancy/4"
         ),
         FavoriteVacancyEntity(
@@ -123,16 +139,21 @@ object MockData {
             """.trimIndent(),
             salaryFrom = null,
             salaryTo = 150_000,
-            currency = "RUR",
-            experience = "От 1 года до 3 лет",
-            employment = "Полная занятость",
+            currency = CURRENCY_RUR,
+            experience = EXPERIENCE_1_TO_3_YEARS,
+            employment = EMPLOYMENT_FULL,
             schedule = "Удаленная работа",
             keySkills = "Тестирование,Postman,SQL,Jira,Тест-кейсы",
-            logoUrl = "https://www.m24.ru/b/d/nBkSUhL2hFkvkciyI76BrNOp2Z318Ji-mijFnuWR9mOBdDebBizCnTY8qdJf6ReJ58vU9meMMok3Ee2nhSR6ISeO9G1N_wjJ=zOF_5VePNY4jUG1rQIo8_g.jpg",
+            logoUrl = URL_TINKOFF_LOGO,
             url = "https://hh.ru/vacancy/5"
         )
     )
 
+    /**
+     * Возвращает тестовую вакансию по её ID.
+     * @param id Идентификатор вакансии.
+     * @return [FavoriteVacancyEntity] или null, если вакансия не найдена.
+     */
     fun getVacancyById(id: String): FavoriteVacancyEntity? {
         return testVacancies.find { it.id == id }
     }

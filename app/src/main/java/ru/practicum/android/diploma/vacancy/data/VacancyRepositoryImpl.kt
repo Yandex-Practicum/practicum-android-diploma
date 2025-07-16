@@ -16,7 +16,7 @@ class VacancyRepositoryImpl(
 ) : VacancyRepository {
 
     override fun getVacancyDetails(id: String): Flow<Resource<VacancyDetails>> = flow {
-        kotlinx.coroutines.delay(1000L)
+        kotlinx.coroutines.delay(MOCK_NETWORK_DELAY_MILLIS)
 
         val mockVacancy = MockData.getVacancyById(id)
 
@@ -38,5 +38,9 @@ class VacancyRepositoryImpl(
                 emit(Resource.Error("not_found"))
             }
         }
+    }
+
+    companion object {
+        private const val MOCK_NETWORK_DELAY_MILLIS = 1000L
     }
 }

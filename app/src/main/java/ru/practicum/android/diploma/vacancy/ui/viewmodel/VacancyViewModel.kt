@@ -44,25 +44,25 @@ class VacancyViewModel(
 
     fun onFavoriteClicked() {
         viewModelScope.launch {
-            val currentState = _state.value
-            if (currentState !is VacancyState.Content) return@launch
+            if (state.value is VacancyState.Content) {
+                val currentState = state.value as VacancyState.Content
+                val isCurrentlyFavorite = currentState.isFavorite
 
-            val isCurrentlyFavorite = currentState.isFavorite
-
-            if (isCurrentlyFavorite) {
-                favoriteInteractor.removeById(vacancyId)
-            } else {
-                val vacancyToAdd = MockData.getVacancyById(vacancyId)
-                if (vacancyToAdd != null) {
-                    favoriteInteractor.add(vacancyToAdd)
-                }
-            }
-
-            _state.update {
-                if (it is VacancyState.Content) {
-                    it.copy(isFavorite = !isCurrentlyFavorite)
+                if (isCurrentlyFavorite) {
+                    favoriteInteractor.removeById(vacancyId)
                 } else {
-                    it
+                    val vacancyToAdd = MockData.getVacancyById(vacancyId)
+                    if (vacancyToAdd != null) {
+                        favoriteInteractor.add(vacancyToAdd)
+                    }
+                }
+
+                _state.update {
+                    if (it is VacancyState.Content) {
+                        it.copy(isFavorite = !isCurrentlyFavorite)
+                    } else {
+                        it
+                    }
                 }
             }
         }
