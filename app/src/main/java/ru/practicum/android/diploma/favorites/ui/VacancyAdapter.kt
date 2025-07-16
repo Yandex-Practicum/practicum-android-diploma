@@ -1,39 +1,61 @@
 package ru.practicum.android.diploma.favorites.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.CardVacancyInfoBinding
+import ru.practicum.android.diploma.favorites.ui.model.VacancyUiModel
 
-class VacancyAdapter(private val items: List<Vacancy>) :
-    RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
+class VacancyAdapter(
+    private val onItemClick: (VacancyUiModel) -> Unit
+) : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
 
-    inner class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val name = itemView.findViewById<TextView>(R.id.vacancy_name)
-        private val company = itemView.findViewById<TextView>(R.id.company_name)
-        private val salary = itemView.findViewById<TextView>(R.id.company_salary)
-        private val logo = itemView.findViewById<ImageView>(R.id.company_logo)
+    private val vacancies = mutableListOf<VacancyUiModel>()
 
-        fun bind(vacancy: Vacancy) {
-            name.text = vacancy.vacancyName
-            company.text = vacancy.companyName
-            salary.text = vacancy.salary
-            logo.setImageResource(vacancy.logoResId)
-        }
+    fun setItems(newItems: List<VacancyUiModel>) {
+        vacancies.clear()
+        vacancies.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_vacancy_info, parent, false)
-        return VacancyViewHolder(view)
+        val binding = CardVacancyInfoBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return VacancyViewHolder(binding, onItemClick)
     }
+
+    override fun getItemCount() = vacancies.size
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(vacancies[position])
     }
 
-    override fun getItemCount() = items.size
+    class VacancyViewHolder(
+        private val binding: CardVacancyInfoBinding,
+        private val onItemClick: (VacancyUiModel) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(vacancy: VacancyUiModel) {
+            binding.vacancyName.text = vacancy.name
+            binding.companyName.text = vacancy.employer
+            binding.companySalary.text = vacancy.salary
+
+            val context = binding.root.context
+            val placeholder = R.drawable.vacancy_logo_placeholder
+
+            Glide.with(context)
+                .load(vacancy.logoUrl ?: "")
+                .placeholder(placeholder)
+                .error(placeholder)
+                .centerCrop()
+                .into(binding.companyLogo)
+
+            binding.root.setOnClickListener { onItemClick(vacancy) }
+        }
+    }
 }

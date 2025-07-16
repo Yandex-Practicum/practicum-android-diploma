@@ -27,6 +27,7 @@ val dataModule = module {
     single { get<AppDatabase>().vacancyDao() }
     single { get<AppDatabase>().vacancyDetailsDao() }
     single { get<AppDatabase>().filterDao() }
+    single { get<AppDatabase>().favoriteVacancyDao() }
 
     // --- СЕТЬ ---
 
