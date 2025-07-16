@@ -18,29 +18,27 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
         try {
             if (page in loadedPages) {
                 emit(Resource.Success(VacanciesResult(emptyList(), page, 0, 0)))
-                return@flow
-            }
+            } else {
+                val response = networkClient.doRequest(VacanciesRequest(text, page))
+                when (response.resultCode) {
+                    SEARCH_SUCCESS -> {
+                        val vacanciesResponse = response as VacanciesResponseDto
+                        loadedPages.add(page)
 
-            val response = networkClient.doRequest(VacanciesRequest(text, page))
-            when (response.resultCode) {
-                SEARCH_SUCCESS -> {
-                    val vacanciesResponse = response as VacanciesResponseDto
-                    loadedPages.add(page)
+                        val data = vacanciesResponse.items.map { it.toDomain() }
+                        val result = VacanciesResult(
+                            vacancies = data,
+                            page = vacanciesResponse.page,
+                            pages = vacanciesResponse.pages,
+                            totalFound = vacanciesResponse.found
+                        )
 
-                    val data = vacanciesResponse.items.map { it.toDomain() }
-                    val result = VacanciesResult(
-                        vacancies = data,
-                        page = vacanciesResponse.page,
-                        pages = vacanciesResponse.pages,
-                        totalFound = vacanciesResponse.found
-                    )
-
-                    emit(Resource.Success(result))
+                        emit(Resource.Success(result))
+                    }
+                    NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
+                    SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
+                    else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))
                 }
-
-                NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
-                SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
-                else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))
             }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Search error", e)
