@@ -7,8 +7,10 @@ import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 import org.json.JSONObject
 import ru.practicum.android.diploma.domain.models.salary.Salary
+import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
 
 class TypeConverter {
+    private val gson = Gson()
 
     @TypeConverter
     fun fromSalary(salary: Salary): String {
@@ -58,6 +60,31 @@ class TypeConverter {
                 obj.getString("currency")
             )
             else -> throw IllegalArgumentException("Unknown salary type")
+        }
+    }
+
+    @TypeConverter
+    fun fromEmploymentForm(employmentForm: EmploymentForm?): String? {
+        return employmentForm?.let { gson.toJson(it) }
+    }
+
+    @TypeConverter
+    fun toEmploymentForm(json: String?): EmploymentForm? {
+        return json?.let {
+            gson.fromJson(it, EmploymentForm::class.java)
+        }
+    }
+
+    @TypeConverter
+    fun fromStringList(list: List<String>?): String? {
+        return list?.let { gson.toJson(it) }
+    }
+
+    @TypeConverter
+    fun toStringList(json: String?): List<String>? {
+        return json?.let {
+            val type = object : TypeToken<List<String>>() {}.type
+            gson.fromJson<List<String>>(it, type)
         }
     }
 }
