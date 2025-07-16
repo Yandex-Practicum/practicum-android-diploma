@@ -24,4 +24,8 @@ class FavoriteVacancyRepositoryImpl(
     override suspend fun isFavorite(id: String): Boolean {
         return favoriteVacancyDao.getFavoriteById(id) != null
     }
+
+    override suspend fun removeFromFavorites(id: String) {
+        favoriteVacancyDao.deleteFavoriteById(id)
+    }
 }

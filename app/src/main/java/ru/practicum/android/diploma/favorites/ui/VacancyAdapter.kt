@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.CardVacancyInfoBinding
 import ru.practicum.android.diploma.favorites.ui.model.VacancyUiModel
 
 class VacancyAdapter(
-    private val onItemClick: (VacancyUiModel) -> Unit
+    private val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
 
     private val vacancies = mutableListOf<VacancyUiModel>()
@@ -26,7 +26,9 @@ class VacancyAdapter(
             parent,
             false
         )
-        return VacancyViewHolder(binding, onItemClick)
+        return VacancyViewHolder(binding) { position ->
+            onItemClick(vacancies[position].id)
+        }
     }
 
     override fun getItemCount() = vacancies.size
@@ -37,8 +39,14 @@ class VacancyAdapter(
 
     class VacancyViewHolder(
         private val binding: CardVacancyInfoBinding,
-        private val onItemClick: (VacancyUiModel) -> Unit
+        onItemClick: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                onItemClick(adapterPosition)
+            }
+        }
 
         fun bind(vacancy: VacancyUiModel) {
             binding.vacancyName.text = vacancy.name
@@ -54,8 +62,6 @@ class VacancyAdapter(
                 .error(placeholder)
                 .centerCrop()
                 .into(binding.companyLogo)
-
-            binding.root.setOnClickListener { onItemClick(vacancy) }
         }
     }
 }

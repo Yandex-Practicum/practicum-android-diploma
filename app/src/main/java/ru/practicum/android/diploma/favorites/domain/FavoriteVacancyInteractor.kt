@@ -13,4 +13,6 @@ class FavoriteVacancyInteractor(
     fun getAll(): Flow<List<FavoriteVacancyEntity>> = repository.getAllFavorites()
 
     suspend fun isFavorite(id: String): Boolean = repository.isFavorite(id)
+
+    suspend fun remove(id: String) = repository.removeFromFavorites(id)
 }

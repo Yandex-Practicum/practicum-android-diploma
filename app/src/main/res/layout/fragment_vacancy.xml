@@ -13,6 +13,71 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_standard">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/server_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/servererror2_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Text.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:text="@string/vacancy_server_error"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notfound_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/notfound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/notfound2_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Text.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:gravity="center"
+                android:text="@string/vacancy_notfound_error"
+                app:layout_constraintEnd_toEndOf="@+id/notfound"
+                app:layout_constraintStart_toStartOf="@+id/notfound"
+                app:layout_constraintTop_toBottomOf="@+id/notfound" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
@@ -24,53 +89,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/placeholder_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
-
-            <ImageView
-                android:id="@+id/placeholder_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/placeholder_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:src="@drawable/notfound2_icon" />
-
-            <TextView
-                android:id="@+id/placeholder_text"
-                style="@style/Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_standard"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/placeholder_image"
-                tools:text="@string/vacancy_notfound_error" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/content_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:constraint_referenced_ids="back_button,title_vacancy,like_button,share_button,job_title,job_price,company_card,experience_title,experience_description,employment_type,job_description_title,job_description"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/back_button"
@@ -85,6 +104,7 @@
             android:id="@+id/title_vacancy"
             style="@style/Text.Title"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_standard"
             android:text="@string/vacancy_title"
@@ -116,6 +136,8 @@
         <TextView
             android:id="@+id/job_title"
             style="@style/Text.Main.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
             android:text="@string/vacancy_jobtitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +146,8 @@
         <TextView
             android:id="@+id/job_price"
             style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_tiny"
             android:text="@string/vacancy_jobprice"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,6 +165,8 @@
         <TextView
             android:id="@+id/experience_title"
             style="@style/Text.DevInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/vacancy_jobexptitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +175,8 @@
         <TextView
             android:id="@+id/experience_description"
             style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/vacancy_jobexpdescription"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/experience_title" />
@@ -156,6 +184,8 @@
         <TextView
             android:id="@+id/employment_type"
             style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
             android:text="@string/vacancy_jobtimetype"
             app:layout_constraintStart_toStartOf="parent"
@@ -164,6 +194,8 @@
         <TextView
             android:id="@+id/job_description_title"
             style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
             android:text="@string/vacancy_jobdescription_title"
             app:layout_constraintStart_toStartOf="parent"
@@ -173,6 +205,7 @@
             android:id="@+id/job_description"
             style="@style/Text.Body"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
             android:text="@string/vacancy_jobdescription"
             app:layout_constraintEnd_toEndOf="parent"
