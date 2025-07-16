@@ -8,7 +8,7 @@
     android:paddingEnd="@dimen/padding_standard"
     android:paddingBottom="@dimen/padding_small_9">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/company_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:shapeAppearanceOverlay="@style/ImageRounded"/>
 
     <TextView
         android:id="@+id/vacancy_name"
