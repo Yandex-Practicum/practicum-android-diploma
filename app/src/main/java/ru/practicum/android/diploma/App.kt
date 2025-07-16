@@ -5,6 +5,7 @@ import android.util.Log
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.di.appModule
+import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.favouritesModule
 import ru.practicum.android.diploma.di.filterModule
 import ru.practicum.android.diploma.di.searchModule
@@ -17,7 +18,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             Log.d("Koin", "Koin initialized")
-            modules(listOf(appModule,favouritesModule, filterModule, searchModule, vacancyModule))
+            modules(listOf(dataModule,appModule,favouritesModule, filterModule, searchModule, vacancyModule))
         }
     }
 }

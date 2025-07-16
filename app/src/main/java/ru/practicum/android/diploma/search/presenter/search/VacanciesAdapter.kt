@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.search.domain.model.VacancyPreview
+import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
 
 class VacanciesAdapter(
     private val context: Context,
-    private val vacanciesList: MutableList<VacancyPreview>,
-    private val onVacancyClick: (VacancyPreview) -> Unit
+    private val vacanciesList: MutableList<VacancyPreviewUi>,
+    private val onVacancyClick: (VacancyPreviewUi) -> Unit
 ) : RecyclerView.Adapter<VacanciesAdapter.VacanciesViewHolder>() {
 
     class VacanciesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,7 +39,7 @@ class VacanciesAdapter(
     override fun onBindViewHolder(holder: VacanciesViewHolder, position: Int) {
         val vacancy = vacanciesList[position]
         Glide.with(context)
-            .load(vacancy.url)
+            .load(vacancy.logoUrl)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -47,14 +47,14 @@ class VacanciesAdapter(
 
         holder.titleTextView.text = vacancy.name
         holder.teamTextView.text = vacancy.employerName
-        holder.salaryTextView.text = "100 000р"
+        holder.salaryTextView.text = vacancy.salary
 
         holder.vacancyContainer.setOnClickListener {
             onVacancyClick(vacancy)
         }
     }
 
-    fun setList(newVacancies: List<VacancyPreview>) {
+    fun setList(newVacancies: List<VacancyPreviewUi>) {
         vacanciesList.clear()
         vacanciesList.addAll(newVacancies)
         notifyDataSetChanged()
