@@ -14,7 +14,7 @@
     <string name="searchvacancy_notfound">Таких вакансий нет</string>
     <string name="searchvacancy_founded_placeholder">Найдено 286 вакансий</string>
     <string name="searchvacancy_nointernet_error">Нет интернета</string>
-    <string name="searchvacancy_notfound_error">Не удалось получить\nсписок вакансий</string>
+    <string name="searchvacancy_notfound_error">Не удалось получить\n\t\tсписок вакансий</string>
     <string name="searchvacancy_server_error">Ошибка сервера</string>
 
     <string name="filter_title">Настройки фильтрации</string>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/vacancyContainerId"
+    android:background="@color/hh_back_theme"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="16dp">
+
+    <ImageView
+        android:id="@+id/imageId"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/notfound_icon"
+        android:layout_marginTop="9dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/titleId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/imageId"
+        app:layout_constraintTop_toTopOf="@id/imageId"
+        style="@style/Text.Title"
+        android:layout_marginLeft="12dp"
+        android:text="Android-разработчик"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/teamId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/titleId"
+        app:layout_constraintTop_toBottomOf="@id/titleId"
+        android:text="Еда"
+        style="@style/Text.Body"
+        >
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/salaryId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/titleId"
+        app:layout_constraintTop_toBottomOf="@id/teamId"
+        android:text="от 100 000р"
+        style="@style/Text.Body"
+        >
+    </TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

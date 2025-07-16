@@ -1,3 +1,10 @@
 package ru.practicum.android.diploma.search.data.network
 
-interface NetworkClient
+import ru.practicum.android.diploma.search.data.model.Response
+import ru.practicum.android.diploma.search.data.model.VacancyRequest
+
+interface NetworkClient {
+    suspend fun getVacancies(
+        vacancyRequest: VacancyRequest
+    ): Response
+}
