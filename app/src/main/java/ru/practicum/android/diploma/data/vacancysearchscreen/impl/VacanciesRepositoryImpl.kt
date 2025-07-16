@@ -8,23 +8,35 @@ import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesResponseDto
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.SearchNetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
+import ru.practicum.android.diploma.domain.models.paging.VacanciesResult
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : VacanciesRepository {
-    override fun search(text: String): Flow<Resource<Pair<List<Vacancy>, Int>>> = flow {
+    private val loadedPages = mutableSetOf<Int>()
+
+    override fun search(text: String, page: Int):  Flow<Resource<VacanciesResult>> = flow {
         try {
-            val response = networkClient.doRequest(VacanciesRequest(text))
+            if (page in loadedPages) {
+                emit(Resource.Success(VacanciesResult(emptyList(), page, 0, 0)))
+                return@flow
+            }
+
+            val response = networkClient.doRequest(VacanciesRequest(text, page))
             when (response.resultCode) {
                 SEARCH_SUCCESS -> {
-                    val res = (response as VacanciesResponseDto).items
                     val vacanciesResponse = response as VacanciesResponseDto
-                    if (res.isNotEmpty()) {
-                        val data = res.map { it.toDomain() }
-                        emit(Resource.Success(data to vacanciesResponse.found))
-                    } else {
-                        emit(Resource.Success(emptyList<Vacancy>() to 0))
-                    }
+                    loadedPages.add(page)
+
+                    val data = vacanciesResponse.items.map { it.toDomain() }
+                    val result = VacanciesResult(
+                        vacancies = data,
+                        page = vacanciesResponse.page,
+                        pages = vacanciesResponse.pages,
+                        totalFound = vacanciesResponse.found
+                    )
+
+                    emit(Resource.Success(result))
                 }
                 NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
                 SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
@@ -34,6 +46,10 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
             Log.e("Repository", "Search error", e)
             throw e
         }
+    }
+
+    override fun clearLoadedPages() {
+        loadedPages.clear()
     }
 
     companion object {

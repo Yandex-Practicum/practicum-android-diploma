@@ -18,7 +18,10 @@ class RetrofitNetworkClient(private val service: VacanciesApi, private val conte
         } else {
             withContext(Dispatchers.IO) {
                 try {
-                    val response = service.getVacancies(text = dto.text)
+                    val response = service.getVacancies(
+                        text = dto.text,
+                        page = dto.page,
+                        perPage = dto.perPage)
                     response.apply { resultCode = SEARCH_SUCCESS }
                 } catch (e: retrofit2.HttpException) {
                     Log.e("Repository", "Search error", e)

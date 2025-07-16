@@ -25,6 +25,7 @@
     <string name="nothing_found">Не удалось получить \nсписок вакансий</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 
     <string name="salary_not_specified">Зарплата не указана</string>
     <string name="salary_from">от %1$s %2$s</string>
