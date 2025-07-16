@@ -148,7 +148,7 @@ class VacancyDetailsFragment : Fragment() {
 
     private fun renderLikeButton(active: Boolean) {
         if (active) {
-            binding.btnFavorite.setImageResource(R.drawable.favourites_off_24px)
+            binding.btnFavorite.setImageResource(R.drawable.favorites_on_24px)
         } else {
             binding.btnFavorite.setImageResource(R.drawable.favourites_empty_24px)
         }
