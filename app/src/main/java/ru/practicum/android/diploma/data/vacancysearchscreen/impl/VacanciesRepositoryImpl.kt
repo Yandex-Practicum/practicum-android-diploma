@@ -11,8 +11,8 @@ import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsRes
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
-import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
+import ru.practicum.android.diploma.util.Resource
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
     override fun search(text: String): Flow<Resource<Pair<List<Vacancy>, Int>>> = flow {
@@ -48,7 +48,9 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
                 emit(Resource.Success(data))
             }
 
-            else -> emit(Resource.Error(message = "$ERROR: ${response.resultCode}"))
+            NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
+            SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
+            else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))
         }
     }
 
@@ -56,7 +58,6 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
         private const val NO_CONNECTION = -1
         private const val SEARCH_SUCCESS = 2
         private const val SERVER_ERROR = 5
-        private const val ERROR = "Error"
     }
 }
 
