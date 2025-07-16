@@ -15,8 +15,8 @@ class SearchViewModel(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<SearchState?>(SearchState.Empty)
-    val state: StateFlow<SearchState?> = _state
+    private val _state = MutableStateFlow<SearchState>(SearchState.Empty)
+    val state: StateFlow<SearchState> = _state
 
     fun searchVacancies(text: String, area: String? = null) {
         viewModelScope.launch {

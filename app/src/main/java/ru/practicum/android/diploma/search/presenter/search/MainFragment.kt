@@ -15,12 +15,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 import ru.practicum.android.diploma.search.presenter.SearchViewModel
 import ru.practicum.android.diploma.search.presenter.model.SearchState
+import ru.practicum.android.diploma.search.presenter.util.VacancyCounterFormatter
+import ru.practicum.android.diploma.util.Debouncer
 
 class MainFragment : Fragment() {
 
@@ -31,6 +35,7 @@ class MainFragment : Fragment() {
     }
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
+    private val debouncer: Debouncer by inject { parametersOf(viewLifecycleOwner.lifecycleScope) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,10 +58,10 @@ class MainFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateSearchIcon(s)
                 if (!s.isNullOrBlank()) {
-                    searchViewModel.searchVacancies(s.toString())
+                    searchVacancies(s.toString())
                 }
                 if (s.isNullOrBlank()) {
-                    hideAllContent()
+                    showEmpty()
                 }
             }
 
@@ -78,7 +83,9 @@ class MainFragment : Fragment() {
     }
 
     private fun onVacancyClick(preview: VacancyPreview) {
-        Log.d("click", preview.name)
+        if (debouncer.clickDebounce()) {
+            Log.d("click", preview.name)
+        }
     }
 
     private fun initRv() {
@@ -125,8 +132,18 @@ class MainFragment : Fragment() {
                             showContent(state.data)
                         }
 
-                        else -> {
+                        is SearchState.NotFound -> {
+                            showNotFound()
                         }
+
+                        is SearchState.Error -> {
+                            showError()
+                        }
+
+                        is SearchState.Empty -> {
+                            showEmpty()
+                        }
+
                     }
                 }
             }
@@ -140,19 +157,54 @@ class MainFragment : Fragment() {
         binding.noInternetPreviewId.visibility = View.GONE
         binding.notFoundPreview.visibility = View.GONE
         binding.vacanciesRvId.visibility = View.VISIBLE
+        binding.infoShieldId.visibility = View.VISIBLE
+        val dataSize = data.size
+        binding.infoShieldId.text = "Найдено ${VacancyCounterFormatter.changeEnding(dataSize)}"
+
     }
 
-    private fun hideAllContent() {
+
+    private fun showProgressBar() {
+        binding.progressBarId.visibility = View.VISIBLE
+        binding.searchPreviewId.visibility = View.GONE
+        binding.notFoundPreview.visibility = View.GONE
+        binding.vacanciesRvId.visibility = View.GONE
+        binding.infoShieldId.visibility = View.GONE
+        binding.noInternetPreviewId.visibility = View.GONE
+    }
+
+    private fun showNotFound() {
+        binding.progressBarId.visibility = View.GONE
+        binding.searchPreviewId.visibility = View.GONE
+        binding.noInternetPreviewId.visibility = View.GONE
+        binding.notFoundPreview.visibility = View.VISIBLE
+        binding.vacanciesRvId.visibility = View.GONE
+        binding.infoShieldId.visibility = View.VISIBLE
+    }
+
+    private fun showError() {
+        binding.progressBarId.visibility = View.GONE
+        binding.searchPreviewId.visibility = View.GONE
+        binding.noInternetPreviewId.visibility = View.VISIBLE
+        binding.notFoundPreview.visibility = View.GONE
+        binding.vacanciesRvId.visibility = View.GONE
+        binding.infoShieldId.visibility = View.GONE
+    }
+
+    private fun showEmpty() {
         binding.progressBarId.visibility = View.GONE
         binding.searchPreviewId.visibility = View.VISIBLE
         binding.noInternetPreviewId.visibility = View.GONE
         binding.notFoundPreview.visibility = View.GONE
         binding.vacanciesRvId.visibility = View.GONE
+        binding.infoShieldId.visibility = View.GONE
     }
 
-    private fun showProgressBar() {
-        binding.progressBarId.visibility = View.VISIBLE
-        binding.searchPreviewId.visibility = View.GONE
+    private fun searchVacancies(text: String, professional_role: Int? = null) {
+        debouncer.searchDebounce {
+            searchViewModel.searchVacancies(text)
+        }
     }
+
 
 }

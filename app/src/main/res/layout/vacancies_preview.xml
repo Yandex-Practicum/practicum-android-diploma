@@ -23,10 +23,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/imageId"
         app:layout_constraintTop_toTopOf="@id/imageId"
-        android:fontFamily="@font/ys_text_medium"
-        android:textSize="22sp"
+        style="@style/Text.Title"
         android:layout_marginLeft="12dp"
-        android:textColor="@color/black"
         android:text="Android-разработчик"
         >
     </TextView>
@@ -38,8 +36,7 @@
         app:layout_constraintStart_toStartOf="@id/titleId"
         app:layout_constraintTop_toBottomOf="@id/titleId"
         android:text="Еда"
-        android:fontFamily="@font/ys_text_regular"
-        android:textSize="16sp"
+        style="@style/Text.Body"
         >
     </TextView>
 
@@ -51,8 +48,7 @@
         app:layout_constraintStart_toStartOf="@id/titleId"
         app:layout_constraintTop_toBottomOf="@id/teamId"
         android:text="от 100 000р"
-        android:fontFamily="@font/ys_text_regular"
-        android:textSize="16sp"
+        style="@style/Text.Body"
         >
     </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>
