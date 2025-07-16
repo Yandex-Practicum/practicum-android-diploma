@@ -2,13 +2,20 @@ package ru.practicum.android.diploma.util
 
 object VacancyFormatter {
 
+    private const val TEN = 10
+    private const val ELEVEN = 11
+    private const val TWELVE = 12
+    private const val FOURTEEN = 14
+    private const val HUNDRED = 100
+
     fun changeEnding(count: Int): String {
         return when {
-            count % 10 == 1 && count % 100 != 11 -> "${count} вакансия"
-            count % 10 in 2..4 && count % 100 !in 12..14 -> "${count} вакансии"
-            else -> "${count} вакансий"
+            count % TEN == 1 && count % HUNDRED != ELEVEN -> "$count вакансия"
+            count % TEN in 2..4 && count % HUNDRED !in TWELVE..FOURTEEN -> "$count вакансии"
+            else -> "$count вакансий"
         }
     }
+
 
     fun formatSalary(from: Int?, to: Int?, currency: String?): String {
         if (from == null && to == null) return "Зарплата не указана"
@@ -21,4 +28,6 @@ object VacancyFormatter {
             else -> "Зарплата не указана"
         }
     }
+
+
 }

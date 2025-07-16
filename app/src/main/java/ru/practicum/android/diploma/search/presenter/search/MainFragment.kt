@@ -23,8 +23,8 @@ import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.search.presenter.SearchViewModel
 import ru.practicum.android.diploma.search.presenter.model.SearchState
 import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
-import ru.practicum.android.diploma.util.VacancyFormatter
 import ru.practicum.android.diploma.util.Debouncer
+import ru.practicum.android.diploma.util.VacancyFormatter
 
 class MainFragment : Fragment() {
 
@@ -200,11 +200,9 @@ class MainFragment : Fragment() {
         binding.infoShieldId.visibility = View.GONE
     }
 
-    private fun searchVacancies(text: String, professional_role: Int? = null) {
+    private fun searchVacancies(text: String, itSphere: Int? = null) {
         debouncer.searchDebounce {
             searchViewModel.searchVacancies(text)
         }
     }
-
-
 }

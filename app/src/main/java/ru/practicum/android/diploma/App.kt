@@ -18,7 +18,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             Log.d("Koin", "Koin initialized")
-            modules(listOf(dataModule,appModule,favouritesModule, filterModule, searchModule, vacancyModule))
+            modules(listOf(dataModule, appModule, favouritesModule, filterModule, searchModule, vacancyModule))
         }
     }
 }

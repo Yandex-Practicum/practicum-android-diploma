@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.FailureType
+import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 import ru.practicum.android.diploma.search.presenter.model.SearchState
 import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
-import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 import ru.practicum.android.diploma.util.VacancyFormatter
 
 class SearchViewModel(
@@ -33,6 +33,7 @@ class SearchViewModel(
                         val uiData = data.map { it.toUiModel() }
                         _state.value = SearchState.Content(uiData)
                     }
+
                     message == FailureType.NotFound -> _state.value = SearchState.NotFound
                     message == FailureType.ApiError || message == FailureType.NoInternet -> {
                         _state.value = SearchState.Error
@@ -44,15 +45,6 @@ class SearchViewModel(
 
     private fun getMockVacancies(): List<VacancyPreview> {
         return listOf(
-            VacancyPreview(
-                id = 1,
-                name = "Android Developer",
-                employerName = "Google",
-                from = 150_000,
-                to = 250_000,
-                currency = "RUB",
-                url = "https://example.com/logo1.png"
-            ),
             VacancyPreview(
                 id = 2,
                 name = "Backend Developer",
