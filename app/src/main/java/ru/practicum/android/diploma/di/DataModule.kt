@@ -29,20 +29,6 @@ val dataModule = module {
     single { get<AppDatabase>().filterDao() }
     single { get<AppDatabase>().favoriteVacancyDao() }
 
-    // --- СЕТЬ ---
 
-    single<NetworkClient> {
-        RetrofitNetworkClient(get())
-    }
 
-    single {
-        Retrofit.Builder()
-            .baseUrl("https://api.hh.ru/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    single<HHApi> {
-        get<Retrofit>().create(HHApi::class.java)
-    }
 }
