@@ -46,7 +46,7 @@ data class EmploymentFormDto(
     @SerializedName("name") val name: String?
 )
 
-data class WorkFormatDto (
+data class WorkFormatDto(
     @SerializedName("name") val name: String
 )
 

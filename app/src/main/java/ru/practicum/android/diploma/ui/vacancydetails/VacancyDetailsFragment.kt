@@ -71,7 +71,6 @@ class VacancyDetailsFragment : Fragment() {
         _binding = null
     }
 
-
     private fun bind(state: VacancyDetailsUiState.Content) {
         val combinedEmployment = formatEmployment(
             state.data.employmentForm,
@@ -100,7 +99,9 @@ class VacancyDetailsFragment : Fragment() {
             if (combinedEmployment.isNotBlank()) {
                 tvEmploymentFormValue.text = combinedEmployment
                 tvEmploymentFormValue.isVisible = true
-            } else tvEmploymentFormValue.isVisible = false
+            } else {
+                tvEmploymentFormValue.isVisible = false
+            }
 
 
             Glide.with(this@VacancyDetailsFragment)
@@ -147,8 +148,11 @@ class VacancyDetailsFragment : Fragment() {
     }
 
     private fun renderLikeButton(active: Boolean) {
-        if (active) binding.btnFavorite.setImageResource(R.drawable.favourites_off_24px)
-        else binding.btnFavorite.setImageResource(R.drawable.favourites_empty_24px)
+        if (active) {
+            binding.btnFavorite.setImageResource(R.drawable.favourites_off_24px)
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.favourites_empty_24px)
+        }
     }
 
     private fun descriptionHtml(description: String): String {
@@ -167,7 +171,8 @@ class VacancyDetailsFragment : Fragment() {
         return buildList {
             employmentForm?.let {
                 val text = if (it.requiresSuffix) "${it.name} ${getString(R.string.employment)}" else it.name
-                add(text) }
+                add(text)
+            }
             workFormat?.let { addAll(it) }
         }.joinToString(separator = ", ")
     }

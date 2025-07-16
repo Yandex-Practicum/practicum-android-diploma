@@ -31,7 +31,6 @@ class VacancyDetailsViewModel(
         getVacancyDetails()
     }
 
-
     private fun getVacancyDetails() {
         viewModelScope.launch {
             _vacancyDetailsState.postValue(VacancyDetailsUiState.Loading)
@@ -46,7 +45,7 @@ class VacancyDetailsViewModel(
         _vacancyDetailsState.postValue(
             when (resource) {
                 is Resource.Error -> {
-                    when(resource.errorType) {
+                    when (resource.errorType) {
                         ErrorType.NO_INTERNET -> VacancyDetailsUiState.NothingFound
                         else -> VacancyDetailsUiState.ServerError
                     }

@@ -84,5 +84,3 @@ fun EmploymentFormDto?.toDomain(): EmploymentForm? {
 fun WorkFormatDto?.toDomain(): String? {
     return this?.name?.takeIf { it.isNotBlank() }
 }
-
-
