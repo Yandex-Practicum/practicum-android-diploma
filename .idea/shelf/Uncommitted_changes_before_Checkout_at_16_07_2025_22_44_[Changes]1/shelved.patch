@@ -1,0 +1,28 @@
+Index: app/src/main/java/ru/practicum/android/diploma/data/db/AppDatabase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.db\r\n\r\nimport androidx.room.Database\r\nimport androidx.room.RoomDatabase\r\nimport ru.practicum.android.diploma.data.db.dao.FavouriteVacancyDao\r\nimport ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy\r\n\r\n@Database(\r\n    version = 1,\r\n    entities = [FavouriteVacancy::class]\r\n)\r\nabstract class AppDatabase : RoomDatabase() {\r\n    abstract fun favouriteVacancyDao(): FavouriteVacancyDao\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/db/AppDatabase.kt b/app/src/main/java/ru/practicum/android/diploma/data/db/AppDatabase.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/db/AppDatabase.kt	(revision 4f76e44b53f454669ca8000b9df7eaf93859b402)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/db/AppDatabase.kt	(date 1752694811465)
+@@ -2,13 +2,16 @@
+ 
+ import androidx.room.Database
+ import androidx.room.RoomDatabase
++import androidx.room.TypeConverters
++import ru.practicum.android.diploma.data.db.converter.ConverterDb
+ import ru.practicum.android.diploma.data.db.dao.FavouriteVacancyDao
+ import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
+ 
+ @Database(
+-    version = 1,
++    version = 2,
+     entities = [FavouriteVacancy::class]
+ )
++@TypeConverters(ConverterDb::class)
+ abstract class AppDatabase : RoomDatabase() {
+     abstract fun favouriteVacancyDao(): FavouriteVacancyDao
+ }
