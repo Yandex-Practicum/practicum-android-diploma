@@ -19,9 +19,9 @@ object MockData {
             "VK_Compact_Logo_%282021-present%29.svg/2048px-VK_Compact_Logo_%282021-present%29.svg.png"
     private const val URL_SBER_LOGO = "https://habrastorage.org/getpro/" +
         "moikrug/uploads/company/100/006/341/2/logo/big_32156f1572916e1f7fb432e67e1defc2.png"
-    private const val URL_TINKOFF_LOGO = "https://www.m24.ru/b/d/nBkSUhL2hFkvkciyI76BrNOp2Z318Ji-" +
-        "mijFnuWR9mOBdDebBizCnTY8qdJf6ReJ58vU9meMMok3Ee2nhSR6ISeO9G1N_wjJ=zOF_5VePNY4jUG1rQIo8_g.jpg"
-
+    private const val URL_TINKOFF_LOGO = "https://www.m24.ru/b/d/" +
+        "nBkSUhL2hFkvkciyI76BrNOp2Z318Ji-mijFnuWR9mOBdDebBizCnTY8" +
+        "qdJf6ReJ58vU9meMMok3Ee2nhSR6ISeO9G1N_wjJ=zOF_5VePNY4jUG1rQIo8_g.jpg"
 
     val testVacancies = listOf(
         FavoriteVacancyEntity(
