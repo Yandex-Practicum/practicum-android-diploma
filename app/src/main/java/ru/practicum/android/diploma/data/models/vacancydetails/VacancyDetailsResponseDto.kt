@@ -14,7 +14,7 @@ data class VacancyDetailsResponseDto(
     @SerializedName("employment_form") val employmentForm: EmploymentFormDto?,
     @SerializedName("description") val description: String,
     @SerializedName("key_skills") val keySkills: List<KeySkills>?,
-    @SerializedName("work_format") val workFormat: WorkFormatDto?,
+    @SerializedName("work_format") val workFormat: List<WorkFormatDto>?,
     @SerializedName("alternate_url") val alternateUrl: String,
     @SerializedName("address") val address: Address?,
 ) : Response()
@@ -42,11 +42,12 @@ data class ExperienceDto(
 )
 
 data class EmploymentFormDto(
+    @SerializedName("id") val id: String,
     @SerializedName("name") val name: String?
 )
 
 data class WorkFormatDto(
-    @SerializedName("name") val name: String?
+    @SerializedName("name") val name: String
 )
 
 data class KeySkills(
