@@ -22,7 +22,7 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
             when (response.resultCode) {
                 SEARCH_SUCCESS -> {
                     val res = (response as VacanciesResponseDto).items
-                    val vacanciesResponse = response as VacanciesResponseDto
+                    val vacanciesResponse = response
                     if (res.isNotEmpty()) {
                         val data = res.map { it.toDomain() }
                         emit(Resource.Success(data to vacanciesResponse.found))
