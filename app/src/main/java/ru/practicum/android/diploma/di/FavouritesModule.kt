@@ -4,6 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.data.FavoriteVacancyRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.FavoriteVacancyInteractor
+import ru.practicum.android.diploma.favorites.domain.FavoriteVacancyInteractorImpl
 import ru.practicum.android.diploma.favorites.domain.FavoriteVacancyRepository
 import ru.practicum.android.diploma.favorites.ui.viewmodel.FavoriteVacancyViewModel
 
@@ -13,8 +14,8 @@ val favouritesModule = module {
         FavoriteVacancyRepositoryImpl(get())
     }
 
-    single {
-        FavoriteVacancyInteractor(repository = get())
+    single<FavoriteVacancyInteractor> {
+        FavoriteVacancyInteractorImpl(get())
     }
 
     viewModel {

@@ -19,7 +19,7 @@ class FavoriteVacancyViewModel(private val interactor: FavoriteVacancyInteractor
 
     init {
         viewModelScope.launch {
-            interactor.getAll()
+            interactor.getAllFavorites()
                 .map { entities ->
                     entities.map { it.toUiModel() }
                 }
@@ -41,7 +41,7 @@ class FavoriteVacancyViewModel(private val interactor: FavoriteVacancyInteractor
 
     fun addToFavorites(vacancy: FavoriteVacancyEntity) {
         viewModelScope.launch {
-            interactor.add(vacancy)
+            interactor.addToFavorites(vacancy)
         }
     }
 }
