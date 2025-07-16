@@ -2,9 +2,13 @@ package ru.practicum.android.diploma.data.mappers
 
 import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
+import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
+import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
 import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
+import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
+import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentFormType
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 
 fun VacanciesDto.toDomain(): Vacancy {
@@ -26,9 +30,9 @@ fun VacancyDetailsResponseDto.toDomain(): VacancyDetails {
         salary = salaryRange.toDomain(),
         employer = employer?.name,
         experience = experience?.name,
-        employmentForm = employmentForm?.name,
+        employmentForm = employmentForm.toDomain(),
         description = description,
-        workFormat = workFormat?.name,
+        workFormat = workFormat?.mapNotNull { it.toDomain() },
         alternateUrl = alternateUrl,
         keySkills = keySkills?.map { it.name } ?: listOf(),
         city = area.name,
@@ -66,3 +70,19 @@ private fun SalaryRangeDto?.toDomain(): Salary {
         Salary.Range(from, to, currency)
     }
 }
+
+fun EmploymentFormDto?.toDomain(): EmploymentForm? {
+    if (this == null || name.isNullOrBlank()) return null
+
+    val type = EmploymentFormType.fromId(this.id)
+    return EmploymentForm(
+        name = this.name,
+        requiresSuffix = type?.requiresSuffix == true
+    )
+}
+
+fun WorkFormatDto?.toDomain(): String? {
+    return this?.name?.takeIf { it.isNotBlank() }
+}
+
+

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.mappers.toVacancy
+import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
 import ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor
 import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
@@ -45,7 +46,10 @@ class VacancyDetailsViewModel(
         _vacancyDetailsState.postValue(
             when (resource) {
                 is Resource.Error -> {
-                    VacancyDetailsUiState.ServerError
+                    when(resource.errorType) {
+                        ErrorType.NO_INTERNET -> VacancyDetailsUiState.NothingFound
+                        else -> VacancyDetailsUiState.ServerError
+                    }
                 }
 
                 is Resource.Success -> {

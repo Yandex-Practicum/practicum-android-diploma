@@ -54,7 +54,7 @@
             android:layout_marginVertical="20dp"
             android:layout_marginEnd="@dimen/dimen_4dp"
             android:background="@null"
-            android:src="@drawable/favorites_empty_24px"
+            android:src="@drawable/favourites_empty_24px"
             app:layout_constraintEnd_toEndOf="@id/rightGuidelineIn16Dp"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
@@ -130,7 +130,6 @@
             android:backgroundTint="?attr/colorPrimary"
             android:src="@drawable/vacancy_placeholder"
             app:layout_constraintBottom_toBottomOf="@id/view_rounded_rectangle"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="@id/view_rounded_rectangle"
             app:layout_constraintTop_toTopOf="@id/view_rounded_rectangle"
             tools:ignore="ContentDescription" />
@@ -142,10 +141,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_8dp"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="?attr/colorOnPrimary"
             app:layout_constraintBottom_toTopOf="@id/tv_city_name"
             app:layout_constraintStart_toEndOf="@id/iv_cover_vacancy"
             app:layout_constraintTop_toTopOf="@id/iv_cover_vacancy"
+            app:layout_constraintEnd_toEndOf="@id/view_rounded_rectangle"
             tools:text="Еда" />
 
         <TextView
@@ -233,10 +234,12 @@
             android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
             android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="@id/rightGuidelineIn16Dp"
             app:layout_constraintStart_toStartOf="@id/leftGuidelineIn16Dp"
             app:layout_constraintTop_toBottomOf="@id/key_skills_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Знание классических алгоритмов и структуры данных" />
 
         <ImageView

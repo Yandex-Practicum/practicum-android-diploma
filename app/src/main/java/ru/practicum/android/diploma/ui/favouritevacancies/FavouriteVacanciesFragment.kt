@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -99,6 +100,7 @@ class FavouriteVacanciesFragment : Fragment(), VacancyItemAdapter.Listener {
     }
 
     override fun onClick(id: String) {
-        // ...
+        val action = FavouriteVacanciesFragmentDirections.actionFavouriteVacanciesFragmentToVacancyDetailsFragment(id)
+        findNavController().navigate(action)
     }
 }

@@ -15,8 +15,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyDetailsFragmentBinding
+import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
 import ru.practicum.android.diploma.presentation.vacancydetailsscreen.uistate.VacancyDetailsUiState
 import ru.practicum.android.diploma.presentation.vacancydetailsscreen.viewmodel.VacancyDetailsViewModel
+import ru.practicum.android.diploma.ui.extensions.format
 import ru.practicum.android.diploma.util.dpToPx
 
 class VacancyDetailsFragment : Fragment() {
@@ -45,6 +47,10 @@ class VacancyDetailsFragment : Fragment() {
             vacancyState(it)
         }
 
+        viewModel.getIsFavouriteVacancy.observe(viewLifecycleOwner) {
+            renderLikeButton(it)
+        }
+
         binding.btnArrowBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -55,7 +61,9 @@ class VacancyDetailsFragment : Fragment() {
             } ?: "$LINK_VACANCY_HH${vacancyId}"
         }
 
-        binding.btnFavorite.setOnClickListener {}
+        binding.btnFavorite.setOnClickListener {
+            viewModel.onFavouriteClicked()
+        }
     }
 
     override fun onDestroyView() {
@@ -65,7 +73,7 @@ class VacancyDetailsFragment : Fragment() {
 
 
     private fun bind(state: VacancyDetailsUiState.Content) {
-        val combinedEmployment = formattedEmploymentForm(
+        val combinedEmployment = formatEmployment(
             state.data.employmentForm,
             state.data.workFormat
         )
@@ -74,7 +82,7 @@ class VacancyDetailsFragment : Fragment() {
 
         with(binding) {
             tvNameVacancy.text = state.data.name
-            tvSalaryVacancy.text = state.data.salary.toString()
+            tvSalaryVacancy.text = state.data.salary.format(requireContext())
             tvEmployeeName.text = state.data.employer
             tvCityName.text = state.data.city ?: ""
             tvExperienceValue.text = state.data.experience ?: ""
@@ -124,34 +132,44 @@ class VacancyDetailsFragment : Fragment() {
 
             is VacancyDetailsUiState.NothingFound -> {
                 binding.groupPlaceholder.isVisible = true
+                binding.groupContent.isVisible = false
                 binding.ivPlaceholderCover.setImageResource(R.drawable.placeholder_details_vacancy_not_found)
                 binding.tvPlaceholder.setText(R.string.vacancy_not_found_or_deleted)
             }
 
             is VacancyDetailsUiState.ServerError -> {
                 binding.groupPlaceholder.isVisible = true
+                binding.groupContent.isVisible = false
                 binding.ivPlaceholderCover.setImageResource(R.drawable.placeholder_details_vacancy_server_error)
                 binding.tvPlaceholder.setText(R.string.server_error)
             }
         }
     }
 
+    private fun renderLikeButton(active: Boolean) {
+        if (active) binding.btnFavorite.setImageResource(R.drawable.favourites_off_24px)
+        else binding.btnFavorite.setImageResource(R.drawable.favourites_empty_24px)
+    }
+
     private fun descriptionHtml(description: String): String {
-        val descWithSep = listOf(description).joinToString(separator = "<br> • ") { it }
+        val descWithSep = listOf(description).joinToString(separator = "<br>•") { it }
         return Html.fromHtml(descWithSep, Html.FROM_HTML_MODE_COMPACT).toString()
     }
 
     private fun formattedKeySkills(keySkills: List<String>?): String? {
         if (keySkills.isNullOrEmpty()) return null
 
-        val skillsWithSep = keySkills.joinToString(separator = "<br> • ") { it }
+        val skillsWithSep = keySkills.joinToString(separator = "<br>•") { it }
         return Html.fromHtml(skillsWithSep, Html.FROM_HTML_MODE_COMPACT).toString()
     }
 
-    private fun formattedEmploymentForm(employmentForm: String?, workFormat: String?): String {
-        return listOfNotNull(employmentForm, workFormat)
-            .filter { it.isNotBlank() }
-            .joinToString(", ")
+    private fun formatEmployment(employmentForm: EmploymentForm?, workFormat: List<String>?): String {
+        return buildList {
+            employmentForm?.let {
+                val text = if (it.requiresSuffix) "${it.name} ${getString(R.string.employment)}" else it.name
+                add(text) }
+            workFormat?.let { addAll(it) }
+        }.joinToString(separator = ", ")
     }
 
     companion object {
