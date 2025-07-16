@@ -186,7 +186,8 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     override fun onClick(id: String) {
         Log.d("VacanciesID", id)
-        // ...
+        val action = VacancySearchFragmentDirections.actionVacancySearchFragmentToVacancyDetailsFragment(vacancyId = id)
+        findNavController().navigate(action)
     }
 
     private fun showLoadingMoreState() {

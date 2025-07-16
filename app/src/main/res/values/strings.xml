@@ -41,4 +41,6 @@
 
     <string name="vacancy_not_found_or_deleted">Вакансия не найдена или \nудалена</string>
 
+    <string name="employment">занятость</string>
+
 </resources>

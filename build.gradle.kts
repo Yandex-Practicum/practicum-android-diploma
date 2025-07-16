@@ -5,3 +5,9 @@ plugins {
     id("convention.detekt")
     id("com.google.devtools.ksp") version "2.1.21-2.0.1"
 }
+
+buildscript {
+    dependencies {
+        classpath(libs.navigation.safe.args.gradle.plugin)
+    }
+}
