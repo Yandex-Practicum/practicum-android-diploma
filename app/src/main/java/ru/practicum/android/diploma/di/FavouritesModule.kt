@@ -15,7 +15,7 @@ val favouritesModule = module {
     }
 
     single<FavoriteVacancyInteractor> {
-        FavoriteVacancyInteractorImpl(get())
+        FavoriteVacancyInteractorImpl(repository = get())
     }
 
     viewModel {

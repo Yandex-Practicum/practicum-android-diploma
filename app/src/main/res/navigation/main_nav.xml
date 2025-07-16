@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/mainFragment">
-
     <fragment
         android:id="@+id/mainFragment"
         android:name="ru.practicum.android.diploma.search.presenter.search.MainFragment"
@@ -18,12 +17,25 @@
         android:id="@+id/favoriteFragment"
         android:name="ru.practicum.android.diploma.favorites.ui.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/commandFragment"
         android:name="ru.practicum.android.diploma.command.ui.CommandFragment"
         android:label="fragment_command"
         tools:layout="@layout/fragment_command" />
+    <fragment
+        android:id="@+id/vacancyFragment"
+        android:name="ru.practicum.android.diploma.vacancy.ui.VacancyFragment"
+        android:label="fragment_vacancy"
+        tools:layout="@layout/fragment_vacancy" >
+        <argument
+            android:name="vacancyId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/filtersFragment"
         android:name="ru.practicum.android.diploma.search.presenter.filter.FiltersFragment"

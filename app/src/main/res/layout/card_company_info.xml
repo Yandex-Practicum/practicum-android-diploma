@@ -6,14 +6,16 @@
     android:background="@drawable/rounded_background"
     android:padding="16dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/company_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/vacancy_logo_example"
         android:contentDescription="@string/cd_company_logo"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/ImageRounded"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

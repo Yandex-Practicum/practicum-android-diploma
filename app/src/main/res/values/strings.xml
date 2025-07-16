@@ -52,6 +52,7 @@
     <string name="vacancy_jobtimetype">Полная занятость, удаленная работа</string>
     <string name="vacancy_jobdescription">HTML описание</string>
     <string name="vacancy_jobdescription_title">Описание вакансии</string>
+    <string name="share_vacancy">Поделиться вакансией</string>
 
     <string name="company_name_example">Яндекс Еда</string>
     <string name="company_location_example">Москва</string>

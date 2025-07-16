@@ -7,15 +7,19 @@ class FavoriteVacancyInteractorImpl(
     private val repository: FavoriteVacancyRepository
 ) : FavoriteVacancyInteractor {
 
-    override suspend fun addToFavorites(vacancy: FavoriteVacancyEntity) {
+    override suspend fun add(vacancy: FavoriteVacancyEntity) {
         repository.addToFavorites(vacancy)
     }
 
-    override suspend fun removeFromFavorites(vacancy: FavoriteVacancyEntity) {
+    override suspend fun remove(vacancy: FavoriteVacancyEntity) {
         repository.removeFromFavorites(vacancy)
     }
 
-    override fun getAllFavorites(): Flow<List<FavoriteVacancyEntity>> {
+    override suspend fun removeById(id: String) {
+        repository.removeFromFavorites(id)
+    }
+
+    override fun getAll(): Flow<List<FavoriteVacancyEntity>> {
         return repository.getAllFavorites()
     }
 
@@ -23,5 +27,3 @@ class FavoriteVacancyInteractorImpl(
         return repository.isFavorite(id)
     }
 }
-
-

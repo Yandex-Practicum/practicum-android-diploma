@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.favorites.ui.viewmodel.FavoriteVacancyViewModel
+import ru.practicum.android.diploma.util.mock.MockData
 import ru.practicum.android.diploma.vacancy.data.db.entity.FavoriteVacancyEntity
 
 class FavoriteFragment : Fragment() {
@@ -23,7 +27,12 @@ class FavoriteFragment : Fragment() {
 
     private val viewModel: FavoriteVacancyViewModel by viewModel { parametersOf(requireContext()) }
 
-    private val adapter = VacancyAdapter { }
+    private val adapter = VacancyAdapter { vacancyId ->
+        findNavController().navigate(
+            R.id.action_favoriteFragment_to_vacancyFragment,
+            bundleOf("vacancyId" to vacancyId)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,40 +46,7 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val testVacancies = listOf(
-            FavoriteVacancyEntity(
-                id = "1",
-                name = "Android-разработчик",
-                employerName = "Яндекс",
-                areaName = "Москва",
-                descriptionHtml = "<p>Разработка мобильных приложений</p>",
-                salaryFrom = 150_000,
-                salaryTo = 200_000,
-                currency = "RUR",
-                experience = "От 1 года до 3 лет",
-                employment = "Полная занятость",
-                schedule = "Полный день",
-                keySkills = "Kotlin,Android,Jetpack",
-                logoUrl = "https://hh.ru/employer-logo/289027.png",
-                url = "https://hh.ru/vacancy/1"
-            ),
-            FavoriteVacancyEntity(
-                id = "2",
-                name = "Backend-разработчик",
-                employerName = "VK",
-                areaName = "СПб",
-                descriptionHtml = "<p>Разработка микросервисов</p>",
-                salaryFrom = 180_000,
-                salaryTo = 220_000,
-                currency = "RUR",
-                experience = "3–6 лет",
-                employment = "Полная занятость",
-                schedule = "Удалёнка",
-                keySkills = "Kotlin,Spring,PostgreSQL",
-                logoUrl = null,
-                url = "https://hh.ru/vacancy/2"
-            )
-        )
+        val testVacancies = MockData.testVacancies
 
         lifecycleScope.launch {
             testVacancies.forEach { viewModel.addToFavorites(it) }
