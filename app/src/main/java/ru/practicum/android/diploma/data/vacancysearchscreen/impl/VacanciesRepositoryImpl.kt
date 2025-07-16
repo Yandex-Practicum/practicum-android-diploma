@@ -9,13 +9,12 @@ import ru.practicum.android.diploma.data.models.vacancies.VacanciesResponseDto
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.SearchNetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.paging.VacanciesResult
-import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : VacanciesRepository {
     private val loadedPages = mutableSetOf<Int>()
 
-    override fun search(text: String, page: Int):  Flow<Resource<VacanciesResult>> = flow {
+    override fun search(text: String, page: Int): Flow<Resource<VacanciesResult>> = flow {
         try {
             if (page in loadedPages) {
                 emit(Resource.Success(VacanciesResult(emptyList(), page, 0, 0)))
@@ -38,6 +37,7 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
 
                     emit(Resource.Success(result))
                 }
+
                 NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
                 SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
                 else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))

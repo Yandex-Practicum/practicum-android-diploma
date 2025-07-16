@@ -12,8 +12,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -116,7 +114,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     if (query.isNotEmpty()) {
                         showNonEmptyInput()
                     }
-                    else{
+                    else {
                         showEmptyInput()
                         searchViewModel.resetState()
                     }
@@ -165,9 +163,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                 if (!isLoading && hasMore) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
-                        && totalItemCount >= 20
+                        && totalItemCount >= TOTAL_COUNT
                     ) {
                         searchViewModel.loadMore()
                     }
@@ -184,6 +182,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     companion object {
         private const val SEARCH_ERROR_DELAY = 700L
         private const val RECYCLER_MARGIN_TOP = 38F
+        private const val TOTAL_COUNT = 20
     }
 
     override fun onClick(id: String) {
