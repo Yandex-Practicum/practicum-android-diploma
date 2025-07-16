@@ -70,6 +70,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
+    // Okhttp
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
