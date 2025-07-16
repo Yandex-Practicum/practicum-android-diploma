@@ -103,7 +103,6 @@ class VacancyDetailsFragment : Fragment() {
                 tvEmploymentFormValue.isVisible = false
             }
 
-
             Glide.with(this@VacancyDetailsFragment)
                 .load(state.data.logoUrl)
                 .placeholder(R.drawable.vacancy_placeholder)

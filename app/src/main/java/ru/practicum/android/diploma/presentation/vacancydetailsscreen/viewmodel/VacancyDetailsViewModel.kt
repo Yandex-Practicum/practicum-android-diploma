@@ -62,7 +62,6 @@ class VacancyDetailsViewModel(
         )
     }
 
-
     fun shareVacancy(linkVacancy: String) {
         sharingInteractor.shareVacancy(linkVacancy)
     }
