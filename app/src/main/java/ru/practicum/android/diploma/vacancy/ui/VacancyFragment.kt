@@ -29,7 +29,9 @@ class VacancyFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
@@ -65,6 +67,8 @@ class VacancyFragment : Fragment() {
             binding.experienceTitle,
             binding.experienceDescription,
             binding.employmentType,
+            binding.jobDescriptionTitle,
+            binding.jobDescription
         )
         contentViews.forEach { it.isVisible = state is VacancyState.Content }
 

@@ -7,8 +7,8 @@ import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.mock.MockData
 import ru.practicum.android.diploma.vacancy.data.db.FavoriteVacancyMapper
 import ru.practicum.android.diploma.vacancy.data.db.dao.FavoriteVacancyDao
-import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
+import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
 
 class VacancyRepositoryImpl(
     private val networkClient: NetworkClient,

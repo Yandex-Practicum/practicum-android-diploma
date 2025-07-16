@@ -2,8 +2,10 @@ package ru.practicum.android.diploma.search.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.search.data.model.VacanciesResponse
+import ru.practicum.android.diploma.vacancy.data.dto.VacancyDetailsDto
 
 interface HHApi {
 
