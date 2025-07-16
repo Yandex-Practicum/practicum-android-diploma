@@ -1,14 +1,10 @@
 package ru.practicum.android.diploma.search.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.search.data.mapper.VacancyPreviewMapper
-import ru.practicum.android.diploma.search.data.model.VacanciesResponse
-import ru.practicum.android.diploma.search.data.model.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
-import ru.practicum.android.diploma.search.domain.model.FailureType
 import ru.practicum.android.diploma.search.domain.model.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 import ru.practicum.android.diploma.util.mock.MockData
