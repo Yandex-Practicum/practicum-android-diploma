@@ -50,7 +50,7 @@ class VacancyViewModel(
             val isCurrentlyFavorite = currentState.isFavorite
 
             if (isCurrentlyFavorite) {
-                favoriteInteractor.remove(vacancyId)
+                favoriteInteractor.removeById(vacancyId)
             } else {
                 val vacancyToAdd = MockData.getVacancyById(vacancyId)
                 if (vacancyToAdd != null) {
