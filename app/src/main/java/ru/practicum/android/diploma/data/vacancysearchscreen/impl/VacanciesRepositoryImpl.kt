@@ -11,24 +11,28 @@ import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsRes
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
-import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
-    override fun search(text: String): Flow<List<Vacancy>?> = flow {
+    override fun search(text: String): Flow<Resource<Pair<List<Vacancy>, Int>>> = flow {
         try {
             val response = networkClient.doRequest(VacanciesRequest(text))
-            val code = response.resultCode
-            if (code == SEARCH_SUCCESS) {
-                val res = (response as VacanciesResponseDto).items
-                if (res.isNotEmpty()) {
-                    val data = res.map { it.toDomain() }
-                    emit(data)
-                } else {
-                    emit(emptyList())
+            when (response.resultCode) {
+                SEARCH_SUCCESS -> {
+                    val res = (response as VacanciesResponseDto).items
+                    val vacanciesResponse = response as VacanciesResponseDto
+                    if (res.isNotEmpty()) {
+                        val data = res.map { it.toDomain() }
+                        emit(Resource.Success(data to vacanciesResponse.found))
+                    } else {
+                        emit(Resource.Success(emptyList<Vacancy>() to 0))
+                    }
                 }
-            } else {
-                emit(null)
+
+                NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
+                SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
+                else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))
             }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Search error", e)
@@ -49,7 +53,15 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
     }
 
     companion object {
+        private const val NO_CONNECTION = -1
         private const val SEARCH_SUCCESS = 2
+        private const val SERVER_ERROR = 5
         private const val ERROR = "Error"
     }
+}
+
+enum class ErrorType {
+    NO_INTERNET,
+    SERVER_ERROR,
+    UNKNOWN
 }
