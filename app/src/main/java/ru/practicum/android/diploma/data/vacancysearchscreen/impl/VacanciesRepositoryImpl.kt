@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsRes
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.paging.VacanciesResult
-import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 import ru.practicum.android.diploma.util.Resource
 
