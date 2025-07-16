@@ -89,21 +89,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/bottomProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/search_zone" />
-
-    <ProgressBar
-        android:id="@+id/bottomProgressBar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="center"
-        android:layout_marginVertical="22dp"
-        android:indeterminateTint="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_search"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@id/search_zone" />
 
     <TextView
         android:id="@+id/search_message"

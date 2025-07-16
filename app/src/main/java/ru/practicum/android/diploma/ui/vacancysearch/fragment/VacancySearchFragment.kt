@@ -99,7 +99,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         }
 
         searchViewModel.showToast.observe(viewLifecycleOwner) { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -162,7 +162,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                 val isNotLoadingAndHasMore = !isLoading && hasMore
-                val isScrolledToEnd = visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                val isScrolledToEnd = visibleItemCount + firstVisibleItemPosition >= totalItemCount - 1
                 val isFirstItemVisibleAndisTotalCountValid =
                     firstVisibleItemPosition >= 0 && totalItemCount >= TOTAL_COUNT
 
@@ -191,7 +191,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     private fun showLoadingMoreState() {
         isLoading = true
-        binding.bottomProgressBar.visibility = View.VISIBLE
+        adapter.addLoadingFooter()
     }
 
     private fun showInitialState() {
@@ -217,7 +217,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMessage.visibility = View.VISIBLE
         binding.recyclerViewSearch.visibility = View.VISIBLE
         binding.searchMainPlaceholder.visibility = View.GONE
-        binding.bottomProgressBar.visibility = View.GONE
+        adapter.removeLoadingFooter()
         isLoading = false
     }
 
@@ -236,7 +236,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMessage.visibility = View.GONE
         binding.recyclerViewSearch.visibility = View.GONE
         binding.searchMainPlaceholder.setImageResource(R.drawable.no_internet_placeholder)
-        binding.bottomProgressBar.visibility = View.GONE
+        adapter.removeLoadingFooter()
         debounceForPlaceholder?.submit {
             activity?.runOnUiThread {
                 binding.progressBar.visibility = View.GONE

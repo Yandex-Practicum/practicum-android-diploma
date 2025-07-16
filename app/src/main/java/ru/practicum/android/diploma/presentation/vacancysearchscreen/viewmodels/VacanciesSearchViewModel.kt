@@ -20,8 +20,8 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
     private val _state = MutableLiveData<VacanciesState>()
     val state: LiveData<VacanciesState> = _state
 
-    private val _showToast = SingleEventLiveData<String>()
-    val showToast: LiveData<String> = _showToast
+    private val _showToast = SingleEventLiveData<Int>()
+    val showToast: LiveData<Int> = _showToast
 
     private var currentQuery = ""
     private var currentPage = 0
@@ -102,7 +102,7 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
         } ?: run {
             _state.value = VacanciesState.Empty
             if (lastErrorType == null) {
-                _showToast.value = R.string.nothing_found.toString()
+                _showToast.value = R.string.nothing_found
             }
         }
     }
@@ -111,9 +111,9 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
         if (lastErrorType != resource.errorType) {
             lastErrorType = resource.errorType
             _showToast.value = when (resource.errorType) {
-                ErrorType.NO_INTERNET -> R.string.no_connection.toString()
-                ErrorType.SERVER_ERROR -> R.string.server_error.toString()
-                else -> R.string.unknown_error.toString()
+                ErrorType.NO_INTERNET -> R.string.check_connecton
+                ErrorType.SERVER_ERROR -> R.string.server_error
+                else -> R.string.unknown_error
             }
         }
 
