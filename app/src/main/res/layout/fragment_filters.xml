@@ -145,7 +145,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@id/noSalaryTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            android:button="@drawable/check"
+            android:buttonTint="@color/blue"
             app:layout_constraintTop_toTopOf="@id/noSalaryTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
