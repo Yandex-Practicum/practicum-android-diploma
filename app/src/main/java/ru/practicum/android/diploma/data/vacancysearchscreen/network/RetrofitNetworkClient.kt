@@ -41,15 +41,18 @@ class RetrofitNetworkClient(
             )
             response.apply { resultCode = REQUEST_SUCCESS }
         } catch (e: retrofit2.HttpException) {
+            Log.e("Repository", "Error getting vacancies", e)
             createServerErrorResponse()
         }
     }
 
-    private suspend fun handleVacancyDetailsRequest(dto: VacancyDetailsRequest): Response = withContext(Dispatchers.IO) {
+    private suspend fun handleVacancyDetailsRequest(dto: VacancyDetailsRequest
+    ): Response = withContext(Dispatchers.IO) {
         try {
             val response = vacancyService.getVacancyDetails(id = dto.id)
             response.apply { resultCode = REQUEST_SUCCESS }
         } catch (e: retrofit2.HttpException) {
+            Log.e("Repository", "Error getting details vacancies", e)
             createServerErrorResponse()
         }
     }
