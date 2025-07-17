@@ -83,9 +83,7 @@ class FavouriteVacanciesFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.recyclerViewFavourite.isVisible = true
         binding.favouritePlaceholder.isVisible = false
 
-        vacancies.clear()
-        vacancies.addAll(vacanciesList)
-        adapter.notifyDataSetChanged()
+        adapter.submitList(vacanciesList)
     }
 
     private fun showPlaceholder(imageRes: Int, message: Int) {

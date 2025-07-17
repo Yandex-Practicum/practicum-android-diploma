@@ -18,7 +18,6 @@
     <TextView
         android:id="@+id/tv_name_vacancy"
         style="@style/ItemVacancyNameStyle"
-        android:textColor="@color/black"
         tools:text="Андроид-разработчик, Москва"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/cover_vacancy"

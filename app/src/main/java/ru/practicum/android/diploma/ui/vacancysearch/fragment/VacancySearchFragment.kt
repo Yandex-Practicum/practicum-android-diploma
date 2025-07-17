@@ -274,6 +274,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
             binding.searchMessage.isVisible = false
             binding.progressBar.isVisible = false
             binding.recyclerViewSearch.isVisible = false
+            binding.inputEditText.clearFocus()
             binding.searchMainPlaceholder.setImageResource(R.drawable.search_main_placeholder)
             binding.inputEditText.setText("")
             val inputMethodManager =

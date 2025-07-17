@@ -37,7 +37,6 @@
         <item name="itemTextAppearanceActive">@style/TextRegular12</item>
         <item name="itemTextAppearanceInactive">@style/TextRegular12</item>
         <item name="itemActiveIndicatorStyle">@null</item>
-        <item name="backgroundTint">?attr/colorPrimaryVariant</item>
         <item name="itemPaddingTop">@dimen/dimen_8dp</item>
         <item name="itemPaddingBottom">@dimen/dimen_8dp</item>
     </style>
