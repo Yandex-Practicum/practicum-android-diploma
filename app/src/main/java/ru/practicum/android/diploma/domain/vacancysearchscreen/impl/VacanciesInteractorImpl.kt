@@ -15,5 +15,3 @@ class VacanciesInteractorImpl(private val repository: VacanciesRepository) : Vac
     override fun getVacancyDetailsById(id: String): Flow<Resource<VacancyDetails>> =
         repository.getVacancyDetailsById(id)
 }
-
-

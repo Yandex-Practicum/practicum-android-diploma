@@ -78,7 +78,6 @@ class VacancyDetailsViewModel(
         val vacancyDetails = (_vacancyDetailsState.value as? VacancyDetailsUiState.Content)?.data ?: return
         val vacancy = vacancyDetails.toVacancy()
 
-
         viewModelScope.launch {
             val isFavourite = favouriteVacanciesDbInteractor.getVacancyById(vacancyId) != null
             if (!isFavourite) {

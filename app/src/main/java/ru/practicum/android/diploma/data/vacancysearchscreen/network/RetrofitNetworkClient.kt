@@ -18,43 +18,45 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         return if (!isConnected(context)) {
-            Response().apply { resultCode = NO_CONNECTION }
+            createNoConnectionResponse()
         } else {
-            when (dto) {
-                is VacanciesRequest -> {
-                    withContext(Dispatchers.IO) {
-                        try {
-                            val response = service.getVacancies(
-                                text = dto.text,
-                                page = dto.page,
-                                perPage = dto.perPage
-                            )
-                            response.apply { resultCode = REQUEST_SUCCESS }
-                        } catch (e: retrofit2.HttpException) {
-                            Log.e("Repository", "Search error", e)
-                            Response().apply { resultCode = SERVER_ERROR }
-                        }
-                    }
-                }
-
-                is VacancyDetailsRequest -> {
-                    withContext(Dispatchers.IO) {
-                        try {
-                            val response = vacancyService.getVacancyDetails(id = dto.id)
-                            response.apply { resultCode = REQUEST_SUCCESS }
-                        } catch (e: retrofit2.HttpException) {
-                            Log.e("Repository", "Details error", e)
-                            Response().apply { resultCode = SERVER_ERROR }
-                        }
-                    }
-                }
-
-                else -> {
-                    Response().apply { resultCode = REQUEST_FAILED }
-                }
-            }
+            handleRequest(dto)
         }
     }
+
+    private suspend fun handleRequest(dto: Any): Response {
+        return when (dto) {
+            is VacanciesRequest -> handleVacancyRequest(dto)
+            is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
+            else -> createFailedResponse()
+        }
+    }
+
+    private suspend fun handleVacancyRequest(dto: VacanciesRequest): Response = withContext(Dispatchers.IO) {
+        try {
+            val response = service.getVacancies(
+                text = dto.text,
+                page = dto.page,
+                perPage = dto.perPage
+            )
+            response.apply { resultCode = REQUEST_SUCCESS }
+        } catch (e: retrofit2.HttpException) {
+            createServerErrorResponse()
+        }
+    }
+
+    private suspend fun handleVacancyDetailsRequest(dto: VacancyDetailsRequest): Response = withContext(Dispatchers.IO) {
+        try {
+            val response = vacancyService.getVacancyDetails(id = dto.id)
+            response.apply { resultCode = REQUEST_SUCCESS }
+        } catch (e: retrofit2.HttpException) {
+            createServerErrorResponse()
+        }
+    }
+
+    private fun createServerErrorResponse() = Response().apply { resultCode = SERVER_ERROR }
+    private fun createFailedResponse() = Response().apply { resultCode = REQUEST_FAILED }
+    private fun createNoConnectionResponse() = Response().apply { resultCode = NO_CONNECTION }
 
     companion object {
         private const val NO_CONNECTION = -1

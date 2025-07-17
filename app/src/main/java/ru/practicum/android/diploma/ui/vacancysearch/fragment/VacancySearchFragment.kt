@@ -56,6 +56,30 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         debouncer = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
         debounceForPlaceholder = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_ERROR_DELAY)
 
+        initUI()
+        observeViewModel()
+        setupSearchInput()
+        setupRecyclerView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        private const val SEARCH_ERROR_DELAY = 700L
+        private const val RECYCLER_MARGIN_TOP = 38F
+        private const val TOTAL_COUNT = 20
+    }
+
+    override fun onClick(id: String) {
+        Log.d("VacanciesID", id)
+        val action = VacancySearchFragmentDirections.actionVacancySearchFragmentToVacancyDetailsFragment(vacancyId = id)
+        findNavController().navigate(action)
+    }
+
+    private fun initUI() {
         binding.header.toolbarTitle.text = getString(R.string.search_vacancy)
         binding.header.iconFilter.visibility = View.VISIBLE
         binding.recyclerViewSearch.addItemDecoration(
@@ -67,7 +91,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.header.iconFilter.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
+    }
 
+    private fun observeViewModel() {
         searchViewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is VacanciesState.Initial -> showInitialState()
@@ -101,12 +127,11 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         searchViewModel.showToast.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         }
+    }
 
+    private fun setupSearchInput() {
         val simpleTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // ...
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val query = s?.toString()?.trim()
                 val currentQuery = searchViewModel.getCurrentQuery()
@@ -132,10 +157,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     searchViewModel.resetState()
                 }
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-                // ...
-            }
+            override fun afterTextChanged(p0: Editable?) {}
         }
         binding.inputEditText.addTextChangedListener(simpleTextWatcher)
 
@@ -149,7 +171,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
             }
             false
         }
+    }
 
+    private fun setupRecyclerView() {
         binding.recyclerViewSearch.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewSearch.adapter = adapter
         binding.recyclerViewSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -163,31 +187,14 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
                 val isNotLoadingAndHasMore = !isLoading && hasMore
                 val isScrolledToEnd = visibleItemCount + firstVisibleItemPosition >= totalItemCount - 1
-                val isFirstItemVisibleAndisTotalCountValid =
+                val isFirstItemVisibleAndIsTotalCountValid =
                     firstVisibleItemPosition >= 0 && totalItemCount >= TOTAL_COUNT
 
-                if (isNotLoadingAndHasMore && isScrolledToEnd && isFirstItemVisibleAndisTotalCountValid) {
+                if (isNotLoadingAndHasMore && isScrolledToEnd && isFirstItemVisibleAndIsTotalCountValid) {
                     searchViewModel.loadMore()
                 }
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    companion object {
-        private const val SEARCH_ERROR_DELAY = 700L
-        private const val RECYCLER_MARGIN_TOP = 38F
-        private const val TOTAL_COUNT = 20
-    }
-
-    override fun onClick(id: String) {
-        Log.d("VacanciesID", id)
-        val action = VacancySearchFragmentDirections.actionVacancySearchFragmentToVacancyDetailsFragment(vacancyId = id)
-        findNavController().navigate(action)
     }
 
     private fun showLoadingMoreState() {

@@ -58,7 +58,7 @@ class VacancyDetailsFragment : Fragment() {
         binding.btnShare.setOnClickListener {
             vacancyUrl?.let { link ->
                 viewModel.shareVacancy(link)
-            } ?: "$LINK_VACANCY_HH${vacancyId}"
+            } ?: "$LINK_VACANCY_HH$vacancyId"
         }
 
         binding.btnFavorite.setOnClickListener {
