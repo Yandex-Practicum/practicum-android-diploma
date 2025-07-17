@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.db.dao.FavouriteVacancyDao
 import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [FavouriteVacancy::class]
 )
 @TypeConverters(TypeConverter::class)

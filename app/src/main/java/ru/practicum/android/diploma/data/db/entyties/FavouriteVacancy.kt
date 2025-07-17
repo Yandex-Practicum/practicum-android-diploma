@@ -13,7 +13,7 @@ data class FavouriteVacancy(
     val salary: Salary,
     val employer: String?,
     val experience: String?,
-    val employmentForm: String?,
+    val employmentForm: EmploymentForm?,
     val description: String,
     val workFormat: List<String>?,
     val alternateUrl: String,
