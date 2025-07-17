@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.ui.vacancysearch.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +60,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         observeViewModel()
         setupSearchInput()
         setupRecyclerView()
+
     }
 
     override fun onDestroyView() {
@@ -217,8 +216,8 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.searchMessage.isVisible = true
         binding.recyclerViewSearch.isVisible = true
         binding.searchMainPlaceholder.visibility = View.GONE
-        adapter.removeLoadingFooter()
         isLoading = false
+        adapter.removeLoadingFooter()
     }
 
     private fun showEmptyState() {

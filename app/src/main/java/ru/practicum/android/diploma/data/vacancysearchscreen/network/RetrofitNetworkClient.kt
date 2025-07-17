@@ -46,7 +46,8 @@ class RetrofitNetworkClient(
         }
     }
 
-    private suspend fun handleVacancyDetailsRequest(dto: VacancyDetailsRequest
+    private suspend fun handleVacancyDetailsRequest(
+        dto: VacancyDetailsRequest
     ): Response = withContext(Dispatchers.IO) {
         try {
             val response = vacancyService.getVacancyDetails(id = dto.id)

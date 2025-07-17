@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 
 class VacancyItemAdapter(
     private val listener: Listener
-) : ListAdapter<VacancyUiModel ,RecyclerView.ViewHolder>(VacancyDiffCallback) {
+) : ListAdapter<VacancyUiModel, RecyclerView.ViewHolder>(VacancyDiffCallback) {
 
     companion object {
         private const val VIEW_TYPE_ITEM = 0
