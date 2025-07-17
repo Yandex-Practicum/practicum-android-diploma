@@ -11,7 +11,7 @@ object MockData {
     private const val EMPLOYMENT_FULL = "Полная занятость"
     private const val SCHEDULE_FULL_DAY = "Полный день"
 
-    // --- Константы для длинных URL (решение для MaxLineLength) ---
+    // --- Константы для длинных URL ---
     private const val URL_YANDEX_LOGO =
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Yandex_icon.svg/1200px-Yandex_icon.svg.png"
     private const val URL_VK_LOGO =

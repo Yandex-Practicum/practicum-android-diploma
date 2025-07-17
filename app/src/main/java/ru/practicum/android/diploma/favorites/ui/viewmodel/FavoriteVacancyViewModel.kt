@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favorites.domain.FavoriteVacancyInteractor
 import ru.practicum.android.diploma.favorites.ui.model.VacancyUiModel
-import ru.practicum.android.diploma.util.VacancyFormatter // Убедись, что этот класс существует
+import ru.practicum.android.diploma.util.VacancyFormatter
 import ru.practicum.android.diploma.vacancy.data.db.entity.FavoriteVacancyEntity
 
 class FavoriteVacancyViewModel(private val interactor: FavoriteVacancyInteractor) : ViewModel() {
@@ -19,7 +19,6 @@ class FavoriteVacancyViewModel(private val interactor: FavoriteVacancyInteractor
 
     init {
         viewModelScope.launch {
-            // ИСПРАВЛЕНИЕ: Вызываем метод getAll() вместо getAllFavorites()
             interactor.getAll()
                 .map { entities ->
                     entities.map { it.toUiModel() }
