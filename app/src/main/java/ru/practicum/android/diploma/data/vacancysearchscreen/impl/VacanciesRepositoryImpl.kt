@@ -38,9 +38,9 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
 
                         emit(Resource.Success(result))
                     }
-                    NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
-                    SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
-                    else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))
+                    NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
+                    SERVER_ERROR -> emit(Resource.Error(ErrorType.SERVER_ERROR))
+                    else -> emit(Resource.Error(ErrorType.UNKNOWN))
                 }
             }
         } catch (e: retrofit2.HttpException) {
@@ -57,9 +57,9 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
                 emit(Resource.Success(data))
             }
 
-            NO_CONNECTION -> emit(Resource.Error("No internet connection", ErrorType.NO_INTERNET))
-            SERVER_ERROR -> emit(Resource.Error("Server error", ErrorType.SERVER_ERROR))
-            else -> emit(Resource.Error("Unknown error", ErrorType.UNKNOWN))
+            NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
+            SERVER_ERROR -> emit(Resource.Error(ErrorType.SERVER_ERROR))
+            else -> emit(Resource.Error(ErrorType.UNKNOWN))
         }
     }
 

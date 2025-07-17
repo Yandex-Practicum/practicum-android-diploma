@@ -169,7 +169,11 @@ class VacancyDetailsFragment : Fragment() {
     private fun formatEmployment(employmentForm: EmploymentForm?, workFormat: List<String>?): String {
         return buildList {
             employmentForm?.let {
-                val text = if (it.requiresSuffix) "${it.name} ${getString(R.string.employment)}" else it.name
+                val text = if (it.requiresSuffix) {
+                    getString(R.string.employment_with_suffix, it.name)
+                } else {
+                    it.name
+                }
                 add(text)
             }
             workFormat?.let { addAll(it) }

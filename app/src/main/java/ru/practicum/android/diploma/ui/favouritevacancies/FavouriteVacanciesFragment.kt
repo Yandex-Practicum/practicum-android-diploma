@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,7 +25,7 @@ class FavouriteVacanciesFragment : Fragment(), VacancyItemAdapter.Listener {
     private val binding get() = _binding!!
 
     private val vacancies = mutableListOf<VacancyUiModel>()
-    private val adapter = VacancyItemAdapter(vacancies, this)
+    private val adapter = VacancyItemAdapter(this)
 
     private val debounce by lazy {
         Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
@@ -79,8 +80,8 @@ class FavouriteVacanciesFragment : Fragment(), VacancyItemAdapter.Listener {
     }
 
     private fun showVacancies(vacanciesList: List<VacancyUiModel>) {
-        binding.recyclerViewFavourite.visibility = View.VISIBLE
-        binding.favouritePlaceholder.visibility = View.GONE
+        binding.recyclerViewFavourite.isVisible = true
+        binding.favouritePlaceholder.isVisible = false
 
         vacancies.clear()
         vacancies.addAll(vacanciesList)
@@ -88,15 +89,11 @@ class FavouriteVacanciesFragment : Fragment(), VacancyItemAdapter.Listener {
     }
 
     private fun showPlaceholder(imageRes: Int, message: Int) {
-        binding.recyclerViewFavourite.visibility = View.GONE
-        binding.favouritePlaceholder.visibility = View.VISIBLE
+        binding.recyclerViewFavourite.isVisible = false
+        binding.favouritePlaceholder.isVisible = true
 
         binding.favouriteCoverPlaceholder.setImageResource(imageRes)
         binding.favouriteTextPlaceholder.setText(message)
-    }
-
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 2000L
     }
 
     override fun onClick(id: String) {

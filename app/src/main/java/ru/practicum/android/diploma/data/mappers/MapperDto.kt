@@ -60,14 +60,11 @@ private fun SalaryRangeDto?.toDomain(): Salary {
     val to = this.to
     val currency = this.currency
 
-    return if (from == null) {
-        Salary.NotSpecifies
-    } else if (to == null) {
-        Salary.From(from, currency)
-    } else if (to == from) {
-        Salary.Fixed(from, currency)
-    } else {
-        Salary.Range(from, to, currency)
+    return when {
+        from == null -> Salary.NotSpecifies
+        to == null -> Salary.From(from, currency)
+        to == from -> Salary.Fixed(from, currency)
+        else -> Salary.Range(from, to, currency)
     }
 }
 
