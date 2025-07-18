@@ -10,7 +10,7 @@ data class VacanciesResponse(
 data class Vacancy(
     val id: Int,
     val name: String,
-    val salary: Salary,
+    val salary: Salary?,
     val employer: Employer
 )
 

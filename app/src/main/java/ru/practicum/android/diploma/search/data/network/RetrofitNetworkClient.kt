@@ -19,8 +19,19 @@ class RetrofitNetworkClient(
                     val response = networkService.hhApi.getVacancyByName(
                         filters = vacancyRequest.toQueryMap()
                     )
-                    response.resultCode = OK_RESPONSE
-                    response
+
+                    when {
+                        response.items.size == 0 -> {
+                            response.resultCode = EMPTY
+                            response
+                        }
+
+                        else -> {
+                            response.resultCode = OK_RESPONSE
+                            response
+                        }
+                    }
+
                 } else {
                     Response().apply {
                         resultCode = NO_INTERNET
@@ -37,6 +48,7 @@ class RetrofitNetworkClient(
     companion object {
         const val OK_RESPONSE = 200
         const val NO_INTERNET = -1
+        const val EMPTY = 404
     }
 
 }

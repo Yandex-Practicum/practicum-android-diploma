@@ -15,11 +15,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.search.presenter.model.SearchState
 import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
+import ru.practicum.android.diploma.util.Debouncer
 import ru.practicum.android.diploma.util.VacancyFormatter
 
 class MainFragment : Fragment() {
@@ -31,6 +34,8 @@ class MainFragment : Fragment() {
     }
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
+    private val debouncer: Debouncer by inject { parametersOf(viewLifecycleOwner.lifecycleScope) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +57,11 @@ class MainFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateSearchIcon(s)
-                searchViewModel.searchVacancies(s.toString())
+                if(!s.isNullOrBlank()){
+                    debouncer.searchDebounce {
+                        searchViewModel.searchVacancies(s.toString())
+                    }
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -72,10 +81,12 @@ class MainFragment : Fragment() {
     }
 
     private fun onVacancyClick(vacancyId: Int) {
-        findNavController().navigate(
-            R.id.action_mainFragment_to_vacancyFragment,
-            bundleOf("vacancyId" to vacancyId.toString())
-        )
+        if (debouncer.clickDebounce()) {
+            findNavController().navigate(
+                R.id.action_mainFragment_to_vacancyFragment,
+                bundleOf("vacancyId" to vacancyId.toString())
+            )
+        }
     }
 
     private fun initRv() {
@@ -97,6 +108,8 @@ class MainFragment : Fragment() {
         binding.searchIcon.setOnClickListener {
             if (binding.searchIcon.tag == R.drawable.cross_light) {
                 binding.editTextId.text.clear()
+                debouncer.cancelDebounce()
+                showEmpty()
             }
         }
     }
@@ -131,8 +144,7 @@ class MainFragment : Fragment() {
         binding.notFoundPreview.visibility = View.GONE
         binding.vacanciesRvId.visibility = View.VISIBLE
         binding.infoShieldId.visibility = View.VISIBLE
-        val dataSize = data.size
-        binding.infoShieldId.text = "Найдено ${VacancyFormatter.changeEnding(dataSize)}"
+        binding.infoShieldId.text = "Найдено ${VacancyFormatter.changeEnding(data[0].found)}"
     }
 
     private fun showProgressBar() {

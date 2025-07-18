@@ -1,68 +1,61 @@
 package ru.practicum.android.diploma.search.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.search.data.mapper.VacancyPreviewMapper
+import ru.practicum.android.diploma.search.data.model.VacanciesResponse
+import ru.practicum.android.diploma.search.data.model.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
+import ru.practicum.android.diploma.search.domain.model.FailureType.ApiError
+import ru.practicum.android.diploma.search.domain.model.FailureType.NoInternet
+import ru.practicum.android.diploma.search.domain.model.FailureType.NotFound
 import ru.practicum.android.diploma.search.domain.model.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
-import ru.practicum.android.diploma.util.mock.MockData
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
 
     override fun getVacancies(text: String, area: String?): Flow<Resource<List<VacancyPreview>>> = flow {
-        val allMockVacancies = MockData.testVacancies
+        val response = networkClient.getVacancies(
+            VacancyRequest(
+                page = 0,
+                perPage = 20,
+                text = text,
+                area = area
+            )
+        )
 
-        val filteredVacancies = allMockVacancies.filter {
-            it.name.contains(text, ignoreCase = true)
+        when (response.resultCode) {
+            OK_RESPONSE -> {
+                val data = (response as VacanciesResponse).items.map {
+                    VacancyPreview(
+                        it.id,
+                        response.found,
+                        it.name,
+                        it.employer.name,
+                        it.salary?.from,
+                        it.salary?.to,
+                        it.salary?.currency,
+                        it.employer.logoUrl ?: ""
+                    )
+                }
+                emit(Resource.Success(data))
+            }
+
+            NOT_FOUND -> {
+                emit(Resource.Failed(NotFound))
+            }
+
+            NO_INTERNET -> {
+                emit(Resource.Failed(NoInternet))
+            }
+
+            else -> {
+                Log.d("SearchRepositoryImpl", "Result code: ${response.resultCode}")
+                emit(Resource.Failed(ApiError))
+            }
         }
-
-        val data = filteredVacancies.map { VacancyPreviewMapper.map(it) }
-
-        emit(Resource.Success(data))
     }
-
-//    override fun getVacancies(text: String, area: String?): Flow<Resource<List<VacancyPreview>>> = flow {
-//        val response = networkClient.getVacancies(
-//            VacancyRequest(
-//                page = 0,
-//                perPage = 20,
-//                text = text,
-//                area = area
-//            )
-//        )
-//
-//        when (response.resultCode) {
-//            OK_RESPONSE -> {
-//                val data = (response as VacanciesResponse).items.map {
-//                    VacancyPreview(
-//                        it.id,
-//                        it.name,
-//                        it.employer.name,
-//                        it.salary.from ?: 0,
-//                        it.salary.to ?: 0,
-//                        it.salary.currency ?: "",
-//                        it.employer.logoUrl ?: ""
-//                    )
-//                }
-//                emit(Resource.Success(data))
-//            }
-//
-//            NOT_FOUND -> {
-//                emit(Resource.Failed(FailureType.NotFound))
-//            }
-//
-//            NO_INTERNET -> {
-//                emit(Resource.Failed(FailureType.NoInternet))
-//            }
-//
-//            else -> {
-//                Log.d("SearchRepositoryImpl", "Result code: ${response.resultCode}")
-//                emit(Resource.Failed(FailureType.ApiError))
-//            }
-//        }
-//    }
 
     companion object {
         const val OK_RESPONSE = 200

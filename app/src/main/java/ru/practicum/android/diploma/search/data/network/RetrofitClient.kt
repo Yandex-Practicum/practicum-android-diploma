@@ -7,9 +7,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
+    private const val BASE_URL = "https://api.hh.ru/"
+    private const val TOKEN = "APPLOB7KQGVDGB6HB4KF7CDUB462UC7PEJ092HD2NL80LL4URBFIKQ68D20DFORU"
+
+    private val logging = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private val okhttpClient = OkHttpClient.Builder()
+        .addInterceptor(TokenInterceptor(TOKEN)) // ✅ Добавляем токен
+        .addInterceptor(logging)
+        .build()
+
     private val client: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api.hh.ru/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okhttpClient)
             .build()
@@ -18,13 +30,5 @@ object RetrofitClient {
     val hhApi: HHApi by lazy {
         client.create(HHApi::class.java)
     }
-
-    val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    val okhttpClient = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
-
 }
+
