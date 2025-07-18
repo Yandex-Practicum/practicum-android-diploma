@@ -42,5 +42,10 @@
     <string name="vacancy_not_found_or_deleted">Вакансия не найдена или \nудалена</string>
 
     <string name="employment_with_suffix">%1$s занятость</string>
+    
+    <string name="choosing_workplace">Выбор места работы</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="choose">Выбрать</string>
 
 </resources>
