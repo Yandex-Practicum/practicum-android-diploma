@@ -135,7 +135,6 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     showEmptyInput()
                     searchViewModel.resetState()
                 }
-                return@doOnTextChanged
             }
 
             if (!query.isNullOrEmpty()) {
