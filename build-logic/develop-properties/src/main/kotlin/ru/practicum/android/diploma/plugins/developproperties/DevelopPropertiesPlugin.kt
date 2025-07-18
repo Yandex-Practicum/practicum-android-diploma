@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import java.io.StringReader
-import java.util.*
+import java.util.Properties
 
 /**
  * Хранилище значений, прочитанных из файла develop.properties

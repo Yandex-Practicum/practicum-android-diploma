@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.placework.PlaceWorkFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPlaceWork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back"
+        app:title="@string/choosing_a_place_of_work"
+        app:titleTextAppearance="@style/appearance_medium_22" />
+
+    <LinearLayout
+        android:id="@+id/choiceCountry"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_16"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarPlaceWork"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/inputCountry"
+            style="@style/appearance_regular_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:hint="@string/country"
+            android:text=""
+            android:textColorHint="@color/grey" />
+
+        <ImageView
+            android:id="@+id/iconInputCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:contentDescription="@string/country"
+            android:src="@drawable/arrow_forward_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choiceRegion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choiceCountry"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/inputRegion"
+            style="@style/appearance_regular_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:hint="@string/region"
+            android:text=""
+            android:textColorHint="@color/grey" />
+
+        <ImageView
+            android:id="@+id/iconInputRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:contentDescription="@string/region"
+            android:src="@drawable/arrow_forward_24" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choosing_a_place_of_work"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

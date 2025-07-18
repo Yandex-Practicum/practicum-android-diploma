@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.filtering.FilteringFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarFiltering"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back"
+        app:title="@string/filtering_settings"
+        app:titleTextAppearance="@style/appearance_medium_22" />
+
+    <LinearLayout
+        android:id="@+id/choicePlaceWork"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_16"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarFiltering"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/inputPlaceWork"
+            style="@style/appearance_regular_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:hint="@string/place_of_work"
+            android:text=""
+            android:textColorHint="@color/grey" />
+
+        <ImageView
+            android:id="@+id/iconInputPlaceWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:contentDescription="@string/place_of_work"
+            android:src="@drawable/arrow_forward_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choiceSectorWork"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choicePlaceWork"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/inputSectorWork"
+            style="@style/appearance_regular_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:hint="@string/branch"
+            android:text=""
+            android:textColorHint="@color/grey" />
+
+        <ImageView
+            android:id="@+id/iconInputSectorWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:contentDescription="@string/branch"
+            android:src="@drawable/arrow_forward_24" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filtering_settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
