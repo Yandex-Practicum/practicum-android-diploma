@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dimen_16dp"
+    android:paddingVertical="9dp">
+
+    <ImageView
+        android:id="@+id/cover_vacancy"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/vacancy_placeholder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    
+    <TextView
+        android:id="@+id/tv_name_vacancy"
+        style="@style/ItemVacancyNameStyle"
+        tools:text="Андроид-разработчик, Москва"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cover_vacancy"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/employee_name"
+        style="@style/ItemVacancyTypeSalaryStyle"
+        tools:text="Еда"
+        app:layout_constraintTop_toBottomOf="@id/tv_name_vacancy"
+        app:layout_constraintStart_toEndOf="@id/cover_vacancy"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_salary_vacancy"
+        style="@style/ItemVacancyTypeSalaryStyle"
+        tools:text="от 100 000 ₽"
+        app:layout_constraintTop_toBottomOf="@id/employee_name"
+        app:layout_constraintStart_toEndOf="@id/cover_vacancy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
