@@ -75,7 +75,7 @@
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="HeaderWithArrowBackStyle">
+    <style name="HeaderWithArrowBackStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:paddingVertical">@dimen/dimen_8dp</item>
         <item name="contentInsetStartWithNavigation">@dimen/dimen_0dp</item>
         <item name="navigationIcon">@drawable/arrow_back_24px</item>
