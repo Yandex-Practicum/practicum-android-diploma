@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.mappers
 
 import ru.practicum.android.diploma.data.models.areas.AreasResponseDto
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesResponseDto
 import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
 import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto

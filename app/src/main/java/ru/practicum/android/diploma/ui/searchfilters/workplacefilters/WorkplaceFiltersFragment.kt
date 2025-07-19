@@ -24,10 +24,23 @@ class WorkplaceFiltersFragment : Fragment() {
         binding.arrowBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.editTextCountry.setOnClickListener {
+            openCountry()
+        }
+
+        binding.btnChoose.setOnClickListener {
+            openCountry()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openCountry() {
+        val action = WorkplaceFiltersFragmentDirections.actionWorkplaceFiltersFragmentToCountryFiltersFragment()
+        findNavController().navigate(action)
     }
 }
