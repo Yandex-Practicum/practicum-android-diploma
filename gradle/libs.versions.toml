@@ -1,19 +1,44 @@
 [versions]
-
 java = "VERSION_1_8"
 
 # Build constants
 minSdk = "26"
-compileSdk = "34"
-targetSdk = "33"
+compileSdk = "35"
+targetSdk = "35"
 
 # Detekt
 detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detektTwitterComposeRules = "0.0.26"
+
+# Kotlin
+kotlin = "2.2.0"
+coreKtx = "1.13.0"
+
+# Fragment & Navigation
+fragmentKtx = "1.8.8"
+navigation = "2.7.7"
+
+# Retrofit
+retrofit = "2.11.0"
+okhttp = "5.0.0"
+
+
+# Image
+glide = "4.16.0"
+
+# Coroutines
+coroutines = "1.8.0"
+
+# DI
+koin = "3.5.6"
+
+# Room
+room = "2.7.2"
+
+
 
 [libraries]
-
-# Detekt
+# Detekt (оставляем как было)
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
@@ -23,18 +48,56 @@ staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
 
 # AndroidX
-androidX-core = "androidx.core:core-ktx:1.12.0"
-androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+androidX-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidX-appCompat = "androidx.appcompat:appcompat:1.7.1"
+androidx-lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.9.2"
+
+# Kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 
 # UI layer libraries
-ui-material = "com.google.android.material:material:1.10.0"
-ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
+ui-material = "com.google.android.material:material:1.12.0"
+ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.2.1"
+
+# Fragment
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+
+# Navigation Component
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+# Glide
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+
+# Coroutines
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+
+# Koin
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+
+# Room components
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 # Unit tests
 unitTests-junit = "junit:junit:4.13.2"
 
 # UI tests
-uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
-uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+uiTests-junitExt = "androidx.test.ext:junit:1.2.1"
+uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.6.1"
 
 [bundles]
+network = ["retrofit", "retrofit-gson", "okhttp", "okhttp-logging"]
+coroutines = ["coroutines-core", "coroutines-android"]
+room = ["room-runtime", "room-ktx"]
+

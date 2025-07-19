@@ -1,49 +1,39 @@
-# IntelliJ
-*.iml
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/kotlinc.xml
-/.idea/gradle.xml
-/.idea/compiler.xml
-/.idea/misc.xml
+# Built files
+*.apk
+*.aab
+*.ap_
+*.aar
 
 # Gradle files
 .gradle/
 build/
-out/
-
-# Local configuration file (sdk path, etc)
-local.properties
-develop.properties
-
-# Gradle-profiler data
-profile-out*/
-gradle-user-home/
-*.hprof
-
-# Android Studio generated files and folders
 captures/
-.externalNativeBuild/
-.cxx/
-output.json
-
-# Built application files
-*.apk
-*.aar
-*.ap_
-*.aab
+.idea/
+*.iml
+local.properties
 
 # Keystore files
 *.jks
 *.keystore
 
-# Google Services (e.g. APIs or Firebase)
+# Firebase
 google-services.json
 
-# OS specific
-.DS_Store
+# Остальные стандартные исключения для Android
 *.log
+*.kt
+*.kts
+*.dex
+*.class
+/bin/
+/gen/
+/release/
+.DS_Store
+
+# Kotlin
+.metadata
+.recompose/
+.kotlin_module
+
+# Для KSP/generated
+build/generated/
