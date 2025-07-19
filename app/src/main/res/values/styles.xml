@@ -99,7 +99,6 @@
     <style name="TextInputEditTextStyle">
         <item name="android:textAppearance">@style/TextRegular16</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:enabled">false</item>
         <item name="android:focusable">false</item>
         <item name="android:inputType">none</item>
         <item name="android:longClickable">false</item>

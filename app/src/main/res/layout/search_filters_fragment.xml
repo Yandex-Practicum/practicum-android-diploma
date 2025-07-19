@@ -4,29 +4,135 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        layout="@layout/toolbar_header"
-        android:id="@+id/header"/>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/arrow_back"
+        style="@style/HeaderWithArrowBackStyle"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/filter_settings" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_workplace"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:hint="@string/workplace"
+        android:paddingVertical="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/arrow_back">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_workplace"
+            style="@style/TextInputEditTextStyle"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_industry"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/industry"
+        android:paddingVertical="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_workplace">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_industry"
+            style="@style/TextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <FrameLayout
+        android:id="@+id/salary_zone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search_filters"
-        style="@style/TextMedium22"
-        android:textAlignment="center"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/input_layout_industry">
 
-    <Button
-        android:id="@+id/btn_to_workplace"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_searchline"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/topHint"
+                style="@style/TextRegular12"
+                android:paddingVertical="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:text="Ожидаемая зарплата"
+                android:textColor="?attr/colorOnContainer" />
+
+            <EditText
+                android:id="@+id/editText"
+                style="@style/TextRegular16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:hint="Введите сумму"
+                android:inputType="number"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:paddingVertical="0dp"
+                android:paddingStart="0dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="?attr/colorOnContainer"
+                android:textCursorDrawable="@drawable/text_cursor" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:visibility="gone"
+            android:src="@drawable/close_24px" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Не показывать без зарплаты"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="@dimen/dimen_32dp"
-        android:text="Для места работы" />
+        app:layout_constraintTop_toBottomOf="@id/salary_zone"
+        style="@style/TextRegular16"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/materialCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="4dp"
+        app:buttonTint="@color/checkbox_state_colors"
+        app:layout_constraintTop_toBottomOf="@id/salary_zone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
