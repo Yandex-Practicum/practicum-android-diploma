@@ -1,13 +1,11 @@
 package ru.practicum.android.diploma.ui.vacancysearch.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -23,6 +21,9 @@ import ru.practicum.android.diploma.presentation.mappers.toUiModel
 import ru.practicum.android.diploma.presentation.models.vacancies.VacanciesState
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels.VacanciesSearchViewModel
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.Callbacks
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.StateHandlers
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.UiComponents
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.TopSpacingItemDecoration
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
 import ru.practicum.android.diploma.util.DebounceConstants.SEARCH_DEBOUNCE_DELAY
@@ -58,17 +59,29 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         debouncer = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
         debounceForPlaceholder = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_ERROR_DELAY)
 
-        ui = VacancySearchUi(
-            binding =binding,
+        val uiComponents = UiComponents(
+            binding = binding,
             adapter = adapter,
+            clearFocusView = view,
+            context = requireContext(),
+            activity = requireActivity()
+        )
+
+        val stateHandlers = StateHandlers(
             debouncer = debouncer,
             debounceForPlaceholder = debounceForPlaceholder,
             viewModel = searchViewModel,
-            activity = requireActivity(),
-            context = requireContext(),
-            clearFocusView = view,
-            vacancyList = vacanciesList,
-            onClear = {vacanciesList.clear()}
+            vacancyList = vacanciesList
+        )
+
+        val callbacks = Callbacks(
+            onClear = { vacanciesList.clear() }
+        )
+
+        ui = VacancySearchUi(
+            ui = uiComponents,
+            state = stateHandlers,
+            callbacks = callbacks
         )
 
         initUI()
