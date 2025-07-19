@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.searchfilters
+package ru.practicum.android.diploma.ui.searchfilters.workplacefilters
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,25 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.SearchFiltersFragmentBinding
+import ru.practicum.android.diploma.databinding.WorkplaceFragmentBinding
 
-class SearchFiltersFragment : Fragment() {
+class WorkplaceFiltersFragment : Fragment() {
 
-    private var _binding: SearchFiltersFragmentBinding? = null
+    private var _binding: WorkplaceFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = SearchFiltersFragmentBinding.inflate(inflater, container, false)
+        _binding = WorkplaceFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.header.toolbarTitle.text = getString(R.string.filter_settings)
 
-        binding.btnToWorkplace.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFiltersFragment_to_workplaceFiltersFragment)
+        binding.arrowBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -32,5 +30,4 @@ class SearchFiltersFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

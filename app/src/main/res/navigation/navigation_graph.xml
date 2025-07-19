@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/vacancySearchFragment">
 
     <fragment
         android:id="@+id/searchFiltersFragment"
         android:name="ru.practicum.android.diploma.ui.searchfilters.SearchFiltersFragment"
-        android:label="SearchFiltersFragment" />
+        android:label="SearchFiltersFragment" >
+        <action
+            android:id="@+id/action_searchFiltersFragment_to_workplaceFiltersFragment"
+            app:destination="@id/workplaceFiltersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="ru.practicum.android.diploma.ui.about.AboutFragment"
@@ -40,4 +45,9 @@
             app:argType="string"
             app:nullable="false" />
     </fragment>
+    <fragment
+        android:id="@+id/workplaceFiltersFragment"
+        android:name="ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment"
+        android:label="workplace_fragment"
+        tools:layout="@layout/workplace_fragment" />
 </navigation>
