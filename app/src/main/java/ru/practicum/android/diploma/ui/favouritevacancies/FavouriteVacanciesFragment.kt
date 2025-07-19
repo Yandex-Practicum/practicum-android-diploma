@@ -13,6 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FavouriteVacanciesFragmentBinding
 import ru.practicum.android.diploma.presentation.favouritevacancies.uistate.FavouriteVacanciesUiState
+import ru.practicum.android.diploma.presentation.favouritevacancies.uistate.FavouriteVacancyDetailsUiState
 import ru.practicum.android.diploma.presentation.favouritevacancies.viewmodel.FavouriteVacanciesViewModel
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
