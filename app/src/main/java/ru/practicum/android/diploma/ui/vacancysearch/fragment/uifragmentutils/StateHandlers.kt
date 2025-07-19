@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils
+package ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils
 
 import ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels.VacanciesSearchViewModel
 import ru.practicum.android.diploma.util.Debouncer

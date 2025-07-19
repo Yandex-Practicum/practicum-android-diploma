@@ -21,9 +21,9 @@ import ru.practicum.android.diploma.presentation.mappers.toUiModel
 import ru.practicum.android.diploma.presentation.models.vacancies.VacanciesState
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels.VacanciesSearchViewModel
-import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.Callbacks
-import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.StateHandlers
-import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.UiComponents
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.Callbacks
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.StateHandlers
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.UiComponents
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.TopSpacingItemDecoration
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
 import ru.practicum.android.diploma.util.DebounceConstants.SEARCH_DEBOUNCE_DELAY
@@ -35,6 +35,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
     private val searchViewModel by viewModel<VacanciesSearchViewModel>()
+    private var ui: VacancySearchUi? = null
 
     private var vacanciesList = ArrayList<VacancyUiModel>()
     private val adapter = VacancyItemAdapter(this)
@@ -45,8 +46,6 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     private var isLoading = false
     private var hasMore = true
-
-    private lateinit var ui: VacancySearchUi
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
@@ -125,12 +124,12 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     private fun observeViewModel() {
         searchViewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is VacanciesState.Initial -> ui.showInitialState()
-                is VacanciesState.Loading -> ui.showLoadingState()
-                is VacanciesState.LoadingMore -> ui.showLoadingMoreState()
+                is VacanciesState.Initial -> ui?.showInitialState()
+                is VacanciesState.Loading -> ui?.showLoadingState()
+                is VacanciesState.LoadingMore -> ui?.showLoadingMoreState()
                 is VacanciesState.Success -> {
                     Log.d("Vacancies", state.vacancies.toString())
-                    ui.showSuccessState()
+                    ui?.showSuccessState()
                     binding.searchMessage.text =
                         getString(R.string.found) + " ${state.totalFound} " + getString(R.string.vacancies)
 
@@ -140,9 +139,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     isLoading = false
                 }
 
-                VacanciesState.Empty -> ui.showEmptyState()
-                VacanciesState.NoInternet -> ui.showNoInternetState()
-                VacanciesState.ServerError -> ui.showServerErrorState()
+                VacanciesState.Empty -> ui?.showEmptyState()
+                VacanciesState.NoInternet -> ui?.showNoInternetState()
+                VacanciesState.ServerError -> ui?.showServerErrorState()
             }
         }
 
@@ -158,15 +157,15 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
             if (query == currentQuery) {
                 if (query.isNotEmpty()) {
-                    ui.showNonEmptyInput()
+                    ui?.showNonEmptyInput()
                 } else {
-                    ui.showEmptyInput()
+                    ui?.showEmptyInput()
                     searchViewModel.resetState()
                 }
             }
 
             if (!query.isNullOrEmpty()) {
-                ui.showNonEmptyInput()
+                ui?.showNonEmptyInput()
                 debouncer?.submit {
                     activity?.runOnUiThread {
                         binding.progressBar.isVisible = true
@@ -174,7 +173,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     }
                 }
             } else {
-                ui.showEmptyInput()
+                ui?.showEmptyInput()
                 searchViewModel.resetState()
             }
         }

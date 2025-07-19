@@ -5,9 +5,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.Callbacks
-import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.StateHandlers
-import ru.practicum.android.diploma.ui.vacancysearch.fragment.uiFragmentUtils.UiComponents
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.Callbacks
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.StateHandlers
+import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.UiComponents
 
 class VacancySearchUi(
     private val ui: UiComponents,
