@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
 
-    //Kotlin
+    // Kotlin
     implementation(libs.kotlin.stdlib)
 
     // Fragments
