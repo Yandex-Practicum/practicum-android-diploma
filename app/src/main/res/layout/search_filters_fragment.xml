@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="@dimen/dimen_8dp"
-                android:text="Ожидаемая зарплата"
+                android:text="@string/expected_slary"
                 android:textColor="?attr/colorOnContainer" />
 
             <EditText
@@ -90,7 +90,7 @@
                 android:layout_marginEnd="40dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="?attr/colorPrimary"
-                android:hint="Введите сумму"
+                android:hint="@string/input_number"
                 android:inputType="number"
                 android:maxLength="25"
                 android:maxLines="1"
@@ -118,7 +118,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Не показывать без зарплаты"
+        android:text="@string/dont_show_without_salary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/salary_zone"
         style="@style/TextRegular16"

@@ -50,5 +50,9 @@
     
     <string name="workplace">Место работы</string>
     <string name="industry">Отрасль</string>
+    <string name="expected_slary">Ожидаемая зарплата</string>
+    <string name="input_number">Введите сумму</string>
+    <string name="dont_show_without_salary">Не показывать без зарплаты</string>
+
 
 </resources>
