@@ -34,7 +34,7 @@ class SearchFiltersFragment : Fragment() {
         binding.editText.doOnTextChanged { text, start, before, count ->
             val query = text?.toString()
 
-            if (query?.isNotEmpty() == true && binding.editText.hasFocus()){
+            if (query?.isNotEmpty() == true && binding.editText.hasFocus()) {
                 binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                 binding.icon.isVisible = true
                 binding.icon.setOnClickListener {
@@ -43,15 +43,15 @@ class SearchFiltersFragment : Fragment() {
 
             } else if (query?.isNotEmpty() == true) {
                 binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            }
-            else {
+            } else {
                 binding.icon.isVisible = false
                 binding.topHint.setTextColor(
                     MaterialColors.getColor(
-                    requireContext(),
-                    com.google.android.material.R.attr.colorOnContainer,
-                    Color.BLACK
-                ))
+                        requireContext(),
+                        com.google.android.material.R.attr.colorOnContainer,
+                        Color.BLACK
+                    )
+                )
             }
         }
         binding.arrowBack.setOnClickListener {
