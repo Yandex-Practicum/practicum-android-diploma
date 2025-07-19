@@ -40,11 +40,20 @@ class SearchFiltersFragment : Fragment() {
                 binding.icon.setOnClickListener {
                     binding.editText.setText("")
                 }
+                binding.btnApply.isVisible = true
+                binding.btnCancel.isVisible = true
+                binding.btnCancel.setOnClickListener {
+                    binding.editText.setText("")
+                    binding.materialCheckbox.isChecked = false
+                }
 
             } else if (query?.isNotEmpty() == true) {
                 binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
             } else {
                 binding.icon.isVisible = false
+                binding.btnApply.isVisible = false
+                binding.btnCancel.isVisible = false
                 binding.topHint.setTextColor(
                     MaterialColors.getColor(
                         requireContext(),
