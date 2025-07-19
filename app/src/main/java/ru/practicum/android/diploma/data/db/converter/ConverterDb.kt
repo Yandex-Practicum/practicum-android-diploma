@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.db.converter
 
 import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
-import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
 

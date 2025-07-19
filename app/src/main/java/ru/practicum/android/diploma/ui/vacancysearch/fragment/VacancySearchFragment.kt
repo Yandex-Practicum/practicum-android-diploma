@@ -45,6 +45,8 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     private var isLoading = false
     private var hasMore = true
 
+    private lateinit var ui: VacancySearchUi
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -55,6 +57,19 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
         debouncer = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
         debounceForPlaceholder = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_ERROR_DELAY)
+
+        ui = VacancySearchUi(
+            binding =binding,
+            adapter = adapter,
+            debouncer = debouncer,
+            debounceForPlaceholder = debounceForPlaceholder,
+            viewModel = searchViewModel,
+            activity = requireActivity(),
+            context = requireContext(),
+            clearFocusView = view,
+            vacancyList = vacanciesList,
+            onClear = {vacanciesList.clear()}
+        )
 
         initUI()
         observeViewModel()
@@ -97,12 +112,12 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     private fun observeViewModel() {
         searchViewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is VacanciesState.Initial -> showInitialState()
-                is VacanciesState.Loading -> showLoadingState()
-                is VacanciesState.LoadingMore -> showLoadingMoreState()
+                is VacanciesState.Initial -> ui.showInitialState()
+                is VacanciesState.Loading -> ui.showLoadingState()
+                is VacanciesState.LoadingMore -> ui.showLoadingMoreState()
                 is VacanciesState.Success -> {
                     Log.d("Vacancies", state.vacancies.toString())
-                    showSuccessState()
+                    ui.showSuccessState()
                     binding.searchMessage.text =
                         getString(R.string.found) + " ${state.totalFound} " + getString(R.string.vacancies)
 
@@ -112,9 +127,9 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     isLoading = false
                 }
 
-                VacanciesState.Empty -> showEmptyState()
-                VacanciesState.NoInternet -> showNoInternetState()
-                VacanciesState.ServerError -> showServerErrorState()
+                VacanciesState.Empty -> ui.showEmptyState()
+                VacanciesState.NoInternet -> ui.showNoInternetState()
+                VacanciesState.ServerError -> ui.showServerErrorState()
             }
         }
 
@@ -130,15 +145,15 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
             if (query == currentQuery) {
                 if (query.isNotEmpty()) {
-                    showNonEmptyInput()
+                    ui.showNonEmptyInput()
                 } else {
-                    showEmptyInput()
+                    ui.showEmptyInput()
                     searchViewModel.resetState()
                 }
             }
 
             if (!query.isNullOrEmpty()) {
-                showNonEmptyInput()
+                ui.showNonEmptyInput()
                 debouncer?.submit {
                     activity?.runOnUiThread {
                         binding.progressBar.isVisible = true
@@ -146,7 +161,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     }
                 }
             } else {
-                showEmptyInput()
+                ui.showEmptyInput()
                 searchViewModel.resetState()
             }
         }
@@ -185,112 +200,5 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                 }
             }
         })
-    }
-
-    private fun showLoadingMoreState() {
-        isLoading = true
-        adapter.addLoadingFooter()
-    }
-
-    private fun showInitialState() {
-        binding.errorText.isVisible = false
-        binding.progressBar.isVisible = false
-        binding.searchMessage.isVisible = false
-        binding.recyclerViewSearch.isVisible = false
-        binding.searchMainPlaceholder.isVisible = true
-        binding.searchMainPlaceholder.setImageResource(R.drawable.search_main_placeholder)
-    }
-
-    private fun showLoadingState() {
-        binding.errorText.isVisible = false
-        binding.progressBar.isVisible = true
-        binding.searchMessage.isVisible = false
-        binding.recyclerViewSearch.isVisible = false
-        binding.searchMainPlaceholder.isVisible = false
-    }
-
-    private fun showSuccessState() {
-        binding.errorText.isVisible = false
-        binding.progressBar.isVisible = false
-        binding.searchMessage.isVisible = true
-        binding.recyclerViewSearch.isVisible = true
-        binding.searchMainPlaceholder.visibility = View.GONE
-        isLoading = false
-        adapter.removeLoadingFooter()
-    }
-
-    private fun showEmptyState() {
-        binding.progressBar.isVisible = false
-        binding.searchMessage.isVisible = true
-        binding.searchMessage.text = getString(R.string.no_vacancies)
-        binding.recyclerViewSearch.isVisible = false
-        binding.searchMainPlaceholder.isVisible = true
-        binding.errorText.isVisible = true
-        binding.errorText.text = getString(R.string.nothing_found)
-        binding.searchMainPlaceholder.setImageResource(R.drawable.nothing_found_placeholder)
-    }
-
-    private fun showNoInternetState() {
-        binding.searchMessage.isVisible = false
-        binding.recyclerViewSearch.isVisible = false
-        binding.searchMainPlaceholder.setImageResource(R.drawable.no_internet_placeholder)
-        adapter.removeLoadingFooter()
-        debounceForPlaceholder?.submit {
-            activity?.runOnUiThread {
-                binding.progressBar.isVisible = false
-                binding.searchMainPlaceholder.isVisible = true
-                binding.errorText.isVisible = true
-                binding.errorText.text = getString(R.string.no_connection)
-            }
-        }
-    }
-
-    private fun showServerErrorState() {
-        binding.searchMessage.isVisible = false
-        binding.recyclerViewSearch.isVisible = false
-        binding.searchMainPlaceholder.setImageResource(R.drawable.server_error_placeholder)
-        debounceForPlaceholder?.submit {
-            activity?.runOnUiThread {
-                binding.progressBar.isVisible = false
-                binding.searchMainPlaceholder.isVisible = true
-                binding.errorText.isVisible = true
-                binding.errorText.text = getString(R.string.server_error)
-            }
-        }
-    }
-
-    private fun showNonEmptyInput() {
-        binding.icon.setImageResource(R.drawable.close_24px)
-        binding.searchMainPlaceholder.isVisible = false
-        binding.errorText.isVisible = false
-        binding.icon.isClickable = true
-        binding.icon.setOnClickListener {
-            debouncer?.cancel()
-            searchViewModel.resetState()
-            adapter.submitList(emptyList())
-            binding.errorText.isVisible = false
-            binding.searchMessage.isVisible = false
-            binding.progressBar.isVisible = false
-            binding.recyclerViewSearch.isVisible = false
-            binding.inputEditText.clearFocus()
-            binding.searchMainPlaceholder.setImageResource(R.drawable.search_main_placeholder)
-            binding.inputEditText.setText("")
-            val inputMethodManager =
-                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
-        }
-    }
-
-    private fun showEmptyInput() {
-        debouncer?.cancel()
-        vacanciesList.clear()
-        binding.searchMainPlaceholder.isVisible = true
-        binding.icon.setImageResource(R.drawable.search_24px)
-        binding.icon.isClickable = false
-        binding.progressBar.isVisible = false
-        binding.errorText.isVisible = false
-        binding.searchMessage.isVisible = false
-        binding.recyclerViewSearch.isVisible = false
-        binding.searchMainPlaceholder.setImageResource(R.drawable.search_main_placeholder)
     }
 }
