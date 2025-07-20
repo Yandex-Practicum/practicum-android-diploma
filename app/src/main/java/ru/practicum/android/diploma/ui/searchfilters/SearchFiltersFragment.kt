@@ -1,11 +1,16 @@
 package ru.practicum.android.diploma.ui.searchfilters
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.color.MaterialColors
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.SearchFiltersFragmentBinding
 
@@ -21,10 +26,49 @@ class SearchFiltersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.header.toolbarTitle.text = getString(R.string.filter_settings)
 
-        binding.btnToWorkplace.setOnClickListener {
+        binding.editTextWorkplace.setOnClickListener {
             findNavController().navigate(R.id.action_searchFiltersFragment_to_workplaceFiltersFragment)
+        }
+
+        binding.editTextIndustry.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFiltersFragment_to_industryFilterFragment)
+        }
+
+        binding.editText.doOnTextChanged { text, start, before, count ->
+            val query = text?.toString()
+
+            if (query?.isNotEmpty() == true && binding.editText.hasFocus()) {
+                binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                binding.icon.isVisible = true
+                binding.icon.setOnClickListener {
+                    binding.editText.setText("")
+                }
+                binding.btnApply.isVisible = true
+                binding.btnCancel.isVisible = true
+                binding.btnCancel.setOnClickListener {
+                    binding.editText.setText("")
+                    binding.materialCheckbox.isChecked = false
+                }
+
+            } else if (query?.isNotEmpty() == true) {
+                binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+            } else {
+                binding.icon.isVisible = false
+                binding.btnApply.isVisible = false
+                binding.btnCancel.isVisible = false
+                binding.topHint.setTextColor(
+                    MaterialColors.getColor(
+                        requireContext(),
+                        com.google.android.material.R.attr.colorOnContainer,
+                        Color.BLACK
+                    )
+                )
+            }
+        }
+        binding.arrowBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

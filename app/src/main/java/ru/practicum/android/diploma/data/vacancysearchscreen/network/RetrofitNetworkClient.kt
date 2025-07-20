@@ -7,6 +7,11 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.models.areas.AreasApi
 import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
 import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesRequest
+import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.industries.IndustriesApi
+import ru.practicum.android.diploma.data.models.industries.remote.IndustryRequest
+import ru.practicum.android.diploma.data.models.industries.remote.IndustryResponseDto
 import ru.practicum.android.diploma.data.models.vacancies.Response
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
@@ -18,6 +23,7 @@ class RetrofitNetworkClient(
     private val service: VacanciesApi,
     private val vacancyService: VacancyDetailsApi,
     private val countryService: AreasApi,
+    private val industriesApi: IndustriesApi,
     private val context: Context
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
@@ -33,6 +39,7 @@ class RetrofitNetworkClient(
             is VacanciesRequest -> handleVacancyRequest(dto)
             is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
             is CountriesRequest -> handleCountriesRequest()
+            is IndustryRequest -> handleIndustriesRequest()
             else -> createFailedResponse()
         }
     }
@@ -71,6 +78,18 @@ class RetrofitNetworkClient(
             }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Error getting countries list", e)
+            createServerErrorResponse()
+        }
+    }
+
+    private suspend fun handleIndustriesRequest(): Response = withContext(Dispatchers.IO) {
+        try {
+            val response = industriesApi.getIndustries()
+            IndustryResponseDto(response).apply {
+                resultCode = REQUEST_SUCCESS
+            }
+        } catch (e: retrofit2.HttpException) {
+            Log.e("Repository", "Error getting details vacancies", e)
             createServerErrorResponse()
         }
     }

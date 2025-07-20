@@ -12,6 +12,9 @@ import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClie
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.paging.VacanciesResult
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
+import ru.practicum.android.diploma.util.DebounceConstants.NO_CONNECTION
+import ru.practicum.android.diploma.util.DebounceConstants.SEARCH_SUCCESS
+import ru.practicum.android.diploma.util.DebounceConstants.SERVER_ERROR
 import ru.practicum.android.diploma.util.Resource
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
@@ -65,12 +68,6 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
 
     override fun clearLoadedPages() {
         loadedPages.clear()
-    }
-
-    companion object {
-        private const val NO_CONNECTION = -1
-        private const val SEARCH_SUCCESS = 2
-        private const val SERVER_ERROR = 5
     }
 }
 

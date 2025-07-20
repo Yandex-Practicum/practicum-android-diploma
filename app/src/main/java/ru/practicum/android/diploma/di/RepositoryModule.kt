@@ -9,6 +9,8 @@ import ru.practicum.android.diploma.data.filters.impl.FiltersParametersRepositor
 import ru.practicum.android.diploma.data.filters.impl.FiltersRepositoryImpl
 import ru.practicum.android.diploma.data.filters.storage.api.FilterParametersStorage
 import ru.practicum.android.diploma.data.models.areas.storage.impl.FilterParametersStorageImpl
+import ru.practicum.android.diploma.data.models.areas.countryscreen.impl.FiltersRepositoryImpl
+import ru.practicum.android.diploma.data.searchfilters.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.sharing.ExternalNavigator
 import ru.practicum.android.diploma.data.sharing.impl.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.vacancysearchscreen.impl.VacanciesRepositoryImpl
@@ -16,6 +18,7 @@ import ru.practicum.android.diploma.domain.favouritevacancies.repository.Favouri
 import ru.practicum.android.diploma.domain.filters.repository.FilterParametersRepository
 import ru.practicum.android.diploma.domain.filters.repository.FiltersRepository
 import ru.practicum.android.diploma.domain.models.api.VacanciesRepository
+import ru.practicum.android.diploma.domain.searchfilters.industries.IndustriesRepository
 
 val repositoryModule = module {
     // FavouriteVacancies
@@ -32,6 +35,10 @@ val repositoryModule = module {
 
     single<FiltersRepository> {
         FiltersRepositoryImpl(get())
+    }
+
+    single<IndustriesRepository> {
+        IndustriesRepositoryImpl(get())
     }
 
     single<FilterParametersStorage> {

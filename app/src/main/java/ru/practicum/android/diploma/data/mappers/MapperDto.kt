@@ -1,12 +1,15 @@
 package ru.practicum.android.diploma.data.mappers
 
 import ru.practicum.android.diploma.data.models.areas.AreasResponseDto
+import ru.practicum.android.diploma.data.models.industries.IndustryDto
 import ru.practicum.android.diploma.data.models.storage.FilterParametersDto
 import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
 import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
 import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
+import ru.practicum.android.diploma.domain.filters.model.Country
+import ru.practicum.android.diploma.domain.models.industries.Industry
 import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 import ru.practicum.android.diploma.domain.models.salary.Salary
@@ -62,6 +65,13 @@ fun AreasResponseDto.toDomain(): Country {
         id = id,
         name = name,
         parentId = parentId,
+    )
+}
+
+fun IndustryDto.toDomain(): Industry {
+    return Industry(
+        id = id,
+        name = name
     )
 }
 
