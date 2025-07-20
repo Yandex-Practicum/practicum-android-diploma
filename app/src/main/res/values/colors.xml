@@ -9,4 +9,6 @@
     <color name="gray">#AEAFB4</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="gray_dark">#1A1B2280</color>
+
+    <color name="box_input_background">@color/white</color>
 </resources>

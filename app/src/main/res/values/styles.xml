@@ -75,4 +75,62 @@
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
+    <style name="HeaderWithArrowBackStyle">
+        <item name="android:paddingVertical">@dimen/dimen_8dp</item>
+        <item name="contentInsetStartWithNavigation">@dimen/dimen_0dp</item>
+        <item name="navigationIcon">@drawable/arrow_back_24px</item>
+        <item name="navigationIconTint">?attr/colorOnPrimary</item>
+        <item name="titleTextAppearance">@style/TextMedium22</item>
+        <item name="titleTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="TextInputLayoutStyle">
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="boxStrokeWidth">@dimen/dimen_0dp</item>
+        <item name="boxStrokeColor">?attr/colorPrimaryVariant</item>
+        <item name="boxBackgroundColor">@color/box_input_background</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="endIconDrawable">@drawable/arrow_forward_24px</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconTint">?attr/colorOnPrimary</item>
+        <item name="hintTextAppearance">@style/TextRegular16</item>
+    </style>
+
+    <style name="TextInputEditTextStyle">
+        <item name="android:paddingVertical">@dimen/dimen_20dp</item>
+        <item name="android:textAppearance">@style/TextRegular16</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:enabled">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:inputType">none</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:cursorVisible">false</item>
+    </style>
+    
+    <style name="ButtonPrimaryStyle">
+        <item name="android:layout_marginStart">@dimen/dimen_17dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_17dp</item>
+        <item name="android:paddingVertical">@dimen/dimen_20dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAppearance">@style/TextMedium16</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/blue</item>
+        <item name="cornerRadius">@dimen/dimen_12dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="FilterSelectableTextStyle">
+        <item name="android:layout_marginStart">@dimen/dimen_16dp</item>
+        <item name="android:paddingVertical">20dp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textAppearance">@style/TextRegular16</item>
+    </style>
+
+    <style name="FilerArrowForwardButtonStyle">
+        <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:src">@drawable/arrow_forward_24px</item>
+        <item name="tint">?attr/colorOnPrimary</item>
+    </style>
+
 </resources>
