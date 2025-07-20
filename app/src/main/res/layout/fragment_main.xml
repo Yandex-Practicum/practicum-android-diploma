@@ -71,7 +71,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacanciesRvId"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
