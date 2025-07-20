@@ -8,10 +8,9 @@ import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
 import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
 import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
-import ru.practicum.android.diploma.domain.filters.model.Country
-import ru.practicum.android.diploma.domain.models.industries.Industry
 import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
+import ru.practicum.android.diploma.domain.models.industries.Industry
 import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
