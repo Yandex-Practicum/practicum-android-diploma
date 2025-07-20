@@ -7,6 +7,8 @@ import ru.practicum.android.diploma.domain.favouritevacancies.usecases.Favourite
 import ru.practicum.android.diploma.domain.filters.impl.FiltersInteractorImpl
 import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
 import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
+import ru.practicum.android.diploma.domain.searchfilters.industries.IndustriesInteractor
+import ru.practicum.android.diploma.domain.searchfilters.industries.impl.IndustriesInteractorImpl
 import ru.practicum.android.diploma.domain.sharing.SharingInteractor
 import ru.practicum.android.diploma.domain.sharing.impl.SharingInteractorImpl
 import ru.practicum.android.diploma.domain.vacancysearchscreen.impl.VacanciesInteractorImpl
@@ -26,5 +28,9 @@ val interactorModule = module {
 
     single<FiltersInteractor> {
         FiltersInteractorImpl(get())
+    }
+
+    single<IndustriesInteractor> {
+        IndustriesInteractorImpl(get())
     }
 }
