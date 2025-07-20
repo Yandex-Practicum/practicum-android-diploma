@@ -1,8 +1,10 @@
 package ru.practicum.android.diploma.di
 
+import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,6 +16,8 @@ import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsApi
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.RetrofitNetworkClient
 
+const val FILTER_PARAMETERS_PREFERENCES = "filter_parameters"
+
 val dataModule = module {
     // retrofit
     single<Retrofit> {
@@ -21,6 +25,11 @@ val dataModule = module {
             .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    single(named("filter_parameters_prefs")) {
+        androidContext()
+            .getSharedPreferences(FILTER_PARAMETERS_PREFERENCES, Context.MODE_PRIVATE)
     }
 
     factory { Gson() }

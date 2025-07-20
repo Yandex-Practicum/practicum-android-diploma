@@ -1,14 +1,14 @@
-package ru.practicum.android.diploma.data.models.areas.countryscreen.impl
+package ru.practicum.android.diploma.data.filters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.mappers.toDomain
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesRequest
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
+import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
 import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
-import ru.practicum.android.diploma.domain.filters.model.Country
 import ru.practicum.android.diploma.domain.filters.repository.FiltersRepository
+import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.util.Resource
 
 class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersRepository {

@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.CountryFiltersFragmentBinding
-import ru.practicum.android.diploma.domain.filters.model.Country
+import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.CountryFiltersViewModel
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate.CountryFiltersUiState
 import ru.practicum.android.diploma.ui.searchfilters.recycleview.WorkplaceAdapter
@@ -71,6 +71,7 @@ class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
     }
 
     override fun onClick(country: Country) {
+        viewModel.onCountrySelected(country.name)
         findNavController().popBackStack()
     }
 }

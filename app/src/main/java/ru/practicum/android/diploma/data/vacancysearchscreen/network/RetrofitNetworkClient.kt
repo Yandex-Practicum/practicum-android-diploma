@@ -5,8 +5,8 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.models.areas.AreasApi
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesRequest
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
+import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
 import ru.practicum.android.diploma.data.models.vacancies.Response
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
