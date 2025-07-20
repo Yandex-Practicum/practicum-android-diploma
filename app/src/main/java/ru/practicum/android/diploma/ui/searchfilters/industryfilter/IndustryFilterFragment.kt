@@ -22,6 +22,8 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
     private val viewModel by viewModel<IndustriesFilterViewModel>()
     private val adapter = IndustryItemAdapter(this)
 
+    private var selectedIndustryId: String? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = IndustriesFilterFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -62,8 +64,13 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
         }
     }
 
-    override fun onClick(industry: Industry) {
-        findNavController().popBackStack()
+    override fun onClick(id: String) {
+        val selectedIndustry = adapter.currentList.find { it.id == id }
+        selectedIndustry?.let {
+            adapter.submitList(listOf(it))
+        }
+        adapter.setSelectedId(id)
+        
     }
 
     override fun onDestroyView() {

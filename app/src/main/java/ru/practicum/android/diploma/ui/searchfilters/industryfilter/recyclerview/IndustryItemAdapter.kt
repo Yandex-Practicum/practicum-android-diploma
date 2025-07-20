@@ -10,14 +10,17 @@ import ru.practicum.android.diploma.domain.models.industries.Industry
 class IndustryItemAdapter(private val clickListener: OnClickListener) : ListAdapter<Industry, IndustryItemViewHolder>(
     object : DiffUtil.ItemCallback<Industry>() {
         override fun areItemsTheSame(oldItem: Industry, newItem: Industry): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Industry, newItem: Industry): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 ) {
+
+    private var selectedId: String? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return IndustryItemViewHolder(ItemIndustryBinding.inflate(inflater, parent, false))
@@ -25,13 +28,20 @@ class IndustryItemAdapter(private val clickListener: OnClickListener) : ListAdap
 
     override fun onBindViewHolder(holder: IndustryItemViewHolder, position: Int) {
         val industry = getItem(position)
-        holder.bind(industry)
-        holder.itemView.setOnClickListener {
-            clickListener.onClick(industry)
+        val isSelected = industry.id == selectedId
+
+        holder.bind(industry, isSelected) { clickedId ->
+            selectedId = clickedId
+            clickListener.onClick(clickedId)
         }
     }
 
+    fun setSelectedId(id: String) {
+        selectedId = id
+        notifyDataSetChanged()
+    }
+
     interface OnClickListener {
-        fun onClick(industry: Industry)
+        fun onClick(id: String)
     }
 }

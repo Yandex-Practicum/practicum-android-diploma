@@ -22,6 +22,7 @@ class IndustriesRepositoryImpl(private val networkClient: NetworkClient) : Indus
                 val data = (response as IndustryResponseDto).industries
                     .flatMap { it.industries }
                     .map { it.toDomain() }
+                    .sortedBy { it.name }
                 emit(Resource.Success(data))
             }
 
