@@ -31,6 +31,10 @@ class SearchFiltersFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFiltersFragment_to_workplaceFiltersFragment)
         }
 
+        binding.editTextIndustry.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFiltersFragment_to_industryFilterFragment)
+        }
+
         binding.editText.doOnTextChanged { text, start, before, count ->
             val query = text?.toString()
 

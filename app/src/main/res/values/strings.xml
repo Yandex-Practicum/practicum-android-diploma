@@ -56,5 +56,6 @@
     <string name="apply">Применить</string>
     <string name="reset">Сбросить</string>
 
-
+    <string name="choose_industry">Выбор отрасли</string>
+    <string name="input_industry">Введите отрасль</string>
 </resources>

@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_searchFiltersFragment_to_workplaceFiltersFragment"
             app:destination="@id/workplaceFiltersFragment" />
+        <action
+            android:id="@+id/action_searchFiltersFragment_to_industryFilterFragment"
+            app:destination="@id/industryFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -50,4 +53,9 @@
         android:name="ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment"
         android:label="workplace_fragment"
         tools:layout="@layout/workplace_fragment" />
+    <fragment
+        android:id="@+id/industryFilterFragment"
+        android:name="ru.practicum.android.diploma.ui.searchfilters.industryfilter.IndustryFilterFragment"
+        android:label="industries_filter_fragment"
+        tools:layout="@layout/industries_filter_fragment" />
 </navigation>
