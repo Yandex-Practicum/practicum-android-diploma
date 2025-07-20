@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.ui.searchfilters.recycleview.WorkplaceAdapte
 
 class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
 
-    private var _binding:CountryFiltersFragmentBinding? = null
+    private var _binding: CountryFiltersFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<CountryFiltersViewModel>()

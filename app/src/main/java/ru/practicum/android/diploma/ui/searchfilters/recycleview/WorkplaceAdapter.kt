@@ -24,11 +24,11 @@ class WorkplaceAdapter(private val clickListener: OnClickListener) : ListAdapter
     }
 
     override fun onBindViewHolder(holder: WorkplaceItemViewHolder, position: Int) {
-            val country = getItem(position)
-            holder.bind(country)
-            holder.itemView.setOnClickListener {
-                clickListener.onClick(country)
-            }
+        val country = getItem(position)
+        holder.bind(country)
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(country)
+        }
     }
 
     interface OnClickListener {
