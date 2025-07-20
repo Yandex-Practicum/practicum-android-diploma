@@ -10,18 +10,15 @@ import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 
 class SearchInteractorImpl(private val searchRepository: SearchRepository) : SearchInteractor {
 
-    override fun getVacancies(text: String, area: String?):
-        Flow<Pair<List<VacancyPreview>?, FailureType?>> {
-        return searchRepository.getVacancies(text, area).map { result ->
+    override fun getVacancies(
+        text: String,
+        page: Int,
+        filters: Map<String, String?>
+    ): Flow<Pair<List<VacancyPreview>?, FailureType?>> {
+        return searchRepository.getVacancies(text, page, filters).map { result ->
             when (result) {
-                is Resource.Success -> {
-                    val previewData = result.data
-                    Pair(previewData, null)
-                }
-
-                is Resource.Failed -> {
-                    Pair(null, result.message)
-                }
+                is Resource.Success -> Pair(result.data, null)
+                is Resource.Failed -> Pair(null, result.message)
             }
         }
     }

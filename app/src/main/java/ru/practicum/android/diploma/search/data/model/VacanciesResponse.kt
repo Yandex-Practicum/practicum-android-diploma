@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class VacanciesResponse(
     val found: Int,
-    val items: List<Vacancy>
+    val items: List<Vacancy>,
+    val page: Int,
+    val pages: Int
 ) : Response()
 
 data class Vacancy(

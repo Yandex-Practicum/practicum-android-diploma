@@ -5,5 +5,9 @@ import ru.practicum.android.diploma.search.domain.model.FailureType
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 
 interface SearchInteractor {
-    fun getVacancies(text: String, area: String?): Flow<Pair<List<VacancyPreview>?, FailureType?>>
+    fun getVacancies(
+        text: String,
+        page: Int = 0,
+        filters: Map<String, String?> = emptyMap()
+    ): Flow<Pair<List<VacancyPreview>?, FailureType?>>
 }

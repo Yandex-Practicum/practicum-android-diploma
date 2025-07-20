@@ -20,25 +20,64 @@ class SearchViewModel(
     private val _state = MutableStateFlow<SearchState>(SearchState.Empty)
     val state: StateFlow<SearchState> = _state
 
-    fun searchVacancies(text: String, area: String? = null) {
-        viewModelScope.launch {
-            searchInteractor.getVacancies(text, area).onStart {
-                _state.value = SearchState.Loading
-            }.collect { pair ->
-                val data = pair.first
-                val message = pair.second
-                when {
-                    !data.isNullOrEmpty() -> {
-                        val uiData = data.map { it.toUiModel() }
-                        _state.value = SearchState.Content(uiData)
-                    }
+    private val _currentPageState = MutableStateFlow<Int>(0)
 
-                    message == FailureType.NotFound -> _state.value = SearchState.NotFound
-                    message == FailureType.ApiError || message == FailureType.NoInternet -> {
-                        _state.value = SearchState.Error
+    private var currentText = ""
+    private var currentFilters: Map<String, String?> = emptyMap()
+    private var vacanciesList = mutableListOf<VacancyPreviewUi>()
+    private var maxPages = Int.MAX_VALUE
+    private var isLoading = false
+
+    fun searchVacancies(text: String, filters: Map<String, String?> = emptyMap()) {
+        if (isLoading) return
+        currentText = text
+        currentFilters = filters
+        _currentPageState.value = 0
+        vacanciesList.clear()
+        maxPages = Int.MAX_VALUE
+        loadPage()
+    }
+
+    fun updatePage() {
+        if (isLoading || _currentPageState.value >= maxPages - 1) return
+        _currentPageState.value += 1
+        loadPage()
+    }
+
+    private fun loadPage() {
+        isLoading = true
+        viewModelScope.launch {
+            searchInteractor.getVacancies(currentText, _currentPageState.value, currentFilters)
+                .onStart {
+                    _state.value = if (_currentPageState.value == 0) SearchState.Loading else SearchState.LoadingMore
+                }.collect { pair ->
+                    val newData = pair.first
+                    val message = pair.second
+                    when {
+                        !newData.isNullOrEmpty() -> {
+                            maxPages = newData.first().pages
+                            val uiData = newData.map { it.toUiModel() }
+                            vacanciesList.addAll(uiData) // Добавляем новые данные в конец
+                            _state.value = SearchState.Content(vacanciesList.toList())
+                            isLoading = false
+                        }
+
+                        message == FailureType.NotFound || newData.isNullOrEmpty() -> {
+                            maxPages = _currentPageState.value
+                            isLoading = false
+                            if (vacanciesList.isEmpty()) {
+                                _state.value = SearchState.NotFound
+                            } else {
+                                _state.value = SearchState.Content(vacanciesList.toList())
+                            }
+                        }
+
+                        message == FailureType.ApiError || message == FailureType.NoInternet -> {
+                            isLoading = false
+                            _state.value = SearchState.Error
+                        }
                     }
                 }
-            }
         }
     }
 

@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.presenter.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +74,21 @@ class MainFragment : Fragment() {
         clearEditText()
         goToFilters()
         stataObserver()
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val pos = layoutManager.findLastVisibleItemPosition()
+                val itemsCount = adapter.itemCount
+                if (pos >= itemsCount - 1) {
+                    Log.d("endState", "Долистал до конца")
+                    searchViewModel.updatePage()
+                }
+            }
+        })
+
+
     }
 
     override fun onDestroyView() {
@@ -130,6 +146,15 @@ class MainFragment : Fragment() {
                         is SearchState.NotFound -> showNotFound()
                         is SearchState.Error -> showError()
                         is SearchState.Empty -> showEmpty()
+                        is SearchState.LoadingMore -> {
+                            adapter.showLoading()
+                            binding.progressBarId.visibility = View.GONE
+                            binding.searchPreviewId.visibility = View.GONE
+                            binding.notFoundPreview.visibility = View.GONE
+                            binding.vacanciesRvId.visibility = View.VISIBLE
+                            binding.infoShieldId.visibility = View.VISIBLE
+                            binding.noInternetPreviewId.visibility = View.GONE
+                        }
                     }
                 }
             }
@@ -138,6 +163,7 @@ class MainFragment : Fragment() {
 
     private fun showContent(data: List<VacancyPreviewUi>) {
         adapter.setList(data)
+        adapter.hideLoading()
         binding.progressBarId.visibility = View.GONE
         binding.searchPreviewId.visibility = View.GONE
         binding.noInternetPreviewId.visibility = View.GONE
@@ -154,6 +180,7 @@ class MainFragment : Fragment() {
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
         binding.noInternetPreviewId.visibility = View.GONE
+        adapter.hideLoading()
     }
 
     private fun showNotFound() {
@@ -164,6 +191,7 @@ class MainFragment : Fragment() {
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.VISIBLE
         binding.infoShieldId.text = "Таких вакансий нет"
+        adapter.hideLoading()
     }
 
     private fun showError() {
@@ -173,6 +201,7 @@ class MainFragment : Fragment() {
         binding.notFoundPreview.visibility = View.GONE
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
+        adapter.hideLoading()
     }
 
     private fun showEmpty() {
@@ -182,5 +211,6 @@ class MainFragment : Fragment() {
         binding.notFoundPreview.visibility = View.GONE
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
+        adapter.hideLoading()
     }
 }
