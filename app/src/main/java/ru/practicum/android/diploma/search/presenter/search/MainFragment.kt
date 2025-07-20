@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateSearchIcon(s)
-                if (!s.isNullOrBlank()){
+                if (!s.isNullOrBlank()) {
                     debouncer.searchDebounce {
                         searchViewModel.searchVacancies(s.toString())
                     }
