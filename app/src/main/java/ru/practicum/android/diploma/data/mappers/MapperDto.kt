@@ -58,7 +58,8 @@ fun VacancyDetails.toVacancy(): Vacancy {
 fun AreasResponseDto.toDomain(): Country {
     return Country(
         id = id,
-        name = name
+        name = name,
+        parentId = parentId,
     )
 }
 

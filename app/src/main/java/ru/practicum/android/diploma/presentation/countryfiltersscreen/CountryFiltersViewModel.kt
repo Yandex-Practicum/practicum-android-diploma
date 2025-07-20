@@ -19,7 +19,7 @@ class CountryFiltersViewModel(private val interactor: FiltersInteractor) : ViewM
         getCountries()
     }
 
-    fun getCountries() {
+    private fun getCountries() {
         viewModelScope.launch {
             _countryState.postValue(CountryFiltersUiState.Loading)
             interactor.getCountries()

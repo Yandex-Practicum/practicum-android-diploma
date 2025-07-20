@@ -16,8 +16,11 @@ class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersR
         val response = networkClient.doRequest(CountriesRequest)
         when (response.resultCode) {
             SEARCH_SUCCESS -> {
-                val data = (response as CountriesResponseDto).countries.map { it.toDomain() }
-                emit(Resource.Success(data))
+                val data = (response as CountriesResponseDto).countries
+                    .filter { it.parentId == null }
+                    .sortedBy { if (it.id == ID_OTHER_REGIONS) 1 else 0 }
+
+                emit(Resource.Success(data.map { it.toDomain() }))
             }
 
             NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
@@ -30,5 +33,7 @@ class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersR
         private const val NO_CONNECTION = -1
         private const val SEARCH_SUCCESS = 2
         private const val SERVER_ERROR = 5
+
+        private const val ID_OTHER_REGIONS = "1001"
     }
 }

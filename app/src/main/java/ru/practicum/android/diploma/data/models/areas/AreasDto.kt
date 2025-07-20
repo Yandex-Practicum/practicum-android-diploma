@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class AreasResponseDto(
     @SerializedName("id") val id: String,
-    @SerializedName("name") val name: String
+    @SerializedName("name") val name: String,
+    @SerializedName("parent_id") val parentId: String?,
 )
 
 data class AreaWithSubareasDto(
