@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.models.areas.storage.impl
+package ru.practicum.android.diploma.data.filters.storage.impl
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
@@ -19,8 +19,11 @@ class FilterParametersStorageImpl(
 
     override fun getFilterParameters(): FilterParametersDto {
         val json = sharedPreferences.getString(FILTER_PARAMETERS_KEY, null)
-        return if (json != null) gson.fromJson(json, FilterParametersDto::class.java)
-        else FilterParametersDto()
+        return if (json != null) {
+            gson.fromJson(json, FilterParametersDto::class.java)
+        } else {
+            FilterParametersDto()
+        }
     }
 
     override fun removeFilterParameters() {

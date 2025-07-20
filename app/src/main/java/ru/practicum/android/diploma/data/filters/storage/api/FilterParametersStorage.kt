@@ -4,6 +4,6 @@ import ru.practicum.android.diploma.data.models.storage.FilterParametersDto
 
 interface FilterParametersStorage {
     fun putFilterParameters(params: FilterParametersDto)
-    fun getFilterParameters() : FilterParametersDto
+    fun getFilterParameters(): FilterParametersDto
     fun removeFilterParameters()
 }

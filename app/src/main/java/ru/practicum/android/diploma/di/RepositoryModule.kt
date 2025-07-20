@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.favouritevacancies.impl.FavouriteVacanc
 import ru.practicum.android.diploma.data.filters.impl.FiltersParametersRepositoryImpl
 import ru.practicum.android.diploma.data.filters.impl.FiltersRepositoryImpl
 import ru.practicum.android.diploma.data.filters.storage.api.FilterParametersStorage
-import ru.practicum.android.diploma.data.models.areas.storage.impl.FilterParametersStorageImpl
+import ru.practicum.android.diploma.data.filters.storage.impl.FilterParametersStorageImpl
 import ru.practicum.android.diploma.data.searchfilters.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.sharing.ExternalNavigator
 import ru.practicum.android.diploma.data.sharing.impl.ExternalNavigatorImpl

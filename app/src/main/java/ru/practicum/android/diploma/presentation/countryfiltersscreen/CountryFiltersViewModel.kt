@@ -13,7 +13,8 @@ import ru.practicum.android.diploma.util.Resource
 
 class CountryFiltersViewModel(
     private val interactor: FiltersInteractor,
-    private val parametersInteractor: FiltersParametersInteractor) : ViewModel() {
+    private val parametersInteractor: FiltersParametersInteractor
+) : ViewModel() {
 
     private val _countryState = MutableLiveData<CountryFiltersUiState>()
     val getCountryState: LiveData<CountryFiltersUiState> = _countryState

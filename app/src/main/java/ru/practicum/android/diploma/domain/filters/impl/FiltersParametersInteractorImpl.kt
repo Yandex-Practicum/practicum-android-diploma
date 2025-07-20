@@ -4,7 +4,9 @@ import ru.practicum.android.diploma.domain.filters.repository.FilterParametersRe
 import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 
-class FiltersParametersInteractorImpl(private val repository: FilterParametersRepository) : FiltersParametersInteractor {
+class FiltersParametersInteractorImpl(
+    private val repository: FilterParametersRepository
+) : FiltersParametersInteractor {
     override fun selectCountry(countryName: String?) {
         repository.selectCountry(countryName)
     }
