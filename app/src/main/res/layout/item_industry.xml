@@ -13,8 +13,6 @@
         style="@style/TextRegular16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="@id/radio_btn"
         app:layout_constraintEnd_toStartOf="@+id/radio_btn"
