@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.search.presenter.search
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +30,6 @@ class VacanciesAdapter(
         return if (isLoading && position == vacanciesList.size) TYPE_LOADING else TYPE_VACANCY
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_VACANCY) {
             val view = LayoutInflater.from(context).inflate(R.layout.vacancies_preview, parent, false)
@@ -53,7 +51,6 @@ class VacanciesAdapter(
         }
     }
 
-
     fun setList(newVacancies: List<VacancyPreviewUi>) {
         vacanciesList.clear()
         vacanciesList.addAll(newVacancies)
@@ -63,16 +60,13 @@ class VacanciesAdapter(
     fun showLoading() {
         if (!isLoading) {
             isLoading = true
-            Log.d("VacanciesAdapter", "Showing loading indicator at position: ${vacanciesList.size}")
             notifyItemInserted(vacanciesList.size)
-
         }
     }
 
     fun hideLoading() {
         if (isLoading) {
             isLoading = false
-            Log.d("VacanciesAdapter", "Hiding loading indicator")
             notifyItemRemoved(vacanciesList.size)
         }
     }

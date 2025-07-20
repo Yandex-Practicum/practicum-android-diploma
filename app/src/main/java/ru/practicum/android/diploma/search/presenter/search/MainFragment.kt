@@ -87,8 +87,6 @@ class MainFragment : Fragment() {
                 }
             }
         })
-
-
     }
 
     override fun onDestroyView() {
