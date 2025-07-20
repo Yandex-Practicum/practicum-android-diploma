@@ -21,7 +21,7 @@ class RetrofitNetworkClient(
                     )
 
                     when {
-                        response.items.size == 0 -> {
+                        response.items.isEmpty() -> {
                             response.resultCode = EMPTY
                             response
                         }

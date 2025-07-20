@@ -15,7 +15,7 @@ object RetrofitClient {
     }
 
     private val okhttpClient = OkHttpClient.Builder()
-        .addInterceptor(TokenInterceptor(TOKEN)) // ✅ Добавляем токен
+        .addInterceptor(TokenInterceptor(TOKEN))
         .addInterceptor(logging)
         .build()
 

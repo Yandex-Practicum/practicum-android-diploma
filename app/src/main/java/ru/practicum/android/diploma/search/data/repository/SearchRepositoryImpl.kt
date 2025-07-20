@@ -18,7 +18,6 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
     override fun getVacancies(text: String, area: String?): Flow<Resource<List<VacancyPreview>>> = flow {
         val response = networkClient.getVacancies(
             VacancyRequest(
-                page = 0,
                 perPage = 20,
                 text = text,
                 area = area
