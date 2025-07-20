@@ -20,7 +20,7 @@ class IndustriesFilterViewModel(private val interactor: IndustriesInteractor) : 
         viewModelScope.launch {
             _industriesState.postValue(IndustriesUiState.Loading)
             interactor.getIndustries()
-                .collect{
+                .collect {
                     stateIndustry(it)
                 }
         }

@@ -64,15 +64,15 @@ class RetrofitNetworkClient(
     }
 
     private suspend fun handleIndustriesRequest(): Response = withContext(Dispatchers.IO) {
-       try {
-           val response = industriesApi.getIndustries()
-           IndustryResponseDto(response).apply {
-               resultCode = REQUEST_SUCCESS
-           }
-       } catch (e: retrofit2.HttpException) {
-           Log.e("Repository", "Error getting details vacancies", e)
-           createServerErrorResponse()
-       }
+        try {
+            val response = industriesApi.getIndustries()
+            IndustryResponseDto(response).apply {
+                resultCode = REQUEST_SUCCESS
+            }
+        } catch (e: retrofit2.HttpException) {
+            Log.e("Repository", "Error getting details vacancies", e)
+            createServerErrorResponse()
+        }
     }
 
     private fun createServerErrorResponse() = Response().apply { resultCode = SERVER_ERROR }
