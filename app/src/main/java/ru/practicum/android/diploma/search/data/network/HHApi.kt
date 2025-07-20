@@ -9,14 +9,11 @@ import ru.practicum.android.diploma.vacancy.data.dto.VacancyDetailsDto
 
 interface HHApi {
 
-    @Headers(
-        "Authorization: Bearer YOUR_TOKEN",
-        "HH-User-Agent: Application Name (name@example.com)"
-    )
     @GET("vacancies")
     suspend fun getVacancyByName(
         @QueryMap filters: Map<String, String>
     ): VacanciesResponse
+
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancyDetails(@Path("vacancy_id") id: String): VacancyDetailsDto
 

@@ -24,17 +24,7 @@ class RootActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.root_fragment_container) as NavHostFragment
         val navController: NavController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.vacancyFragment -> {
-                    binding.bottomNavigationView.visibility = View.GONE
-                }
-                else -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
-                }
-            }
-        }
+        hideBottomNav(navController)
 
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
@@ -46,5 +36,23 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ... ваш код для сетевого запроса
+    }
+
+    private fun hideBottomNav(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.vacancyFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+
+                R.id.filtersFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+
+                else -> {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/vacancyContainerId"
+    android:paddingVertical="10dp"
     android:background="@color/hh_back_theme"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="16dp">

@@ -31,6 +31,11 @@ class Debouncer(
         }
     }
 
+    fun cancelDebounce() {
+        searchJob?.cancel()
+        searchJob = null
+    }
+
     companion object {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
