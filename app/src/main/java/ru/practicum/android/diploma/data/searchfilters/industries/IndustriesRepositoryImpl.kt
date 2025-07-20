@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.searchfilters.industries
 
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.data.mappers.toDomain
 import ru.practicum.android.diploma.data.models.industries.remote.IndustryRequest
 import ru.practicum.android.diploma.data.models.industries.remote.IndustryResponseDto
