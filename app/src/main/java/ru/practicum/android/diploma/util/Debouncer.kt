@@ -31,7 +31,7 @@ class Debouncer(
         }
     }
 
-    fun cancelDebounce(){
+    fun cancelDebounce() {
         searchJob?.cancel()
         searchJob = null
     }

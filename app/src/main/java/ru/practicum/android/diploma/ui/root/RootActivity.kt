@@ -38,7 +38,7 @@ class RootActivity : AppCompatActivity() {
         // ... ваш код для сетевого запроса
     }
 
-    private fun hideBottomNav(navController: NavController){
+    private fun hideBottomNav(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.vacancyFragment -> {
