@@ -67,6 +67,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingVertical="@dimen/dimen_8dp"
+            android:paddingEnd="40dp"
             android:background="@drawable/background_searchline"
             android:orientation="vertical">
 
@@ -74,10 +77,8 @@
                 android:id="@+id/topHint"
                 style="@style/TextRegular12"
                 android:paddingVertical="0dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/dimen_8dp"
                 android:text="@string/expected_slary"
                 android:textColor="?attr/colorOnContainer" />
 
@@ -86,9 +87,6 @@
                 style="@style/TextRegular16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="8dp"
                 android:backgroundTint="?attr/colorPrimary"
                 android:hint="@string/input_number"
                 android:inputType="number"
@@ -107,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="14dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
             android:visibility="gone"
@@ -121,9 +119,9 @@
         android:text="@string/dont_show_without_salary"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/salary_zone"
+        app:layout_constraintBottom_toBottomOf="@+id/materialCheckbox"
+        app:layout_constraintTop_toTopOf="@id/materialCheckbox"
         style="@style/TextRegular16"
-        android:layout_marginTop="50dp"
         android:layout_marginStart="16dp"/>
 
     <com.google.android.material.checkbox.MaterialCheckBox
@@ -131,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="4dp"
         app:buttonTint="@color/checkbox_state_colors"
         app:layout_constraintTop_toBottomOf="@id/salary_zone"/>
