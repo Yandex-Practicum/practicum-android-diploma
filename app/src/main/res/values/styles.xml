@@ -100,6 +100,7 @@
         <item name="android:paddingVertical">@dimen/dimen_20dp</item>
         <item name="android:textAppearance">@style/TextRegular16</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:clickable">true</item>
         <item name="android:focusable">false</item>
         <item name="android:inputType">none</item>
         <item name="android:longClickable">false</item>

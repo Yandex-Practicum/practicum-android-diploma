@@ -6,8 +6,8 @@ import retrofit2.http.Path
 
 interface AreasApi {
     @Headers("HH-User-Agent: WorkNest/1.0 (danilov-av2004@mail.ru)")
-    @GET("areas/countries")
-    suspend fun getCountries(): List<AreasDto>
+    @GET("areas")
+    suspend fun getCountries(): List<AreasResponseDto>
 
     @Headers("HH-User-Agent: WorkNest/1.0 (danilov-av2004@mail.ru)")
     @GET("areas/{country_id}")

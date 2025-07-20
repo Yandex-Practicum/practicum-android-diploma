@@ -52,6 +52,15 @@
         android:id="@+id/workplaceFiltersFragment"
         android:name="ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment"
         android:label="workplace_fragment"
+        tools:layout="@layout/workplace_fragment" >
+        <action
+            android:id="@+id/action_workplaceFiltersFragment_to_countryFiltersFragment"
+            app:destination="@id/countryFiltersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryFiltersFragment"
+        android:name="ru.practicum.android.diploma.ui.searchfilters.countryfilters.CountryFiltersFragment"
+        android:label="CountryFiltersFragment" />
         tools:layout="@layout/workplace_fragment" />
     <fragment
         android:id="@+id/industryFilterFragment"
