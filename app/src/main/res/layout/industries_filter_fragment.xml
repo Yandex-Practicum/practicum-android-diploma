@@ -74,4 +74,13 @@
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_zone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/ProgressBarStyle"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/arrow_back" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -144,4 +144,9 @@
         <item name="tint">?attr/colorOnPrimary</item>
     </style>
 
+    <style name="ProgressBarStyle">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:indeterminateTint">@color/blue</item>
+    </style>
 </resources>

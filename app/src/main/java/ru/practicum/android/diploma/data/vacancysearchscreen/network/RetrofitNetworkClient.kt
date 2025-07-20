@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.models.industries.IndustriesApi
+import ru.practicum.android.diploma.data.models.industries.remote.IndustryRequest
+import ru.practicum.android.diploma.data.models.industries.remote.IndustryResponseDto
 import ru.practicum.android.diploma.data.models.vacancies.Response
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
@@ -14,6 +17,7 @@ import ru.practicum.android.diploma.util.NetworkHelper.isConnected
 class RetrofitNetworkClient(
     private val service: VacanciesApi,
     private val vacancyService: VacancyDetailsApi,
+    private val industriesApi: IndustriesApi,
     private val context: Context
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
@@ -28,6 +32,7 @@ class RetrofitNetworkClient(
         return when (dto) {
             is VacanciesRequest -> handleVacancyRequest(dto)
             is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
+            is IndustryRequest -> handleIndustriesRequest()
             else -> createFailedResponse()
         }
     }
@@ -56,6 +61,18 @@ class RetrofitNetworkClient(
             Log.e("Repository", "Error getting details vacancies", e)
             createServerErrorResponse()
         }
+    }
+
+    private suspend fun handleIndustriesRequest(): Response = withContext(Dispatchers.IO) {
+       try {
+           val response = industriesApi.getIndustries()
+           IndustryResponseDto(response).apply {
+               resultCode = REQUEST_SUCCESS
+           }
+       } catch (e: retrofit2.HttpException) {
+           Log.e("Repository", "Error getting details vacancies", e)
+           createServerErrorResponse()
+       }
     }
 
     private fun createServerErrorResponse() = Response().apply { resultCode = SERVER_ERROR }

@@ -8,6 +8,8 @@ import ru.practicum.android.diploma.domain.vacancysearchscreen.impl.VacanciesInt
 import ru.practicum.android.diploma.domain.favouritevacancies.impl.FavouriteVacanciesDbInteractorImpl
 import ru.practicum.android.diploma.domain.favouritevacancies.repository.FavouriteVacanciesDbRepository
 import ru.practicum.android.diploma.domain.favouritevacancies.usecases.FavouriteVacanciesDbInteractor
+import ru.practicum.android.diploma.domain.searchfilters.industries.IndustriesInteractor
+import ru.practicum.android.diploma.domain.searchfilters.industries.impl.IndustriesInteractorImpl
 
 val interactorModule = module {
     // FavouriteVacancies
@@ -20,5 +22,9 @@ val interactorModule = module {
 
     single<SharingInteractor> {
         SharingInteractorImpl(get())
+    }
+
+    single<IndustriesInteractor> {
+        IndustriesInteractorImpl(get())
     }
 }
