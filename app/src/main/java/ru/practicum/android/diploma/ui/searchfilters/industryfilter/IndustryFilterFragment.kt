@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.IndustriesFilterFragmentBinding
-import ru.practicum.android.diploma.domain.models.industries.Industry
 import ru.practicum.android.diploma.presentation.searchfilters.industries.IndustriesFilterViewModel
 import ru.practicum.android.diploma.presentation.searchfilters.industries.IndustriesUiState
 import ru.practicum.android.diploma.ui.searchfilters.industryfilter.recyclerview.IndustryItemAdapter
@@ -70,7 +69,6 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
             adapter.submitList(listOf(it))
         }
         adapter.setSelectedId(id)
-        
     }
 
     override fun onDestroyView() {
