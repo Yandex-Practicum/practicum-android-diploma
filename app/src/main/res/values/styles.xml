@@ -100,7 +100,7 @@
         <item name="android:paddingVertical">@dimen/dimen_20dp</item>
         <item name="android:textAppearance">@style/TextRegular16</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:enabled">false</item>
+        <item name="android:clickable">true</item>
         <item name="android:focusable">false</item>
         <item name="android:inputType">none</item>
         <item name="android:longClickable">false</item>
@@ -131,6 +131,12 @@
         <item name="android:background">@null</item>
         <item name="android:src">@drawable/arrow_forward_24px</item>
         <item name="tint">?attr/colorOnPrimary</item>
+    </style>
+    
+    <style name="ProgressBarStyle">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:indeterminateTint">@color/blue</item>
     </style>
 
 </resources>

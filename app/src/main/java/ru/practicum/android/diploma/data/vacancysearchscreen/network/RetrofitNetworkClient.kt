@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.models.areas.AreasApi
+import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesRequest
+import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesResponseDto
 import ru.practicum.android.diploma.data.models.vacancies.Response
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
@@ -14,6 +17,7 @@ import ru.practicum.android.diploma.util.NetworkHelper.isConnected
 class RetrofitNetworkClient(
     private val service: VacanciesApi,
     private val vacancyService: VacancyDetailsApi,
+    private val countryService: AreasApi,
     private val context: Context
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
@@ -28,6 +32,7 @@ class RetrofitNetworkClient(
         return when (dto) {
             is VacanciesRequest -> handleVacancyRequest(dto)
             is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
+            is CountriesRequest -> handleCountriesRequest()
             else -> createFailedResponse()
         }
     }
@@ -54,6 +59,18 @@ class RetrofitNetworkClient(
             response.apply { resultCode = REQUEST_SUCCESS }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Error getting details vacancies", e)
+            createServerErrorResponse()
+        }
+    }
+
+    private suspend fun handleCountriesRequest(): Response = withContext(Dispatchers.IO) {
+        try {
+            val response = countryService.getCountries()
+            CountriesResponseDto(response).apply {
+                resultCode = REQUEST_SUCCESS
+            }
+        } catch (e: retrofit2.HttpException) {
+            Log.e("Repository", "Error getting countries list", e)
             createServerErrorResponse()
         }
     }
