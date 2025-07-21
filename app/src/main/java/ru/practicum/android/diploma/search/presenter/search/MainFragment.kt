@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
@@ -35,7 +35,8 @@ class MainFragment : Fragment() {
     }
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
-    private val debouncer: Debouncer by inject { parametersOf(viewLifecycleOwner.lifecycleScope) }
+
+    private lateinit var debouncer: Debouncer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +49,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        debouncer = get { parametersOf(viewLifecycleOwner.lifecycleScope) }
+
         initRv()
 
         val textWatcher = object : TextWatcher {
