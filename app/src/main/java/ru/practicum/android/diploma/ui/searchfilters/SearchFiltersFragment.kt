@@ -136,7 +136,7 @@ class SearchFiltersFragment : Fragment() {
         binding.btnCancel.isVisible = !isEmpty
     }
 
-    companion object{
-        const val SEARCH_WITH_FILTERS_KEY ="search_with_filters_key"
+    companion object {
+        const val SEARCH_WITH_FILTERS_KEY = "search_with_filters_key"
     }
 }

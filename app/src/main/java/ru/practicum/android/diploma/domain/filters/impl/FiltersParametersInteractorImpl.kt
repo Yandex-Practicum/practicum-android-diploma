@@ -12,7 +12,7 @@ class FiltersParametersInteractorImpl(
     }
 
     override fun selectRegion(regionName: String?) {
-        TODO("Not yet implemented")
+        // ...
     }
 
     override fun selectIndustry(industryId: String?, industryName: String?) {
@@ -20,11 +20,11 @@ class FiltersParametersInteractorImpl(
     }
 
     override fun defineSalary(value: String?) {
-        TODO("Not yet implemented")
+        // ...
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        TODO("Not yet implemented")
+        // ...
     }
 
     override fun getFiltersParameters(): FilterParameters {

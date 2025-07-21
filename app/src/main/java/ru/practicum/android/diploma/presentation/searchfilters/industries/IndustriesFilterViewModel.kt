@@ -11,7 +11,8 @@ import ru.practicum.android.diploma.util.Resource
 
 class IndustriesFilterViewModel(
     private val interactor: FiltersInteractor,
-    private val filterInteractor: FiltersParametersInteractor) : ViewModel() {
+    private val filterInteractor: FiltersParametersInteractor
+) : ViewModel() {
 
     private val _industriesState = MutableLiveData<IndustriesUiState>()
     val industriesState: MutableLiveData<IndustriesUiState> = _industriesState
