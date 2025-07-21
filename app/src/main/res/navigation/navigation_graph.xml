@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_workplaceFiltersFragment_to_countryFiltersFragment"
             app:destination="@id/countryFiltersFragment" />
+        <action
+            android:id="@+id/action_workplaceFiltersFragment_to_regionsFilterFragment"
+            app:destination="@id/regionsFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/countryFiltersFragment"
@@ -67,4 +70,13 @@
         android:name="ru.practicum.android.diploma.ui.searchfilters.industryfilter.IndustryFilterFragment"
         android:label="industries_filter_fragment"
         tools:layout="@layout/industries_filter_fragment" />
+    <fragment
+        android:id="@+id/regionsFilterFragment"
+        android:name="ru.practicum.android.diploma.ui.searchfilters.regionsfilter.RegionsFilterFragment"
+        android:label="RegionsFilterFragment">
+        <argument
+            android:name="countryId"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
 </navigation>

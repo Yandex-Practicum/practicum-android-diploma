@@ -36,12 +36,20 @@ class WorkplaceFiltersFragment : Fragment() {
             openCountry()
         }
 
+        binding.editTextRegion.setOnClickListener {
+            openRegion()
+        }
+
         binding.btnChoose.setOnClickListener {
             findNavController().popBackStack()
         }
 
         binding.inputLayoutCountry.setEndIconOnClickListener {
             viewModel.clearCountry()
+        }
+
+        binding.inputLayoutRegion.setEndIconOnClickListener {
+            viewModel.clearRegion()
         }
 
         viewModel.getSelectedCountry.observe(viewLifecycleOwner) {
@@ -58,14 +66,20 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun renderSelectedCountry(state: FilterParameters) {
-        val isEmpty = state.countryName.isNullOrBlank()
+        val isEmptyCountry = state.countryName.isNullOrBlank()
+        val isEmptyRegion = state.regionName.isNullOrBlank()
 
         binding.editTextCountry.setText(state.countryName)
+        binding.editTextRegion.setText(state.regionName)
 
-        binding.inputLayoutCountry.hint = if (isEmpty) getString(R.string.country) else ""
+        binding.inputLayoutCountry.hint = if (isEmptyCountry) getString(R.string.country) else ""
+        binding.inputLayoutRegion.hint = if (isEmptyRegion) getString(R.string.region) else ""
 
-        val icon = if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
+        val icon = if (isEmptyCountry) R.drawable.arrow_forward_24px else R.drawable.close_24px
         binding.inputLayoutCountry.setEndIconDrawable(icon)
+
+        val iconRegions = if (isEmptyRegion) R.drawable.arrow_forward_24px else R.drawable.close_24px
+        binding.inputLayoutRegion.setEndIconDrawable(iconRegions)
     }
 
     private fun buttonChooseVisibility(state: FilterParameters) {
@@ -76,6 +90,14 @@ class WorkplaceFiltersFragment : Fragment() {
 
     private fun openCountry() {
         val action = WorkplaceFiltersFragmentDirections.actionWorkplaceFiltersFragmentToCountryFiltersFragment()
+        findNavController().navigate(action)
+        viewModel.clearRegion()
+    }
+
+    private fun openRegion() {
+        val countryId = viewModel.getSelectedCountryId()
+        val action = WorkplaceFiltersFragmentDirections
+            .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryId ?: "")
         findNavController().navigate(action)
     }
 }
