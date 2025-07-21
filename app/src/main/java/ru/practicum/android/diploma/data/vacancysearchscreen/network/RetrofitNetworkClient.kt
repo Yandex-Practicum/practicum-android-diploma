@@ -97,54 +97,61 @@ class RetrofitNetworkClient(
         }
     }
 
-    private suspend fun handleRegionsRequest(dto: RegionsRequest): Response = withContext(Dispatchers.IO) {
-        try {
-            val response = if (dto.countryId.isBlank()) {
-                val countries = countryService.getCountries()
-                val allCities = mutableListOf<AreasResponseDto>()
-
-                countries.forEach { country ->
-                    val regions = countryService.getRegions(country.id).areas
-                    regions.forEach { region ->
-                        if (region.areas.isNotEmpty()) {
-                            region.areas.forEach { city ->
-                                allCities.add(city.copy(countryName = country.name))
-                            }
-                        } else {
-                            allCities.add(region.copy(countryName = country.name))
-                        }
-                    }
+    private suspend fun handleRegionsRequest(dto: RegionsRequest): Response =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = if (dto.countryId.isBlank()) {
+                    getAllCitiesResponse()
+                } else {
+                    getCitiesByCountryResponse(dto.countryId)
                 }
 
-                AreaWithSubareasDto(id = "", name = "All cities", areas = allCities)
-            } else {
-                val country = countryService.getCountries().firstOrNull { it.id == dto.countryId }
-                val countryName = country?.name ?: ""
-                val response = countryService.getRegions(dto.countryId)
-                val resultAreas = mutableListOf<AreasResponseDto>()
-
-                response.areas.forEach { region ->
-                    if (region.areas.isNotEmpty()) {
-                        // Добавляем города с названием страны
-                        region.areas.forEach { city ->
-                            resultAreas.add(city.copy(countryName = countryName))
-                        }
-                    } else {
-                        // Добавляем сам регион как город с названием страны
-                        resultAreas.add(region.copy(countryName = countryName))
-                    }
+                RegionsResponseDto(response.areas).apply {
+                    resultCode = REQUEST_SUCCESS
                 }
-
-                AreaWithSubareasDto(id = dto.countryId, name = "Cities", areas = resultAreas)
+            } catch (e: retrofit2.HttpException) {
+                Log.e("Repository", "Error getting cities list", e)
+                createServerErrorResponse()
             }
-
-            RegionsResponseDto(response.areas).apply {
-                resultCode = REQUEST_SUCCESS
-            }
-        } catch (e: retrofit2.HttpException) {
-            Log.e("Repository", "Error getting cities list", e)
-            createServerErrorResponse()
         }
+
+    private suspend fun getAllCitiesResponse(): AreaWithSubareasDto {
+        val countries = countryService.getCountries()
+        val allCities = mutableListOf<AreasResponseDto>()
+
+        countries.forEach { country ->
+            val regions = countryService.getRegions(country.id).areas
+            regions.forEach { region ->
+                if (region.areas.isNotEmpty()) {
+                    region.areas.forEach { city ->
+                        allCities.add(city.copy(countryName = country.name))
+                    }
+                } else {
+                    allCities.add(region.copy(countryName = country.name))
+                }
+            }
+        }
+
+        return AreaWithSubareasDto(id = "", name = "All cities", areas = allCities)
+    }
+
+    private suspend fun getCitiesByCountryResponse(countryId: String): AreaWithSubareasDto {
+        val country = countryService.getCountries().firstOrNull { it.id == countryId }
+        val countryName = country?.name ?: ""
+        val response = countryService.getRegions(countryId)
+        val resultAreas = mutableListOf<AreasResponseDto>()
+
+        response.areas.forEach { region ->
+            if (region.areas.isNotEmpty()) {
+                region.areas.forEach { city ->
+                    resultAreas.add(city.copy(countryName = countryName))
+                }
+            } else {
+                resultAreas.add(region.copy(countryName = countryName))
+            }
+        }
+
+        return AreaWithSubareasDto(id = countryId, name = "Cities", areas = resultAreas)
     }
 
     private fun createServerErrorResponse() = Response().apply { resultCode = SERVER_ERROR }

@@ -11,15 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.RegionsFilterFragmentBinding
-import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.Region
-import ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate.CountryFiltersUiState
-import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionFilterViewModel
 import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionsFiltersUiState
 import ru.practicum.android.diploma.ui.searchfilters.recycleview.RegionsAdapter
-import ru.practicum.android.diploma.ui.searchfilters.recycleview.WorkplaceAdapter
-import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
 
 class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
     private var _binding: RegionsFilterFragmentBinding? = null

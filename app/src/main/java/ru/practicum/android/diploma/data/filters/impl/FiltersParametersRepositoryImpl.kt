@@ -22,15 +22,15 @@ class FiltersParametersRepositoryImpl(private val storage: FilterParametersStora
     }
 
     override fun selectIndustry(industryName: String?) {
-        TODO("Not yet implemented")
+        //...
     }
 
     override fun defineSalary(value: String?) {
-        TODO("Not yet implemented")
+        //...
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        TODO("Not yet implemented")
+        //...
     }
 
     override fun getFiltersParameters(): FilterParameters {

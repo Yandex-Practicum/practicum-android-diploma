@@ -19,24 +19,23 @@ class FiltersParametersInteractorImpl(
     override fun selectRegion(regionName: String?, countryName: String?) {
         val currentParams = repository.getFiltersParameters()
 
-        // Если передано название страны и текущая страна не выбрана
         if (!countryName.isNullOrBlank() && currentParams.countryName.isNullOrBlank()) {
-            repository.selectCountry(countryName, null) // Сохраняем название страны
+            repository.selectCountry(countryName, null)
         }
 
         repository.selectRegion(regionName)
     }
 
     override fun selectIndustry(industryName: String?) {
-        TODO("Not yet implemented")
+        //...
     }
 
     override fun defineSalary(value: String?) {
-        TODO("Not yet implemented")
+        //...
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        TODO("Not yet implemented")
+        //...
     }
 
     override fun getFiltersParameters(): FilterParameters {

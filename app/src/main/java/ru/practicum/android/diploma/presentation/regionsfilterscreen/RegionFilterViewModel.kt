@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
 import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
-import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.util.Resource
 
@@ -19,9 +18,8 @@ class RegionFilterViewModel(
     private val _regionState = MutableLiveData<RegionsFiltersUiState>()
     val getRegionState: LiveData<RegionsFiltersUiState> = _regionState
 
-
     init {
-        val countryId = parametersInteractor.getSelectedCountryId() ?:""
+        val countryId = parametersInteractor.getSelectedCountryId() ?: ""
         Log.d("Country", countryId)
         loadRegions(countryId)
     }
@@ -42,7 +40,7 @@ class RegionFilterViewModel(
                 is Resource.Success -> {
                     Log.d("CitiesDebug", "Cities loaded successfully: ${resource.data!!.size} items")
                     resource.data!!.forEachIndexed { i, city ->
-                        Log.d("CitiesDebug", "${i+1}. ${city.name}")
+                        Log.d("CitiesDebug", "${i + 1}. ${city.name}")
                     }
                     RegionsFiltersUiState.Content(resource.data!!)
                 }
