@@ -31,7 +31,6 @@ class IndustryItemAdapter(private val clickListener: OnClickListener) : ListAdap
         val isSelected = industry.id == selectedId
 
         holder.bind(industry, isSelected) { clickedId ->
-            selectedId = clickedId
             clickListener.onClick(clickedId)
         }
     }

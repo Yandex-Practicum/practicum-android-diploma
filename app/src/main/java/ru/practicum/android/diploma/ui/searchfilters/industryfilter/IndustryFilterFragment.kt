@@ -1,18 +1,24 @@
 package ru.practicum.android.diploma.ui.searchfilters.industryfilter
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.IndustriesFilterFragmentBinding
 import ru.practicum.android.diploma.presentation.searchfilters.industries.IndustriesFilterViewModel
 import ru.practicum.android.diploma.presentation.searchfilters.industries.IndustriesUiState
 import ru.practicum.android.diploma.ui.searchfilters.industryfilter.recyclerview.IndustryItemAdapter
+import ru.practicum.android.diploma.util.hideKeyboardOnDone
 
 class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
     private var _binding: IndustriesFilterFragmentBinding? = null
@@ -36,13 +42,14 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
         binding.recyclerViewSearch.adapter = adapter
 
         observeViewModels()
+        setupSearchInput()
 
         binding.arrowBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
         binding.btnChoose.setOnClickListener {
-            viewModel.onClick(selectedIndustryId, selectedIndustryName)
+            viewModel.onClickIndustry(selectedIndustryId, selectedIndustryName)
             findNavController().popBackStack()
         }
     }
@@ -67,6 +74,24 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun setupSearchInput() {
+        binding.inputEditText.doOnTextChanged { text, start, before, count ->
+            val query = text?.toString()?.trim().orEmpty()
+
+            if (query.isNotEmpty() && binding.inputEditText.hasFocus()) {
+                binding.icon.setImageResource(R.drawable.close_24px)
+                binding.icon.setOnClickListener {
+                    binding.inputEditText.setText("")
+                }
+            } else {
+                binding.icon.setImageResource(R.drawable.search_24px)
+            }
+            viewModel.search(query)
+        }
+
+        binding.inputEditText.hideKeyboardOnDone(requireContext())
     }
 
     override fun onClick(id: String) {

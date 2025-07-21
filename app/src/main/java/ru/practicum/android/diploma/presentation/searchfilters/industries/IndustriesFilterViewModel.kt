@@ -12,8 +12,11 @@ import ru.practicum.android.diploma.util.Resource
 class IndustriesFilterViewModel(
     private val interactor: FiltersInteractor,
     private val filterInteractor: FiltersParametersInteractor) : ViewModel() {
+
     private val _industriesState = MutableLiveData<IndustriesUiState>()
     val industriesState: MutableLiveData<IndustriesUiState> = _industriesState
+
+    private var industriesList: List<Industry> = emptyList()
 
     init {
         getIndustries()
@@ -33,6 +36,7 @@ class IndustriesFilterViewModel(
         _industriesState.postValue(
             when (resource) {
                 is Resource.Success -> {
+                    industriesList = resource.data ?: emptyList()
                     IndustriesUiState.Content(resource.data!!)
                 }
 
@@ -43,7 +47,18 @@ class IndustriesFilterViewModel(
         )
     }
 
-    fun onClick(industryId: String?, industryName: String?) {
+    fun search(query: String) {
+        val filtered = if (query.isBlank()) {
+            industriesList
+        } else {
+            industriesList.filter {
+                it.name.contains(query, ignoreCase = true)
+            }
+        }
+        _industriesState.postValue(IndustriesUiState.Content(filtered))
+    }
+
+    fun onClickIndustry(industryId: String?, industryName: String?) {
         filterInteractor.selectIndustry(industryId, industryName)
     }
 }
