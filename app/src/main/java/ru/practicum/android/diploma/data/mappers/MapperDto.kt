@@ -130,6 +130,7 @@ fun AreasResponseDto.toRegion(): Region {
     return Region(
         id = this.id,
         name = this.name,
+        countryName = this.countryName ?: "",
         regionId = this.parentId,
         countryId = this.parentId
     )

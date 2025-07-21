@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.searchfilters.regionsfilter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,7 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
 
     override fun onClick(region: Region) {
         viewModel.onRegionSelected(region)
+        Log.d("CountryName", region.countryName.toString())
         findNavController().popBackStack()
     }
 

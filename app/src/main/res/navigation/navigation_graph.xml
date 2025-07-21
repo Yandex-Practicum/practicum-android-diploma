@@ -73,5 +73,10 @@
     <fragment
         android:id="@+id/regionsFilterFragment"
         android:name="ru.practicum.android.diploma.ui.searchfilters.regionsfilter.RegionsFilterFragment"
-        android:label="RegionsFilterFragment" />
+        android:label="RegionsFilterFragment">
+        <argument
+            android:name="countryId"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
 </navigation>

@@ -107,23 +107,31 @@ class RetrofitNetworkClient(
                     val regions = countryService.getRegions(country.id).areas
                     regions.forEach { region ->
                         if (region.areas.isNotEmpty()) {
-                            allCities.addAll(region.areas)
+                            region.areas.forEach { city ->
+                                allCities.add(city.copy(countryName = country.name))
+                            }
                         } else {
-                            allCities.add(region)
+                            allCities.add(region.copy(countryName = country.name))
                         }
                     }
                 }
 
                 AreaWithSubareasDto(id = "", name = "All cities", areas = allCities)
             } else {
+                val country = countryService.getCountries().firstOrNull { it.id == dto.countryId }
+                val countryName = country?.name ?: ""
                 val response = countryService.getRegions(dto.countryId)
                 val resultAreas = mutableListOf<AreasResponseDto>()
 
                 response.areas.forEach { region ->
                     if (region.areas.isNotEmpty()) {
-                        resultAreas.addAll(region.areas)
+                        // Добавляем города с названием страны
+                        region.areas.forEach { city ->
+                            resultAreas.add(city.copy(countryName = countryName))
+                        }
                     } else {
-                        resultAreas.add(region)
+                        // Добавляем сам регион как город с названием страны
+                        resultAreas.add(region.copy(countryName = countryName))
                     }
                 }
 

@@ -19,24 +19,11 @@ class RegionFilterViewModel(
     private val _regionState = MutableLiveData<RegionsFiltersUiState>()
     val getRegionState: LiveData<RegionsFiltersUiState> = _regionState
 
-    private var allCountries: List<Country> = emptyList()
 
     init {
         val countryId = parametersInteractor.getSelectedCountryId() ?:""
         Log.d("Country", countryId)
         loadRegions(countryId)
-        loadAllCountries()
-    }
-
-    private fun loadAllCountries() {
-        viewModelScope.launch {
-            interactor.getCountries().collect { resource ->
-                if (resource is Resource.Success) {
-                    allCountries = resource.data ?: emptyList()
-                    Log.d("RegionSelectedCountry", allCountries.toString())
-                }
-            }
-        }
     }
 
     fun loadRegions(countryId: String) {
@@ -67,19 +54,6 @@ class RegionFilterViewModel(
     }
 
     fun onRegionSelected(region: Region) {
-        Log.d("RegionSelectedCountry1", allCountries.toString())
-        Log.d("RegionSelectedCountry2", region.id)
-        var countryName = ""
-        for (country in allCountries) {
-            if (country.id == region.countryId) {
-                countryName = country.name
-                break
-            }
-        }
-        parametersInteractor.selectRegion(
-            regionName = region.name,
-            countryName = countryName
-        )
-        Log.d("RegionSelected", "Region: ${region.name}, Country: $countryName")
+        parametersInteractor.selectRegion(region.name, region.countryName)
     }
 }

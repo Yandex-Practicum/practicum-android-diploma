@@ -86,7 +86,8 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun openRegion() {
-        val action = WorkplaceFiltersFragmentDirections.actionWorkplaceFiltersFragmentToRegionsFilterFragment()
+        val countryId = viewModel.getSelectedCountryId()
+        val action = WorkplaceFiltersFragmentDirections.actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryId ?: "")
         findNavController().navigate(action)
     }
 }

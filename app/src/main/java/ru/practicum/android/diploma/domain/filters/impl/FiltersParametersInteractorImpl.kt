@@ -17,6 +17,13 @@ class FiltersParametersInteractorImpl(
     }
 
     override fun selectRegion(regionName: String?, countryName: String?) {
+        val currentParams = repository.getFiltersParameters()
+
+        // Если передано название страны и текущая страна не выбрана
+        if (!countryName.isNullOrBlank() && currentParams.countryName.isNullOrBlank()) {
+            repository.selectCountry(countryName, null) // Сохраняем название страны
+        }
+
         repository.selectRegion(regionName)
     }
 
