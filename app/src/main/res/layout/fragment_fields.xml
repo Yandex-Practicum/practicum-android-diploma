@@ -78,4 +78,20 @@
         app:layout_constraintTop_toBottomOf="@id/editTextContainerId"
         tools:listitem="@layout/card_fields_info" />
 
+    <Button
+        android:id="@+id/selectButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/field_select_btn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/padding_medium"
+        android:background="@drawable/select_button"
+        android:textColor="@color/white"
+        app:backgroundTint="@null"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

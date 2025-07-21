@@ -6,11 +6,13 @@
 
     <RadioButton
         android:id="@+id/radio_button"
+        style="@style/Text.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layoutDirection="rtl"
         android:text="@string/field_name_example"
-        android:layout_centerInParent="true"
-        style="@style/Text.Body"/>
+
+        android:clickable="false" />
 
 </RelativeLayout>

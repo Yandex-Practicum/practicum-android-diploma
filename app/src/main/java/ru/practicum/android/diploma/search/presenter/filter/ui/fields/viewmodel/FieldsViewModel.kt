@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.FiltersInteractor
-import ru.practicum.android.diploma.search.domain.model.FailureType
 import ru.practicum.android.diploma.search.domain.model.Industry
 import ru.practicum.android.diploma.search.presenter.filter.model.FieldsState
 
@@ -16,6 +15,7 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
     val state: StateFlow<FieldsState> = _state
 
     private var allIndustries = listOf<Industry>()
+    private var selectedIndustry: Industry? = null
 
     init {
         loadIndustries()
@@ -38,19 +38,26 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
 
                     else -> {
                         allIndustries = industries
-                        _state.value = FieldsState.Content(allIndustries)
+                        _state.value = FieldsState.Content(allIndustries, selectedIndustry)
                     }
                 }
             }
         }
     }
 
-    fun filter(query: String) {
-        if (query.isEmpty()) {
-            _state.value = FieldsState.Content(allIndustries)
-            return
+    fun onIndustrySelected(industry: Industry) {
+        selectedIndustry = if (industry.id == selectedIndustry?.id) {
+            null
+        } else {
+            industry
         }
+        val currentState = _state.value
+        if (currentState is FieldsState.Content) {
+            _state.value = currentState.copy(selectedIndustry = selectedIndustry)
+        }
+    }
 
+    fun filter(query: String) {
         val filteredList = allIndustries.filter {
             it.name.contains(query, ignoreCase = true)
         }
@@ -58,11 +65,11 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
         if (filteredList.isEmpty()) {
             _state.value = FieldsState.Empty
         } else {
-            _state.value = FieldsState.Content(filteredList)
+            _state.value = FieldsState.Content(filteredList, selectedIndustry)
         }
     }
 
-    fun onIndustrySelected(industry: Industry) {
-        // TODO: Здесь будет логика сохранения выбранной отрасли.
+    fun applySelection() {
+        // TODO: Implement filter saving logic
     }
 }

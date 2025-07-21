@@ -28,11 +28,6 @@ class FieldsFragment : Fragment() {
     private lateinit var adapter: IndustriesAdapter
     private var debouncer: Debouncer? = null
 
-    // private val placeholderNotFound by lazy { binding.notFoundPlaceholder }
-    // private val placeholderError by lazy { binding.errorPlaceholder }
-    // private val progressBar by lazy { binding.progressBar }
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,10 +49,7 @@ class FieldsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = IndustriesAdapter { industry ->
-            if (debouncer?.clickDebounce() == true) {
-                viewModel.onIndustrySelected(industry)
-                findNavController().popBackStack()
-            }
+            viewModel.onIndustrySelected(industry)
         }
         binding.fieldsRecyclerView.adapter = adapter
     }
@@ -67,14 +59,19 @@ class FieldsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.selectButton.setOnClickListener {
+            viewModel.applySelection()
+            findNavController().popBackStack()
+        }
+
         binding.fieldEdittext.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 debouncer?.searchDebounce {
                     s?.let { viewModel.filter(it.toString()) }
                 }
             }
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) = Unit
         })
     }
 
@@ -87,23 +84,23 @@ class FieldsFragment : Fragment() {
     }
 
     private fun renderState(state: FieldsState) {
-        // binding.progressBar.isVisible = state is FieldsState.Loading
-        binding.fieldsRecyclerView.isVisible = state is FieldsState.Content
-        // binding.notFoundPlaceholder.isVisible = state is FieldsState.Empty
-        // binding.errorPlaceholder.isVisible = state is FieldsState.Error
+        binding.selectButton.isVisible = state is FieldsState.Content && state.selectedIndustry != null
 
         when (state) {
             is FieldsState.Content -> {
-                adapter.submitList(state.industries)
-            }
-            is FieldsState.Error -> {
-                // Обработка ошибки
+                binding.fieldsRecyclerView.isVisible = true
+                adapter.submitList(state.industries) {
+                    adapter.updateSelection(state.selectedIndustry)
+                }
             }
             is FieldsState.Empty -> {
-                // Показать плейсхолдер "Ничего не найдено"
+                binding.fieldsRecyclerView.isVisible = false
             }
             is FieldsState.Loading -> {
-                // Показать ProgressBar
+                binding.fieldsRecyclerView.isVisible = false
+            }
+            is FieldsState.Error -> {
+                binding.fieldsRecyclerView.isVisible = false
             }
         }
     }

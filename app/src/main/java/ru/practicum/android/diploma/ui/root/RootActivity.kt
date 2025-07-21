@@ -49,6 +49,10 @@ class RootActivity : AppCompatActivity() {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
 
+                R.id.fieldsFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }

@@ -42,6 +42,7 @@
     <string name="field_search">Введите отрасль</string>
     <string name="field_choosebtn">Выбрать</string>
     <string name="field_name_example">Название Вакансии</string>
+    <string name="field_select_btn">Выбрать</string>
 
     <string name="vacancy_title">Вакансия</string>
     <string name="vacancy_notfound_error">Вакансия не найдена или\nудалена</string>
