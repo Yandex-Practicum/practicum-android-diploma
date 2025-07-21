@@ -134,7 +134,7 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun openRegion() {
-        val countryId = viewModel.getSelectedCountry.value?.countryId
+        val countryId = viewModel.getSelectedParams.value?.countryId
         val action = WorkplaceFiltersFragmentDirections
             .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryId ?: "")
         findNavController().navigate(action)
@@ -142,10 +142,8 @@ class WorkplaceFiltersFragment : Fragment() {
 
     companion object {
         const val SELECTION_TYPE_KEY = "selection_type"
-
         const val COUNTRY_NAME_KEY = "country_name"
         const val REGION_NAME_KEY = "region_name"
-
         const val SELECTION_RESULT_KEY = "result_key"
     }
 }
