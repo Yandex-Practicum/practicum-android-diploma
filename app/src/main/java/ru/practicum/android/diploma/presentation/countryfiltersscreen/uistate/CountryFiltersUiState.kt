@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate
 
-import ru.practicum.android.diploma.domain.filters.model.Country
+import ru.practicum.android.diploma.domain.models.filters.Country
 
 sealed class CountryFiltersUiState {
     data object Loading : CountryFiltersUiState()

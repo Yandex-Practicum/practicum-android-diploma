@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.filters.model.Country
 import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
+import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
+import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate.CountryFiltersUiState
 import ru.practicum.android.diploma.util.Resource
 
-class CountryFiltersViewModel(private val interactor: FiltersInteractor) : ViewModel() {
+class CountryFiltersViewModel(
+    private val interactor: FiltersInteractor,
+    private val parametersInteractor: FiltersParametersInteractor
+) : ViewModel() {
 
     private val _countryState = MutableLiveData<CountryFiltersUiState>()
     val getCountryState: LiveData<CountryFiltersUiState> = _countryState
@@ -41,5 +45,9 @@ class CountryFiltersViewModel(private val interactor: FiltersInteractor) : ViewM
                 }
             }
         )
+    }
+
+    fun onCountrySelected(country: Country) {
+        parametersInteractor.selectCountry(country.name, country.id)
     }
 }

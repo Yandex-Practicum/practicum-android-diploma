@@ -2,12 +2,15 @@ package ru.practicum.android.diploma.data.mappers
 
 import ru.practicum.android.diploma.data.models.areas.AreasResponseDto
 import ru.practicum.android.diploma.data.models.industries.IndustryDto
+import ru.practicum.android.diploma.data.models.storage.FilterParametersDto
 import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
 import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
 import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
-import ru.practicum.android.diploma.domain.filters.model.Country
+import ru.practicum.android.diploma.domain.models.filters.Region
+import ru.practicum.android.diploma.domain.models.filters.Country
+import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 import ru.practicum.android.diploma.domain.models.industries.Industry
 import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
@@ -72,6 +75,28 @@ fun IndustryDto.toDomain(): Industry {
     )
 }
 
+fun FilterParametersDto.toDomain(): FilterParameters {
+    return FilterParameters(
+        countryName = countryName,
+        countryId = countryId,
+        regionName = regionName,
+        industryName = industryName,
+        salary = salary,
+        checkboxWithoutSalary = checkboxWithoutSalary
+    )
+}
+
+fun FilterParameters.toDto(): FilterParametersDto {
+    return FilterParametersDto(
+        countryName = countryName,
+        countryId = countryId,
+        regionName = regionName,
+        industryName = industryName,
+        salary = salary,
+        checkboxWithoutSalary = checkboxWithoutSalary
+    )
+}
+
 private fun SalaryRangeDto?.toDomain(): Salary {
     if (this == null) return Salary.NotSpecifies
 
@@ -99,4 +124,14 @@ fun EmploymentFormDto?.toDomain(): EmploymentForm? {
 
 fun WorkFormatDto?.toDomain(): String? {
     return this?.name?.takeIf { it.isNotBlank() }
+}
+
+fun AreasResponseDto.toRegion(): Region {
+    return Region(
+        id = this.id,
+        name = this.name,
+        countryName = this.countryName ?: "",
+        regionId = this.parentId,
+        countryId = this.parentId
+    )
 }

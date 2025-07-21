@@ -1,14 +1,18 @@
-package ru.practicum.android.diploma.data.models.areas.countryscreen.impl
+package ru.practicum.android.diploma.data.filters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.mappers.toDomain
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesRequest
-import ru.practicum.android.diploma.data.models.areas.countryscreen.CountriesResponseDto
+import ru.practicum.android.diploma.data.mappers.toRegion
+import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
+import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.areas.regions.RegionsRequest
+import ru.practicum.android.diploma.data.models.areas.regions.RegionsResponseDto
 import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
 import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClient
-import ru.practicum.android.diploma.domain.filters.model.Country
 import ru.practicum.android.diploma.domain.filters.repository.FiltersRepository
+import ru.practicum.android.diploma.domain.models.filters.Region
+import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.util.Resource
 
 class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersRepository {
@@ -23,6 +27,20 @@ class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersR
                 emit(Resource.Success(data.map { it.toDomain() }))
             }
 
+            NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
+            SERVER_ERROR -> emit(Resource.Error(ErrorType.SERVER_ERROR))
+            else -> emit(Resource.Error(ErrorType.UNKNOWN))
+        }
+    }
+
+    override fun getRegions(countryId: String): Flow<Resource<List<Region>>> = flow {
+        val response = networkClient.doRequest(RegionsRequest(countryId))
+        when (response.resultCode) {
+            SEARCH_SUCCESS -> {
+                val data = (response as RegionsResponseDto).regions
+                    .filter { it.areas.isEmpty() }
+                emit(Resource.Success(data.map { it.toRegion() }))
+            }
             NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
             SERVER_ERROR -> emit(Resource.Error(ErrorType.SERVER_ERROR))
             else -> emit(Resource.Error(ErrorType.UNKNOWN))

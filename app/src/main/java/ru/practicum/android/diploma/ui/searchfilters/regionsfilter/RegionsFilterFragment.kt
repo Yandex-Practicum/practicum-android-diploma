@@ -1,6 +1,7 @@
-package ru.practicum.android.diploma.ui.searchfilters.countryfilters
+package ru.practicum.android.diploma.ui.searchfilters.regionsfilter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,38 +10,39 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.databinding.CountryFiltersFragmentBinding
-import ru.practicum.android.diploma.domain.models.filters.Country
-import ru.practicum.android.diploma.presentation.countryfiltersscreen.CountryFiltersViewModel
-import ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate.CountryFiltersUiState
-import ru.practicum.android.diploma.ui.searchfilters.recycleview.WorkplaceAdapter
+import ru.practicum.android.diploma.databinding.RegionsFilterFragmentBinding
+import ru.practicum.android.diploma.domain.models.filters.Region
+import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionFilterViewModel
+import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionsFiltersUiState
+import ru.practicum.android.diploma.ui.searchfilters.recycleview.RegionsAdapter
 
-class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
-
-    private var _binding: CountryFiltersFragmentBinding? = null
+class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
+    private var _binding: RegionsFilterFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModel<CountryFiltersViewModel>()
-    private val adapter = WorkplaceAdapter(this)
+    private val adapter = RegionsAdapter(this)
+
+    private val viewModel by viewModel<RegionFilterViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = CountryFiltersFragmentBinding.inflate(inflater, container, false)
+        _binding = RegionsFilterFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvItemList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvItemList.adapter = adapter
-
         binding.btnArrowBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        viewModel.getCountryState.observe(viewLifecycleOwner) {
+        binding.rvItemList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvItemList.adapter = adapter
+
+        viewModel.getRegionState.observe(viewLifecycleOwner) {
             render(it)
         }
+
     }
 
     override fun onDestroyView() {
@@ -48,30 +50,31 @@ class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
         _binding = null
     }
 
-    private fun render(state: CountryFiltersUiState) {
+    override fun onClick(region: Region) {
+        viewModel.onRegionSelected(region)
+        Log.d("CountryName", region.countryName.toString())
+        findNavController().popBackStack()
+    }
+
+    private fun render(state: RegionsFiltersUiState) {
         when (state) {
-            is CountryFiltersUiState.Content -> {
+            is RegionsFiltersUiState.Content -> {
                 binding.rvItemList.isVisible = true
-                adapter.submitList(state.countries)
+                adapter.submitList(state.regions)
                 binding.progressBar.isVisible = false
                 binding.groupPlaceholder.isVisible = false
             }
-            is CountryFiltersUiState.Error -> {
+            is RegionsFiltersUiState.Error -> {
                 binding.groupPlaceholder.isVisible = true
                 binding.progressBar.isVisible = false
                 binding.rvItemList.isVisible = false
             }
 
-            CountryFiltersUiState.Loading -> {
+            RegionsFiltersUiState.Loading -> {
                 binding.progressBar.isVisible = true
                 binding.rvItemList.isVisible = false
                 binding.groupPlaceholder.isVisible = false
             }
         }
-    }
-
-    override fun onClick(country: Country) {
-        viewModel.onCountrySelected(country)
-        findNavController().popBackStack()
     }
 }

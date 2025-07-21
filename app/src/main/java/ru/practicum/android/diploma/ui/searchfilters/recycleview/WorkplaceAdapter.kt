@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.practicum.android.diploma.databinding.ItemWorkplaceSelectableBinding
-import ru.practicum.android.diploma.domain.filters.model.Country
+import ru.practicum.android.diploma.domain.models.filters.Country
 
 class WorkplaceAdapter(private val clickListener: OnClickListener) : ListAdapter<Country, WorkplaceItemViewHolder>(
     object : DiffUtil.ItemCallback<Country>() {
