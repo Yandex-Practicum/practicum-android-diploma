@@ -19,7 +19,29 @@ class WorkplaceFiltersFragment : Fragment() {
     private var _binding: WorkplaceFragmentBinding? = null
     private val binding get() = _binding!!
 
+
     private val viewModel by viewModel<WorkplaceFiltersViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(SELECTION_RESULT_KEY) { _, bundle ->
+            val type = SelectionType.from(bundle.getString(SELECTION_TYPE_KEY))
+            val countryName = bundle.getString(COUNTRY_NAME_KEY)
+
+            when (type) {
+                SelectionType.COUNTRY -> {
+                    val countryId = bundle.getString(COUNTRY_ID_KEY)
+                    viewModel.setTempCountrySelection(countryId, countryName)
+                }
+                SelectionType.REGION -> {
+                    val regionName = bundle.getString(REGION_NAME_KEY)
+                    viewModel.setTempRegionSelection(regionName, countryName)
+                }
+                null -> Unit
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = WorkplaceFragmentBinding.inflate(inflater, container, false)
@@ -28,22 +50,6 @@ class WorkplaceFiltersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setFragmentResultListener(SELECTION_RESULT_KEY) { _, bundle ->
-            val type = SelectionType.from(bundle.getString(SELECTION_TYPE_KEY))
-            val countryName = bundle.getString(COUNTRY_NAME_KEY)
-
-            when (type) {
-                SelectionType.COUNTRY -> {
-                    viewModel.setTempCountrySelection(countryName)
-                }
-                SelectionType.REGION -> {
-                    val regionName = bundle.getString(REGION_NAME_KEY)
-                    viewModel.setTempRegionSelection(countryName, regionName)
-                }
-                null -> Unit
-            }
-        }
 
         binding.arrowBack.setOnClickListener {
             findNavController().popBackStack()
@@ -91,7 +97,7 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun updateCountryView() {
-        val tempCountry = viewModel.getTempCountry.value
+        val tempCountry = viewModel.getTempCountry.value?.name
         val tempRegion = viewModel.getTempRegion.value
         val savedParams = viewModel.getSelectedParams.value
 
@@ -134,15 +140,18 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun openRegion() {
-        val countryId = viewModel.getSelectedParams.value?.countryId
+        val savedId = viewModel.getSelectedParams.value?.countryId
+        val tempId = viewModel.getTempCountry.value?.id
+        val countryIdToUse = tempId ?: savedId ?: ""
         val action = WorkplaceFiltersFragmentDirections
-            .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryId ?: "")
+            .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryIdToUse)
         findNavController().navigate(action)
     }
 
     companion object {
         const val SELECTION_TYPE_KEY = "selection_type"
         const val COUNTRY_NAME_KEY = "country_name"
+        const val COUNTRY_ID_KEY = "country_id"
         const val REGION_NAME_KEY = "region_name"
         const val SELECTION_RESULT_KEY = "result_key"
     }

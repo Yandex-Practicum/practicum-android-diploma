@@ -9,6 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -31,6 +32,7 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
     private val adapter = RegionsAdapter(this)
 
     private val viewModel by viewModel<RegionFilterViewModel>()
+    private val args: RegionsFilterFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = RegionsFilterFragmentBinding.inflate(inflater, container, false)
@@ -39,6 +41,9 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val countryId = args.countryId
+        viewModel.loadRegions(countryId)
 
         binding.btnArrowBack.setOnClickListener {
             findNavController().popBackStack()
