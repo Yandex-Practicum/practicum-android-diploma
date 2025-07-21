@@ -4,9 +4,13 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.models.areas.AreaWithSubareasDto
 import ru.practicum.android.diploma.data.models.areas.AreasApi
+import ru.practicum.android.diploma.data.models.areas.AreasResponseDto
 import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
 import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.areas.regions.RegionsRequest
+import ru.practicum.android.diploma.data.models.areas.regions.RegionsResponseDto
 import ru.practicum.android.diploma.data.models.industries.IndustriesApi
 import ru.practicum.android.diploma.data.models.industries.remote.IndustryRequest
 import ru.practicum.android.diploma.data.models.industries.remote.IndustryResponseDto
@@ -38,6 +42,7 @@ class RetrofitNetworkClient(
             is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
             is CountriesRequest -> handleCountriesRequest()
             is IndustryRequest -> handleIndustriesRequest()
+            is RegionsRequest -> handleRegionsRequest(dto)
             else -> createFailedResponse()
         }
     }
@@ -88,6 +93,40 @@ class RetrofitNetworkClient(
             }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Error getting details vacancies", e)
+            createServerErrorResponse()
+        }
+    }
+
+    private suspend fun handleRegionsRequest(dto: RegionsRequest): Response = withContext(Dispatchers.IO) {
+        try {
+            val response = if (dto.countryId.isBlank()) {
+                val countries = countryService.getCountries()
+                val allCities = mutableListOf<AreasResponseDto>()
+
+                countries.forEach { country ->
+                    val regions = countryService.getRegions(country.id).areas
+                    regions.forEach { region ->
+                        allCities.addAll(region.areas)
+                    }
+                }
+
+                AreaWithSubareasDto(id = "", name = "All cities", areas = allCities)
+            } else {
+                val regions = countryService.getRegions(dto.countryId).areas
+                val cities = mutableListOf<AreasResponseDto>()
+
+                regions.forEach { region ->
+                    cities.addAll(region.areas)
+                }
+
+                AreaWithSubareasDto(id = dto.countryId, name = "Cities", areas = cities)
+            }
+
+            RegionsResponseDto(response.areas).apply {
+                resultCode = REQUEST_SUCCESS
+            }
+        } catch (e: retrofit2.HttpException) {
+            Log.e("Repository", "Error getting cities list", e)
             createServerErrorResponse()
         }
     }

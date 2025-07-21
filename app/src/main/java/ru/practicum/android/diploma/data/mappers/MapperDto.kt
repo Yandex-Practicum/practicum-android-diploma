@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
 import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
 import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
+import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 import ru.practicum.android.diploma.domain.models.industries.Industry
@@ -121,4 +122,13 @@ fun EmploymentFormDto?.toDomain(): EmploymentForm? {
 
 fun WorkFormatDto?.toDomain(): String? {
     return this?.name?.takeIf { it.isNotBlank() }
+}
+
+fun AreasResponseDto.toRegion(): Region {
+    return Region(
+        id = this.id,
+        name = this.name,
+        regionId = this.parentId,
+        countryId = this.parentId
+    )
 }

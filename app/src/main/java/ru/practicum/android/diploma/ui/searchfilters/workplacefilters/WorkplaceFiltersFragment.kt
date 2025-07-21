@@ -35,6 +35,10 @@ class WorkplaceFiltersFragment : Fragment() {
             openCountry()
         }
 
+        binding.editTextRegion.setOnClickListener {
+            findNavController().navigate(R.id.action_workplaceFiltersFragment_to_regionsFilterFragment)
+        }
+
         binding.btnChoose.setOnClickListener {
             findNavController().popBackStack()
         }
