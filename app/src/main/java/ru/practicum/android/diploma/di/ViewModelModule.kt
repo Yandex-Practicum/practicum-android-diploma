@@ -33,7 +33,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        IndustriesFilterViewModel(get())
+        IndustriesFilterViewModel(get(), get())
     }
 
     viewModel {

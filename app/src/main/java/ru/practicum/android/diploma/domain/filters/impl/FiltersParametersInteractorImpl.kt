@@ -15,8 +15,8 @@ class FiltersParametersInteractorImpl(
         TODO("Not yet implemented")
     }
 
-    override fun selectIndustry(industryName: String?) {
-        TODO("Not yet implemented")
+    override fun selectIndustry(industryId: String?, industryName: String?) {
+        repository.selectIndustry(industryId, industryName)
     }
 
     override fun defineSalary(value: String?) {

@@ -4,11 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.models.industries.Industry
-import ru.practicum.android.diploma.domain.searchfilters.industries.IndustriesInteractor
+import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
+import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
+import ru.practicum.android.diploma.domain.models.filters.Industry
 import ru.practicum.android.diploma.util.Resource
 
-class IndustriesFilterViewModel(private val interactor: IndustriesInteractor) : ViewModel() {
+class IndustriesFilterViewModel(
+    private val interactor: FiltersInteractor,
+    private val filterInteractor: FiltersParametersInteractor) : ViewModel() {
     private val _industriesState = MutableLiveData<IndustriesUiState>()
     val industriesState: MutableLiveData<IndustriesUiState> = _industriesState
 
@@ -38,5 +41,9 @@ class IndustriesFilterViewModel(private val interactor: IndustriesInteractor) : 
                 }
             }
         )
+    }
+
+    fun onClick(industryId: String?, industryName: String?) {
+        filterInteractor.selectIndustry(industryId, industryName)
     }
 }

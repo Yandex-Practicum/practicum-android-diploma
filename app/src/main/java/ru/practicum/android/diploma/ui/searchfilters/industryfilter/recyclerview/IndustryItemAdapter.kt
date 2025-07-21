@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.practicum.android.diploma.databinding.ItemIndustryBinding
-import ru.practicum.android.diploma.domain.models.industries.Industry
+import ru.practicum.android.diploma.domain.models.filters.Industry
 
 class IndustryItemAdapter(private val clickListener: OnClickListener) : ListAdapter<Industry, IndustryItemViewHolder>(
     object : DiffUtil.ItemCallback<Industry>() {

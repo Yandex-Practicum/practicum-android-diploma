@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsRes
 import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
 import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
-import ru.practicum.android.diploma.domain.models.industries.Industry
+import ru.practicum.android.diploma.domain.models.filters.Industry
 import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
@@ -78,6 +78,7 @@ fun FilterParametersDto.toDomain(): FilterParameters {
     return FilterParameters(
         countryName = countryName,
         regionName = regionName,
+        industryId = industryId,
         industryName = industryName,
         salary = salary,
         checkboxWithoutSalary = checkboxWithoutSalary
@@ -88,6 +89,7 @@ fun FilterParameters.toDto(): FilterParametersDto {
     return FilterParametersDto(
         countryName = countryName,
         regionName = regionName,
+        industryId = industryId,
         industryName = industryName,
         salary = salary,
         checkboxWithoutSalary = checkboxWithoutSalary

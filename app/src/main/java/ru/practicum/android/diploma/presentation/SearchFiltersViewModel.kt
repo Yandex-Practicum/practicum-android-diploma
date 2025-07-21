@@ -24,7 +24,7 @@ class SearchFiltersViewModel(
     }
 
     fun clearIndustry() {
-        interactor.selectIndustry(null)
+        interactor.selectIndustry(null, null)
         loadParameters()
     }
 
