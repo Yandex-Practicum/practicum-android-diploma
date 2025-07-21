@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
 import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
 import ru.practicum.android.diploma.domain.models.filters.Industry
 import ru.practicum.android.diploma.util.Resource
+import java.io.IOException
 
 class IndustriesFilterViewModel(
     private val interactor: FiltersInteractor,
@@ -65,7 +66,7 @@ class IndustriesFilterViewModel(
             } else {
                 _industriesState.postValue(IndustriesUiState.Content(filtered))
             }
-        } catch (e: NullPointerException) {
+        } catch (e: IOException) {
             Log.e("Industry", "Exception search industry")
             _industriesState.postValue(IndustriesUiState.Error)
         }
