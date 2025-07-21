@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
 import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
 import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.util.Resource
+import java.io.IOException
 
 class RegionFilterViewModel(
     private val interactor: FiltersInteractor,
@@ -17,6 +18,8 @@ class RegionFilterViewModel(
 ) : ViewModel() {
     private val _regionState = MutableLiveData<RegionsFiltersUiState>()
     val getRegionState: LiveData<RegionsFiltersUiState> = _regionState
+
+    private var regionsList: List<Region> = emptyList()
 
     init {
         val countryId = parametersInteractor.getSelectedCountryId() ?: ""
@@ -39,15 +42,41 @@ class RegionFilterViewModel(
             when (resource) {
                 is Resource.Success -> {
                     Log.d("CitiesDebug", "Cities loaded successfully: ${resource.data!!.size} items")
-                    resource.data!!.forEachIndexed { i, city ->
+                    resource.data.forEachIndexed { i, city ->
                         Log.d("CitiesDebug", "${i + 1}. ${city.name}")
                     }
-                    RegionsFiltersUiState.Content(resource.data!!)
+                    regionsList = resource.data ?: emptyList()
+                    RegionsFiltersUiState.Content(resource.data)
                 }
                 is Resource.Error -> {
                     RegionsFiltersUiState.Error
                 }
             }
         )
+    }
+
+    fun onRegionSelected(region: Region) {
+        parametersInteractor.selectRegion(region.name, region.countryName)
+    }
+
+    fun search(query: String) {
+        try {
+            if (regionsList.isEmpty()) {
+                _regionState.postValue(RegionsFiltersUiState.Error)
+            }
+
+            val filtered = regionsList.filter {
+                it.name.contains(query, ignoreCase = false)
+            }
+
+            if (filtered.isEmpty()) {
+                _regionState.postValue(RegionsFiltersUiState.Empty)
+            } else {
+                _regionState.postValue(RegionsFiltersUiState.Content(filtered))
+            }
+        } catch (e: IOException) {
+            Log.e("Region", "Search exception")
+            _regionState.postValue(RegionsFiltersUiState.Error)
+        }
     }
 }

@@ -43,6 +43,7 @@ class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersR
             SEARCH_SUCCESS -> {
                 val data = (response as RegionsResponseDto).regions
                     .filter { it.areas.isEmpty() }
+                    .sortedBy { it.name }
                 emit(Resource.Success(data.map { it.toRegion() }))
             }
             NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))

@@ -134,7 +134,7 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun openRegion() {
-        val countryId = viewModel.getSelectedCountryId()
+        val countryId = viewModel.getSelectedCountry.value?.countryId
         val action = WorkplaceFiltersFragmentDirections
             .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryId ?: "")
         findNavController().navigate(action)
