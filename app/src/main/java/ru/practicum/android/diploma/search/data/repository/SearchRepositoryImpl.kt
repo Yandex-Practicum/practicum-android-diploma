@@ -15,12 +15,17 @@ import ru.practicum.android.diploma.search.domain.model.VacancyPreview
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
 
-    override fun getVacancies(text: String, area: String?): Flow<Resource<List<VacancyPreview>>> = flow {
+    override fun getVacancies(
+        text: String,
+        page: Int,
+        filters: Map<String, String?>
+    ): Flow<Resource<List<VacancyPreview>>> = flow {
         val response = networkClient.getVacancies(
             VacancyRequest(
                 perPage = 20,
                 text = text,
-                area = area
+                filters = filters,
+                page = page
             )
         )
 
@@ -35,7 +40,9 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                         it.salary?.from,
                         it.salary?.to,
                         it.salary?.currency,
-                        it.employer.logoUrl ?: ""
+                        it.employer.logoUrl ?: "",
+                        page = response.page,
+                        pages = response.pages
                     )
                 }
                 emit(Resource.Success(data))

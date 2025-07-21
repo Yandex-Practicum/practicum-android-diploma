@@ -8,5 +8,7 @@ data class VacancyPreview(
     val from: Int?,
     val to: Int?,
     val currency: String?,
-    val url: String?
+    val url: String?,
+    val page: Int,
+    val pages: Int
 )

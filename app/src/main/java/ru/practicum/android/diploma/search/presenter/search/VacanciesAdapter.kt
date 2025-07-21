@@ -17,40 +17,37 @@ class VacanciesAdapter(
     private val context: Context,
     private val vacanciesList: MutableList<VacancyPreviewUi>,
     private val onVacancyClick: (Int) -> Unit
-) : RecyclerView.Adapter<VacanciesAdapter.VacanciesViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class VacanciesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageId)
-        val titleTextView: TextView = itemView.findViewById(R.id.titleId)
-        val teamTextView: TextView = itemView.findViewById(R.id.teamId)
-        val salaryTextView: TextView = itemView.findViewById(R.id.salaryId)
-        val vacancyContainer: ConstraintLayout = itemView.findViewById(R.id.vacancyContainerId)
+    companion object {
+        private const val TYPE_VACANCY = 0
+        private const val TYPE_LOADING = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacanciesViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.vacancies_preview, parent, false)
-        return VacanciesViewHolder(view)
+    private var isLoading = false
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isLoading && position == vacanciesList.size) TYPE_LOADING else TYPE_VACANCY
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == TYPE_VACANCY) {
+            val view = LayoutInflater.from(context).inflate(R.layout.vacancies_preview, parent, false)
+            VacanciesViewHolder(view, onVacancyClick)
+        } else {
+            val view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false)
+            LoadingViewHolder(view)
+        }
     }
 
     override fun getItemCount(): Int {
-        return vacanciesList.size
+        return vacanciesList.size + if (isLoading) 1 else 0
     }
 
-    override fun onBindViewHolder(holder: VacanciesViewHolder, position: Int) {
-        val vacancy = vacanciesList[position]
-        Glide.with(context)
-            .load(vacancy.logoUrl)
-            .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.imageView)
-
-        holder.titleTextView.text = vacancy.name
-        holder.teamTextView.text = vacancy.employerName
-        holder.salaryTextView.text = vacancy.salary
-
-        holder.vacancyContainer.setOnClickListener {
-            onVacancyClick(vacancy.id)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is VacanciesViewHolder && position < vacanciesList.size) {
+            val vacancy = vacanciesList[position]
+            holder.bind(vacancy)
         }
     }
 
@@ -60,4 +57,47 @@ class VacanciesAdapter(
         notifyDataSetChanged()
     }
 
+    fun showLoading() {
+        if (!isLoading) {
+            isLoading = true
+            notifyItemInserted(vacanciesList.size)
+        }
+    }
+
+    fun hideLoading() {
+        if (isLoading) {
+            isLoading = false
+            notifyItemRemoved(vacanciesList.size)
+        }
+    }
+
+    class VacanciesViewHolder(
+        itemView: View,
+        private val onVacancyClick: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+        private val imageView: ImageView = itemView.findViewById(R.id.imageId)
+        private val titleTextView: TextView = itemView.findViewById(R.id.titleId)
+        private val teamTextView: TextView = itemView.findViewById(R.id.teamId)
+        private val salaryTextView: TextView = itemView.findViewById(R.id.salaryId)
+        private val vacancyContainer: ConstraintLayout = itemView.findViewById(R.id.vacancyContainerId)
+
+        fun bind(vacancy: VacancyPreviewUi) {
+            Glide.with(itemView.context)
+                .load(vacancy.logoUrl)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView)
+
+            titleTextView.text = vacancy.name
+            teamTextView.text = vacancy.employerName
+            salaryTextView.text = vacancy.salary
+
+            vacancyContainer.setOnClickListener {
+                onVacancyClick(vacancy.id)
+            }
+        }
+    }
+
+    class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
