@@ -7,25 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.filters.repository.FiltersInteractor
-import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
 import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.util.Resource
 import java.io.IOException
 
 class RegionFilterViewModel(
-    private val interactor: FiltersInteractor,
-    private val parametersInteractor: FiltersParametersInteractor
+    private val interactor: FiltersInteractor
 ) : ViewModel() {
     private val _regionState = MutableLiveData<RegionsFiltersUiState>()
     val getRegionState: LiveData<RegionsFiltersUiState> = _regionState
 
     private var regionsList: List<Region> = emptyList()
-
-    init {
-        val countryId = parametersInteractor.getSelectedCountryId() ?: ""
-        Log.d("Country", countryId)
-        loadRegions(countryId)
-    }
 
     fun loadRegions(countryId: String) {
         viewModelScope.launch {
@@ -48,15 +40,12 @@ class RegionFilterViewModel(
                     regionsList = resource.data ?: emptyList()
                     RegionsFiltersUiState.Content(resource.data)
                 }
+
                 is Resource.Error -> {
                     RegionsFiltersUiState.Error
                 }
             }
         )
-    }
-
-    fun onRegionSelected(region: Region) {
-        parametersInteractor.selectRegion(region.name, region.countryName)
     }
 
     fun search(query: String) {
