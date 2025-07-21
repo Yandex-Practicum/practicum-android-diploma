@@ -65,7 +65,7 @@ class IndustriesFilterViewModel(
             } else {
                 _industriesState.postValue(IndustriesUiState.Content(filtered))
             }
-        } catch (e: Exception) {
+        } catch (e: NullPointerException) {
             Log.e("Industry", "Exception search industry")
             _industriesState.postValue(IndustriesUiState.Error)
         }
