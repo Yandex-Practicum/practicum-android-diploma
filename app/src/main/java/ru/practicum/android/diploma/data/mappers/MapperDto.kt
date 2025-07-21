@@ -78,6 +78,7 @@ fun IndustryDto.toDomain(): Industry {
 fun FilterParametersDto.toDomain(): FilterParameters {
     return FilterParameters(
         countryName = countryName,
+        countryId = countryId,
         regionName = regionName,
         industryName = industryName,
         salary = salary,
@@ -88,6 +89,7 @@ fun FilterParametersDto.toDomain(): FilterParameters {
 fun FilterParameters.toDto(): FilterParametersDto {
     return FilterParametersDto(
         countryName = countryName,
+        countryId = countryId,
         regionName = regionName,
         industryName = industryName,
         salary = salary,

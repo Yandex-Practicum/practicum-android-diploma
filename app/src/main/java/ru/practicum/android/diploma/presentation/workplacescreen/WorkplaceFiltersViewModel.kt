@@ -19,4 +19,9 @@ class WorkplaceFiltersViewModel(private val interactor: FiltersParametersInterac
         interactor.selectCountry(null, null)
         loadParameters()
     }
+
+    fun clearRegion() {
+        interactor.selectRegion(null, null)
+        loadParameters()
+    }
 }

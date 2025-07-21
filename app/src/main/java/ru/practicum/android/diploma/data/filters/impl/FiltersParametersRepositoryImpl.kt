@@ -7,10 +7,10 @@ import ru.practicum.android.diploma.domain.filters.repository.FilterParametersRe
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 
 class FiltersParametersRepositoryImpl(private val storage: FilterParametersStorage) : FilterParametersRepository {
-    override fun selectCountry(countryName: String?) {
+    override fun selectCountry(countryName: String?, countryId: String?) {
         val selected = storage.getFilterParameters()
             .toDomain()
-            .copy(countryName = countryName)
+            .copy(countryName = countryName, countryId = countryId)
         storage.putFilterParameters(selected.toDto())
     }
 
