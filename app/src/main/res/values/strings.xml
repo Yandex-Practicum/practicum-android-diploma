@@ -64,4 +64,5 @@
 
     <string name="choose_region">Выбор региона</string>
     <string name="input_region">Введите регион</string>
+    <string name="region_not_have">Такого региона нет</string>
 </resources>

@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.RegionsFilterFragmentBinding
 import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionFilterViewModel
 import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionsFiltersUiState
 import ru.practicum.android.diploma.ui.searchfilters.recycleview.RegionsAdapter
+import ru.practicum.android.diploma.util.hideKeyboardOnDone
 
 class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
     private var _binding: RegionsFilterFragmentBinding? = null
@@ -43,6 +46,8 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
             render(it)
         }
 
+        setupInput()
+
     }
 
     override fun onDestroyView() {
@@ -70,11 +75,37 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
                 binding.rvItemList.isVisible = false
             }
 
-            RegionsFiltersUiState.Loading -> {
+            is RegionsFiltersUiState.Loading -> {
                 binding.progressBar.isVisible = true
                 binding.rvItemList.isVisible = false
                 binding.groupPlaceholder.isVisible = false
             }
+
+            is RegionsFiltersUiState.Empty -> {
+                binding.groupPlaceholder.isVisible = true
+                binding.progressBar.isVisible = false
+                binding.rvItemList.isVisible = false
+                binding.ivPlaceholderCover.setImageResource(R.drawable.nothing_found_placeholder)
+                binding.tvPlaceholder.setText(R.string.region_not_have)
+            }
         }
+    }
+
+    private fun setupInput() {
+        binding.inputEditText.doOnTextChanged { text, start, before, count ->
+            val query = text?.toString()?.trim().orEmpty()
+
+            if (query.isNotEmpty() && binding.inputEditText.hasFocus()) {
+                binding.icon.setImageResource(R.drawable.close_24px)
+                binding.icon.setOnClickListener {
+                    binding.inputEditText.setText("")
+                }
+            } else {
+                binding.icon.setImageResource(R.drawable.search_24px)
+            }
+            viewModel.search(query)
+        }
+
+        binding.inputEditText.hideKeyboardOnDone(requireContext())
     }
 }
