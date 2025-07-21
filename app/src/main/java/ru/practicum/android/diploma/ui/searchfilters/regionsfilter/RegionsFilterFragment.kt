@@ -73,6 +73,8 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
                 binding.groupPlaceholder.isVisible = true
                 binding.progressBar.isVisible = false
                 binding.rvItemList.isVisible = false
+                binding.ivPlaceholderCover.setImageResource(R.drawable.unable_obtain_list_placeholder)
+                binding.tvPlaceholder.setText(R.string.unable_obtain_list)
             }
 
             is RegionsFiltersUiState.Loading -> {
@@ -85,8 +87,6 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
                 binding.groupPlaceholder.isVisible = true
                 binding.progressBar.isVisible = false
                 binding.rvItemList.isVisible = false
-                binding.ivPlaceholderCover.setImageResource(R.drawable.nothing_found_placeholder)
-                binding.tvPlaceholder.setText(R.string.region_not_have)
             }
         }
     }

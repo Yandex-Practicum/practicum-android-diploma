@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:gravity="center"
-        android:text="@string/unable_obtain_list"
+        android:text="@string/region_not_have"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
