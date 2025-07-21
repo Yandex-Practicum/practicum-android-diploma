@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.models.industries
+package ru.practicum.android.diploma.domain.models.filters
 
 data class Industry(
     val id: String,

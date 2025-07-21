@@ -77,6 +77,10 @@ class SearchFiltersFragment : Fragment() {
             viewModel.clearWorkplace()
         }
 
+        binding.inputLayoutIndustry.setEndIconOnClickListener {
+            viewModel.clearIndustry()
+        }
+
         binding.btnCancel.setOnClickListener {
             binding.editText.setText("")
             binding.materialCheckbox.isChecked = false
@@ -106,24 +110,33 @@ class SearchFiltersFragment : Fragment() {
     private fun renderWorkplace(state: FilterParameters) {
         val country = state.countryName
         val region = state.regionName
+        val industry = state.industryName
+
         val isEmpty = country.isNullOrBlank() && region.isNullOrBlank()
+        val isIndustryEmpty = industry.isNullOrBlank()
 
         val workplaceText = listOfNotNull(country, region)
             .filter { it.isNotBlank() }
             .joinToString(", ")
 
         binding.editTextWorkplace.setText(workplaceText)
+        binding.editTextIndustry.setText(industry ?: "")
 
         binding.inputLayoutWorkplace.hint = if (isEmpty) getString(R.string.workplace) else ""
+        binding.inputLayoutIndustry.hint = if (isIndustryEmpty) getString(R.string.industry) else ""
 
-        val icon = if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
-        binding.inputLayoutWorkplace.setEndIconDrawable(icon)
+        binding.inputLayoutWorkplace.setEndIconDrawable(
+            if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
+        )
+        binding.inputLayoutIndustry.setEndIconDrawable(
+            if (isIndustryEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
+        )
 
         binding.btnApply.isVisible = !isEmpty
         binding.btnCancel.isVisible = !isEmpty
     }
 
-    companion object{
-        const val SEARCH_WITH_FILTERS_KEY ="search_with_filters_key"
+    companion object {
+        const val SEARCH_WITH_FILTERS_KEY = "search_with_filters_key"
     }
 }

@@ -4,9 +4,13 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.models.areas.AreaWithSubareasDto
 import ru.practicum.android.diploma.data.models.areas.AreasApi
+import ru.practicum.android.diploma.data.models.areas.AreasResponseDto
 import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
 import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.areas.regions.RegionsRequest
+import ru.practicum.android.diploma.data.models.areas.regions.RegionsResponseDto
 import ru.practicum.android.diploma.data.models.industries.IndustriesApi
 import ru.practicum.android.diploma.data.models.industries.remote.IndustryRequest
 import ru.practicum.android.diploma.data.models.industries.remote.IndustryResponseDto
@@ -38,6 +42,7 @@ class RetrofitNetworkClient(
             is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
             is CountriesRequest -> handleCountriesRequest()
             is IndustryRequest -> handleIndustriesRequest()
+            is RegionsRequest -> handleRegionsRequest(dto)
             else -> createFailedResponse()
         }
     }
@@ -89,6 +94,54 @@ class RetrofitNetworkClient(
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Error getting details vacancies", e)
             createServerErrorResponse()
+        }
+    }
+
+    private suspend fun handleRegionsRequest(dto: RegionsRequest): Response =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = if (dto.countryId.isBlank()) {
+                    getAllCitiesResponse()
+                } else {
+                    getCitiesByCountryResponse(dto.countryId)
+                }
+
+                RegionsResponseDto(response.areas).apply {
+                    resultCode = REQUEST_SUCCESS
+                }
+            } catch (e: retrofit2.HttpException) {
+                Log.e("Repository", "Error getting cities list", e)
+                createServerErrorResponse()
+            }
+        }
+
+    private suspend fun getAllCitiesResponse(): AreaWithSubareasDto {
+        val countries = countryService.getCountries()
+        val allCities = countries.flatMap { country ->
+            processRegions(countryService.getRegions(country.id).areas, country.name)
+        }
+        return AreaWithSubareasDto(id = "", name = "All cities", areas = allCities)
+    }
+
+    private suspend fun getCitiesByCountryResponse(countryId: String): AreaWithSubareasDto {
+        val country = countryService.getCountries().firstOrNull { it.id == countryId }
+        val countryName = country?.name ?: ""
+        val regions = countryService.getRegions(countryId).areas
+        val resultAreas = processRegions(regions, countryName)
+        return AreaWithSubareasDto(id = countryId, name = "Cities", areas = resultAreas)
+    }
+
+    // Общий метод для обработки регионов и городов
+    private fun processRegions(
+        regions: List<AreasResponseDto>,
+        countryName: String
+    ): List<AreasResponseDto> {
+        return regions.flatMap { region ->
+            if (region.areas.isNotEmpty()) {
+                region.areas.map { city -> city.copy(countryName = countryName) }
+            } else {
+                listOf(region.copy(countryName = countryName))
+            }
         }
     }
 

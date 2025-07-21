@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.searchfilters.industryfilter.IndustryFilterFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/arrow_back"
+        android:id="@+id/btn_arrow_back"
         style="@style/HeaderWithArrowBackStyle"
-        android:layout_width="@dimen/dimen_0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentInsetStartWithNavigation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/choose_industry" />
+        app:title="@string/choose_region" />
 
     <FrameLayout
         android:id="@+id/search_zone"
@@ -24,7 +21,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/arrow_back">
+        app:layout_constraintTop_toBottomOf="@id/btn_arrow_back">
 
         <LinearLayout
             android:id="@+id/layout_search_line"
@@ -44,7 +41,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:backgroundTint="?attr/colorPrimary"
-                android:hint="@string/input_industry"
+                android:hint="@string/input_region"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:maxLength="25"
@@ -64,48 +61,55 @@
                 android:layout_marginEnd="16dp"
                 android:clickable="false"
                 android:src="@drawable/search_24px" />
+
         </LinearLayout>
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_search"
+        android:id="@+id/rv_item_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_choose"
-        app:layout_constraintTop_toBottomOf="@id/search_zone" />
-
-    <LinearLayout
-        android:id="@+id/industry_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginBottom="57dp"
-        android:layout_marginHorizontal="@dimen/dimen_16dp"
-        app:layout_constraintTop_toBottomOf="@id/search_zone"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_zone"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_workplace_selectable" />
 
-        <ImageView
-            android:id="@+id/industry_cover_placeholder"
-            android:layout_width="328dp"
-            android:layout_height="223dp"
-            android:src="@drawable/nothing_found_placeholder"
-            android:scaleType="fitCenter"/>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="iv_placeholder_cover, tv_placeholder" />
 
-        <TextView
-            android:id="@+id/industry_text_placeholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_16dp"
-            android:text="@string/industry_not_have"
-            style="@style/TextMedium22"
-            android:gravity="center"
-            android:textColor="?attr/colorOnPrimary"/>
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_placeholder_cover"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:src="@drawable/unable_obtain_list_placeholder"
+        app:layout_constraintBottom_toTopOf="@id/tv_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_placeholder"
+        style="@style/TextMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:gravity="center"
+        android:text="@string/unable_obtain_list"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_placeholder_cover" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -114,17 +118,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/arrow_back" />
+        app:layout_constraintTop_toBottomOf="@id/btn_arrow_back" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_choose"
-        style="@style/ButtonPrimaryStyle"
-        android:layout_width="@dimen/dimen_0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_24dp"
-        android:text="@string/choose"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
