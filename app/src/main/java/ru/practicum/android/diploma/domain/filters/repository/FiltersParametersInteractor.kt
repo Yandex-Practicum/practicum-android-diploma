@@ -3,8 +3,9 @@ package ru.practicum.android.diploma.domain.filters.repository
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 
 interface FiltersParametersInteractor {
-    fun selectCountry(countryName: String?)
-    fun selectRegion(regionName: String?)
+    fun selectCountry(countryName: String?, countryId: String?)
+    fun getSelectedCountryId(): String?
+    fun selectRegion(regionName: String?, countryName: String?)
     fun selectIndustry(industryName: String?)
     fun defineSalary(value: String?)
     fun toggleWithoutSalary(enabled: Boolean)

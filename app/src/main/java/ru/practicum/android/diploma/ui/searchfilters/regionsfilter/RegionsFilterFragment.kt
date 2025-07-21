@@ -43,8 +43,6 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
         binding.rvItemList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvItemList.adapter = adapter
 
-        viewModel.loadRegions("")
-
         viewModel.getRegionState.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -57,7 +55,8 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
     }
 
     override fun onClick(region: Region) {
-        TODO("Not yet implemented")
+        viewModel.onRegionSelected(region)
+        findNavController().popBackStack()
     }
 
     private fun render(state: RegionsFiltersUiState) {

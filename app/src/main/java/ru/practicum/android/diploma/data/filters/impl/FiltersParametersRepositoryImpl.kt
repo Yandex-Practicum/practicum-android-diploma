@@ -15,7 +15,10 @@ class FiltersParametersRepositoryImpl(private val storage: FilterParametersStora
     }
 
     override fun selectRegion(regionName: String?) {
-        TODO("Not yet implemented")
+        val selected = storage.getFilterParameters()
+            .toDomain()
+            .copy(regionName = regionName)
+        storage.putFilterParameters(selected.toDto())
     }
 
     override fun selectIndustry(industryName: String?) {

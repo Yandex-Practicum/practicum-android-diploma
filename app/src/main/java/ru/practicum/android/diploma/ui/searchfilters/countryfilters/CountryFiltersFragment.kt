@@ -71,7 +71,7 @@ class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
     }
 
     override fun onClick(country: Country) {
-        viewModel.onCountrySelected(country.name)
+        viewModel.onCountrySelected(country)
         findNavController().popBackStack()
     }
 }

@@ -7,12 +7,19 @@ import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 class FiltersParametersInteractorImpl(
     private val repository: FilterParametersRepository
 ) : FiltersParametersInteractor {
-    override fun selectCountry(countryName: String?) {
+    private var selectedCountryId: String? = null
+
+    override fun selectCountry(countryName: String?, countryId: String?) {
+        selectedCountryId = countryId
         repository.selectCountry(countryName)
     }
 
-    override fun selectRegion(regionName: String?) {
-        TODO("Not yet implemented")
+    override fun getSelectedCountryId(): String? {
+        return selectedCountryId
+    }
+
+    override fun selectRegion(regionName: String?, countryName: String?) {
+        repository.selectRegion(regionName)
     }
 
     override fun selectIndustry(industryName: String?) {

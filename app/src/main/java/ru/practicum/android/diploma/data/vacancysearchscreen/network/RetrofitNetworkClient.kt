@@ -112,11 +112,15 @@ class RetrofitNetworkClient(
 
                 AreaWithSubareasDto(id = "", name = "All cities", areas = allCities)
             } else {
-                val regions = countryService.getRegions(dto.countryId).areas
+                val response = countryService.getRegions(dto.countryId)
                 val cities = mutableListOf<AreasResponseDto>()
 
-                regions.forEach { region ->
-                    cities.addAll(region.areas)
+                if (response.areas.isNotEmpty() && response.areas[0].areas.isNotEmpty()) {
+                    response.areas.forEach { region ->
+                        cities.addAll(region.areas)
+                    }
+                } else {
+                    cities.addAll(response.areas)
                 }
 
                 AreaWithSubareasDto(id = dto.countryId, name = "Cities", areas = cities)

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.filters.impl
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.mappers.toDomain
@@ -35,11 +36,12 @@ class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersR
 
     override fun getRegions(countryId: String): Flow<Resource<List<Region>>> = flow {
         val response = networkClient.doRequest(RegionsRequest(countryId))
+        Log.d("REPO_DEBUG", "Response code: ${response.resultCode}")
         when (response.resultCode) {
             SEARCH_SUCCESS -> {
                 val data = (response as RegionsResponseDto).regions
                     .filter { it.areas.isEmpty() }
-
+                Log.d("REPO_DEBUG", "Raw data size: ${response.regions.size}")
                 emit(Resource.Success(data.map { it.toRegion() }))
             }
             NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))

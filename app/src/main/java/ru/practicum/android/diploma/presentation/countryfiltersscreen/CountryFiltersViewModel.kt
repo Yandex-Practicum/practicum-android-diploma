@@ -47,7 +47,7 @@ class CountryFiltersViewModel(
         )
     }
 
-    fun onCountrySelected(countryName: String?) {
-        parametersInteractor.selectCountry(countryName)
+    fun onCountrySelected(country: Country) {
+        parametersInteractor.selectCountry(country.name, country.id)
     }
 }
