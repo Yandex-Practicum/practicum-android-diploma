@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.IndustriesFilterFragmentBinding
+import ru.practicum.android.diploma.domain.models.filters.Industry
 import ru.practicum.android.diploma.presentation.searchfilters.industries.IndustriesFilterViewModel
 import ru.practicum.android.diploma.presentation.searchfilters.industries.IndustriesUiState
 import ru.practicum.android.diploma.ui.searchfilters.industryfilter.recyclerview.IndustryItemAdapter
@@ -24,8 +25,7 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
     private val viewModel by viewModel<IndustriesFilterViewModel>()
     private val adapter = IndustryItemAdapter(this)
 
-    private var selectedIndustryId: String? = null
-    private var selectedIndustryName: String? = null
+    private var selectedIndustry: Industry? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = IndustriesFilterFragmentBinding.inflate(inflater, container, false)
@@ -46,7 +46,9 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
         }
 
         binding.btnChoose.setOnClickListener {
-            viewModel.onClickIndustry(selectedIndustryId, selectedIndustryName)
+            selectedIndustry?.let {
+                viewModel.onClickIndustry(it)
+            }
             findNavController().popBackStack()
         }
     }
@@ -102,15 +104,10 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
         binding.inputEditText.hideKeyboardOnDone(requireContext())
     }
 
-    override fun onClick(id: String) {
-        val selectedIndustry = adapter.currentList.find { it.id == id }
-        selectedIndustry?.let {
-            selectedIndustryId = it.id
-            selectedIndustryName = it.name
-
-            binding.btnChoose.isVisible = true
-            adapter.setSelectedId(id)
-        }
+    override fun onClick(industry: Industry) {
+        selectedIndustry = industry
+        binding.btnChoose.isVisible = true
+        adapter.setSelectedId(industry.id)
     }
 
     override fun onDestroyView() {

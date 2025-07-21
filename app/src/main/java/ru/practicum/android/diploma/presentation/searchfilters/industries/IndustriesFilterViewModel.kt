@@ -72,7 +72,7 @@ class IndustriesFilterViewModel(
         }
     }
 
-    fun onClickIndustry(industryId: String?, industryName: String?) {
-        filterInteractor.selectIndustry(industryId, industryName)
+    fun onClickIndustry(industry: Industry) {
+        filterInteractor.selectIndustry(industry.id, industry.name)
     }
 }

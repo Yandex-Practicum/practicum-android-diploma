@@ -30,8 +30,8 @@ class IndustryItemAdapter(private val clickListener: OnClickListener) : ListAdap
         val industry = getItem(position)
         val isSelected = industry.id == selectedId
 
-        holder.bind(industry, isSelected) { clickedId ->
-            clickListener.onClick(clickedId)
+        holder.bind(industry, isSelected) {
+            clickListener.onClick(industry)
         }
     }
 
@@ -41,6 +41,6 @@ class IndustryItemAdapter(private val clickListener: OnClickListener) : ListAdap
     }
 
     interface OnClickListener {
-        fun onClick(id: String)
+        fun onClick(industry: Industry)
     }
 }
