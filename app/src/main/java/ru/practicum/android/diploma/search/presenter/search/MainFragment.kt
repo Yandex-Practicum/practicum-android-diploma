@@ -36,7 +36,6 @@ class MainFragment : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private val debouncer: Debouncer by inject { parametersOf(viewLifecycleOwner.lifecycleScope) }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
