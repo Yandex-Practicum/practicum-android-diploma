@@ -1,20 +1,25 @@
 package ru.practicum.android.diploma.ui.searchfilters.regionsfilter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.RegionsFilterFragmentBinding
 import ru.practicum.android.diploma.domain.models.filters.Region
+import ru.practicum.android.diploma.domain.models.filters.SelectionType
 import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionFilterViewModel
 import ru.practicum.android.diploma.presentation.regionsfilterscreen.RegionsFiltersUiState
 import ru.practicum.android.diploma.ui.searchfilters.recycleview.RegionsAdapter
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.COUNTRY_NAME_KEY
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.REGION_NAME_KEY
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_RESULT_KEY
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_TYPE_KEY
 
 class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
     private var _binding: RegionsFilterFragmentBinding? = null
@@ -42,7 +47,6 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
         viewModel.getRegionState.observe(viewLifecycleOwner) {
             render(it)
         }
-
     }
 
     override fun onDestroyView() {
@@ -51,8 +55,12 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
     }
 
     override fun onClick(region: Region) {
-        viewModel.onRegionSelected(region)
-        Log.d("CountryName", region.countryName.toString())
+        val result = Bundle().apply {
+            putString(SELECTION_TYPE_KEY, SelectionType.REGION.value)
+            putString(COUNTRY_NAME_KEY, region.countryName)
+            putString(REGION_NAME_KEY, region.name)
+        }
+        setFragmentResult(SELECTION_RESULT_KEY, result)
         findNavController().popBackStack()
     }
 

@@ -16,9 +16,9 @@ import ru.practicum.android.diploma.domain.models.filters.SelectionType
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.CountryFiltersViewModel
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate.CountryFiltersUiState
 import ru.practicum.android.diploma.ui.searchfilters.recycleview.WorkplaceAdapter
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.COUNTRY_NAME_KEY
 import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_RESULT_KEY
 import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_TYPE_KEY
-import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_VALUE_KEY
 
 class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
 
@@ -78,7 +78,7 @@ class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
     override fun onClick(country: Country) {
         val result = Bundle().apply {
             putString(SELECTION_TYPE_KEY, SelectionType.COUNTRY.value)
-            putString(SELECTION_VALUE_KEY, country.name)
+            putString(COUNTRY_NAME_KEY, country.name)
         }
         setFragmentResult(SELECTION_RESULT_KEY, result)
         findNavController().popBackStack()

@@ -24,15 +24,16 @@ class WorkplaceFiltersViewModel(private val interactor: FiltersParametersInterac
         tempSelectedCountry = name
         _tempCountry.postValue(name)
     }
-    //для назначения временного значения
-    fun setTempRegionSelection(name: String?) {
-        tempSelectedRegion = name
-        _tempRegion.postValue(name)
+
+    fun setTempRegionSelection(countryName: String?, regionName: String?) {
+        tempSelectedRegion = regionName
+        setTempCountrySelection(name = countryName)
+        _tempRegion.postValue(regionName)
     }
-//метод на сохранение параметров
+
     fun saveSelection() {
-        interactor.selectCountry(tempSelectedCountry)
-//        interactor.selectRegion(tempSelectedRegion)
+        interactor.selectCountry(tempSelectedCountry, _paramsSelectedState.value?.countryId)
+        interactor.selectRegion(tempSelectedRegion)
         _tempCountry.postValue(null)
     }
 
@@ -41,20 +42,16 @@ class WorkplaceFiltersViewModel(private val interactor: FiltersParametersInterac
     }
 
     fun clearCountry() {
-        interactor.selectCountry(null)
-        _tempCountry.postValue(null)
-        loadParameters()
-    }
-
-    fun clearRegion() {
-        interactor.selectRegion(null)
-        _tempRegion.postValue(null)
         interactor.selectCountry(null, null)
+        interactor.selectRegion(null, null)
+        _tempCountry.postValue(null)
+        _tempRegion.postValue(null)
         loadParameters()
     }
 
     fun clearRegion() {
         interactor.selectRegion(null, null)
+        _tempRegion.postValue(null)
         loadParameters()
     }
 

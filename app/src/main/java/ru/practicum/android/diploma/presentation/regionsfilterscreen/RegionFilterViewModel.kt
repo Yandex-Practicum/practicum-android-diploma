@@ -50,8 +50,4 @@ class RegionFilterViewModel(
             }
         )
     }
-
-    fun onRegionSelected(region: Region) {
-        parametersInteractor.selectRegion(region.name, region.countryName)
-    }
 }
