@@ -19,7 +19,6 @@ class WorkplaceFiltersFragment : Fragment() {
     private var _binding: WorkplaceFragmentBinding? = null
     private val binding get() = _binding!!
 
-
     private val viewModel by viewModel<WorkplaceFiltersViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +33,12 @@ class WorkplaceFiltersFragment : Fragment() {
                     val countryId = bundle.getString(COUNTRY_ID_KEY)
                     viewModel.setTempCountrySelection(countryId, countryName)
                 }
+
                 SelectionType.REGION -> {
                     val regionName = bundle.getString(REGION_NAME_KEY)
                     viewModel.setTempRegionSelection(regionName, countryName)
                 }
+
                 null -> Unit
             }
         }

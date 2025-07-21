@@ -46,17 +46,17 @@ class WorkplaceFiltersViewModel(
         }
     }
 
-fun loadParameters() {
-    val params = interactor.getFiltersParameters()
-    _paramsSelectedState.value = params
+    fun loadParameters() {
+        val params = interactor.getFiltersParameters()
+        _paramsSelectedState.value = params
 
-    if (_tempCountry.value == null) {
-        _tempCountry.value = TempLocation(params.countryId, params.countryName)
+        if (_tempCountry.value == null) {
+            _tempCountry.value = TempLocation(params.countryId, params.countryName)
+        }
+        if (_tempRegion.value == null) {
+            _tempRegion.value = params.regionName
+        }
     }
-    if (_tempRegion.value == null) {
-        _tempRegion.value = params.regionName
-    }
-}
 
     fun clearCountry() {
         interactor.selectCountry(null, null)

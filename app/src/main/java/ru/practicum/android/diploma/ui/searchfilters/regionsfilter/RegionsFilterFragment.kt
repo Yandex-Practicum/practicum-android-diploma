@@ -83,6 +83,7 @@ class RegionsFilterFragment : Fragment(), RegionsAdapter.OnClickListener {
                 binding.progressBar.isVisible = false
                 binding.groupPlaceholder.isVisible = false
             }
+
             is RegionsFiltersUiState.Error -> {
                 binding.groupPlaceholder.isVisible = true
                 binding.progressBar.isVisible = false

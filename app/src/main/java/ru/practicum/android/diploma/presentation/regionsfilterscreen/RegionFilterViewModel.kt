@@ -40,6 +40,7 @@ class RegionFilterViewModel(
                     regionsList = resource.data ?: emptyList()
                     RegionsFiltersUiState.Content(resource.data)
                 }
+
                 is Resource.Error -> {
                     RegionsFiltersUiState.Error
                 }
