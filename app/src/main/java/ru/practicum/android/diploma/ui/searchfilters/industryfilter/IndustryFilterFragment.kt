@@ -58,16 +58,27 @@ class IndustryFilterFragment : Fragment(), IndustryItemAdapter.OnClickListener {
                     binding.recyclerViewSearch.isVisible = true
                     adapter.submitList(state.industries)
                     binding.progressBar.isVisible = false
+                    binding.industryPlaceholder.isVisible = false
                 }
 
                 is IndustriesUiState.Error -> {
                     binding.recyclerViewSearch.isVisible = false
                     binding.progressBar.isVisible = false
+                    binding.industryPlaceholder.isVisible = true
+                    binding.industryCoverPlaceholder.setImageResource(R.drawable.unable_obtain_list_placeholder)
+                    binding.industryTextPlaceholder.setText(R.string.unable_obtain_list)
                 }
 
                 is IndustriesUiState.Loading -> {
                     binding.progressBar.isVisible = true
                     binding.recyclerViewSearch.isVisible = false
+                    binding.industryPlaceholder.isVisible = false
+                }
+
+                is IndustriesUiState.Empty -> {
+                    binding.recyclerViewSearch.isVisible = false
+                    binding.progressBar.isVisible = false
+                    binding.industryPlaceholder.isVisible = true
                 }
             }
         }

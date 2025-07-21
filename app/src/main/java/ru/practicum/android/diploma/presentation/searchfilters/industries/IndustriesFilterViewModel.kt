@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.searchfilters.industries
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -44,19 +45,30 @@ class IndustriesFilterViewModel(
                 is Resource.Error -> {
                     IndustriesUiState.Error
                 }
+                else -> IndustriesUiState.Empty
             }
         )
     }
 
     fun search(query: String) {
-        val filtered = if (query.isBlank()) {
-            industriesList
-        } else {
-            industriesList.filter {
-                it.name.contains(query, ignoreCase = true)
+        try {
+            if (industriesList.isEmpty()) {
+                _industriesState.postValue(IndustriesUiState.Error)
             }
+
+            val filtered = industriesList.filter {
+                it.name.contains(query, ignoreCase = false)
+            }
+
+            if (filtered.isEmpty()) {
+                _industriesState.postValue(IndustriesUiState.Empty)
+            } else {
+                _industriesState.postValue(IndustriesUiState.Content(filtered))
+            }
+        } catch (e: Exception) {
+            Log.e("Industry", "Exception search industry")
+            _industriesState.postValue(IndustriesUiState.Error)
         }
-        _industriesState.postValue(IndustriesUiState.Content(filtered))
     }
 
     fun onClickIndustry(industryId: String?, industryName: String?) {
