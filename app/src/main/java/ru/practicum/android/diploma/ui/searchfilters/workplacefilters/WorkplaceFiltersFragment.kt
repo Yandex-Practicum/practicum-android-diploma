@@ -83,6 +83,7 @@ class WorkplaceFiltersFragment : Fragment() {
     private fun openCountry() {
         val action = WorkplaceFiltersFragmentDirections.actionWorkplaceFiltersFragmentToCountryFiltersFragment()
         findNavController().navigate(action)
+        viewModel.clearRegion()
     }
 
     private fun openRegion() {
