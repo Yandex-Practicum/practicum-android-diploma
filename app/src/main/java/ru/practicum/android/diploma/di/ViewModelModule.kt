@@ -25,7 +25,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CountryFiltersViewModel(get(), get())
+        CountryFiltersViewModel(get())
     }
 
     viewModel {
