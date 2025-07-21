@@ -6,6 +6,8 @@ import ru.practicum.android.diploma.data.mappers.toDomain
 import ru.practicum.android.diploma.data.mappers.toRegion
 import ru.practicum.android.diploma.data.models.areas.country.CountriesRequest
 import ru.practicum.android.diploma.data.models.areas.country.CountriesResponseDto
+import ru.practicum.android.diploma.data.models.industries.remote.IndustryRequest
+import ru.practicum.android.diploma.data.models.industries.remote.IndustryResponseDto
 import ru.practicum.android.diploma.data.models.areas.regions.RegionsRequest
 import ru.practicum.android.diploma.data.models.areas.regions.RegionsResponseDto
 import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
@@ -13,6 +15,8 @@ import ru.practicum.android.diploma.data.vacancysearchscreen.network.NetworkClie
 import ru.practicum.android.diploma.domain.filters.repository.FiltersRepository
 import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.domain.models.filters.Country
+import ru.practicum.android.diploma.domain.models.filters.Industry
+import ru.practicum.android.diploma.util.DebounceConstants
 import ru.practicum.android.diploma.util.Resource
 
 class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersRepository {
@@ -44,6 +48,23 @@ class FiltersRepositoryImpl(private val networkClient: NetworkClient) : FiltersR
             }
             NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
             SERVER_ERROR -> emit(Resource.Error(ErrorType.SERVER_ERROR))
+            else -> emit(Resource.Error(ErrorType.UNKNOWN))
+        }
+    }
+
+    override fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
+        val response = networkClient.doRequest(IndustryRequest)
+        when (response.resultCode) {
+            DebounceConstants.SEARCH_SUCCESS -> {
+                val data = (response as IndustryResponseDto).industries
+                    .flatMap { it.industries }
+                    .map { it.toDomain() }
+                    .sortedBy { it.name }
+                emit(Resource.Success(data))
+            }
+
+            DebounceConstants.NO_CONNECTION -> emit(Resource.Error(ErrorType.NO_INTERNET))
+            DebounceConstants.SERVER_ERROR -> emit(Resource.Error(ErrorType.SERVER_ERROR))
             else -> emit(Resource.Error(ErrorType.UNKNOWN))
         }
     }

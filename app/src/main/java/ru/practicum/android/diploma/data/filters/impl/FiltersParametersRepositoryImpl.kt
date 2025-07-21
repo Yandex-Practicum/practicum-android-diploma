@@ -21,16 +21,19 @@ class FiltersParametersRepositoryImpl(private val storage: FilterParametersStora
         storage.putFilterParameters(selected.toDto())
     }
 
-    override fun selectIndustry(industryName: String?) {
-        // ...
+    override fun selectIndustry(industryId: String?, industryName: String?) {
+        val selected = storage.getFilterParameters()
+            .toDomain()
+            .copy(industryId = industryId, industryName = industryName)
+        storage.putFilterParameters(selected.toDto())
     }
 
     override fun defineSalary(value: String?) {
-        // ...
+        TODO("Not yet implemented")
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        // ...
+        TODO("Not yet implemented")
     }
 
     override fun getFiltersParameters(): FilterParameters {

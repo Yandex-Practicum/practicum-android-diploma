@@ -26,16 +26,16 @@ class FiltersParametersInteractorImpl(
         repository.selectRegion(regionName)
     }
 
-    override fun selectIndustry(industryName: String?) {
-        // ...
+    override fun selectIndustry(industryId: String?, industryName: String?) {
+        repository.selectIndustry(industryId, industryName)
     }
 
     override fun defineSalary(value: String?) {
-        // ...
+        TODO("Not yet implemented")
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        // ...
+        TODO("Not yet implemented")
     }
 
     override fun getFiltersParameters(): FilterParameters {

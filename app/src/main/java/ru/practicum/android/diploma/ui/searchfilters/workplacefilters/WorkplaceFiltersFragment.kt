@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -52,6 +53,7 @@ class WorkplaceFiltersFragment : Fragment() {
         }
 
         viewModel.getSelectedCountry.observe(viewLifecycleOwner) {
+            buttonChooseVisibility(it)
             renderSelectedCountry(it)
         }
 
@@ -78,6 +80,12 @@ class WorkplaceFiltersFragment : Fragment() {
 
         val iconRegions = if (isEmptyRegion) R.drawable.arrow_forward_24px else R.drawable.close_24px
         binding.inputLayoutRegion.setEndIconDrawable(iconRegions)
+    }
+
+    private fun buttonChooseVisibility(state: FilterParameters) {
+        val isEmpty = state.countryName.isNullOrBlank() && state.regionName.isNullOrBlank()
+
+        binding.btnChoose.isVisible = !isEmpty
     }
 
     private fun openCountry() {
