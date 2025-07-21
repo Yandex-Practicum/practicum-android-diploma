@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".search.presenter.filter.ui.fields.FieldsFragment">
+
+    <ImageView
+        android:id="@+id/backButtonId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/arrow_back_24px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fieldsTitle"
+        style="@style/Text.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/field_title"
+        app:layout_constraintBottom_toBottomOf="@id/backButtonId"
+        app:layout_constraintStart_toEndOf="@id/backButtonId"
+        app:layout_constraintTop_toTopOf="@id/backButtonId" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editTextContainerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/search_edit_text_background"
+        app:layout_constraintTop_toBottomOf="@id/fieldsTitle"
+        android:layout_marginHorizontal="16dp">
+
+        <EditText
+            android:id="@+id/field_edittext"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:hint="@string/field_search"
+            android:paddingStart="16dp"
+            android:maxLines="1"
+            android:fontFamily="@font/ys_text_regular"
+            android:backgroundTint="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/searchIcon"
+            android:textColorHint="@color/hint_color"
+            app:layout_constraintTop_toTopOf="parent">
+        </EditText>
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="16dp"
+            android:src="@drawable/search_24px">
+        </ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fieldsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_standard"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextContainerId"
+        tools:listitem="@layout/card_fields_info" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
