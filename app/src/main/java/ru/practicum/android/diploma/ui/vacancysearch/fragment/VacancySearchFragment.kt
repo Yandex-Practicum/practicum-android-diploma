@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,15 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
-import ru.practicum.android.diploma.domain.models.filters.FilterParameters
-import ru.practicum.android.diploma.domain.models.filters.VacancyFilters
-import ru.practicum.android.diploma.presentation.SearchFiltersViewModel
 import ru.practicum.android.diploma.presentation.mappers.toUiModel
-import ru.practicum.android.diploma.presentation.mappers.toVacancyFilter
 import ru.practicum.android.diploma.presentation.models.vacancies.VacanciesState
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels.VacanciesSearchViewModel
-import ru.practicum.android.diploma.ui.searchfilters.SearchFiltersFragment
+import ru.practicum.android.diploma.ui.searchfilters.SearchFiltersFragment.Companion.SEARCH_WITH_FILTERS_KEY
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.Callbacks
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.StateHandlers
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.UiComponents
@@ -40,8 +37,8 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
     private val searchViewModel by viewModel<VacanciesSearchViewModel>()
-    private val filtersViewModel by viewModel<SearchFiltersViewModel>()
     private var ui: VacancySearchUi? = null
+    private var query = ""
 
     private var vacanciesList = ArrayList<VacancyUiModel>()
     private val adapter = VacancyItemAdapter(this)
@@ -61,23 +58,10 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        parentFragmentManager.setFragmentResultListener(
-            SearchFiltersFragment.SEARCH_WITH_FILTERS_KEY,
-            viewLifecycleOwner
-        ) { _, bundle ->
-            val filters: FilterParameters? = bundle.getParcelable(SearchFiltersFragment.SEARCH_WITH_FILTERS_KEY)
-            val query = binding.inputEditText.text.toString()
-            val filtersRequest = filters?.toVacancyFilter(text = query) ?: VacancyFilters(text = query)
-
-            searchViewModel.searchVacancies(
-                query = query,
-                area = filtersRequest.area,
-                industry = filtersRequest.industry,
-                currency = filtersRequest.currency,
-                salary = filtersRequest.salary,
-                onlyWithSalary = filtersRequest.onlyWithSalary,
-                isNewSearch = true
-            )
+        setFragmentResultListener(SEARCH_WITH_FILTERS_KEY) { s: String, bundle: Bundle ->
+            if (bundle.getBoolean(SEARCH_WITH_FILTERS_KEY) && binding.inputEditText.text.isNotBlank()) {
+                searchViewModel.searchVacancies(query)
+            }
         }
 
         debouncer = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
@@ -177,7 +161,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     private fun setupSearchInput() {
         binding.inputEditText.doOnTextChanged { text, start, before, count ->
-            val query = text?.toString()?.trim()
+            query = text.toString().trim()
             val currentQuery = searchViewModel.getCurrentQuery()
 
             if (query == currentQuery) {

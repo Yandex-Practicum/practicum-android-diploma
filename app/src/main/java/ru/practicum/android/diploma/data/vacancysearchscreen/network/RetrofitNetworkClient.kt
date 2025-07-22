@@ -53,12 +53,8 @@ class RetrofitNetworkClient(
                 text = dto.text,
                 page = dto.page,
                 perPage = dto.perPage,
-                area = dto.area,
-                industry = dto.industry,
-                currency = dto.currency,
-                salary = dto.salary
+                filter = dto.filter,
             )
-            Log.d("Requestfilter", "${dto.salary} network")
             response.apply { resultCode = REQUEST_SUCCESS }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Error getting vacancies", e)

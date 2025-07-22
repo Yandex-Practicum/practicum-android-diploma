@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +37,6 @@ class SearchFiltersViewModel(
 
         val current = _filtersParametersState.value ?: FilterParameters()
         _filtersParametersState.value = current.copy(checkboxWithoutSalary = isChecked)
-
     }
 
     fun resetFilters() {

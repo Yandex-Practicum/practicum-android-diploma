@@ -5,15 +5,13 @@ import ru.practicum.android.diploma.data.models.industries.IndustryDto
 import ru.practicum.android.diploma.data.models.storage.FilterParametersDto
 import ru.practicum.android.diploma.data.models.vacancies.SalaryRangeDto
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesDto
-import ru.practicum.android.diploma.data.models.vacancies.VacanciesRequest
 import ru.practicum.android.diploma.data.models.vacancydetails.EmploymentFormDto
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsResponseDto
 import ru.practicum.android.diploma.data.models.vacancydetails.WorkFormatDto
-import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.domain.models.filters.Country
 import ru.practicum.android.diploma.domain.models.filters.FilterParameters
 import ru.practicum.android.diploma.domain.models.filters.Industry
-import ru.practicum.android.diploma.domain.models.filters.VacancyFilters
+import ru.practicum.android.diploma.domain.models.filters.Region
 import ru.practicum.android.diploma.domain.models.salary.Salary
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.domain.models.vacancydetails.EmploymentForm
@@ -101,17 +99,14 @@ fun FilterParameters.toDto(): FilterParametersDto {
     )
 }
 
-fun VacancyFilters.toDataRequest(): VacanciesRequest {
-    return VacanciesRequest(
-        text = text,
-        page = page,
-        perPage = perPage,
-        area = area,
-        industry = industry,
-        currency = currency,
-        salary = salary,
-        onlyWithSalary = onlyWithSalary
-    )
+fun FilterParameters.convertToMap(): Map<String, String> {
+    val area = regionName ?: countryId
+    val map = mutableMapOf<String, String>()
+    area?.takeIf { it.isNotBlank() }?.let { map["area"] = it }
+    industryId?.takeIf { it.isNotBlank() }?.let { map["industry"] = it }
+    salary?.takeIf { it.isNotBlank() }?.let { map["salary"] = it }
+    map["only_with_salary"] = checkboxWithoutSalary.toString()
+    return map
 }
 
 private fun SalaryRangeDto?.toDomain(): Salary {

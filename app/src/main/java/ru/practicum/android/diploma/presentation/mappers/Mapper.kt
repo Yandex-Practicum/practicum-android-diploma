@@ -1,8 +1,6 @@
 package ru.practicum.android.diploma.presentation.mappers
 
 import ru.practicum.android.diploma.data.db.entyties.FavouriteVacancy
-import ru.practicum.android.diploma.domain.models.filters.FilterParameters
-import ru.practicum.android.diploma.domain.models.filters.VacancyFilters
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.domain.models.vacancydetails.VacancyDetails
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
@@ -36,19 +34,3 @@ fun FavouriteVacancy.toFavouriteUi(): VacancyDetails {
     )
 }
 
-fun FilterParameters.toVacancyFilter(
-    text: String,
-    page: Int = 0,
-    perPage: Int = 20
-): VacancyFilters {
-    return VacancyFilters(
-        text = text,
-        page = page,
-        perPage = perPage,
-        area = regionName ?: countryName,
-        industry = industryName,
-        currency = null,
-        salary = salary?.toIntOrNull(),
-        onlyWithSalary = checkboxWithoutSalary ?: false
-    )
-}
