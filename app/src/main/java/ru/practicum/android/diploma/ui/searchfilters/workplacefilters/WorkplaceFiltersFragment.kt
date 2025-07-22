@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.searchfilters.workplacefilters
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.WorkplaceFragmentBinding
 import ru.practicum.android.diploma.domain.models.filters.SelectionType
 import ru.practicum.android.diploma.presentation.workplacescreen.WorkplaceFiltersViewModel
-import ru.practicum.android.diploma.util.getThemeColor
 import ru.practicum.android.diploma.util.renderFilterField
 
 class WorkplaceFiltersFragment : Fragment() {
@@ -117,14 +115,14 @@ class WorkplaceFiltersFragment : Fragment() {
         buttonChooseVisibility(countryName, regionName)
     }
 
-        private fun renderSelectedCountry(name: String?) {
-            binding.inputLayoutCountry.renderFilterField(
-                requireContext(),
-                name,
-                R.string.country,
-                gray
-            )
-        }
+    private fun renderSelectedCountry(name: String?) {
+        binding.inputLayoutCountry.renderFilterField(
+            requireContext(),
+            name,
+            R.string.country,
+            gray
+        )
+    }
 
     private fun renderSelectedRegion(name: String?) {
         binding.inputLayoutRegion.renderFilterField(
