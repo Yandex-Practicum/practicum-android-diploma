@@ -30,9 +30,9 @@ class VacanciesRepositoryImpl() : VacanciesRepository {
                                 salaryTo = salary?.to ?: 0,
                                 schedule = schedule.name,
                                 experience = experience?.name ?: "",
-                                employerLogo = employer?.logos?.size90?:"",
-                                snippetTitle = snippet.requirement?:"",
-                                snippetDescription = snippet.requirement?:"",
+                                employerLogo = employer?.logos?.size90 ?: "",
+                                snippetTitle = snippet.requirement ?: "",
+                                snippetDescription = snippet.requirement ?: "",
                                 professionalRoles = professionalRoles?.map {
                                     ProfessionalRole(it.id, it.name)
                                 } ?: listOf(),
