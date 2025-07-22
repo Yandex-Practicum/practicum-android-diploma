@@ -62,6 +62,11 @@ class SearchViewModel(
                             isLoading = false
                         }
 
+                        message == FailureType.NoInternet -> {
+                            isLoading = false
+                            _state.value = SearchState.NoInternet
+                        }
+
                         message == FailureType.NotFound || newData.isNullOrEmpty() -> {
                             maxPages = _currentPageState.value
                             isLoading = false
@@ -72,7 +77,7 @@ class SearchViewModel(
                             }
                         }
 
-                        message == FailureType.ApiError || message == FailureType.NoInternet -> {
+                        message == FailureType.ApiError -> {
                             isLoading = false
                             _state.value = SearchState.Error
                         }

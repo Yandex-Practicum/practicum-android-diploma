@@ -170,6 +170,7 @@ class MainFragment : Fragment() {
                         is SearchState.Loading -> showProgressBar()
                         is SearchState.Content -> showContent(state.data)
                         is SearchState.NotFound -> showNotFound()
+                        is SearchState.NoInternet -> showNoInternet()
                         is SearchState.Error -> showError()
                         is SearchState.Empty -> showEmpty()
                         is SearchState.LoadingMore -> {
@@ -220,11 +221,21 @@ class MainFragment : Fragment() {
         adapter.hideLoading()
     }
 
-    private fun showError() {
+    private fun showNoInternet() {
         binding.progressBarId.visibility = View.GONE
         binding.searchPreviewId.visibility = View.GONE
         binding.noInternetPreviewId.visibility = View.VISIBLE
         binding.notFoundPreview.visibility = View.GONE
+        binding.vacanciesRvId.visibility = View.GONE
+        binding.infoShieldId.visibility = View.GONE
+        adapter.hideLoading()
+    }
+
+    private fun showError() {
+        binding.progressBarId.visibility = View.GONE
+        binding.searchPreviewId.visibility = View.GONE
+        binding.noInternetPreviewId.visibility = View.GONE
+        binding.notFoundPreview.visibility = View.VISIBLE
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
         adapter.hideLoading()
