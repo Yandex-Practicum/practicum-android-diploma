@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.Callbacks
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.StateHandlers
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.UiComponents
+import ru.practicum.android.diploma.util.hideKeyboardOnIconClose
 
 class VacancySearchUi(
     private val ui: UiComponents,
@@ -125,9 +126,7 @@ class VacancySearchUi(
                 inputEditText.setText("")
                 searchMainPlaceholder.setImageResource(R.drawable.search_main_placeholder)
 
-                val inputMethodManager =
-                    ui.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(ui.clearFocusView.windowToken, 0)
+                inputEditText.hideKeyboardOnIconClose(ui.context)
 
                 callbacks.onClear()
             }

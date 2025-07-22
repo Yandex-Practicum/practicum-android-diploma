@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -13,6 +14,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.WorkplaceFragmentBinding
 import ru.practicum.android.diploma.domain.models.filters.SelectionType
 import ru.practicum.android.diploma.presentation.workplacescreen.WorkplaceFiltersViewModel
+import ru.practicum.android.diploma.util.renderFilterField
 
 class WorkplaceFiltersFragment : Fragment() {
 
@@ -20,6 +22,8 @@ class WorkplaceFiltersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<WorkplaceFiltersViewModel>()
+
+    private var gray: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,7 @@ class WorkplaceFiltersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gray = ContextCompat.getColor(requireContext(), R.color.gray)
 
         binding.arrowBack.setOnClickListener {
             findNavController().popBackStack()
@@ -111,23 +116,21 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun renderSelectedCountry(name: String?) {
-        val isEmpty = name.isNullOrBlank()
-
-        binding.editTextCountry.setText(name)
-        binding.inputLayoutCountry.hint = if (isEmpty) getString(R.string.country) else ""
-
-        val icon = if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
-        binding.inputLayoutCountry.setEndIconDrawable(icon)
+        binding.inputLayoutCountry.renderFilterField(
+            requireContext(),
+            name,
+            R.string.country,
+            gray
+        )
     }
 
     private fun renderSelectedRegion(name: String?) {
-        val isEmpty = name.isNullOrBlank()
-
-        binding.editTextRegion.setText(name)
-        binding.inputLayoutRegion.hint = if (isEmpty) getString(R.string.region) else ""
-
-        val iconRegions = if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
-        binding.inputLayoutRegion.setEndIconDrawable(iconRegions)
+        binding.inputLayoutRegion.renderFilterField(
+            context = requireContext(),
+            text = name,
+            hintResId = R.string.region,
+            grayColor = gray
+        )
     }
 
     private fun buttonChooseVisibility(countryName: String?, regionName: String?) {

@@ -92,6 +92,7 @@
                 android:inputType="number"
                 android:maxLength="25"
                 android:maxLines="1"
+                android:imeOptions="actionDone"
                 android:paddingVertical="0dp"
                 android:paddingStart="0dp"
                 android:singleLine="true"
