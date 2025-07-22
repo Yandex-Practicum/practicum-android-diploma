@@ -165,6 +165,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     }
 
     private fun setupSearchInput() {
+        @Suppress("LabeledExpression")
         binding.inputEditText.doOnTextChanged { text, start, before, count ->
             val query = text?.toString()?.trim()
             val currentQuery = searchViewModel.getCurrentQuery()
