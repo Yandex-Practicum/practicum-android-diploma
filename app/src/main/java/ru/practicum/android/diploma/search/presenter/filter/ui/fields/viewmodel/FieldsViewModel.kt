@@ -21,6 +21,8 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
         loadIndustries()
     }
 
+
+
     private fun loadIndustries() {
         viewModelScope.launch {
             filtersInteractor.getIndustries().collect { pair ->

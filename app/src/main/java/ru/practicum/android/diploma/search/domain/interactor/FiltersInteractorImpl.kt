@@ -18,4 +18,16 @@ class FiltersInteractorImpl(private val filtersRepository: FiltersRepository) : 
             }
         }
     }
+
+    override fun saveFilters(industry: Industry?, salary: String?, onlyWithSalary: Boolean) {
+        filtersRepository.saveFilters(industry, salary, onlyWithSalary)
+    }
+
+    override fun getSavedFilters(): Triple<Industry?, String?, Boolean> {
+        return filtersRepository.getSavedFilters()
+    }
+
+    override fun clearSavedFilters() {
+        filtersRepository.clearSavedFilters()
+    }
 }
