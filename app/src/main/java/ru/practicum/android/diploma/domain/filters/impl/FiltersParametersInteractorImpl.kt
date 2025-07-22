@@ -31,11 +31,11 @@ class FiltersParametersInteractorImpl(
     }
 
     override fun defineSalary(value: String?) {
-        TODO("Not yet implemented")
+        repository.defineSalary(value)
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        TODO("Not yet implemented")
+        repository.toggleWithoutSalary(enabled)
     }
 
     override fun getFiltersParameters(): FilterParameters {

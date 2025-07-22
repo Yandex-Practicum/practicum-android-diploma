@@ -45,6 +45,7 @@ class SearchFiltersFragment : Fragment() {
             val query = text?.toString()
 
             if (query?.isNotEmpty() == true && binding.editText.hasFocus()) {
+                viewModel.saveSalary(query)
                 binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                 binding.icon.isVisible = true
                 binding.icon.setOnClickListener {
@@ -55,6 +56,8 @@ class SearchFiltersFragment : Fragment() {
 
             } else if (query?.isNotEmpty() == true) {
                 binding.topHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.btnApply.isVisible = true
+                binding.btnCancel.isVisible = true
 
             } else {
                 binding.icon.isVisible = false
@@ -100,6 +103,17 @@ class SearchFiltersFragment : Fragment() {
         }
 
         viewModel.loadParameters()
+
+        binding.materialCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.saveCheckBoxState(isChecked)
+            if (isChecked) {
+                binding.btnApply.isVisible = true
+                binding.btnCancel.isVisible = true
+            } else {
+                binding.btnApply.isVisible = false
+                binding.btnCancel.isVisible = false
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -134,6 +148,9 @@ class SearchFiltersFragment : Fragment() {
 
         binding.btnApply.isVisible = !isEmpty
         binding.btnCancel.isVisible = !isEmpty
+
+        binding.editText.setText(state.salary)
+        binding.materialCheckbox.isChecked = state.checkboxWithoutSalary ?: false
     }
 
     companion object {
