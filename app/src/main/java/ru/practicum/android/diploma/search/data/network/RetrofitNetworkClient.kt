@@ -6,6 +6,7 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.search.data.model.Response
 import ru.practicum.android.diploma.search.data.model.VacancyRequest
 import ru.practicum.android.diploma.util.InternetConnectionChecker
+import ru.practicum.android.diploma.vacancy.data.dto.VacancyDetailsResponse
 
 class RetrofitNetworkClient(
     private val networkService: RetrofitClient,
@@ -42,6 +43,20 @@ class RetrofitNetworkClient(
             Response().apply {
                 resultCode = e.code()
             }
+        }
+    }
+
+    override suspend fun getVacancyDetails(id: String): Response {
+        if (!internetConnectionChecker.isInternetAvailable()) {
+            return Response().apply { resultCode = NO_INTERNET }
+        }
+        return try {
+            withContext(Dispatchers.IO) {
+                val responseDto = networkService.hhApi.getVacancyDetails(id)
+                VacancyDetailsResponse(responseDto).apply { resultCode = OK_RESPONSE }
+            }
+        } catch (e: HttpException) {
+            Response().apply { resultCode = e.code() }
         }
     }
 

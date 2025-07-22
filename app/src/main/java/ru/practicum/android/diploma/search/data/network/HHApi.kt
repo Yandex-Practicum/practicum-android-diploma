@@ -15,7 +15,9 @@ interface HHApi {
     ): VacanciesResponse
 
     @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancyDetails(@Path("vacancy_id") id: String): VacancyDetailsDto
+    suspend fun getVacancyDetails(
+        @Path("vacancy_id") id: String
+    ): VacancyDetailsDto
 
     @GET("industries")
     suspend fun getIndustries(): List<IndustryResponse>

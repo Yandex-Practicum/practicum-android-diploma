@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:fillViewport="true"
+    style="@style/Screen.Background"
     tools:context=".vacancy.ui.VacancyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout

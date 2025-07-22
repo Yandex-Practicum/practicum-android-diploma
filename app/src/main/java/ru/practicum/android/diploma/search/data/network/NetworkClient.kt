@@ -7,4 +7,6 @@ interface NetworkClient {
     suspend fun getVacancies(
         vacancyRequest: VacancyRequest
     ): Response
+
+    suspend fun getVacancyDetails(id: String): Response
 }

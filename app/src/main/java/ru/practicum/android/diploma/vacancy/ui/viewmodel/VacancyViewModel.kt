@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favorites.domain.FavoriteVacancyInteractor
 import ru.practicum.android.diploma.util.Resource
-import ru.practicum.android.diploma.util.mock.MockData
+import ru.practicum.android.diploma.vacancy.data.db.entity.FavoriteVacancyEntity
 import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractor
+import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 import ru.practicum.android.diploma.vacancy.ui.VacancyState
 
 class VacancyViewModel(
@@ -50,12 +51,29 @@ class VacancyViewModel(
             if (currentState.isFavorite) {
                 favoriteInteractor.removeById(vacancyId)
             } else {
-                val vacancyToAdd = MockData.getVacancyById(vacancyId)
-                if (vacancyToAdd != null) {
-                    favoriteInteractor.add(vacancyToAdd)
-                }
+                val entity = mapDetailsToEntity(currentState.vacancy)
+                favoriteInteractor.add(entity)
             }
             _state.value = currentState.copy(isFavorite = !currentState.isFavorite)
         }
+    }
+
+    private fun mapDetailsToEntity(details: VacancyDetails): FavoriteVacancyEntity {
+        return FavoriteVacancyEntity(
+            id = details.id,
+            name = details.name,
+            employerName = details.employerName,
+            areaName = details.area,
+            descriptionHtml = details.description,
+            salaryFrom = null,
+            salaryTo = null,
+            currency = null,
+            experience = details.experience,
+            employment = details.employment,
+            schedule = details.schedule,
+            keySkills = details.keySkills.joinToString(","),
+            logoUrl = details.employerLogoUrl,
+            url = details.url
+        )
     }
 }
