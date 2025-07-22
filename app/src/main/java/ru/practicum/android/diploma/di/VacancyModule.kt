@@ -10,7 +10,11 @@ import ru.practicum.android.diploma.vacancy.ui.viewmodel.VacancyViewModel
 val vacancyModule = module {
 
     single<VacancyRepository> {
-        VacancyRepositoryImpl(get(), get())
+        VacancyRepositoryImpl(
+            networkClient = get(),
+            favoriteVacancyDao = get(),
+            internetConnectionChecker = get()
+        )
     }
 
     single {
