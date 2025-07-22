@@ -10,7 +10,9 @@
     <dimen name="placeholder_description_margin">16dp</dimen>
 
     <dimen name="padding_standard">16dp</dimen>
+    <dimen name="padding_medium">20dp</dimen>
     <dimen name="padding_small_9">9dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
     <dimen name="margin_medium">24dp</dimen>

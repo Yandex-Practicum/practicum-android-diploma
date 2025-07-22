@@ -43,5 +43,14 @@
         android:id="@+id/filtersFragment"
         android:name="ru.practicum.android.diploma.search.presenter.filter.FiltersFragment"
         android:label="fragment_filters"
-        tools:layout="@layout/fragment_filters" />
+        tools:layout="@layout/fragment_filters" >
+        <action
+            android:id="@+id/action_filtersFragment_to_fieldsFragment"
+            app:destination="@id/fieldsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldsFragment"
+        android:name="ru.practicum.android.diploma.search.presenter.filter.ui.fields.FieldsFragment"
+        android:label="fragment_fields"
+        tools:layout="@layout/fragment_fields" />
 </navigation>

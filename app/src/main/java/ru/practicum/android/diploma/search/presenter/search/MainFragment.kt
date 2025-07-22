@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
@@ -35,7 +35,8 @@ class MainFragment : Fragment() {
     }
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
-    private val debouncer: Debouncer by inject { parametersOf(viewLifecycleOwner.lifecycleScope) }
+
+    private var debouncer: Debouncer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +49,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        debouncer = get { parametersOf(viewLifecycleOwner.lifecycleScope) }
+
         initRv()
 
         val textWatcher = object : TextWatcher {
@@ -58,7 +62,7 @@ class MainFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateSearchIcon(s)
                 if (!s.isNullOrBlank()) {
-                    debouncer.searchDebounce {
+                    debouncer?.searchDebounce {
                         searchViewModel.searchVacancies(s.toString())
                     }
                 }
@@ -90,11 +94,12 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        debouncer = null
         _binding = null
     }
 
     private fun onVacancyClick(vacancyId: Int) {
-        if (debouncer.clickDebounce()) {
+        if (debouncer?.clickDebounce() ?: false) {
             findNavController().navigate(
                 R.id.action_mainFragment_to_vacancyFragment,
                 bundleOf("vacancyId" to vacancyId.toString())
@@ -121,7 +126,7 @@ class MainFragment : Fragment() {
         binding.searchIcon.setOnClickListener {
             if (binding.searchIcon.tag == R.drawable.cross_light) {
                 binding.editTextId.text.clear()
-                debouncer.cancelDebounce()
+                debouncer?.cancelDebounce()
                 showEmpty()
             }
         }
