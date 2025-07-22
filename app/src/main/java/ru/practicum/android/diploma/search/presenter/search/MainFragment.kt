@@ -162,7 +162,6 @@ class MainFragment : Fragment() {
         })
     }
 
-
     private fun stataObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
