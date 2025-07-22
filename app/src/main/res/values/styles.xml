@@ -84,7 +84,8 @@
         <item name="titleTextColor">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="TextInputLayoutStyle">
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:paddingTop">8dp</item>
         <item name="android:textColorHint">@color/gray</item>
         <item name="boxStrokeWidth">@dimen/dimen_0dp</item>
         <item name="boxStrokeColor">?attr/colorPrimaryVariant</item>

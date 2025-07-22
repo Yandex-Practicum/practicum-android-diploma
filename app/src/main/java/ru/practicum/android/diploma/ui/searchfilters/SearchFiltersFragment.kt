@@ -130,6 +130,11 @@ class SearchFiltersFragment : Fragment() {
         val industry = state.industryName
         val gray = ContextCompat.getColor(requireContext(), R.color.gray)
 
+        val currentText = binding.editText.text.toString()
+        if (currentText != state.salary) {
+            binding.editText.setText(state.salary)
+        }
+
         val workplaceText = listOfNotNull(country, region)
             .filter { it.isNotBlank() }
             .joinToString(", ")
