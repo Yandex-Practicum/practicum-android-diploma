@@ -26,7 +26,7 @@ class VacanciesRepositoryImpl() : VacanciesRepository {
                                 name = name,
                                 area = area?.name ?: "",
                                 employer = employer?.name ?: "",
-                                salaryFrom =salary?.from ?: 0,
+                                salaryFrom = salary?.from ?: 0,
                                 salaryTo = salary?.to ?: 0,
                                 schedule = schedule.name,
                                 experience = experience?.name ?: "",
