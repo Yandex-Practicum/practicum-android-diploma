@@ -34,6 +34,9 @@ class SearchFiltersViewModel(
 
     fun saveCheckBoxState(isChecked: Boolean) {
         interactor.toggleWithoutSalary(isChecked)
+
+        val current = _filtersParametersState.value ?: FilterParameters()
+        _filtersParametersState.value = current.copy(checkboxWithoutSalary = isChecked)
     }
 
     fun resetFilters() {

@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.util.SingleEventLiveData
 
 class VacanciesSearchViewModel(
     private val interactor: VacanciesInteractor,
+    private val interactorFilter: FiltersParametersInteractor
     private val parameters: FiltersParametersInteractor
 ) : ViewModel() {
     private val _state = MutableLiveData<VacanciesState>()
@@ -40,6 +41,8 @@ class VacanciesSearchViewModel(
     private var totalFound = 0
 
     fun searchVacancies(query: String, isNewSearch: Boolean = true) {
+        val filter = interactorFilter.getFiltersParameters()
+
         if (query.isEmpty()) {
             resetState()
             return
@@ -57,7 +60,7 @@ class VacanciesSearchViewModel(
         }
 
         viewModelScope.launch {
-            interactor.search(query, currentPage)
+            interactor.search(query, currentPage, filter)
                 .flowOn(Dispatchers.IO)
                 .collect { resource ->
                     isLoading = false
@@ -143,7 +146,7 @@ class VacanciesSearchViewModel(
 
     fun loadMore() {
         if (!isLoading && hasMore) {
-            searchVacancies(currentQuery, false)
+            searchVacancies(currentQuery, isNewSearch = false)
         }
     }
 

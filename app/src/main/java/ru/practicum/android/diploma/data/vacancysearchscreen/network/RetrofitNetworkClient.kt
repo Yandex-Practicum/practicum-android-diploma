@@ -52,7 +52,8 @@ class RetrofitNetworkClient(
             val response = service.getVacancies(
                 text = dto.text,
                 page = dto.page,
-                perPage = dto.perPage
+                perPage = dto.perPage,
+                filter = dto.filter,
             )
             response.apply { resultCode = REQUEST_SUCCESS }
         } catch (e: retrofit2.HttpException) {

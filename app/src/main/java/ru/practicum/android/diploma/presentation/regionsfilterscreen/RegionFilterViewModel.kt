@@ -55,7 +55,7 @@ class RegionFilterViewModel(
             }
 
             val filtered = regionsList.filter {
-                it.name.contains(query, ignoreCase = false)
+                it.name.contains(query, ignoreCase = true)
             }
 
             if (filtered.isEmpty()) {
