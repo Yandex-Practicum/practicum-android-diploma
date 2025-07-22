@@ -19,22 +19,22 @@ class FiltersRepositoryImpl(
     override fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
         if (!internetConnectionChecker.isInternetAvailable()) {
             emit(Resource.Failed(FailureType.NoInternet))
-            return@flow
-        }
-        try {
-            val response = retrofitClient.hhApi.getIndustries()
-            val industries = response.flatMap { industryResponse ->
-                industryResponse.industries.map { industryDto ->
-                    Industry(id = industryDto.id, name = industryDto.name)
+        } else {
+            try {
+                val response = retrofitClient.hhApi.getIndustries()
+                val industries = response.flatMap { industryResponse ->
+                    industryResponse.industries.map { industryDto ->
+                        Industry(id = industryDto.id, name = industryDto.name)
+                    }
                 }
+                emit(Resource.Success(industries.sortedBy { it.name }))
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Failed(FailureType.ApiError))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Failed(FailureType.NoInternet))
             }
-            emit(Resource.Success(industries.sortedBy { it.name }))
-        } catch (e: HttpException) {
-            e.printStackTrace()
-            emit(Resource.Failed(FailureType.ApiError))
-        } catch (e: IOException) {
-            e.printStackTrace()
-            emit(Resource.Failed(FailureType.NoInternet))
         }
     }
 }
