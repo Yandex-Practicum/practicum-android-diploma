@@ -18,7 +18,7 @@ val viewModelModule = module {
         FavouriteVacanciesViewModel(get<FavouriteVacanciesDbInteractor>())
     }
     viewModel {
-        VacanciesSearchViewModel(get())
+        VacanciesSearchViewModel(get(), get())
     }
 
     viewModel { (vacancyId: String) ->

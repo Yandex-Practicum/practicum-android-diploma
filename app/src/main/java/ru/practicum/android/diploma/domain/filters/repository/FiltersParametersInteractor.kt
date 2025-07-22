@@ -11,4 +11,5 @@ interface FiltersParametersInteractor {
     fun toggleWithoutSalary(enabled: Boolean)
     fun getFiltersParameters(): FilterParameters
     fun clearFilters()
+    fun hasActiveFilters(): Boolean
 }
