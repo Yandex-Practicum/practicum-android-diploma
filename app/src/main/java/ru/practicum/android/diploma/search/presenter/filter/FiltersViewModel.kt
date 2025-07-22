@@ -73,7 +73,7 @@ class FiltersViewModel(
         }
     }
 
-     fun saveFilters() {
+    fun saveFilters() {
         viewModelScope.launch {
             filtersInteractor.saveFilters(
                 industry = _selectedIndustry.value,

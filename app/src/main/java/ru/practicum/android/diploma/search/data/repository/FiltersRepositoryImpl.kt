@@ -57,6 +57,4 @@ class FiltersRepositoryImpl(
     override fun clearSavedFilters() {
         filtersPreferences.clearFilters()
     }
-
-
 }
