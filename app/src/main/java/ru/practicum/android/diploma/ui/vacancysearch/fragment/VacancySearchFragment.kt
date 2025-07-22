@@ -125,7 +125,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         }
 
         searchViewModel.hasActiveFilters.observe(viewLifecycleOwner) { hasFilters ->
-            if(hasFilters){
+            if (hasFilters) {
                 binding.header.iconFilter.isVisible = false
                 binding.header.iconFilterOn.isVisible = true
             } else {
