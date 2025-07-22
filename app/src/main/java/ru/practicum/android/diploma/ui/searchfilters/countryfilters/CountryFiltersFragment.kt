@@ -6,14 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.CountryFiltersFragmentBinding
 import ru.practicum.android.diploma.domain.models.filters.Country
+import ru.practicum.android.diploma.domain.models.filters.SelectionType
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.CountryFiltersViewModel
 import ru.practicum.android.diploma.presentation.countryfiltersscreen.uistate.CountryFiltersUiState
 import ru.practicum.android.diploma.ui.searchfilters.recycleview.WorkplaceAdapter
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.COUNTRY_ID_KEY
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.COUNTRY_NAME_KEY
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_RESULT_KEY
+import ru.practicum.android.diploma.ui.searchfilters.workplacefilters.WorkplaceFiltersFragment.Companion.SELECTION_TYPE_KEY
 
 class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
 
@@ -71,7 +77,12 @@ class CountryFiltersFragment : Fragment(), WorkplaceAdapter.OnClickListener {
     }
 
     override fun onClick(country: Country) {
-        viewModel.onCountrySelected(country)
+        val result = Bundle().apply {
+            putString(SELECTION_TYPE_KEY, SelectionType.COUNTRY.value)
+            putString(COUNTRY_NAME_KEY, country.name)
+            putString(COUNTRY_ID_KEY, country.id)
+        }
+        setFragmentResult(SELECTION_RESULT_KEY, result)
         findNavController().popBackStack()
     }
 }

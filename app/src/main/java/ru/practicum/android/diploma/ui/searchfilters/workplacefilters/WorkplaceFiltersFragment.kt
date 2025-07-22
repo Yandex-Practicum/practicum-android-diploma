@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.WorkplaceFragmentBinding
-import ru.practicum.android.diploma.domain.models.filters.FilterParameters
+import ru.practicum.android.diploma.domain.models.filters.SelectionType
 import ru.practicum.android.diploma.presentation.workplacescreen.WorkplaceFiltersViewModel
 
 class WorkplaceFiltersFragment : Fragment() {
@@ -19,6 +20,29 @@ class WorkplaceFiltersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<WorkplaceFiltersViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(SELECTION_RESULT_KEY) { _, bundle ->
+            val type = SelectionType.from(bundle.getString(SELECTION_TYPE_KEY))
+            val countryName = bundle.getString(COUNTRY_NAME_KEY)
+
+            when (type) {
+                SelectionType.COUNTRY -> {
+                    val countryId = bundle.getString(COUNTRY_ID_KEY)
+                    viewModel.setTempCountrySelection(countryId, countryName)
+                }
+
+                SelectionType.REGION -> {
+                    val regionName = bundle.getString(REGION_NAME_KEY)
+                    viewModel.setTempRegionSelection(regionName, countryName)
+                }
+
+                null -> Unit
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = WorkplaceFragmentBinding.inflate(inflater, container, false)
@@ -41,6 +65,7 @@ class WorkplaceFiltersFragment : Fragment() {
         }
 
         binding.btnChoose.setOnClickListener {
+            viewModel.saveSelection()
             findNavController().popBackStack()
         }
 
@@ -52,9 +77,16 @@ class WorkplaceFiltersFragment : Fragment() {
             viewModel.clearRegion()
         }
 
-        viewModel.getSelectedCountry.observe(viewLifecycleOwner) {
-            buttonChooseVisibility(it)
-            renderSelectedCountry(it)
+        viewModel.getTempCountry.observe(viewLifecycleOwner) { tempCountry ->
+            updateCountryView()
+        }
+
+        viewModel.getTempRegion.observe(viewLifecycleOwner) { tempRegion ->
+            updateCountryView()
+        }
+
+        viewModel.getSelectedParams.observe(viewLifecycleOwner) { savedParams ->
+            updateCountryView()
         }
 
         viewModel.loadParameters()
@@ -65,27 +97,41 @@ class WorkplaceFiltersFragment : Fragment() {
         _binding = null
     }
 
-    private fun renderSelectedCountry(state: FilterParameters) {
-        val isEmptyCountry = state.countryName.isNullOrBlank()
-        val isEmptyRegion = state.regionName.isNullOrBlank()
+    private fun updateCountryView() {
+        val tempCountry = viewModel.getTempCountry.value?.name
+        val tempRegion = viewModel.getTempRegion.value
+        val savedParams = viewModel.getSelectedParams.value
 
-        binding.editTextCountry.setText(state.countryName)
-        binding.editTextRegion.setText(state.regionName)
+        val countryName = tempCountry ?: savedParams?.countryName
+        val regionName = tempRegion ?: savedParams?.regionName
 
-        binding.inputLayoutCountry.hint = if (isEmptyCountry) getString(R.string.country) else ""
-        binding.inputLayoutRegion.hint = if (isEmptyRegion) getString(R.string.region) else ""
+        renderSelectedRegion(regionName)
+        renderSelectedCountry(countryName)
+        buttonChooseVisibility(countryName, regionName)
+    }
 
-        val icon = if (isEmptyCountry) R.drawable.arrow_forward_24px else R.drawable.close_24px
+    private fun renderSelectedCountry(name: String?) {
+        val isEmpty = name.isNullOrBlank()
+
+        binding.editTextCountry.setText(name)
+        binding.inputLayoutCountry.hint = if (isEmpty) getString(R.string.country) else ""
+
+        val icon = if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
         binding.inputLayoutCountry.setEndIconDrawable(icon)
+    }
 
-        val iconRegions = if (isEmptyRegion) R.drawable.arrow_forward_24px else R.drawable.close_24px
+    private fun renderSelectedRegion(name: String?) {
+        val isEmpty = name.isNullOrBlank()
+
+        binding.editTextRegion.setText(name)
+        binding.inputLayoutRegion.hint = if (isEmpty) getString(R.string.region) else ""
+
+        val iconRegions = if (isEmpty) R.drawable.arrow_forward_24px else R.drawable.close_24px
         binding.inputLayoutRegion.setEndIconDrawable(iconRegions)
     }
 
-    private fun buttonChooseVisibility(state: FilterParameters) {
-        val isEmpty = state.countryName.isNullOrBlank() && state.regionName.isNullOrBlank()
-
-        binding.btnChoose.isVisible = !isEmpty
+    private fun buttonChooseVisibility(countryName: String?, regionName: String?) {
+        binding.btnChoose.isVisible = !countryName.isNullOrBlank() || !regionName.isNullOrBlank()
     }
 
     private fun openCountry() {
@@ -95,9 +141,19 @@ class WorkplaceFiltersFragment : Fragment() {
     }
 
     private fun openRegion() {
-        val countryId = viewModel.getSelectedCountry.value?.countryId
+        val savedId = viewModel.getSelectedParams.value?.countryId
+        val tempId = viewModel.getTempCountry.value?.id
+        val countryIdToUse = tempId ?: savedId ?: ""
         val action = WorkplaceFiltersFragmentDirections
-            .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryId ?: "")
+            .actionWorkplaceFiltersFragmentToRegionsFilterFragment(countryIdToUse)
         findNavController().navigate(action)
+    }
+
+    companion object {
+        const val SELECTION_TYPE_KEY = "selection_type"
+        const val COUNTRY_NAME_KEY = "country_name"
+        const val COUNTRY_ID_KEY = "country_id"
+        const val REGION_NAME_KEY = "region_name"
+        const val SELECTION_RESULT_KEY = "result_key"
     }
 }

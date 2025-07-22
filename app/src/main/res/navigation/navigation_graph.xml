@@ -63,7 +63,7 @@
     <fragment
         android:id="@+id/countryFiltersFragment"
         android:name="ru.practicum.android.diploma.ui.searchfilters.countryfilters.CountryFiltersFragment"
-        android:label="CountryFiltersFragment" />
+        android:label="CountryFiltersFragment"
         tools:layout="@layout/workplace_fragment" />
     <fragment
         android:id="@+id/industryFilterFragment"
