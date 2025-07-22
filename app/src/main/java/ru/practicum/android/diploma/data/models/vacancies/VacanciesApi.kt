@@ -10,6 +10,10 @@ interface VacanciesApi {
     suspend fun getVacancies(
         @Query("page") page: Int = 0,
         @Query("per_page") perPage: Int = 20,
-        @Query("text") text: String
+        @Query("text") text: String,
+        @Query("area") area: String? = null,
+        @Query("industry") industry: String? = null,
+        @Query("currency") currency: String? = null,
+        @Query("salary") salary: Int? = null
     ): VacanciesResponseDto
 }

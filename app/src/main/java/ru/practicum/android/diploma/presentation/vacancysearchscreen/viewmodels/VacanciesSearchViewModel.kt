@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,20 +10,26 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
+import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
 import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
+import ru.practicum.android.diploma.domain.models.filters.VacancyFilters
 import ru.practicum.android.diploma.domain.models.paging.VacanciesResult
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.presentation.models.vacancies.VacanciesState
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.SingleEventLiveData
 
-class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : ViewModel() {
+class VacanciesSearchViewModel(
+    private val interactor: VacanciesInteractor,
+    private val interactorFilter: FiltersParametersInteractor
+) : ViewModel() {
     private val _state = MutableLiveData<VacanciesState>()
     val state: LiveData<VacanciesState> = _state
 
     private val _showToast = SingleEventLiveData<Int>()
     val showToast: LiveData<Int> = _showToast
 
+    private var currentFilters = VacancyFilters(text = "", page = 0)
     private var currentQuery = ""
     private var currentPage = 0
     private var totalPages = 0
@@ -32,25 +39,50 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
     private var lastErrorType: ErrorType? = null
     private var totalFound = 0
 
-    fun searchVacancies(query: String, isNewSearch: Boolean = true) {
+    fun searchVacancies(
+        query: String,
+        area: String? = null,
+        industry: String? = null,
+        currency: String? = null,
+        salary: Int? = null,
+        onlyWithSalary: Boolean = false,
+        isNewSearch: Boolean = true
+    ) {
         if (query.isEmpty()) {
             resetState()
             return
         }
 
         if (isNewSearch) {
-            handleNewSearch(query)
+            currentQuery = query
+            currentPage = 0
+            hasMore = true
+            vacancies.clear()
+            _state.value = VacanciesState.Loading
+
+            currentFilters = VacancyFilters(
+                text = query,
+                page = 0,
+                perPage = 20,
+                area = area,
+                industry = industry,
+                currency = currency,
+                salary = salary,
+                onlyWithSalary = onlyWithSalary
+            )
         } else if (!hasMore || isLoading) {
             return
         }
 
+        currentFilters = currentFilters.copy(page = currentPage)
+
         isLoading = true
-        if (currentPage > 0) {
+        if (currentFilters.page > 0) {
             _state.value = VacanciesState.LoadingMore
         }
 
         viewModelScope.launch {
-            interactor.search(query, currentPage)
+            interactor.search(currentFilters)
                 .flowOn(Dispatchers.IO)
                 .collect { resource ->
                     isLoading = false
@@ -60,15 +92,6 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
                     }
                 }
         }
-    }
-
-    private fun handleNewSearch(query: String) {
-        currentQuery = query
-        currentPage = 0
-        vacancies.clear()
-        interactor.clearCache()
-        lastErrorType = null
-        _state.value = VacanciesState.Loading
     }
 
     private fun handleSuccess(resource: Resource.Success<VacanciesResult>, isNewSearch: Boolean) {
@@ -136,7 +159,7 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
 
     fun loadMore() {
         if (!isLoading && hasMore) {
-            searchVacancies(currentQuery, false)
+            searchVacancies(currentQuery, isNewSearch = false)
         }
     }
 

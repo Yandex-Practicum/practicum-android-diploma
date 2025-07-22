@@ -52,8 +52,13 @@ class RetrofitNetworkClient(
             val response = service.getVacancies(
                 text = dto.text,
                 page = dto.page,
-                perPage = dto.perPage
+                perPage = dto.perPage,
+                area = dto.area,
+                industry = dto.industry,
+                currency = dto.currency,
+                salary = dto.salary
             )
+            Log.d("Requestfilter", "${dto.salary} network")
             response.apply { resultCode = REQUEST_SUCCESS }
         } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Error getting vacancies", e)

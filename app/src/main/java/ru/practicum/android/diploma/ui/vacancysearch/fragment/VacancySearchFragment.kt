@@ -17,10 +17,15 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
+import ru.practicum.android.diploma.domain.models.filters.FilterParameters
+import ru.practicum.android.diploma.domain.models.filters.VacancyFilters
+import ru.practicum.android.diploma.presentation.SearchFiltersViewModel
 import ru.practicum.android.diploma.presentation.mappers.toUiModel
+import ru.practicum.android.diploma.presentation.mappers.toVacancyFilter
 import ru.practicum.android.diploma.presentation.models.vacancies.VacanciesState
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
 import ru.practicum.android.diploma.presentation.vacancysearchscreen.viewmodels.VacanciesSearchViewModel
+import ru.practicum.android.diploma.ui.searchfilters.SearchFiltersFragment
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.Callbacks
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.StateHandlers
 import ru.practicum.android.diploma.ui.vacancysearch.fragment.uifragmentutils.UiComponents
@@ -35,6 +40,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
     private val searchViewModel by viewModel<VacanciesSearchViewModel>()
+    private val filtersViewModel by viewModel<SearchFiltersViewModel>()
     private var ui: VacancySearchUi? = null
 
     private var vacanciesList = ArrayList<VacancyUiModel>()
@@ -54,6 +60,25 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            SearchFiltersFragment.SEARCH_WITH_FILTERS_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val filters: FilterParameters? = bundle.getParcelable(SearchFiltersFragment.SEARCH_WITH_FILTERS_KEY)
+            val query = binding.inputEditText.text.toString()
+            val filtersRequest = filters?.toVacancyFilter(text = query) ?: VacancyFilters(text = query)
+
+            searchViewModel.searchVacancies(
+                query = query,
+                area = filtersRequest.area,
+                industry = filtersRequest.industry,
+                currency = filtersRequest.currency,
+                salary = filtersRequest.salary,
+                onlyWithSalary = filtersRequest.onlyWithSalary,
+                isNewSearch = true
+            )
+        }
 
         debouncer = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
         debounceForPlaceholder = Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_ERROR_DELAY)

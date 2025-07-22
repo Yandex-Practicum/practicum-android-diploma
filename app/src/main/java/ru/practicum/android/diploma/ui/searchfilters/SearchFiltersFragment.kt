@@ -100,8 +100,16 @@ class SearchFiltersFragment : Fragment() {
         }
 
         binding.btnApply.setOnClickListener {
+            val currentSelectedFilters = viewModel.getFiltersParametersScreen.value?.copy(
+                salary = binding.editText.text.toString(),
+                checkboxWithoutSalary = binding.materialCheckbox.isChecked
+            ) ?: FilterParameters(
+                salary = binding.editText.text.toString(),
+                checkboxWithoutSalary = binding.materialCheckbox.isChecked
+            )
+
             val bundle = Bundle().apply {
-                putBoolean(SEARCH_WITH_FILTERS_KEY, true)
+                putParcelable(SEARCH_WITH_FILTERS_KEY, currentSelectedFilters)
             }
             setFragmentResult(SEARCH_WITH_FILTERS_KEY, bundle)
             findNavController().popBackStack()

@@ -1,6 +1,6 @@
-package ru.practicum.android.diploma.data.models.vacancies
+package ru.practicum.android.diploma.domain.models.filters
 
-data class VacanciesRequest(
+data class VacancyFilters (
     val text: String,
     val page: Int = 0,
     val perPage: Int = 20,
