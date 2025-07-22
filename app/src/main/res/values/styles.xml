@@ -151,4 +151,7 @@
         <item name="android:layout_height">36dp</item>
         <item name="android:indeterminateTint">@color/blue</item>
     </style>
+
+    <style name="HintAppearance.Normal" parent="TextRegular16"/>
+    <style name="HintAppearance.Small" parent="TextRegular12"/>
 </resources>
