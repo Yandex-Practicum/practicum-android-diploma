@@ -12,9 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.databinding.FragmentFieldsBinding
+import ru.practicum.android.diploma.search.domain.model.Industry
+import ru.practicum.android.diploma.search.presenter.filter.FiltersViewModel
 import ru.practicum.android.diploma.search.presenter.filter.model.FieldsState
 import ru.practicum.android.diploma.search.presenter.filter.ui.fields.viewmodel.FieldsViewModel
 import ru.practicum.android.diploma.util.Debouncer
@@ -24,7 +27,8 @@ class FieldsFragment : Fragment() {
     private var _binding: FragmentFieldsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FieldsViewModel by viewModel()
+    private val fieldsViewModel: FieldsViewModel by viewModel()
+    private val filtersViewModel: FiltersViewModel by sharedViewModel()
     private lateinit var adapter: IndustriesAdapter
     private var debouncer: Debouncer? = null
 
@@ -39,17 +43,16 @@ class FieldsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         debouncer = get { parametersOf(viewLifecycleOwner.lifecycleScope) }
-
         setupRecyclerView()
         setupListeners()
         observeViewModel()
+        clearEditText()
     }
 
     private fun setupRecyclerView() {
         adapter = IndustriesAdapter { industry ->
-            viewModel.onIndustrySelected(industry)
+            fieldsViewModel.onIndustrySelected(industry)
         }
         binding.fieldsRecyclerView.adapter = adapter
     }
@@ -60,49 +63,95 @@ class FieldsFragment : Fragment() {
         }
 
         binding.selectButton.setOnClickListener {
-            viewModel.applySelection()
+            val currentState = fieldsViewModel.state.value
+            if (currentState is FieldsState.Content) {
+                filtersViewModel.updateIndustry(currentState.selectedIndustry)
+            }
             findNavController().popBackStack()
         }
 
         binding.fieldEdittext.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                updateSearchIcon(s)
                 debouncer?.searchDebounce {
-                    s?.let { viewModel.filter(it.toString()) }
+                    s?.let { fieldsViewModel.filter(it.toString()) }
                 }
             }
             override fun afterTextChanged(s: Editable?) = Unit
         })
     }
 
+    private fun updateSearchIcon(text: CharSequence?) {
+        if (text.isNullOrBlank()) {
+            binding.searchIcon.setImageResource(ru.practicum.android.diploma.R.drawable.search_24px)
+            binding.searchIcon.tag = ru.practicum.android.diploma.R.drawable.search_24px
+        } else {
+            binding.searchIcon.setImageResource(ru.practicum.android.diploma.R.drawable.cross_light)
+            binding.searchIcon.tag = ru.practicum.android.diploma.R.drawable.cross_light
+        }
+    }
+
+    private fun clearEditText() {
+        binding.searchIcon.setOnClickListener {
+            if (binding.searchIcon.tag == ru.practicum.android.diploma.R.drawable.cross_light) {
+                binding.fieldEdittext.text.clear()
+                debouncer?.cancelDebounce()
+                fieldsViewModel.filter("")
+            }
+        }
+    }
+
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
+            fieldsViewModel.state.collect { state ->
                 renderState(state)
             }
         }
     }
 
     private fun renderState(state: FieldsState) {
-        binding.selectButton.isVisible = state is FieldsState.Content && state.selectedIndustry != null
-
         when (state) {
-            is FieldsState.Content -> {
-                binding.fieldsRecyclerView.isVisible = true
-                adapter.submitList(state.industries) {
-                    adapter.updateSelection(state.selectedIndustry)
-                }
-            }
-            is FieldsState.Empty -> {
-                binding.fieldsRecyclerView.isVisible = false
-            }
-            is FieldsState.Loading -> {
-                binding.fieldsRecyclerView.isVisible = false
-            }
-            is FieldsState.Error -> {
-                binding.fieldsRecyclerView.isVisible = false
-            }
+            is FieldsState.Content -> showContent(state.industries, state.selectedIndustry)
+            is FieldsState.Empty -> showEmpty()
+            is FieldsState.Error -> showError()
+            is FieldsState.Loading -> showLoading()
         }
+    }
+
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
+        binding.fieldsRecyclerView.isVisible = false
+        binding.placeholderEmpty.isVisible = false
+        binding.placeholderError.isVisible = false
+        binding.selectButton.isVisible = false
+    }
+
+    private fun showContent(industries: List<Industry>, selectedIndustry: Industry?) {
+        binding.progressBar.isVisible = false
+        binding.fieldsRecyclerView.isVisible = true
+        binding.placeholderEmpty.isVisible = false
+        binding.placeholderError.isVisible = false
+        binding.selectButton.isVisible = selectedIndustry != null
+        adapter.submitList(industries) {
+            adapter.updateSelection(selectedIndustry)
+        }
+    }
+
+    private fun showError() {
+        binding.progressBar.isVisible = false
+        binding.fieldsRecyclerView.isVisible = false
+        binding.placeholderEmpty.isVisible = false
+        binding.placeholderError.isVisible = true
+        binding.selectButton.isVisible = false
+    }
+
+    private fun showEmpty() {
+        binding.progressBar.isVisible = false
+        binding.fieldsRecyclerView.isVisible = false
+        binding.placeholderEmpty.isVisible = true
+        binding.placeholderError.isVisible = false
+        binding.selectButton.isVisible = false
     }
 
     override fun onDestroyView() {

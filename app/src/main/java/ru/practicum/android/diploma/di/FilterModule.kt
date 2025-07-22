@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.search.domain.api.FiltersInteractor
 import ru.practicum.android.diploma.search.domain.api.FiltersRepository
 import ru.practicum.android.diploma.search.domain.interactor.FiltersInteractorImpl
 import ru.practicum.android.diploma.search.presenter.filter.ui.fields.viewmodel.FieldsViewModel
+import ru.practicum.android.diploma.search.presenter.filter.FiltersViewModel
 
 val filterModule = module {
 
@@ -20,5 +21,9 @@ val filterModule = module {
 
     viewModel {
         FieldsViewModel(filtersInteractor = get())
+    }
+
+    viewModel {
+        FiltersViewModel()
     }
 }

@@ -69,7 +69,4 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
         }
     }
 
-    fun applySelection() {
-        // TODO: Implement filter saving logic
-    }
 }
