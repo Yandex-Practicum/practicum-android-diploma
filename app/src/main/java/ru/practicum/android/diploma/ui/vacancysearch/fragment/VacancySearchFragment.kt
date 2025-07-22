@@ -152,7 +152,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
 
     private fun setupSearchInput() {
         binding.inputEditText.doOnTextChanged { text, start, before, count ->
-            val query = text?.toString()
+            val query = text?.toString()?.trim()
             val currentQuery = searchViewModel.getCurrentQuery()
 
             if (query == currentQuery) {
@@ -162,6 +162,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     ui?.showEmptyInput()
                     searchViewModel.resetState()
                 }
+                return@doOnTextChanged
             }
 
             if (!query.isNullOrEmpty()) {

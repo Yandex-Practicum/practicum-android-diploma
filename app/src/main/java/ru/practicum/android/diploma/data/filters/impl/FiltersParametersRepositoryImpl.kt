@@ -29,11 +29,17 @@ class FiltersParametersRepositoryImpl(private val storage: FilterParametersStora
     }
 
     override fun defineSalary(value: String?) {
-        TODO("Not yet implemented")
+        val selected = storage.getFilterParameters()
+            .toDomain()
+            .copy(salary = value)
+        storage.putFilterParameters(selected.toDto())
     }
 
     override fun toggleWithoutSalary(enabled: Boolean) {
-        TODO("Not yet implemented")
+        val selected = storage.getFilterParameters()
+            .toDomain()
+            .copy(checkboxWithoutSalary = enabled)
+        storage.putFilterParameters(selected.toDto())
     }
 
     override fun getFiltersParameters(): FilterParameters {
