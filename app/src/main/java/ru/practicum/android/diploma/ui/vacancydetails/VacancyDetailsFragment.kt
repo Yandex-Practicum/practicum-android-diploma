@@ -1,10 +1,11 @@
 package ru.practicum.android.diploma.ui.vacancydetails
 
 import android.os.Bundle
-import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -43,14 +44,6 @@ class VacancyDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getVacancyDetailsState.observe(viewLifecycleOwner) {
-            vacancyState(it)
-        }
-
-        viewModel.getIsFavouriteVacancy.observe(viewLifecycleOwner) {
-            renderLikeButton(it)
-        }
-
         binding.btnArrowBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -63,6 +56,14 @@ class VacancyDetailsFragment : Fragment() {
 
         binding.btnFavorite.setOnClickListener {
             viewModel.onFavouriteClicked()
+        }
+
+        viewModel.getVacancyDetailsState.observe(viewLifecycleOwner) {
+            vacancyState(it)
+        }
+
+        viewModel.getIsFavouriteVacancy.observe(viewLifecycleOwner) {
+            renderLikeButton(it)
         }
     }
 
@@ -154,16 +155,19 @@ class VacancyDetailsFragment : Fragment() {
         }
     }
 
-    private fun descriptionHtml(description: String): String {
-        val descWithSep = listOf(description).joinToString(separator = "<br>•") { it }
-        return Html.fromHtml(descWithSep, Html.FROM_HTML_MODE_COMPACT).toString()
+    private fun descriptionHtml(description: String): Spanned {
+        val descWithSep = listOf(description).joinToString(separator = "<br> •") { it }
+        return HtmlCompat.fromHtml(descWithSep, HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 
-    private fun formattedKeySkills(keySkills: List<String>?): String? {
+    private fun formattedKeySkills(keySkills: List<String>?): Spanned? {
         if (keySkills.isNullOrEmpty()) return null
 
-        val skillsWithSep = keySkills.joinToString(separator = "<br>•") { it }
-        return Html.fromHtml(skillsWithSep, Html.FROM_HTML_MODE_COMPACT).toString()
+        val skillsWithSep = keySkills.joinToString(separator = "<br>") { skill ->
+            val cleanFormat = skill.trim()
+            "• $cleanFormat"
+        }
+        return HtmlCompat.fromHtml(skillsWithSep, HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 
     private fun formatEmployment(employmentForm: EmploymentForm?, workFormat: List<String>?): String {
