@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.vacancysearchscreen.impl.ErrorType
+import ru.practicum.android.diploma.domain.filters.repository.FiltersParametersInteractor
 import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.paging.VacanciesResult
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
@@ -16,12 +17,15 @@ import ru.practicum.android.diploma.presentation.models.vacancies.VacanciesState
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.SingleEventLiveData
 
-class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : ViewModel() {
+class VacanciesSearchViewModel(private val interactor: VacanciesInteractor, private val parameters: FiltersParametersInteractor) : ViewModel() {
     private val _state = MutableLiveData<VacanciesState>()
     val state: LiveData<VacanciesState> = _state
 
     private val _showToast = SingleEventLiveData<Int>()
     val showToast: LiveData<Int> = _showToast
+
+    private val _hasActiveFilters = MutableLiveData<Boolean>()
+    val hasActiveFilters: LiveData<Boolean> = _hasActiveFilters
 
     private var currentQuery = ""
     private var currentPage = 0
@@ -150,4 +154,8 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : Vi
     }
 
     fun getCurrentQuery(): String = currentQuery
+
+    fun checkActiveFilters() {
+        _hasActiveFilters.value = parameters.hasActiveFilters()
+    }
 }

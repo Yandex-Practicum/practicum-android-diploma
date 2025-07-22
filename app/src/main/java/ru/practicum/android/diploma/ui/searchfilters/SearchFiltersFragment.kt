@@ -159,12 +159,12 @@ class SearchFiltersFragment : Fragment() {
     }
 
     private fun updateActionButtonVisibility() {
-        val filters = viewModel.getFiltersParametersScreen.value ?: return
+        val filters = viewModel.getFiltersParametersScreen.value ?: FilterParameters()
 
         val isWorkplaceEmpty = filters.countryName.isNullOrBlank() && filters.regionName.isNullOrBlank()
         val isIndustryEmpty = filters.industryName.isNullOrBlank()
         val hasSalary = !filters.salary.isNullOrBlank()
-        val hasCheckbox = filters.checkboxWithoutSalary
+        val hasCheckbox = filters.checkboxWithoutSalary ?: false
 
         val hasAnyFilters = !isWorkplaceEmpty || !isIndustryEmpty || hasSalary || hasCheckbox!!
 

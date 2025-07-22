@@ -45,4 +45,13 @@ class FiltersParametersInteractorImpl(
     override fun clearFilters() {
         repository.clearFilters()
     }
+
+    override fun hasActiveFilters(): Boolean {
+        val filters = repository.getFiltersParameters()
+        return !filters.countryName.isNullOrBlank() ||
+            !filters.regionName.isNullOrBlank() ||
+            !filters.industryName.isNullOrBlank() ||
+            !filters.salary.isNullOrBlank() ||
+            filters.checkboxWithoutSalary == true
+    }
 }
