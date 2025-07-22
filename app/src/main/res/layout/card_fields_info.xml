@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_standard">
+
+    <RadioButton
+        android:id="@+id/radio_button"
+        style="@style/Text.Body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layoutDirection="rtl"
+        android:text="@string/field_name_example"
+
+        android:clickable="false" />
+
+</RelativeLayout>

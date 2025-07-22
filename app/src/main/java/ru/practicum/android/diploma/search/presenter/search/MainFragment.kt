@@ -207,7 +207,7 @@ class MainFragment : Fragment() {
     }
 
     private fun showEmpty() {
-        binding.progressBarId.visibility = View.VISIBLE
+        binding.progressBarId.visibility = View.GONE
         binding.searchPreviewId.visibility = View.VISIBLE
         binding.noInternetPreviewId.visibility = View.GONE
         binding.notFoundPreview.visibility = View.GONE
