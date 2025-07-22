@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import ru.practicum.android.diploma.search.data.filtersbd.FiltersPreferences
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.domain.api.FiltersRepository
 import ru.practicum.android.diploma.search.domain.model.FailureType
@@ -13,7 +14,8 @@ import java.io.IOException
 
 class FiltersRepositoryImpl(
     private val retrofitClient: RetrofitClient,
-    private val internetConnectionChecker: InternetConnectionChecker
+    private val internetConnectionChecker: InternetConnectionChecker,
+    private val filtersPreferences: FiltersPreferences
 ) : FiltersRepository {
 
     override fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
@@ -36,5 +38,23 @@ class FiltersRepositoryImpl(
                 emit(Resource.Failed(FailureType.NoInternet))
             }
         }
+    }
+
+    override fun saveFilters(industry: Industry?, salary: String?, onlyWithSalary: Boolean) {
+        filtersPreferences.saveIndustry(industry)
+        filtersPreferences.saveSalary(salary)
+        filtersPreferences.saveOnlyWithSalary(onlyWithSalary)
+    }
+
+    override fun getSavedFilters(): Triple<Industry?, String?, Boolean> {
+        return Triple(
+            first = filtersPreferences.getIndustry(),
+            second = filtersPreferences.getSalary(),
+            third = filtersPreferences.getOnlyWithSalary()
+        )
+    }
+
+    override fun clearSavedFilters() {
+        filtersPreferences.clearFilters()
     }
 }

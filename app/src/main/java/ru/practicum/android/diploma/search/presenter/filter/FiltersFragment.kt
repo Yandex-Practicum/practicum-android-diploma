@@ -75,6 +75,7 @@ class FiltersFragment : Fragment() {
                 "only_with_salary" to viewModel.noSalaryOnly.value
             )
             Log.d("FiltersFragment", "Отправка результата: $bundle")
+            viewModel.saveFilters()
             setFragmentResult("filter_request", bundle)
             findNavController().popBackStack()
         }

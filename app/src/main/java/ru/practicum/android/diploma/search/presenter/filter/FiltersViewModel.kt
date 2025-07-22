@@ -8,9 +8,12 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.search.domain.api.FiltersInteractor
 import ru.practicum.android.diploma.search.domain.model.Industry
 
-class FiltersViewModel : ViewModel() {
+class FiltersViewModel(
+    private val filtersInteractor: FiltersInteractor
+) : ViewModel() {
 
     private val _selectedIndustry = MutableStateFlow<Industry?>(null)
     val selectedIndustry = _selectedIndustry.asStateFlow()
@@ -36,6 +39,10 @@ class FiltersViewModel : ViewModel() {
         _selectedIndustry.value = industry
     }
 
+    init {
+        loadSavedFilters()
+    }
+
     fun updateSalary(salary: String?) {
         _expectedSalary.value = salary
     }
@@ -54,6 +61,26 @@ class FiltersViewModel : ViewModel() {
         updateIndustry(null)
         updateSalary(null)
         updateNoSalaryOnly(false)
+        filtersInteractor.clearSavedFilters()
+    }
+
+    private fun loadSavedFilters() {
+        viewModelScope.launch {
+            val (industry, salary, onlyWithSalary) = filtersInteractor.getSavedFilters()
+            _selectedIndustry.value = industry
+            _expectedSalary.value = salary
+            _noSalaryOnly.value = onlyWithSalary
+        }
+    }
+
+    fun saveFilters() {
+        viewModelScope.launch {
+            filtersInteractor.saveFilters(
+                industry = _selectedIndustry.value,
+                salary = _expectedSalary.value,
+                onlyWithSalary = _noSalaryOnly.value
+            )
+        }
     }
 
     fun getFiltersAsMap(): Map<String, String> {
