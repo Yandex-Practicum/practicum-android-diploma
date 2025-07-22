@@ -22,9 +22,11 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
     }
 
 
-
     private fun loadIndustries() {
         viewModelScope.launch {
+
+            val (savedIndustry, savedSalary, savedOnlyWithSalary) = filtersInteractor.getSavedFilters()
+
             filtersInteractor.getIndustries().collect { pair ->
                 val industries = pair.first
                 val error = pair.second
@@ -40,6 +42,9 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
 
                     else -> {
                         allIndustries = industries
+                        selectedIndustry = savedIndustry?.let { saved ->
+                            allIndustries.find { it.id == saved.id }
+                        }
                         _state.value = FieldsState.Content(allIndustries, selectedIndustry)
                     }
                 }
@@ -56,6 +61,14 @@ class FieldsViewModel(private val filtersInteractor: FiltersInteractor) : ViewMo
         val currentState = _state.value
         if (currentState is FieldsState.Content) {
             _state.value = currentState.copy(selectedIndustry = selectedIndustry)
+        }
+
+        viewModelScope.launch {
+            filtersInteractor.saveFilters(
+                industry = selectedIndustry,
+                salary = filtersInteractor.getSavedFilters().second,
+                onlyWithSalary = filtersInteractor.getSavedFilters().third
+            )
         }
     }
 
