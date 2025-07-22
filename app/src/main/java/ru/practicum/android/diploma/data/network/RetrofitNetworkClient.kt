@@ -15,7 +15,6 @@ class RetrofitNetworkClient() : NetworkClient {
         .build()
         .create(HHApi::class.java)
 
-
     override suspend fun doRequest(dto: Any): Response {
 
         if (dto !is VacanciesRequest){
