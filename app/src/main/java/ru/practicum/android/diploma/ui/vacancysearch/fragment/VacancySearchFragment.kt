@@ -128,6 +128,20 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
         binding.header.iconFilter.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
+
+        binding.header.iconFilterOn.setOnClickListener {
+            findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
+        }
+
+        searchViewModel.hasActiveFilters.observe(viewLifecycleOwner) { hasFilters ->
+            if (hasFilters) {
+                binding.header.iconFilter.isVisible = false
+                binding.header.iconFilterOn.isVisible = true
+            } else {
+                binding.header.iconFilter.isVisible = true
+                binding.header.iconFilterOn.isVisible = false
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -160,6 +174,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
     }
 
     private fun setupSearchInput() {
+        @Suppress("LabeledExpression")
         binding.inputEditText.doOnTextChanged { text, start, before, count ->
             query = text.toString().trim()
             val currentQuery = searchViewModel.getCurrentQuery()
@@ -171,6 +186,7 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                     ui?.showEmptyInput()
                     searchViewModel.resetState()
                 }
+                return@doOnTextChanged
             }
 
             if (!query.isNullOrEmpty()) {
@@ -221,5 +237,11 @@ class VacancySearchFragment : Fragment(), VacancyItemAdapter.Listener {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Проверяем фильтры при каждом возвращении на экран
+        searchViewModel.checkActiveFilters()
     }
 }

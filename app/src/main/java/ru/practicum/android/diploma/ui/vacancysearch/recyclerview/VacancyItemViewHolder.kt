@@ -18,10 +18,17 @@ class VacancyItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     private val salaryVacancy = itemView.findViewById<TextView>(R.id.tv_salary_vacancy)
 
     fun bind(vacancy: VacancyUiModel) {
+        Glide.with(itemView).clear(coverVacancy)
         nameVacancy.text = vacancy.nameVacancy
         employeeName.text = vacancy.employerName
         salaryVacancy.text = vacancy.salary.format(itemView.context)
-        vacancy.logo?.let { loadImage(it) }
+        if (vacancy.logo != null) {
+            loadImage(vacancy.logo)
+        } else {
+            Glide.with(itemView)
+                .load(R.drawable.vacancy_placeholder)
+                .into(coverVacancy)
+        }
     }
 
     private fun loadImage(url: String) {

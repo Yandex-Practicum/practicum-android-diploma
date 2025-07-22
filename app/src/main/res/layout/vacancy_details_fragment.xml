@@ -24,28 +24,15 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/dimen_16dp" />
 
-        <ImageButton
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/btn_arrow_back"
-            android:layout_width="wrap_content"
+            style="@style/HeaderWithArrowBackStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:background="@null"
-            android:src="@drawable/arrow_back_24px"
-            app:layout_constraintStart_toStartOf="@id/leftGuidelineIn16Dp"
+            app:title="@string/vacancy_details"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/vacancy_title"
-            style="@style/TextMedium22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="19dp"
-            android:layout_marginStart="@dimen/dimen_16dp"
-            android:text="@string/vacancy_details"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintStart_toEndOf="@id/btn_arrow_back"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageButton
             android:id="@+id/btn_favorite"

@@ -20,12 +20,16 @@ import ru.practicum.android.diploma.util.SingleEventLiveData
 class VacanciesSearchViewModel(
     private val interactor: VacanciesInteractor,
     private val interactorFilter: FiltersParametersInteractor
+    private val parameters: FiltersParametersInteractor
 ) : ViewModel() {
     private val _state = MutableLiveData<VacanciesState>()
     val state: LiveData<VacanciesState> = _state
 
     private val _showToast = SingleEventLiveData<Int>()
     val showToast: LiveData<Int> = _showToast
+
+    private val _hasActiveFilters = MutableLiveData<Boolean>()
+    val hasActiveFilters: LiveData<Boolean> = _hasActiveFilters
 
     private var currentQuery = ""
     private var currentPage = 0
@@ -156,4 +160,8 @@ class VacanciesSearchViewModel(
     }
 
     fun getCurrentQuery(): String = currentQuery
+
+    fun checkActiveFilters() {
+        _hasActiveFilters.value = parameters.hasActiveFilters()
+    }
 }

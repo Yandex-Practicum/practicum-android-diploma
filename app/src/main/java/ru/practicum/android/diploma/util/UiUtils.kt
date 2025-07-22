@@ -70,4 +70,5 @@ fun TextInputLayout.renderFilterField(
     this.defaultHintTextColor = ColorStateList.valueOf(color)
     this.setHintTextAppearance(hintStyle)
     this.setEndIconDrawable(icon)
+
 }
