@@ -28,11 +28,11 @@ class SearchFiltersViewModel(
         loadParameters()
     }
 
-    fun saveSalary(value : String?){
+    fun saveSalary(value: String?) {
         interactor.defineSalary(value)
     }
 
-    fun saveCheckBoxState(isChecked : Boolean){
+    fun saveCheckBoxState(isChecked: Boolean) {
         interactor.toggleWithoutSalary(isChecked)
     }
 

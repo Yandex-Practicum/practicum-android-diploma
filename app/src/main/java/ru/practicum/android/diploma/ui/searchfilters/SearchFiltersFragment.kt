@@ -106,11 +106,10 @@ class SearchFiltersFragment : Fragment() {
 
         binding.materialCheckbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.saveCheckBoxState(isChecked)
-            if(isChecked){
+            if (isChecked) {
                 binding.btnApply.isVisible = true
                 binding.btnCancel.isVisible = true
-            }
-            else{
+            } else {
                 binding.btnApply.isVisible = false
                 binding.btnCancel.isVisible = false
             }
