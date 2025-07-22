@@ -1,13 +1,20 @@
 package ru.practicum.android.diploma.search.presenter.filter
 
 import android.os.Bundle
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.practicum.android.diploma.R
@@ -32,22 +39,62 @@ class FiltersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.selectedIndustry.collect { industry ->
-                updateIndustryField(industry)
-            }
-        }
+        observeViewModel()
+        setupListeners()
+    }
 
+    private fun observeViewModel() {
+        viewModel.selectedIndustry.onEach { industry ->
+            updateIndustryField(industry)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.expectedSalary.onEach { salary ->
+            if (binding.editTextId.text.toString() != salary) {
+                binding.editTextId.setText(salary)
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.noSalaryOnly.onEach { isChecked ->
+            if (binding.noSalaryCheckbox.isChecked != isChecked) {
+                binding.noSalaryCheckbox.isChecked = isChecked
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.hasActiveFilters.onEach { hasFilters ->
+            binding.buttonsContainer.visibility = if (hasFilters) View.VISIBLE else View.GONE
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        binding.applyButton.setOnClickListener {
+            val bundle = bundleOf(
+                "industry" to viewModel.selectedIndustry.value?.id,
+                "salary" to viewModel.expectedSalary.value,
+                "only_with_salary" to viewModel.noSalaryOnly.value
+            )
+            Log.d("FiltersFragment", "Отправка результата: $bundle")
+            setFragmentResult("filter_request", bundle)
+            findNavController().popBackStack()
+        }
+
+        binding.resetButton.setOnClickListener {
+            viewModel.clearFilters()
+        }
+
         binding.fieldId.setOnClickListener {
-            if (viewModel.selectedIndustry.value == null) {
-                findNavController().navigate(R.id.action_filtersFragment_to_fieldsFragment)
-            } else {
-                viewModel.updateIndustry(null)
-            }
+            findNavController().navigate(R.id.action_filtersFragment_to_fieldsFragment)
+        }
+
+        binding.editTextId.doAfterTextChanged { text ->
+            viewModel.updateSalary(text.toString())
+        }
+
+        binding.noSalaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateNoSalaryOnly(isChecked)
         }
     }
 

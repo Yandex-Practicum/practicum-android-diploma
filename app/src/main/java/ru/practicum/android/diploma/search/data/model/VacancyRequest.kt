@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.search.data.model
 
+import android.util.Log
+
 class VacancyRequest(
     val page: Int = 0,
     val perPage: Int = 20,
@@ -14,6 +16,7 @@ class VacancyRequest(
         filters.forEach { (key, value) ->
             value?.let { map[key] = it }
         }
+        Log.d("VacancyRequest", "Итоговая карта для запроса: $map")
         return map
     }
 }
