@@ -30,4 +30,3 @@ data class Employer(
     val logoUrl: String?
         get() = logoUrls?.get("240") ?: logoUrls?.get("original") ?: logoUrls?.get("90")
 }
-

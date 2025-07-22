@@ -23,8 +23,8 @@
     <string name="filter_expectprice">Ожидаемая зарплата</string>
     <string name="filter_entersum">Введите сумму</string>
     <string name="filter_nosumhidden">Не показывать без зарплаты</string>
-    <string name="filter_acceptbtn">Применить</string>
-    <string name="filter_resetbtn">Сбросить</string>
+    <string name="filter_apply_btn">Применить</string>
+    <string name="filter_reset_btn">Сбросить</string>
 
     <string name="work_title">Выбор места работы</string>
     <string name="work_country">Страна</string>

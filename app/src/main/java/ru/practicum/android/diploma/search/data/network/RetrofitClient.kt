@@ -31,4 +31,3 @@ object RetrofitClient {
         client.create(HHApi::class.java)
     }
 }
-

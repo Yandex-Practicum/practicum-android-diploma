@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -37,6 +38,7 @@ class MainFragment : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
 
     private var debouncer: Debouncer? = null
+    private var lastAppliedFilters: Map<String, String> = emptyMap()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,49 +55,39 @@ class MainFragment : Fragment() {
         debouncer = get { parametersOf(viewLifecycleOwner.lifecycleScope) }
 
         initRv()
-
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Not implemented
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                updateSearchIcon(s)
-                if (!s.isNullOrBlank()) {
-                    debouncer?.searchDebounce {
-                        searchViewModel.searchVacancies(s.toString())
-                    }
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                // Not implemented
-            }
-        }
-
-        binding.editTextId.addTextChangedListener(textWatcher)
+        setupTextWatcher()
         clearEditText()
         goToFilters()
         stataObserver()
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val pos = layoutManager.findLastVisibleItemPosition()
-                val itemsCount = adapter.itemCount
-                if (pos >= itemsCount - 1) {
-                    Log.d("endState", "Долистал до конца")
-                    searchViewModel.updatePage()
-                }
-            }
-        })
+        setupScrollListener()
+        setupFilterResultListener()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         debouncer = null
         _binding = null
+    }
+
+    private fun setupFilterResultListener() {
+        setFragmentResultListener("filter_request") { _, bundle ->
+            Log.d("MainFragment", "Получен результат: $bundle")
+
+            val filters = mutableMapOf<String, String>()
+
+            bundle.getString("industry")?.let { filters["industry"] = it }
+            bundle.getString("salary")?.let { if (it.isNotBlank()) filters["salary"] = it }
+            if (bundle.getBoolean("only_with_salary")) {
+                filters["only_with_salary"] = "true"
+            }
+
+            Log.d("MainFragment", "Сформированы фильтры для поиска: $filters")
+
+            lastAppliedFilters = filters
+
+            val searchText = binding.editTextId.text.toString()
+            searchViewModel.searchVacancies(searchText, lastAppliedFilters)
+        }
     }
 
     private fun onVacancyClick(vacancyId: Int) {
@@ -136,6 +128,38 @@ class MainFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_filtersFragment)
         }
+    }
+
+    private fun setupTextWatcher() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                updateSearchIcon(s)
+                if (!s.isNullOrBlank()) {
+                    debouncer?.searchDebounce {
+                        searchViewModel.searchVacancies(s.toString(), lastAppliedFilters)
+                    }
+                }
+            }
+            override fun afterTextChanged(s: Editable?) = Unit
+        }
+        binding.editTextId.addTextChangedListener(textWatcher)
+    }
+
+    private fun setupScrollListener() {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val pos = layoutManager.findLastVisibleItemPosition()
+                val itemsCount = adapter.itemCount
+                if (pos >= itemsCount - 1) {
+                    recyclerView.post {
+                        searchViewModel.updatePage()
+                    }
+                }
+            }
+        })
     }
 
     private fun stataObserver() {
