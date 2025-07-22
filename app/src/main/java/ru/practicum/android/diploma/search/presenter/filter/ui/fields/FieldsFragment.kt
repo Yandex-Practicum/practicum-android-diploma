@@ -15,6 +15,7 @@ import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFieldsBinding
 import ru.practicum.android.diploma.search.domain.model.Industry
 import ru.practicum.android.diploma.search.presenter.filter.FiltersViewModel
@@ -29,7 +30,11 @@ class FieldsFragment : Fragment() {
 
     private val fieldsViewModel: FieldsViewModel by viewModel()
     private val filtersViewModel: FiltersViewModel by sharedViewModel()
-    private lateinit var adapter: IndustriesAdapter
+    private val adapter by lazy {
+        IndustriesAdapter { industry ->
+            fieldsViewModel.onIndustrySelected(industry)
+        }
+    }
     private var debouncer: Debouncer? = null
 
     override fun onCreateView(
@@ -44,17 +49,10 @@ class FieldsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         debouncer = get { parametersOf(viewLifecycleOwner.lifecycleScope) }
-        setupRecyclerView()
+        binding.fieldsRecyclerView.adapter = adapter
         setupListeners()
         observeViewModel()
         clearEditText()
-    }
-
-    private fun setupRecyclerView() {
-        adapter = IndustriesAdapter { industry ->
-            fieldsViewModel.onIndustrySelected(industry)
-        }
-        binding.fieldsRecyclerView.adapter = adapter
     }
 
     private fun setupListeners() {
@@ -84,17 +82,17 @@ class FieldsFragment : Fragment() {
 
     private fun updateSearchIcon(text: CharSequence?) {
         if (text.isNullOrBlank()) {
-            binding.searchIcon.setImageResource(ru.practicum.android.diploma.R.drawable.search_24px)
-            binding.searchIcon.tag = ru.practicum.android.diploma.R.drawable.search_24px
+            binding.searchIcon.setImageResource(R.drawable.search_24px)
+            binding.searchIcon.tag = R.drawable.search_24px
         } else {
-            binding.searchIcon.setImageResource(ru.practicum.android.diploma.R.drawable.cross_light)
-            binding.searchIcon.tag = ru.practicum.android.diploma.R.drawable.cross_light
+            binding.searchIcon.setImageResource(R.drawable.cross_light)
+            binding.searchIcon.tag = R.drawable.cross_light
         }
     }
 
     private fun clearEditText() {
         binding.searchIcon.setOnClickListener {
-            if (binding.searchIcon.tag == ru.practicum.android.diploma.R.drawable.cross_light) {
+            if (binding.searchIcon.tag == R.drawable.cross_light) {
                 binding.fieldEdittext.text.clear()
                 debouncer?.cancelDebounce()
                 fieldsViewModel.filter("")

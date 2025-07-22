@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.domain.api.FiltersRepository
 import ru.practicum.android.diploma.search.domain.model.FailureType
@@ -18,24 +17,23 @@ class FiltersRepositoryImpl(
 ) : FiltersRepository {
 
     override fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
+        if (!internetConnectionChecker.isInternetAvailable()) {
+            emit(Resource.Failed(FailureType.NoInternet))
+            return@flow
+        }
         try {
-            if (!internetConnectionChecker.isInternetAvailable()) {
-                emit(Resource.Failed(FailureType.NoInternet))
-                return@flow
-            }
-
             val response = retrofitClient.hhApi.getIndustries()
             val industries = response.flatMap { industryResponse ->
                 industryResponse.industries.map { industryDto ->
                     Industry(id = industryDto.id, name = industryDto.name)
                 }
             }
-
             emit(Resource.Success(industries.sortedBy { it.name }))
-
         } catch (e: HttpException) {
+            e.printStackTrace()
             emit(Resource.Failed(FailureType.ApiError))
         } catch (e: IOException) {
+            e.printStackTrace()
             emit(Resource.Failed(FailureType.NoInternet))
         }
     }
