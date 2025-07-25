@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.search.presenter.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.search.domain.api.FiltersInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.FailureType
 import ru.practicum.android.diploma.search.domain.model.VacancyPreview
@@ -14,7 +16,8 @@ import ru.practicum.android.diploma.search.presenter.model.VacancyPreviewUi
 import ru.practicum.android.diploma.util.VacancyFormatter
 
 class SearchViewModel(
-    private val searchInteractor: SearchInteractor
+    private val searchInteractor: SearchInteractor,
+    private val filterInteractor: FiltersInteractor
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<SearchState>(SearchState.Empty)
@@ -32,6 +35,7 @@ class SearchViewModel(
         if (isLoading) return
         currentText = text
         currentFilters = filters
+        Log.d("Filters", filters.toString())
         _currentPageState.value = 0
         vacanciesList.clear()
         maxPages = Int.MAX_VALUE
@@ -43,6 +47,8 @@ class SearchViewModel(
         _currentPageState.value += 1
         loadPage()
     }
+
+    fun loadFiltersFromStorage() = filterInteractor.getSavedFilters()
 
     private fun loadPage() {
         isLoading = true
@@ -85,6 +91,8 @@ class SearchViewModel(
                 }
         }
     }
+
+
 
     private fun VacancyPreview.toUiModel(): VacancyPreviewUi {
         return VacancyPreviewUi(

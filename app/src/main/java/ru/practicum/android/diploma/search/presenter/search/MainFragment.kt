@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -60,7 +59,7 @@ class MainFragment : Fragment() {
         goToFilters()
         stataObserver()
         setupScrollListener()
-        setupFilterResultListener()
+        loadFiltersFromStorage()
     }
 
     override fun onDestroyView() {
@@ -69,26 +68,38 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupFilterResultListener() {
-        setFragmentResultListener("filter_request") { _, bundle ->
-            Log.d("MainFragment", "Получен результат: $bundle")
-
-            val filters = mutableMapOf<String, String>()
-
-            bundle.getString("industry")?.let { filters["industry"] = it }
-            bundle.getString("salary")?.let { if (it.isNotBlank()) filters["salary"] = it }
-            if (bundle.getBoolean("only_with_salary")) {
-                filters["only_with_salary"] = "true"
-            }
-
-            Log.d("MainFragment", "Сформированы фильтры для поиска: $filters")
-
-            lastAppliedFilters = filters
-
-            val searchText = binding.editTextId.text.toString()
-            searchViewModel.searchVacancies(searchText, lastAppliedFilters)
+    override fun onResume() {
+        super.onResume()
+        Log.d("queryText" , "вернулись")
+        if(binding.editTextId.text.isNullOrBlank()){
+            showEmpty()
         }
     }
+
+    private fun loadFiltersFromStorage() {
+        val (industry, salary, onlyWithSalary) = searchViewModel.loadFiltersFromStorage()
+        val saved = searchViewModel.loadFiltersFromStorage().toString()
+        Log.d("MainFragmentStorage", "Фильтры из настроек ${saved}")
+        val filters = mutableMapOf<String, String>()
+
+        industry?.let {
+            filters["industry"] = it.id
+        }
+
+        salary?.let {
+            if (it.isNotBlank()) {
+                filters["salary"] = it
+            }
+        }
+
+        if (onlyWithSalary) {
+            filters["only_with_salary"] = "true"
+        }
+        lastAppliedFilters = filters
+        Log.d("MainFragmentStorage", "Применненые фильтры : ${lastAppliedFilters}")
+
+    }
+
 
     private fun onVacancyClick(vacancyId: Int) {
         if (debouncer?.clickDebounce() ?: false) {
@@ -139,8 +150,12 @@ class MainFragment : Fragment() {
                     debouncer?.searchDebounce {
                         searchViewModel.searchVacancies(s.toString(), lastAppliedFilters)
                     }
+                } else {
+                    showEmpty()
+                    debouncer?.cancelDebounce()
                 }
             }
+
             override fun afterTextChanged(s: Editable?) = Unit
         }
         binding.editTextId.addTextChangedListener(textWatcher)
@@ -250,4 +265,6 @@ class MainFragment : Fragment() {
         binding.infoShieldId.visibility = View.GONE
         adapter.hideLoading()
     }
+
+
 }

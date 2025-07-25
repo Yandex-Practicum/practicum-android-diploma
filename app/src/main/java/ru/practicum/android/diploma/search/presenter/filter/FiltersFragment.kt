@@ -39,6 +39,7 @@ class FiltersFragment : Fragment() {
 
         observeViewModel()
         setupListeners()
+        updateOnlyWithSalaryAndSalary()
     }
 
     private fun observeViewModel() {
@@ -87,13 +88,17 @@ class FiltersFragment : Fragment() {
         binding.fieldId.setOnClickListener {
             findNavController().navigate(R.id.action_filtersFragment_to_fieldsFragment)
         }
+    }
 
+    private fun updateOnlyWithSalaryAndSalary() {
         binding.editTextId.doAfterTextChanged { text ->
             viewModel.updateSalary(text.toString())
+            viewModel.saveFilters()
         }
 
         binding.noSalaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateNoSalaryOnly(isChecked)
+            viewModel.saveFilters()
         }
     }
 
