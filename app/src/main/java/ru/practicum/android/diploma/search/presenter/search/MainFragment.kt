@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -70,8 +71,8 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("queryText" , "вернулись")
-        if(binding.editTextId.text.isNullOrBlank()){
+        Log.d("queryText", "вернулись")
+        if (binding.editTextId.text.isNullOrBlank()) {
             showEmpty()
         }
     }
@@ -185,7 +186,15 @@ class MainFragment : Fragment() {
                         is SearchState.Loading -> showProgressBar()
                         is SearchState.Content -> showContent(state.data)
                         is SearchState.NotFound -> showNotFound()
-                        is SearchState.NoInternet -> showNoInternet()
+                        is SearchState.NoInternet -> {
+                            if (adapter.itemCount > 0) {
+                                Toast.makeText(requireContext(), "Нет подключения к интернету", Toast.LENGTH_LONG)
+                                    .show()
+                            } else {
+                                showNoInternet()
+                            }
+                        }
+
                         is SearchState.Error -> showError()
                         is SearchState.Empty -> showEmpty()
                         is SearchState.LoadingMore -> {
