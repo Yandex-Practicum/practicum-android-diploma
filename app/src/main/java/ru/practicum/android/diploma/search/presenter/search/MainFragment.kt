@@ -61,6 +61,7 @@ class MainFragment : Fragment() {
         stataObserver()
         setupScrollListener()
         loadFiltersFromStorage()
+        observeFilterState()
     }
 
     override fun onDestroyView() {
@@ -71,6 +72,7 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        searchViewModel.getFiltersState()
         Log.d("queryText", "вернулись")
         if (binding.editTextId.text.isNullOrBlank()) {
             showEmpty()
@@ -100,7 +102,6 @@ class MainFragment : Fragment() {
         Log.d("MainFragmentStorage", "Применненые фильтры : ${lastAppliedFilters}")
 
     }
-
 
     private fun onVacancyClick(vacancyId: Int) {
         if (debouncer?.clickDebounce() ?: false) {
@@ -188,8 +189,7 @@ class MainFragment : Fragment() {
                         is SearchState.NotFound -> showNotFound()
                         is SearchState.NoInternet -> {
                             if (adapter.itemCount > 0) {
-                                Toast.makeText(requireContext(), "Нет подключения к интернету", Toast.LENGTH_LONG)
-                                    .show()
+                                showMessage()
                             } else {
                                 showNoInternet()
                             }
@@ -210,6 +210,14 @@ class MainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showMessage() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.no_internet_message),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun showContent(data: List<VacancyPreviewUi>) {
@@ -275,5 +283,24 @@ class MainFragment : Fragment() {
         adapter.hideLoading()
     }
 
+    private fun observeFilterState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.filterState.collect { filterState ->
+                    when (filterState) {
+                        FilterState.Empty -> {
+                            binding.filterButton.setImageResource(R.drawable.filter_off)
+                            Log.d("MainFragment", "Фильтры пустые")
+                        }
+
+                        FilterState.Saved -> {
+                            binding.filterButton.setImageResource(R.drawable.filter_on)
+                            Log.d("MainFragment", "Фильтры сохранены")
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

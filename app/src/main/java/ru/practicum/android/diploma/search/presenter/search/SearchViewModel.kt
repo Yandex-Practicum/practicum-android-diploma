@@ -23,6 +23,9 @@ class SearchViewModel(
     private val _state = MutableStateFlow<SearchState>(SearchState.Empty)
     val state: StateFlow<SearchState> = _state
 
+    private val _filterState = MutableStateFlow<FilterState>(FilterState.Empty)
+    val filterState: StateFlow<FilterState> = _filterState
+
     private val _currentPageState = MutableStateFlow<Int>(0)
 
     private var currentText = ""
@@ -30,6 +33,11 @@ class SearchViewModel(
     private var vacanciesList = mutableListOf<VacancyPreviewUi>()
     private var maxPages = Int.MAX_VALUE
     private var isLoading = false
+
+
+    init {
+        getFiltersState()
+    }
 
     fun searchVacancies(text: String, filters: Map<String, String?> = emptyMap()) {
         if (isLoading) return
@@ -92,8 +100,6 @@ class SearchViewModel(
         }
     }
 
-
-
     private fun VacancyPreview.toUiModel(): VacancyPreviewUi {
         return VacancyPreviewUi(
             id = id,
@@ -103,5 +109,25 @@ class SearchViewModel(
             salary = VacancyFormatter.formatSalary(from, to, currency),
             logoUrl = url
         )
+    }
+
+    fun getFiltersState() {
+        val currentFilters = filterInteractor.getSavedFilters()
+        var empty = false
+        when {
+            currentFilters.first == null && currentFilters.second == null && !currentFilters.third -> {
+                empty = true
+            }
+
+            else -> {
+                empty = false
+            }
+        }
+        Log.d("currentFilters", empty.toString())
+        if (empty) {
+            _filterState.value = FilterState.Empty
+        } else {
+            _filterState.value = FilterState.Saved
+        }
     }
 }
