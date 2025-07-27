@@ -34,7 +34,6 @@ class SearchViewModel(
     private var maxPages = Int.MAX_VALUE
     private var isLoading = false
 
-
     init {
         getFiltersState()
     }

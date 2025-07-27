@@ -81,8 +81,6 @@ class MainFragment : Fragment() {
 
     private fun loadFiltersFromStorage() {
         val (industry, salary, onlyWithSalary) = searchViewModel.loadFiltersFromStorage()
-        val saved = searchViewModel.loadFiltersFromStorage().toString()
-        Log.d("MainFragmentStorage", "Фильтры из настроек ${saved}")
         val filters = mutableMapOf<String, String>()
 
         industry?.let {
@@ -99,7 +97,6 @@ class MainFragment : Fragment() {
             filters["only_with_salary"] = "true"
         }
         lastAppliedFilters = filters
-        Log.d("MainFragmentStorage", "Применненые фильтры : ${lastAppliedFilters}")
 
     }
 
