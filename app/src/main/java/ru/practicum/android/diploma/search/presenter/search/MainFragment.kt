@@ -1,5 +1,10 @@
 package ru.practicum.android.diploma.search.presenter.search
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -37,8 +42,20 @@ class MainFragment : Fragment() {
     private val recyclerView: RecyclerView get() = binding.vacanciesRvId
     private val searchViewModel: SearchViewModel by viewModel()
 
+    private val connectivityManager by lazy {
+        requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
     private var debouncer: Debouncer? = null
     private var lastAppliedFilters: Map<String, String> = emptyMap()
+
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            super.onAvailable(network)
+            activity?.runOnUiThread {
+                searchViewModel.onInternetAppeared()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,9 +68,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         debouncer = get { parametersOf(viewLifecycleOwner.lifecycleScope) }
-
         initRv()
         setupTextWatcher()
         clearEditText()
@@ -63,6 +78,19 @@ class MainFragment : Fragment() {
         loadFiltersFromStorage()
         observeFilterState()
         setupFragmentResultListener()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
     override fun onDestroyView() {
@@ -97,7 +125,6 @@ class MainFragment : Fragment() {
             filters["only_with_salary"] = "true"
         }
         lastAppliedFilters = filters
-
     }
 
     private fun onVacancyClick(vacancyId: Int) {
