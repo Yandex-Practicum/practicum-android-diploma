@@ -36,7 +36,6 @@ class FiltersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeViewModel()
         setupListeners()
         updateOnlyWithSalaryAndSalary()
@@ -66,7 +65,7 @@ class FiltersFragment : Fragment() {
 
     private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
-            setFragmentResult("filter_request", bundleOf("filters_applied" to false))
+            setFragmentResult(getString(R.string.filter_request), bundleOf(getString(R.string.filters_applied) to false))
             findNavController().popBackStack()
         }
 
@@ -85,7 +84,7 @@ class FiltersFragment : Fragment() {
 
         binding.resetButton.setOnClickListener {
             viewModel.clearFilters()
-            setFragmentResult("filter_request", bundleOf("filters_applied" to false))
+            setFragmentResult(getString(R.string.filter_request), bundleOf(getString(R.string.filters_applied) to false))
         }
 
         binding.fieldId.setOnClickListener {

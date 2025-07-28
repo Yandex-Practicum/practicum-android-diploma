@@ -302,8 +302,8 @@ class MainFragment : Fragment() {
     }
 
     private fun setupFragmentResultListener() {
-        setFragmentResultListener("filter_request") { _, bundle ->
-            val filtersApplied = bundle.getBoolean("filters_applied", false)
+        setFragmentResultListener(getString(R.string.filter_request)) { _, bundle ->
+            val filtersApplied = bundle.getBoolean(getString(R.string.filters_applied), false)
             loadFiltersFromStorage()
             searchViewModel.getFiltersState()
 
