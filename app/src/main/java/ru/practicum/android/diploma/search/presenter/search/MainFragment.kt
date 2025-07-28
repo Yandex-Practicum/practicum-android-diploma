@@ -40,6 +40,8 @@ class MainFragment : Fragment() {
     private var debouncer: Debouncer? = null
     private var lastAppliedFilters: Map<String, String> = emptyMap()
 
+    private var filtersHaveChanged: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,7 +75,10 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         searchViewModel.getFiltersState()
-        Log.d("queryText", "вернулись")
+
+        val currentFilters = searchViewModel.loadFiltersFromStorage()
+
+
         if (binding.editTextId.text.isNullOrBlank()) {
             showEmpty()
         }
