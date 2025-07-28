@@ -3,10 +3,10 @@ package ru.practicum.android.diploma.search.presenter.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -60,7 +60,9 @@ class MainFragment : Fragment() {
         goToFilters()
         stataObserver()
         setupScrollListener()
-        setupFilterResultListener()
+        loadFiltersFromStorage()
+        observeFilterState()
+        setupFragmentResultListener()
     }
 
     override fun onDestroyView() {
@@ -69,25 +71,33 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupFilterResultListener() {
-        setFragmentResultListener("filter_request") { _, bundle ->
-            Log.d("MainFragment", "Получен результат: $bundle")
-
-            val filters = mutableMapOf<String, String>()
-
-            bundle.getString("industry")?.let { filters["industry"] = it }
-            bundle.getString("salary")?.let { if (it.isNotBlank()) filters["salary"] = it }
-            if (bundle.getBoolean("only_with_salary")) {
-                filters["only_with_salary"] = "true"
-            }
-
-            Log.d("MainFragment", "Сформированы фильтры для поиска: $filters")
-
-            lastAppliedFilters = filters
-
-            val searchText = binding.editTextId.text.toString()
-            searchViewModel.searchVacancies(searchText, lastAppliedFilters)
+    override fun onResume() {
+        super.onResume()
+        searchViewModel.getFiltersState()
+        if (binding.editTextId.text.isNullOrBlank()) {
+            showEmpty()
         }
+    }
+
+    private fun loadFiltersFromStorage() {
+        val (industry, salary, onlyWithSalary) = searchViewModel.loadFiltersFromStorage()
+        val filters = mutableMapOf<String, String>()
+
+        industry?.let {
+            filters["industry"] = it.id
+        }
+
+        salary?.let {
+            if (it.isNotBlank()) {
+                filters["salary"] = it
+            }
+        }
+
+        if (onlyWithSalary) {
+            filters["only_with_salary"] = "true"
+        }
+        lastAppliedFilters = filters
+
     }
 
     private fun onVacancyClick(vacancyId: Int) {
@@ -139,8 +149,12 @@ class MainFragment : Fragment() {
                     debouncer?.searchDebounce {
                         searchViewModel.searchVacancies(s.toString(), lastAppliedFilters)
                     }
+                } else {
+                    showEmpty()
+                    debouncer?.cancelDebounce()
                 }
             }
+
             override fun afterTextChanged(s: Editable?) = Unit
         }
         binding.editTextId.addTextChangedListener(textWatcher)
@@ -170,7 +184,14 @@ class MainFragment : Fragment() {
                         is SearchState.Loading -> showProgressBar()
                         is SearchState.Content -> showContent(state.data)
                         is SearchState.NotFound -> showNotFound()
-                        is SearchState.NoInternet -> showNoInternet()
+                        is SearchState.NoInternet -> {
+                            if (adapter.itemCount > 0) {
+                                showMessage()
+                            } else {
+                                showNoInternet()
+                            }
+                        }
+
                         is SearchState.Error -> showError()
                         is SearchState.Empty -> showEmpty()
                         is SearchState.LoadingMore -> {
@@ -186,6 +207,14 @@ class MainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showMessage() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.no_internet_message),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun showContent(data: List<VacancyPreviewUi>) {
@@ -249,5 +278,47 @@ class MainFragment : Fragment() {
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
         adapter.hideLoading()
+    }
+
+    private fun observeFilterState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.filterState.collect { filterState ->
+                    when (filterState) {
+                        FilterState.Empty -> {
+                            binding.filterButton.setImageResource(R.drawable.filter_off)
+                        }
+
+                        FilterState.Saved -> {
+                            binding.filterButton.setImageResource(R.drawable.filter_on)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupFragmentResultListener() {
+        setFragmentResultListener(
+            getString(R.string.filter_request)
+        ) { _, bundle ->
+            val filtersApplied = bundle.getBoolean(
+                getString(R.string.filters_applied),
+                false
+            )
+            loadFiltersFromStorage()
+            searchViewModel.getFiltersState()
+
+            if (filtersApplied) {
+                val currentQuery = binding.editTextId.text.toString()
+                if (currentQuery.isNotBlank()) {
+                    searchViewModel.searchVacancies(currentQuery, lastAppliedFilters)
+                } else {
+                    showEmpty()
+                }
+            } else {
+                debouncer?.cancelDebounce()
+            }
+        }
     }
 }

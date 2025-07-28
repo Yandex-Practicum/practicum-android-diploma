@@ -36,9 +36,9 @@ class FiltersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeViewModel()
         setupListeners()
+        updateOnlyWithSalaryAndSalary()
     }
 
     private fun observeViewModel() {
@@ -65,6 +65,10 @@ class FiltersFragment : Fragment() {
 
     private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
+            setFragmentResult(
+                getString(R.string.filter_request),
+                bundleOf(getString(R.string.filters_applied) to false)
+            )
             findNavController().popBackStack()
         }
 
@@ -72,7 +76,8 @@ class FiltersFragment : Fragment() {
             val bundle = bundleOf(
                 "industry" to viewModel.selectedIndustry.value?.id,
                 "salary" to viewModel.expectedSalary.value,
-                "only_with_salary" to viewModel.noSalaryOnly.value
+                "only_with_salary" to viewModel.noSalaryOnly.value,
+                "filters_applied" to true // Indicate that filters were applied
             )
             Log.d("FiltersFragment", "Отправка результата: $bundle")
             viewModel.saveFilters()
@@ -82,18 +87,26 @@ class FiltersFragment : Fragment() {
 
         binding.resetButton.setOnClickListener {
             viewModel.clearFilters()
+            setFragmentResult(
+                getString(R.string.filter_request),
+                bundleOf(getString(R.string.filters_applied) to false)
+            )
         }
 
         binding.fieldId.setOnClickListener {
             findNavController().navigate(R.id.action_filtersFragment_to_fieldsFragment)
         }
+    }
 
+    private fun updateOnlyWithSalaryAndSalary() {
         binding.editTextId.doAfterTextChanged { text ->
             viewModel.updateSalary(text.toString())
+            viewModel.saveFilters()
         }
 
         binding.noSalaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateNoSalaryOnly(isChecked)
+            viewModel.saveFilters()
         }
     }
 
