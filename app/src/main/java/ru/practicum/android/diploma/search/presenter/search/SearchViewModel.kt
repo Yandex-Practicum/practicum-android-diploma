@@ -33,6 +33,7 @@ class SearchViewModel(
     private var vacanciesList = mutableListOf<VacancyPreviewUi>()
     private var maxPages = Int.MAX_VALUE
     private var isLoading = false
+    private var paginationErrorOccurred = false
 
     init {
         getFiltersState()
@@ -46,23 +47,36 @@ class SearchViewModel(
         _currentPageState.value = 0
         vacanciesList.clear()
         maxPages = Int.MAX_VALUE
+        paginationErrorOccurred = false
         loadPage()
     }
 
     fun updatePage() {
-        if (isLoading || _currentPageState.value >= maxPages - 1) return
+        if (isLoading || _currentPageState.value >= maxPages - 1 || paginationErrorOccurred) return
         _currentPageState.value += 1
         loadPage()
     }
 
     fun loadFiltersFromStorage() = filterInteractor.getSavedFilters()
 
+    fun onInternetAppeared() {
+        if (paginationErrorOccurred) {
+            paginationErrorOccurred = false
+            updatePage()
+        }
+    }
+
     private fun loadPage() {
         isLoading = true
         viewModelScope.launch {
             searchInteractor.getVacancies(currentText, _currentPageState.value, currentFilters)
                 .onStart {
-                    _state.value = if (_currentPageState.value == 0) SearchState.Loading else SearchState.LoadingMore
+                    val newState = if (_currentPageState.value == 0) {
+                        SearchState.Loading
+                    } else {
+                        SearchState.LoadingMore
+                    }
+                    _state.value = newState
                 }.collect { pair ->
                     val newData = pair.first
                     val message = pair.second
@@ -70,13 +84,16 @@ class SearchViewModel(
                         !newData.isNullOrEmpty() -> {
                             maxPages = newData.first().pages
                             val uiData = newData.map { it.toUiModel() }
-                            vacanciesList.addAll(uiData) // Добавляем новые данные в конец
+                            vacanciesList.addAll(uiData)
                             _state.value = SearchState.Content(vacanciesList.toList())
                             isLoading = false
                         }
 
                         message == FailureType.NoInternet -> {
                             isLoading = false
+                            if (_currentPageState.value > 0) {
+                                paginationErrorOccurred = true
+                            }
                             _state.value = SearchState.NoInternet
                         }
 
