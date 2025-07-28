@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -40,8 +41,6 @@ class MainFragment : Fragment() {
     private var debouncer: Debouncer? = null
     private var lastAppliedFilters: Map<String, String> = emptyMap()
 
-    private var filtersHaveChanged: Boolean = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,6 +63,7 @@ class MainFragment : Fragment() {
         setupScrollListener()
         loadFiltersFromStorage()
         observeFilterState()
+        setupFragmentResultListener()
     }
 
     override fun onDestroyView() {
@@ -75,10 +75,6 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         searchViewModel.getFiltersState()
-
-        val currentFilters = searchViewModel.loadFiltersFromStorage()
-
-
         if (binding.editTextId.text.isNullOrBlank()) {
             showEmpty()
         }
@@ -305,4 +301,24 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun setupFragmentResultListener() {
+        setFragmentResultListener("filter_request") { _, bundle ->
+            val filtersApplied = bundle.getBoolean("filters_applied", false)
+            loadFiltersFromStorage()
+            searchViewModel.getFiltersState()
+
+            if (filtersApplied) {
+                val currentQuery = binding.editTextId.text.toString()
+                if (currentQuery.isNotBlank()) {
+                    Log.d("MainFragment", "Перезапуск поиска с новыми фильтрами для запроса: $currentQuery")
+                    searchViewModel.searchVacancies(currentQuery, lastAppliedFilters)
+                } else {
+                    showEmpty()
+                }
+            } else {
+                debouncer?.cancelDebounce()
+                Log.d("MainFragment", "Фильтры не применены (назад/сброс). Автоматический поиск не выполнен.")
+            }
+        }
+    }
 }

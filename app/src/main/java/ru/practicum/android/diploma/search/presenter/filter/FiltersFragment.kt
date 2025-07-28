@@ -66,6 +66,7 @@ class FiltersFragment : Fragment() {
 
     private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
+            setFragmentResult("filter_request", bundleOf("filters_applied" to false))
             findNavController().popBackStack()
         }
 
@@ -73,7 +74,8 @@ class FiltersFragment : Fragment() {
             val bundle = bundleOf(
                 "industry" to viewModel.selectedIndustry.value?.id,
                 "salary" to viewModel.expectedSalary.value,
-                "only_with_salary" to viewModel.noSalaryOnly.value
+                "only_with_salary" to viewModel.noSalaryOnly.value,
+                "filters_applied" to true // Indicate that filters were applied
             )
             Log.d("FiltersFragment", "Отправка результата: $bundle")
             viewModel.saveFilters()
@@ -83,6 +85,7 @@ class FiltersFragment : Fragment() {
 
         binding.resetButton.setOnClickListener {
             viewModel.clearFilters()
+            setFragmentResult("filter_request", bundleOf("filters_applied" to false))
         }
 
         binding.fieldId.setOnClickListener {
