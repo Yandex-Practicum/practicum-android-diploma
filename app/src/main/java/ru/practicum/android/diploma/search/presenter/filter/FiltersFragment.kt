@@ -65,7 +65,10 @@ class FiltersFragment : Fragment() {
 
     private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
-            setFragmentResult(getString(R.string.filter_request), bundleOf(getString(R.string.filters_applied) to false))
+            setFragmentResult(
+                getString(R.string.filter_request),
+                bundleOf(getString(R.string.filters_applied) to false)
+            )
             findNavController().popBackStack()
         }
 
@@ -84,7 +87,10 @@ class FiltersFragment : Fragment() {
 
         binding.resetButton.setOnClickListener {
             viewModel.clearFilters()
-            setFragmentResult(getString(R.string.filter_request), bundleOf(getString(R.string.filters_applied) to false))
+            setFragmentResult(
+                getString(R.string.filter_request),
+                bundleOf(getString(R.string.filters_applied) to false)
+            )
         }
 
         binding.fieldId.setOnClickListener {

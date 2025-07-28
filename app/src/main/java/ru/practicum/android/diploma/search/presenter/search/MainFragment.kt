@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.presenter.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -288,12 +287,10 @@ class MainFragment : Fragment() {
                     when (filterState) {
                         FilterState.Empty -> {
                             binding.filterButton.setImageResource(R.drawable.filter_off)
-                            Log.d("MainFragment", "Фильтры пустые")
                         }
 
                         FilterState.Saved -> {
                             binding.filterButton.setImageResource(R.drawable.filter_on)
-                            Log.d("MainFragment", "Фильтры сохранены")
                         }
                     }
                 }
@@ -302,22 +299,25 @@ class MainFragment : Fragment() {
     }
 
     private fun setupFragmentResultListener() {
-        setFragmentResultListener(getString(R.string.filter_request)) { _, bundle ->
-            val filtersApplied = bundle.getBoolean(getString(R.string.filters_applied), false)
+        setFragmentResultListener(
+            getString(R.string.filter_request)
+        ) { _, bundle ->
+            val filtersApplied = bundle.getBoolean(
+                getString(R.string.filters_applied),
+                false
+            )
             loadFiltersFromStorage()
             searchViewModel.getFiltersState()
 
             if (filtersApplied) {
                 val currentQuery = binding.editTextId.text.toString()
                 if (currentQuery.isNotBlank()) {
-                    Log.d("MainFragment", "Перезапуск поиска с новыми фильтрами для запроса: $currentQuery")
                     searchViewModel.searchVacancies(currentQuery, lastAppliedFilters)
                 } else {
                     showEmpty()
                 }
             } else {
                 debouncer?.cancelDebounce()
-                Log.d("MainFragment", "Фильтры не применены (назад/сброс). Автоматический поиск не выполнен.")
             }
         }
     }
