@@ -2,9 +2,7 @@ package ru.practicum.android.diploma.search.presenter.filter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -24,10 +22,11 @@ class FiltersViewModel(
     private val _noSalaryOnly = MutableStateFlow(false)
     val noSalaryOnly = _noSalaryOnly.asStateFlow()
 
-    private val _applyFiltersEvent = MutableSharedFlow<Unit>()
-    val applyFiltersEvent = _applyFiltersEvent.asSharedFlow()
+    private var initialIndustry: Industry? = null
+    private var initialSalary: String? = null
+    private var initialNoSalaryOnly: Boolean = false
 
-    val hasActiveFilters = combine(
+    val hasAnyActiveFilters = combine(
         _selectedIndustry,
         _expectedSalary,
         _noSalaryOnly
@@ -35,16 +34,26 @@ class FiltersViewModel(
         industry != null || !salary.isNullOrBlank() || noSalary
     }
 
-    fun updateIndustry(industry: Industry?) {
-        _selectedIndustry.value = industry
+    val areFiltersChanged = combine(
+        _selectedIndustry,
+        _expectedSalary,
+        _noSalaryOnly
+    ) { currentIndustry, currentSalary, currentNoSalary ->
+        currentIndustry != initialIndustry ||
+            (currentSalary ?: "") != (initialSalary ?: "") ||
+            currentNoSalary != initialNoSalaryOnly
     }
 
     init {
         loadSavedFilters()
     }
 
+    fun updateIndustry(industry: Industry?) {
+        _selectedIndustry.value = industry
+    }
+
     fun updateSalary(salary: String?) {
-        _expectedSalary.value = salary
+        _expectedSalary.value = salary?.trim()
     }
 
     fun updateNoSalaryOnly(isChecked: Boolean) {
@@ -52,9 +61,8 @@ class FiltersViewModel(
     }
 
     fun applyFilters() {
-        viewModelScope.launch {
-            _applyFiltersEvent.emit(Unit)
-        }
+        saveFilters()
+        loadSavedFilters()
     }
 
     fun clearFilters() {
@@ -62,6 +70,10 @@ class FiltersViewModel(
         updateSalary(null)
         updateNoSalaryOnly(false)
         filtersInteractor.clearSavedFilters()
+
+        initialIndustry = null
+        initialSalary = null
+        initialNoSalaryOnly = false
     }
 
     private fun loadSavedFilters() {
@@ -70,6 +82,10 @@ class FiltersViewModel(
             _selectedIndustry.value = industry
             _expectedSalary.value = salary
             _noSalaryOnly.value = onlyWithSalary
+
+            initialIndustry = industry
+            initialSalary = salary
+            initialNoSalaryOnly = onlyWithSalary
         }
     }
 
@@ -81,15 +97,5 @@ class FiltersViewModel(
                 onlyWithSalary = _noSalaryOnly.value
             )
         }
-    }
-
-    fun getFiltersAsMap(): Map<String, String> {
-        val filters = mutableMapOf<String, String>()
-        _selectedIndustry.value?.id?.let { filters["industry"] = it }
-        _expectedSalary.value?.let { if (it.isNotBlank()) filters["salary"] = it }
-        if (_noSalaryOnly.value) {
-            filters["only_with_salary"] = "true"
-        }
-        return filters
     }
 }

@@ -75,18 +75,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
+            android:ellipsize="end"
             android:fontFamily="@font/ys_text_regular"
+            android:maxLines="1"
             android:text="@string/filter_field"
             android:textColor="@color/gray"
             android:textSize="16sp"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/industryArrowIcon"
-
-            android:maxLines="1"
-            android:ellipsize="end" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/industryArrowIcon"
@@ -115,14 +113,14 @@
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:backgroundTint="@android:color/transparent"
+            android:digits="0123456789"
             android:fontFamily="@font/ys_text_regular"
             android:hint="@string/filter_entersum"
             android:inputType="number"
-            android:paddingStart="16dp"
             android:maxLength="9"
-            android:textColorHint="@color/hint_color"
             android:maxLines="1"
-            android:digits="0123456789"
+            android:paddingStart="16dp"
+            android:textColorHint="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -161,40 +159,40 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/buttonsContainer"
+    <TextView
+        android:id="@+id/resetButton"
+        style="@style/Text.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:text="@string/filter_reset_btn"
+        android:textColor="@color/red"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/applyButton"
-            style="@style/Text.Body"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/select_button"
-            android:padding="@dimen/padding_medium"
-            android:text="@string/filter_apply_btn"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/resetButton"
-            style="@style/Text.Body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:padding="8dp"
-            android:text="@string/filter_reset_btn"
-            android:textColor="@color/red" />
-
-    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/applyButton"
+        style="@style/Text.Body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/select_button"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/filter_apply_btn"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/resetButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
