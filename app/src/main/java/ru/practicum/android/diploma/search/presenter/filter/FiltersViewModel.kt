@@ -56,8 +56,6 @@ class FiltersViewModel(
         _expectedSalary.value = salary?.trim()
     }
 
-
-
     fun updateNoSalaryOnly(isChecked: Boolean) {
         _noSalaryOnly.value = isChecked
     }
