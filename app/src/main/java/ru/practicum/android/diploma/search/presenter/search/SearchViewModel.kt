@@ -70,50 +70,60 @@ class SearchViewModel(
         isLoading = true
         viewModelScope.launch {
             searchInteractor.getVacancies(currentText, _currentPageState.value, currentFilters)
-                .onStart {
-                    val newState = if (_currentPageState.value == 0) {
-                        SearchState.Loading
-                    } else {
-                        SearchState.LoadingMore
-                    }
-                    _state.value = newState
-                }.collect { pair ->
-                    val newData = pair.first
-                    val message = pair.second
-                    when {
-                        !newData.isNullOrEmpty() -> {
-                            maxPages = newData.first().pages
-                            val uiData = newData.map { it.toUiModel() }
-                            vacanciesList.addAll(uiData)
-                            _state.value = SearchState.Content(vacanciesList.toList())
-                            isLoading = false
-                        }
+                .onStart { showLoadingState() }
+                .collect { pair -> processSearchResult(pair) }
+        }
+    }
 
-                        message == FailureType.NoInternet -> {
-                            isLoading = false
-                            if (_currentPageState.value > 0) {
-                                paginationErrorOccurred = true
-                            }
-                            _state.value = SearchState.NoInternet
-                        }
+    private fun showLoadingState() {
+        val newState = if (_currentPageState.value == 0) {
+            SearchState.Loading
+        } else {
+            SearchState.LoadingMore
+        }
+        _state.value = newState
+    }
 
-                        message == FailureType.ApiError -> {
-                            isLoading = false
-                            _state.value = SearchState.Error
-                        }
+    private fun processSearchResult(pair: Pair<List<VacancyPreview>?, FailureType?>) {
+        val newData = pair.first
+        val message = pair.second
 
-                        message == FailureType.NotFound || newData.isNullOrEmpty() -> {
-                            maxPages = _currentPageState.value
-                            isLoading = false
-                            if (vacanciesList.isEmpty()) {
-                                _state.value = SearchState.NotFound
-                            } else {
-                                _state.value = SearchState.Content(vacanciesList.toList())
-                            }
-                        }
+        when {
+            !newData.isNullOrEmpty() -> handleSuccess(newData)
+            message == FailureType.NoInternet -> handleNoInternet()
+            message == FailureType.ApiError -> handleApiError()
+            message == FailureType.NotFound || newData.isNullOrEmpty() -> handleNotFound()
+        }
+    }
 
-                    }
-                }
+    private fun handleSuccess(newData: List<VacancyPreview>) {
+        maxPages = newData.first().pages
+        val uiData = newData.map { it.toUiModel() }
+        vacanciesList.addAll(uiData)
+        _state.value = SearchState.Content(vacanciesList.toList())
+        isLoading = false
+    }
+
+    private fun handleNoInternet() {
+        isLoading = false
+        if (_currentPageState.value > 0) {
+            paginationErrorOccurred = true
+        }
+        _state.value = SearchState.NoInternet
+    }
+
+    private fun handleApiError() {
+        isLoading = false
+        _state.value = SearchState.Error
+    }
+
+    private fun handleNotFound() {
+        maxPages = _currentPageState.value
+        isLoading = false
+        if (vacanciesList.isEmpty()) {
+            _state.value = SearchState.NotFound
+        } else {
+            _state.value = SearchState.Content(vacanciesList.toList())
         }
     }
 
