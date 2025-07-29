@@ -340,6 +340,7 @@ class MainFragment : Fragment() {
                 val currentQuery = binding.editTextId.text.toString()
                 if (currentQuery.isNotBlank()) {
                     searchViewModel.searchVacancies(currentQuery, lastAppliedFilters)
+                    debouncer?.cancelDebounce()
                 } else {
                     showEmpty()
                 }
