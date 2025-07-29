@@ -40,7 +40,7 @@ class FiltersViewModel(
         _noSalaryOnly
     ) { currentIndustry, currentSalary, currentNoSalary ->
         currentIndustry != initialIndustry ||
-            (currentSalary ?: "") != (initialSalary ?: "") ||
+            currentSalary ?: "" != initialSalary ?: "" ||
             currentNoSalary != initialNoSalaryOnly
     }
 
@@ -55,6 +55,8 @@ class FiltersViewModel(
     fun updateSalary(salary: String?) {
         _expectedSalary.value = salary?.trim()
     }
+
+
 
     fun updateNoSalaryOnly(isChecked: Boolean) {
         _noSalaryOnly.value = isChecked

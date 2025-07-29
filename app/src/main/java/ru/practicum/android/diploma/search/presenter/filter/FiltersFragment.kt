@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.search.presenter.filter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,7 @@ class FiltersFragment : Fragment() {
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         viewModel.expectedSalary.onEach { salary ->
-            if (binding.editTextId.text.toString() != (salary ?: "")) {
+            if (binding.editTextId.text.toString() != salary ?: "") {
                 binding.editTextId.setText(salary)
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
