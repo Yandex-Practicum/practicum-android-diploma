@@ -187,6 +187,7 @@ class FiltersFragment : Fragment() {
             toggleClearButtonVisibility(text.toString())
             if (text.isNullOrEmpty()) {
                 viewModel.updateSalary(null)
+                binding.editTextId.clearFocus()
             } else {
                 viewModel.updateSalary(text.toString())
             }
@@ -195,6 +196,7 @@ class FiltersFragment : Fragment() {
 
         binding.searchIcon.setOnClickListener {
             binding.editTextId.text?.clear()
+            binding.editTextId.clearFocus()
             viewModel.updateSalary(null)
             viewModel.saveFilters()
             binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
