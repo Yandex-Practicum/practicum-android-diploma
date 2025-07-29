@@ -97,6 +97,11 @@ class SearchViewModel(
                             _state.value = SearchState.NoInternet
                         }
 
+                        message == FailureType.ApiError -> {
+                            isLoading = false
+                            _state.value = SearchState.Error
+                        }
+
                         message == FailureType.NotFound || newData.isNullOrEmpty() -> {
                             maxPages = _currentPageState.value
                             isLoading = false
@@ -107,10 +112,6 @@ class SearchViewModel(
                             }
                         }
 
-                        message == FailureType.ApiError -> {
-                            isLoading = false
-                            _state.value = SearchState.Error
-                        }
                     }
                 }
         }
@@ -140,6 +141,8 @@ class SearchViewModel(
             }
         }
         Log.d("currentFilters", empty.toString())
+        Log.d("currentFilters", currentFilters.toString())
+
         if (empty) {
             _filterState.value = FilterState.Empty
         } else {

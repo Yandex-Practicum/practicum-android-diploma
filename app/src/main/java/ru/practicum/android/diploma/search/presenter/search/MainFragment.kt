@@ -291,7 +291,7 @@ class MainFragment : Fragment() {
         binding.progressBarId.visibility = View.GONE
         binding.searchPreviewId.visibility = View.GONE
         binding.noInternetPreviewId.visibility = View.GONE
-        binding.notFoundPreview.visibility = View.VISIBLE
+        binding.apiErrorPreviewId.visibility = View.VISIBLE
         binding.vacanciesRvId.visibility = View.GONE
         binding.infoShieldId.visibility = View.GONE
         adapter.hideLoading()

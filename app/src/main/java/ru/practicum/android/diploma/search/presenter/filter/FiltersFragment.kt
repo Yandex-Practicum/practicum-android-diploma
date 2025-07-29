@@ -38,6 +38,9 @@ class FiltersFragment : Fragment() {
         observeViewModel()
         setupListeners()
         setupTextWatchers()
+        setupFocusListeners()
+        setupSalaryInputClearButton()
+        showCrossIc()
     }
 
     private fun observeViewModel() {
@@ -68,6 +71,10 @@ class FiltersFragment : Fragment() {
 
     private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
+            setFragmentResult(
+                "filter_request",
+                bundleOf("filters_applied" to false)
+            )
             findNavController().popBackStack()
         }
 
@@ -82,16 +89,36 @@ class FiltersFragment : Fragment() {
 
         binding.resetButton.setOnClickListener {
             viewModel.clearFilters()
+            setFragmentResult(
+                "filter_request",
+                bundleOf("filters_applied" to false)
+            )
+
         }
 
         binding.fieldId.setOnClickListener {
             findNavController().navigate(R.id.action_filtersFragment_to_fieldsFragment)
         }
+
+        binding.industryArrowIcon.setOnClickListener {
+            if (viewModel.selectedIndustry.value != null) {
+                binding.industryArrowIcon.setImageResource(R.drawable.arrow_right_icon_light)
+                binding.filterField.text = getString(R.string.filter_field)
+                viewModel.updateIndustry(null)
+                viewModel.saveFilters()
+            }
+        }
     }
 
     private fun setupTextWatchers() {
         binding.editTextId.doAfterTextChanged { text ->
-            viewModel.updateSalary(text.toString())
+            if (text.toString().isNotBlank()) {
+                viewModel.updateSalary(text.toString())
+                viewModel.saveFilters()
+            } else {
+                viewModel.updateSalary(null)
+                viewModel.saveFilters()
+            }
         }
 
         binding.noSalaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
@@ -102,10 +129,24 @@ class FiltersFragment : Fragment() {
     private fun updateIndustryField(industry: Industry?) {
         if (industry != null) {
             binding.filterField.text = industry.name
+            binding.industryHintId.visibility = View.VISIBLE
+            binding.industryArrowIcon.setImageResource(R.drawable.ic_arrow40)
             binding.filterField.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         } else {
             binding.filterField.text = getString(R.string.filter_field)
+            binding.industryHintId.visibility = View.GONE
+            binding.industryArrowIcon.setImageResource(R.drawable.arrow_right_icon_light)
             binding.filterField.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+        }
+    }
+
+    private fun setupFocusListeners() {
+        binding.editTextId.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+            } else {
+                binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            }
         }
     }
 
@@ -117,5 +158,35 @@ class FiltersFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupSalaryInputClearButton() {
+        binding.editTextId.doAfterTextChanged { text ->
+            toggleClearButtonVisibility(text.toString())
+            if (text.isNullOrEmpty()) {
+                viewModel.updateSalary(null)
+            } else {
+                viewModel.updateSalary(text.toString())
+            }
+            viewModel.saveFilters()
+        }
+
+        binding.searchIcon.setOnClickListener {
+            binding.editTextId.text?.clear()
+            viewModel.updateSalary(null)
+            viewModel.saveFilters()
+            binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+
+        }
+    }
+
+    private fun toggleClearButtonVisibility(text: String?) {
+        binding.searchIcon.visibility = if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
+    private fun showCrossIc() {
+        if (!binding.editTextId.text.toString().isNullOrEmpty()) {
+            binding.searchIcon.visibility = View.VISIBLE
+        }
     }
 }
