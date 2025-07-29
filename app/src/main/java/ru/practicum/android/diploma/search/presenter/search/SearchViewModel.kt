@@ -81,7 +81,6 @@ class SearchViewModel(
                     val newData = pair.first
                     val message = pair.second
                     when {
-
                         !newData.isNullOrEmpty() -> {
                             maxPages = newData.first().pages
                             val uiData = newData.map { it.toUiModel() }
