@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.search.presenter.filter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,7 @@ class FiltersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         setupListeners()
-        updateOnlyWithSalaryAndSalary()
+        setupTextWatchers()
     }
 
     private fun observeViewModel() {
@@ -47,7 +46,7 @@ class FiltersFragment : Fragment() {
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         viewModel.expectedSalary.onEach { salary ->
-            if (binding.editTextId.text.toString() != salary) {
+            if (binding.editTextId.text.toString() != salary ?: "") {
                 binding.editTextId.setText(salary)
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -58,39 +57,31 @@ class FiltersFragment : Fragment() {
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.hasActiveFilters.onEach { hasFilters ->
-            binding.buttonsContainer.visibility = if (hasFilters) View.VISIBLE else View.GONE
+        viewModel.hasAnyActiveFilters.onEach { hasFilters ->
+            binding.resetButton.visibility = if (hasFilters) View.VISIBLE else View.GONE
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.areFiltersChanged.onEach { areChanged ->
+            binding.applyButton.visibility = if (areChanged) View.VISIBLE else View.GONE
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun setupListeners() {
         binding.backButtonId.setOnClickListener {
-            setFragmentResult(
-                getString(R.string.filter_request),
-                bundleOf(getString(R.string.filters_applied) to false)
-            )
             findNavController().popBackStack()
         }
 
         binding.applyButton.setOnClickListener {
-            val bundle = bundleOf(
-                "industry" to viewModel.selectedIndustry.value?.id,
-                "salary" to viewModel.expectedSalary.value,
-                "only_with_salary" to viewModel.noSalaryOnly.value,
-                "filters_applied" to true // Indicate that filters were applied
+            viewModel.applyFilters()
+            setFragmentResult(
+                getString(R.string.filter_request),
+                bundleOf(getString(R.string.filters_applied) to true)
             )
-            Log.d("FiltersFragment", "Отправка результата: $bundle")
-            viewModel.saveFilters()
-            setFragmentResult("filter_request", bundle)
             findNavController().popBackStack()
         }
 
         binding.resetButton.setOnClickListener {
             viewModel.clearFilters()
-            setFragmentResult(
-                getString(R.string.filter_request),
-                bundleOf(getString(R.string.filters_applied) to false)
-            )
         }
 
         binding.fieldId.setOnClickListener {
@@ -98,15 +89,13 @@ class FiltersFragment : Fragment() {
         }
     }
 
-    private fun updateOnlyWithSalaryAndSalary() {
+    private fun setupTextWatchers() {
         binding.editTextId.doAfterTextChanged { text ->
             viewModel.updateSalary(text.toString())
-            viewModel.saveFilters()
         }
 
         binding.noSalaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateNoSalaryOnly(isChecked)
-            viewModel.saveFilters()
         }
     }
 
@@ -118,6 +107,11 @@ class FiltersFragment : Fragment() {
             binding.filterField.text = getString(R.string.filter_field)
             binding.filterField.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.saveFilters()
     }
 
     override fun onDestroyView() {
