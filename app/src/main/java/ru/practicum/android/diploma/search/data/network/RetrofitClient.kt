@@ -4,11 +4,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.practicum.android.diploma.BuildConfig
 
 object RetrofitClient {
 
     private const val BASE_URL = "https://api.hh.ru/"
-    private const val TOKEN = "APPLOB7KQGVDGB6HB4KF7CDUB462UC7PEJ092HD2NL80LL4URBFIKQ68D20DFORU"
+    private const val TOKEN = BuildConfig.HH_ACCESS_TOKEN
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
