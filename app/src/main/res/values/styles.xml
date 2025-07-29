@@ -32,6 +32,22 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="android:background">@drawable/search_edit_text_background</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textCursorDrawable">@color/blue</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="fontFamily">@font/ys_text_regular</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
 
     <style name="AppBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:layout_width">0dp</item>

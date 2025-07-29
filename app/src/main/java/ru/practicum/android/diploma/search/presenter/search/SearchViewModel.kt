@@ -140,6 +140,8 @@ class SearchViewModel(
             }
         }
         Log.d("currentFilters", empty.toString())
+        Log.d("currentFilters", currentFilters.toString())
+
         if (empty) {
             _filterState.value = FilterState.Empty
         } else {
