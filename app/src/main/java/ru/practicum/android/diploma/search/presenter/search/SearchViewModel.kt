@@ -81,6 +81,7 @@ class SearchViewModel(
                     val newData = pair.first
                     val message = pair.second
                     when {
+
                         !newData.isNullOrEmpty() -> {
                             maxPages = newData.first().pages
                             val uiData = newData.map { it.toUiModel() }
@@ -97,6 +98,11 @@ class SearchViewModel(
                             _state.value = SearchState.NoInternet
                         }
 
+                        message == FailureType.ApiError -> {
+                            isLoading = false
+                            _state.value = SearchState.Error
+                        }
+
                         message == FailureType.NotFound || newData.isNullOrEmpty() -> {
                             maxPages = _currentPageState.value
                             isLoading = false
@@ -107,10 +113,6 @@ class SearchViewModel(
                             }
                         }
 
-                        message == FailureType.ApiError -> {
-                            isLoading = false
-                            _state.value = SearchState.Error
-                        }
                     }
                 }
         }

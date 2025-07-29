@@ -32,7 +32,6 @@ class RetrofitNetworkClient(
                             response
                         }
                     }
-
                 } else {
                     Response().apply {
                         resultCode = NO_INTERNET

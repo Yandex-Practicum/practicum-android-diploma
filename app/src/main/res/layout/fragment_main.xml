@@ -176,6 +176,38 @@
         >
     </TextView>
 
+    <LinearLayout
+        android:id="@+id/apiErrorPreviewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextContainerId"
+        >
+        <ImageView
+            android:layout_width="328dp"
+            android:layout_height="223dp"
+            android:layout_marginTop="135dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/servererror_icon">
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/searchvacancy_server_error"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ys_text_medium"
+            android:textSize="22sp"
+            style="@style/Text.Title"
+            >
+        </TextView>
+    </LinearLayout>
+
+
     <ProgressBar
         android:id="@+id/progressBarId"
         android:layout_width="44dp"
