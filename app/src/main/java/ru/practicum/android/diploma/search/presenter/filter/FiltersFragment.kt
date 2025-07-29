@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.search.presenter.filter
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
@@ -39,8 +41,8 @@ class FiltersFragment : Fragment() {
         setupListeners()
         setupTextWatchers()
         setupFocusListeners()
+        showDarkColorSalary()
         setupSalaryInputClearButton()
-        showCrossIc()
     }
 
     private fun observeViewModel() {
@@ -93,7 +95,6 @@ class FiltersFragment : Fragment() {
                 "filter_request",
                 bundleOf("filters_applied" to false)
             )
-
         }
 
         binding.fieldId.setOnClickListener {
@@ -110,12 +111,18 @@ class FiltersFragment : Fragment() {
         }
     }
 
+    fun hideKeyboard(context: Context, view: View) {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
     private fun setupTextWatchers() {
         binding.editTextId.doAfterTextChanged { text ->
             if (text.toString().isNotBlank()) {
                 viewModel.updateSalary(text.toString())
                 viewModel.saveFilters()
             } else {
+                showGrayColorSalary()
                 viewModel.updateSalary(null)
                 viewModel.saveFilters()
             }
@@ -143,11 +150,26 @@ class FiltersFragment : Fragment() {
     private fun setupFocusListeners() {
         binding.editTextId.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                showActiveColorSalary()
+                showCrossIc()
             } else {
-                binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+                showGrayColorSalary()
             }
         }
+    }
+
+    private fun showActiveColorSalary() {
+        binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+    }
+
+    private fun showDarkColorSalary() {
+        if (binding.editTextId.text.isNotBlank()) {
+            binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        }
+    }
+
+    private fun showGrayColorSalary() {
+        binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
     }
 
     override fun onPause() {
@@ -176,7 +198,7 @@ class FiltersFragment : Fragment() {
             viewModel.updateSalary(null)
             viewModel.saveFilters()
             binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-
+            hideKeyboard(requireContext(), binding.editTextId)
         }
     }
 
