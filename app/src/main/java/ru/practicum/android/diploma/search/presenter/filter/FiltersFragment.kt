@@ -39,6 +39,8 @@ class FiltersFragment : Fragment() {
         setupListeners()
         setupTextWatchers()
         setupFocusListeners()
+        setupSalaryInputClearButton()
+        showCrossIc()
     }
 
     private fun observeViewModel() {
@@ -156,5 +158,35 @@ class FiltersFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupSalaryInputClearButton() {
+        binding.editTextId.doAfterTextChanged { text ->
+            toggleClearButtonVisibility(text.toString())
+            if (text.isNullOrEmpty()) {
+                viewModel.updateSalary(null)
+            } else {
+                viewModel.updateSalary(text.toString())
+            }
+            viewModel.saveFilters()
+        }
+
+        binding.searchIcon.setOnClickListener {
+            binding.editTextId.text?.clear()
+            viewModel.updateSalary(null)
+            viewModel.saveFilters()
+            binding.salaryHint.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+
+        }
+    }
+
+    private fun toggleClearButtonVisibility(text: String?) {
+        binding.searchIcon.visibility = if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
+    private fun showCrossIc() {
+        if (!binding.editTextId.text.toString().isNullOrEmpty()) {
+            binding.searchIcon.visibility = View.VISIBLE
+        }
     }
 }
