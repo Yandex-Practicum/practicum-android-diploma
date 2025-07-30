@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.presenter.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -87,7 +86,6 @@ class SearchViewModel(
                 }
         }
     }
-
 
     private fun showLoadingState() {
         val newState = if (_currentPageState.value == 0) {
