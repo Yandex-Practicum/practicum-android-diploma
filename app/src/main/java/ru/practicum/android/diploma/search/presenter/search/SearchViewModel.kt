@@ -26,7 +26,7 @@ class SearchViewModel(
     private val _filterState = MutableStateFlow<FilterState>(FilterState.Empty)
     val filterState: StateFlow<FilterState> = _filterState
 
-    private val _currentPageState = MutableStateFlow<Int>(0)
+    private val _currentPageState = MutableStateFlow(0)
 
     private var currentText = ""
     private var currentFilters: Map<String, String?> = emptyMap()
@@ -35,26 +35,34 @@ class SearchViewModel(
     private var isLoading = false
     private var paginationErrorOccurred = false
 
+    private var currentRequestId = 0
+
     init {
         getFiltersState()
     }
 
     fun searchVacancies(text: String, filters: Map<String, String?> = emptyMap()) {
         if (isLoading) return
+
         currentText = text
         currentFilters = filters
-        Log.d("Filters", filters.toString())
         _currentPageState.value = 0
         vacanciesList.clear()
         maxPages = Int.MAX_VALUE
         paginationErrorOccurred = false
-        loadPage()
+
+        currentRequestId++ // уникальный ID запроса
+        val requestId = currentRequestId
+
+        loadPage(requestId)
     }
 
     fun updatePage() {
         if (isLoading || _currentPageState.value >= maxPages - 1 || paginationErrorOccurred) return
         _currentPageState.value += 1
-        loadPage()
+
+        val requestId = currentRequestId
+        loadPage(requestId)
     }
 
     fun loadFiltersFromStorage() = filterInteractor.getSavedFilters()
@@ -66,12 +74,18 @@ class SearchViewModel(
         }
     }
 
-    private fun loadPage() {
+    private fun loadPage(requestId: Int) {
         isLoading = true
         viewModelScope.launch {
             searchInteractor.getVacancies(currentText, _currentPageState.value, currentFilters)
                 .onStart { showLoadingState() }
-                .collect { pair -> processSearchResult(pair) }
+                .collect { pair ->
+                    if (requestId != currentRequestId) {
+                        isLoading = false
+                        return@collect
+                    }
+                    processSearchResult(pair)
+                }
         }
     }
 
@@ -87,12 +101,6 @@ class SearchViewModel(
     private fun processSearchResult(pair: Pair<List<VacancyPreview>?, FailureType?>) {
         val newData = pair.first
         val message = pair.second
-
-        if (currentText.isBlank()) {
-            isLoading = false
-            _state.value = SearchState.Empty
-            return
-        }
 
         when {
             !newData.isNullOrEmpty() -> handleSuccess(newData)
@@ -134,7 +142,9 @@ class SearchViewModel(
     }
 
     fun resetStateIfQueryIsEmpty() {
+        currentText = ""
         _state.value = SearchState.Empty
+        currentRequestId++
     }
 
     private fun VacancyPreview.toUiModel(): VacancyPreviewUi {
@@ -150,20 +160,11 @@ class SearchViewModel(
 
     fun getFiltersState() {
         val currentFilters = filterInteractor.getSavedFilters()
-        var empty = false
-        when {
-            currentFilters.first == null && currentFilters.second == null && !currentFilters.third -> {
-                empty = true
-            }
+        val isEmpty = currentFilters.first == null &&
+            currentFilters.second == null &&
+            !currentFilters.third
 
-            else -> {
-                empty = false
-            }
-        }
-        Log.d("currentFilters", empty.toString())
-        Log.d("currentFilters", currentFilters.toString())
-
-        if (empty) {
+        if (isEmpty) {
             _filterState.value = FilterState.Empty
         } else {
             _filterState.value = FilterState.Saved
