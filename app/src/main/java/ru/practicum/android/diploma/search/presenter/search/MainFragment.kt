@@ -104,6 +104,7 @@ class MainFragment : Fragment() {
         searchViewModel.getFiltersState()
         if (binding.editTextId.text.isNullOrBlank()) {
             searchViewModel.resetStateIfQueryIsEmpty()
+            showEmpty()
         }
     }
 
@@ -157,6 +158,7 @@ class MainFragment : Fragment() {
                 binding.editTextId.text.clear()
                 debouncer?.cancelDebounce()
                 searchViewModel.resetStateIfQueryIsEmpty()
+                showEmpty()
             }
         }
     }
@@ -178,6 +180,7 @@ class MainFragment : Fragment() {
                     }
                 } else {
                     showEmpty()
+                    searchViewModel.resetStateIfQueryIsEmpty()
                     debouncer?.cancelDebounce()
                 }
             }
