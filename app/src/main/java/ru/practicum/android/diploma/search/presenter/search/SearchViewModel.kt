@@ -88,6 +88,12 @@ class SearchViewModel(
         val newData = pair.first
         val message = pair.second
 
+        if (currentText.isBlank()) {
+            isLoading = false
+            _state.value = SearchState.Empty
+            return
+        }
+
         when {
             !newData.isNullOrEmpty() -> handleSuccess(newData)
             message == FailureType.NoInternet -> handleNoInternet()

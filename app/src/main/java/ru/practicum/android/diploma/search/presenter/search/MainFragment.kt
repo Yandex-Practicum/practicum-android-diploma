@@ -183,6 +183,7 @@ class MainFragment : Fragment() {
                     searchViewModel.resetStateIfQueryIsEmpty()
                     debouncer?.cancelDebounce()
                 }
+
             }
 
             override fun afterTextChanged(s: Editable?) = Unit
