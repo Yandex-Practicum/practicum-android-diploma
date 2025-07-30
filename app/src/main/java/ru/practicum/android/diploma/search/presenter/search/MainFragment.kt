@@ -103,7 +103,7 @@ class MainFragment : Fragment() {
         super.onResume()
         searchViewModel.getFiltersState()
         if (binding.editTextId.text.isNullOrBlank()) {
-            showEmpty()
+            searchViewModel.resetStateIfQueryIsEmpty()
         }
     }
 
@@ -116,7 +116,7 @@ class MainFragment : Fragment() {
         }
 
         salary?.let {
-            if (it.isNotBlank()) {
+            if (it != "0" && it.isNotBlank()) {
                 filters["salary"] = it
             }
         }
@@ -156,7 +156,7 @@ class MainFragment : Fragment() {
             if (binding.searchIcon.tag == R.drawable.cross_light) {
                 binding.editTextId.text.clear()
                 debouncer?.cancelDebounce()
-                showEmpty()
+                searchViewModel.resetStateIfQueryIsEmpty()
             }
         }
     }

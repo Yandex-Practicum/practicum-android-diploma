@@ -127,6 +127,10 @@ class SearchViewModel(
         }
     }
 
+    fun resetStateIfQueryIsEmpty() {
+        _state.value = SearchState.Empty
+    }
+
     private fun VacancyPreview.toUiModel(): VacancyPreviewUi {
         return VacancyPreviewUi(
             id = id,
