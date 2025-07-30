@@ -51,7 +51,7 @@ class SearchViewModel(
         maxPages = Int.MAX_VALUE
         paginationErrorOccurred = false
 
-        currentRequestId++ // уникальный ID запроса
+        currentRequestId++
         val requestId = currentRequestId
 
         loadPage(requestId)
@@ -80,14 +80,14 @@ class SearchViewModel(
             searchInteractor.getVacancies(currentText, _currentPageState.value, currentFilters)
                 .onStart { showLoadingState() }
                 .collect { pair ->
-                    if (requestId != currentRequestId) {
-                        isLoading = false
-                        return@collect
+                    if (requestId == currentRequestId) {
+                        processSearchResult(pair)
                     }
-                    processSearchResult(pair)
+                    isLoading = false
                 }
         }
     }
+
 
     private fun showLoadingState() {
         val newState = if (_currentPageState.value == 0) {
