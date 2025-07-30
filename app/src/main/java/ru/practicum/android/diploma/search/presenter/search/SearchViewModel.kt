@@ -118,10 +118,11 @@ class SearchViewModel(
 
     private fun handleNoInternet() {
         isLoading = false
-        if (_currentPageState.value > 0) {
+        val isPaginationError = _currentPageState.value > 0
+        if (isPaginationError) {
             paginationErrorOccurred = true
         }
-        _state.value = SearchState.NoInternet
+        _state.value = SearchState.NoInternet(isPaginationError = isPaginationError)
     }
 
     private fun handleApiError() {

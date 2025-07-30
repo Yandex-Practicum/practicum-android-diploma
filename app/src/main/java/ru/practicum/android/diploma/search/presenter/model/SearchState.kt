@@ -7,7 +7,7 @@ sealed interface SearchState {
     data object NotFound : SearchState
     data object Loading : SearchState
     data object Error : SearchState
-    data object NoInternet : SearchState
+    data class NoInternet(val isPaginationError: Boolean) : SearchState
     data object Empty : SearchState
 
 }

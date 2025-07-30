@@ -216,9 +216,10 @@ class MainFragment : Fragment() {
                         is SearchState.Content -> showContent(state.data)
                         is SearchState.NotFound -> showNotFound()
                         is SearchState.NoInternet -> {
-                            if (adapter.itemCount > 0) {
+                            if (state.isPaginationError) {
                                 showMessage()
                             } else {
+                                adapter.hideLoading()
                                 showNoInternet()
                             }
                         }
