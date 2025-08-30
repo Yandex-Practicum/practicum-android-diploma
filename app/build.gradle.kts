@@ -40,6 +40,10 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.gson)
+    implementation(libs.io)
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
