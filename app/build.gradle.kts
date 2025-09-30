@@ -8,6 +8,10 @@ android {
     namespace = "ru.practicum.android.diploma"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
         minSdk = libs.versions.minSdk.get().toInt()
@@ -33,13 +37,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        buildConfig = true
-    }
+    
 }
 
 dependencies {
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation ("io.insert-koin:koin-android:3.5.0")
+
+
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
