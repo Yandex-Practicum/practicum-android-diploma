@@ -34,6 +34,3 @@ class NetworkClient {
             .build()
     }
 }
-git add .
-git commit -m "feat: подготовил data, domain, util и di слои "
-git push origin feature/data-layer
