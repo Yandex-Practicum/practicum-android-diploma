@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.repository
 
 import ru.practicum.android.diploma.data.network.ApiService
-import ru.practicum.android.diploma.domain.model.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.repository.VacancyRepository
 
 class DataRepository(private val apiService: ApiService) : VacancyRepository {
