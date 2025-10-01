@@ -5,4 +5,3 @@ plugins {
     id("convention.detekt")
     id("androidx.navigation.safeargs.kotlin") version "2.8.5" apply false
 }
-
