@@ -1,8 +1,5 @@
 package ru.practicum.android.diploma.data.network
 
-import android.content.Context
-import android.util.Log
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
@@ -11,6 +8,11 @@ import ru.practicum.android.diploma.BuildConfig
 import java.util.concurrent.TimeUnit
 
 class NetworkClient {
+
+    private companion object {
+        private const val TIMEOUT_SECONDS = 30L
+    }
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.example.com/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -28,9 +30,9 @@ class NetworkClient {
                     .build()
                 chain.proceed(request)
             }
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .writeTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .build()
     }
 }
