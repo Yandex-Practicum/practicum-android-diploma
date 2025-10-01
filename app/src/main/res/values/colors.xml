@@ -14,4 +14,10 @@
     <color name="text_primary_dark">#FFFFFF</color>
     <color name="text_secondary_light">#757575</color>
     <color name="text_secondary_dark">#B3B3B3</color>
+
+    <!-- Добавленные цвета из develop -->
+    <color name="black">#1A1B22</color>
+    <color name="white">#FDFDFD</color>
+    <color name="blue">#3772E7</color>
+    <color name="grey">#AEAFB4</color>
 </resources>
