@@ -4,6 +4,6 @@ sealed class SearchState{
     data object Idle:SearchState()
     data object Nothing:SearchState()
     data object Loading:SearchState()
-    data object Complete:SearchState()
-    data object Error:SearchState()
+    data class Complete(val data:List<Int>):SearchState()
+    data class Error(val message:String):SearchState()
 }

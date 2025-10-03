@@ -78,6 +78,13 @@
         android:layout_marginHorizontal="16dp"
         android:orientation="horizontal">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dataList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
         <TextView
             android:id="@+id/items_count"
             android:layout_width="wrap_content"
@@ -103,7 +110,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/contentDescription"
-                android:src="@drawable/image_search_default" />
+                android:src="@drawable/image_search_default"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/text_image"
@@ -111,9 +119,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="@string/not_internet"
                 android:textAppearance="@style/textAppearanceMedium22sp500w"
                 android:textColor="?attr/attr_white_black_color"
+                android:visibility="gone"
                 tools:text="@string/not_internet" />
         </LinearLayout>
 
@@ -122,7 +130,8 @@
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
             android:layout_gravity="center"
-            android:indeterminateTint="@color/blue" />
+            android:indeterminateTint="@color/blue"
+            android:visibility="gone" />
     </FrameLayout>
 
 </LinearLayout>
