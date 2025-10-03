@@ -13,6 +13,7 @@
 
         <item name="colorOnSurface">@color/text_primary_light</item>
         <item name="colorSurface">@color/background_light</item>
+        <item name="maket_team_black_white_color">@color/black</item>
     </style>
 
     <style name="ThemeOverlay.SearchView" parent="">

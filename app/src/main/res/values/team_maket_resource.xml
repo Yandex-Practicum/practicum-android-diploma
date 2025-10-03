@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="maket_team_black_white_color" format="color"/>
+    <style name="textAppearanceBold32sp700w">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:fontWeight">700</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="textAppearanceMedium16sp500w">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <string name="app_developers">Над приложением \nработали</string>
+    <string name="developers_names">Разработчик 1 \n\nРазработчик 2 \n\nРазработчик 3 \n\nРазработчик 4 \n\nРазработчик 5 \n\n</string>
+</resources>

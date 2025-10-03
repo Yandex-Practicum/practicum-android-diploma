@@ -17,6 +17,8 @@
 
         <item name="colorOnSurface">@color/text_primary_dark</item>
         <item name="colorSurface">@color/background_dark</item>
+
+        <item name="maket_team_black_white_color">@color/white</item>
     </style>
 
 </resources>
