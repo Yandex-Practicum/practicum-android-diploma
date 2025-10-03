@@ -11,6 +11,6 @@
         <item name="android:fontWeight">500</item>
         <item name="android:textSize">16sp</item>
     </style>
-    <string name="app_developers">Над приложением \nработали</string>
+    <string name="app_developers">Над приложением работали</string>
     <string name="developers_names">Разработчик 1 \n\nРазработчик 2 \n\nРазработчик 3 \n\nРазработчик 4 \n\nРазработчик 5 \n\n</string>
 </resources>

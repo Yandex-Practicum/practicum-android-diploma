@@ -24,7 +24,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="92dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:textColor="?attr/maket_team_black_white_color"
         android:textAppearance="@style/textAppearanceBold32sp700w"
