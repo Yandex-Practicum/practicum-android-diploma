@@ -4,5 +4,6 @@
     <attr name="hint_color_edit_text" format="color" />
     <attr name="attr_white_black_color" format="color" />
     <string name="hint_edit_text">Введите запрос</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
     <string name="not_internet">Нет интернета</string>
 </resources>
