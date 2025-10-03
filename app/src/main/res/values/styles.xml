@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="contentDescription">Картинка</string>
 
     <style name="BottomNavigationStyle">
         <item name="android:background">@color/white</item>
         <item name="itemIconTint">@color/navigation_color</item>
         <item name="itemTextColor">@color/navigation_color</item>
+    </style>
+
+    <style name="textAppearanceRegular16sp400w">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="textAppearanceMedium22sp500w">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textSize">22sp</item>
     </style>
 </resources>
