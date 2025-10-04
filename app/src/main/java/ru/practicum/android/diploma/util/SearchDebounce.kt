@@ -15,7 +15,7 @@ class SearchDebounce<T>(
 ) {
     private val _debounceFlow = MutableStateFlow<T?>(null)
     val debounceFlow: StateFlow<T?> = _debounceFlow.asStateFlow()
-    private var job:Job? = null
+    private var job: Job? = null
 
     fun execute(value: T) {
         job?.cancel()

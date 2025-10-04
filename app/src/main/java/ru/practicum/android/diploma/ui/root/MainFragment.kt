@@ -30,7 +30,7 @@ class MainFragment : Fragment() {
     private var textWatcher: TextWatcher? = null
     private val viewModel: MainViewModel by viewModel()
     private val debounce = SearchDebounce<String>(scope = lifecycleScope)
-    private lateinit var recyclerView: RecyclerView
+    private var recyclerView: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMainBinding.inflate(layoutInflater)
@@ -46,9 +46,9 @@ class MainFragment : Fragment() {
         recyclerView = binding.dataList
         textWatcher = binding.editSearchText.doOnTextChanged { text, _, _, _ ->
             binding.clearTheField.isVisible = !text.isNullOrEmpty()
-            if (text.isNullOrEmpty())
+            if (text.isNullOrEmpty()) {
                 viewModel.setIdleState()
-            else {
+            } else {
                 viewModel.setNothingState()
             }
             debounce.execute(text.toString())
@@ -93,10 +93,11 @@ class MainFragment : Fragment() {
 
                 is SearchState.Complete -> {
                     renderLoading(false)
-                    if (state.data.isNotEmpty())
+                    if (state.data.isNotEmpty()) {
                         renderRecyclerSearchList(true, data = state.data)
-                    else
+                    } else {
                         renderImage(true, R.drawable.cat_with_the_plate, R.string.no_list_vacancies)
+                    }
                 }
 
                 is SearchState.Error -> {
