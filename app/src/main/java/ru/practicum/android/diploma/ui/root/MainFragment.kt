@@ -26,14 +26,15 @@ import ru.practicum.android.diploma.ui.view_models.MainViewModel
 import ru.practicum.android.diploma.util.SearchDebounce
 
 class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
     private var textWatcher: TextWatcher? = null
     private val viewModel: MainViewModel by viewModel()
     private val debounce = SearchDebounce<String>(scope = lifecycleScope)
     private var recyclerView: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        _binding = FragmentMainBinding.inflate(layoutInflater)
         val trailingButton = binding.trailingButton
         trailingButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_filtrationFragment)
