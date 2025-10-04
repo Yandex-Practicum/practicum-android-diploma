@@ -73,40 +73,7 @@ class MainFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.observeSearchState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is SearchState.Idle -> {
-                    renderImage(true, R.drawable.image_search_default)
-                    renderLoading(false)
-                    renderRecyclerSearchList(false)
-                }
-
-                is SearchState.Nothing -> {
-                    renderImage(false)
-                    renderLoading(false)
-                    renderRecyclerSearchList(false)
-                }
-
-                is SearchState.Loading -> {
-                    renderImage(false)
-                    renderLoading(true)
-                    renderRecyclerSearchList(false)
-                }
-
-                is SearchState.Complete -> {
-                    renderLoading(false)
-                    if (state.data.isNotEmpty()) {
-                        renderRecyclerSearchList(true, data = state.data)
-                    } else {
-                        renderImage(true, R.drawable.cat_with_the_plate, R.string.no_list_vacancies)
-                    }
-                }
-
-                is SearchState.Error -> {
-                    renderImage(true, R.drawable.image_yorik, R.string.not_internet)
-                    renderRecyclerSearchList(false)
-                    renderLoading(false)
-                }
-            }
+            renderState(state)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -118,6 +85,43 @@ class MainFragment : Fragment() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun renderState(state: SearchState) {
+        when (state) {
+            is SearchState.Idle -> {
+                renderImage(true, R.drawable.image_search_default)
+                renderLoading(false)
+                renderRecyclerSearchList(false)
+            }
+
+            is SearchState.Nothing -> {
+                renderImage(false)
+                renderLoading(false)
+                renderRecyclerSearchList(false)
+            }
+
+            is SearchState.Loading -> {
+                renderImage(false)
+                renderLoading(true)
+                renderRecyclerSearchList(false)
+            }
+
+            is SearchState.Complete -> {
+                renderLoading(false)
+                if (state.data.isNotEmpty()) {
+                    renderRecyclerSearchList(true, data = state.data)
+                } else {
+                    renderImage(true, R.drawable.cat_with_the_plate, R.string.no_list_vacancies)
+                }
+            }
+
+            is SearchState.Error -> {
+                renderImage(true, R.drawable.image_yorik, R.string.not_internet)
+                renderRecyclerSearchList(false)
+                renderLoading(false)
             }
         }
     }
