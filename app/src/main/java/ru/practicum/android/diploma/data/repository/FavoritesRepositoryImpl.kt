@@ -22,11 +22,4 @@ class FavoritesRepositoryImpl(
             emit(listVacancy)
         }
     }
-
-    override fun getVacancy(id: Int): Flow<Vacancy> {
-        return flow {
-            val vacancy = converter.map(database.getFavoritesVacancyById())
-            emit(vacancy)
-        }
-    }
 }

@@ -15,5 +15,5 @@ interface VacancyDao {
     suspend fun getAllFavoritesVacancies(): List<VacancyEntity>
 
     @Query("SELECT vacancy_id FROM vacancy_table")
-    suspend fun getFavoritesVacancyById(): VacancyEntity
+    suspend fun getFavoritesVacancyById(): List<Long>
 }
