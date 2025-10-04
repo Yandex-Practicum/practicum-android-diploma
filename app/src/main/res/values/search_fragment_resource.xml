@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="edit_text_background_color" format="color" />
+    <attr name="hint_color_edit_text" format="color" />
+    <attr name="attr_white_black_color" format="color" />
+    <string name="hint_edit_text">Введите запрос</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="no_list_vacancies">Не удалось получитьс список вакансий</string>
+    <string name="not_internet">Нет интернета</string>
+</resources>
