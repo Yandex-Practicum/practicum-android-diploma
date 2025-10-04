@@ -18,7 +18,7 @@ val favoritesModule = module {
             .getVacancyDao()
     }
     factory<FavoritesRepository> {
-        FavoritesRepositoryImpl(get(),get())
+        FavoritesRepositoryImpl(get(), get())
     }
     factory<FavoritesInteractor> {
         FavoritesInteractorImpl(get())
