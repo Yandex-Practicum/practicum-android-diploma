@@ -46,37 +46,22 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
     implementation("io.insert-koin:koin-android:4.0.1")
-
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
-
     implementation("com.github.bumptech.glide:glide:4.14.2")
-
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     val roomVersion = "2.7.2"
     implementation("androidx.room:room-runtime:$roomVersion")
-
     implementation("androidx.room:room-ktx:$roomVersion")
-
     implementation("com.google.code.gson:gson:2.10.1")
-
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.5")
-
     implementation("androidx.fragment:fragment-ktx:1.8.5")
-
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
-
     testImplementation(libs.unitTests.junit)
-
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
-
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.0")
 }

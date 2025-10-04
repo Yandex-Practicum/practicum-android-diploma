@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.network.ApiService
 val networkModule = module {
     single {
         Retrofit.Builder()
-            .baseUrl("https://api.example.com/")
+            .baseUrl("https://practicum-diploma-8bc38133faba.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
