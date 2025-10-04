@@ -5,19 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.ui.models.SearchState
 
-class MainViewModel:ViewModel() {
+class MainViewModel : ViewModel() {
     private val _searchState = MutableLiveData<SearchState>(SearchState.Idle)
-    val observeSearchState:LiveData<SearchState> = _searchState
+    val observeSearchState: LiveData<SearchState> = _searchState
 
-    fun setNothingState(){
+    fun setNothingState() {
         _searchState.value = SearchState.Nothing
     }
 
-    fun setIdleState(){
+    fun setIdleState() {
         _searchState.value = SearchState.Idle
     }
 
-    fun search(value:String){
+    fun search(value: String) {
         _searchState.value = SearchState.Loading
     }
 }
