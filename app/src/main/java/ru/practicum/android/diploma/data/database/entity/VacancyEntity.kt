@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "vacancy_table")
 data class VacancyEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "vacancy_id")
-    val id:Long = 0L,
-    val photo:String = "",
+    val id: Long = 0L,
+    val photo: String = "",
     @ColumnInfo(name = "vacancy_title")
-    val title:String,
-    val description:String
+    val title: String,
+    val description: String
 )
