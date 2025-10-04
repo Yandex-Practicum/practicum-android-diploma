@@ -7,7 +7,6 @@ class VacancyDbConverter {
     fun map(vacancy: Vacancy): VacancyEntity {
         return with(vacancy) {
             VacancyEntity(
-                //photo = "",
                 title = title,
                 description = description
             )
