@@ -42,9 +42,6 @@ class SearchAdapter(
 
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 return true
-                /*return oldList[oldItemPosition].trackId == newList[newItemPosition].trackId &&
-                    oldList[oldItemPosition].isFavorite == newList[newItemPosition].isFavorite
-                    && (if(delete)oldItemPosition == newItemPosition else true)*/
             }
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

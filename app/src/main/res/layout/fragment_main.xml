@@ -78,25 +78,34 @@
         android:layout_marginHorizontal="16dp"
         android:orientation="horizontal">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dataList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/items_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/background_notify_blue"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:text="найдено 283 вакансии"
-            android:textAppearance="@style/textAppearanceRegular16sp400w"
-            android:textColor="@color/white"
-            tools:text="найдено 283 вакансии" />
+            <TextView
+                android:id="@+id/items_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/background_notify_blue"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="найдено 283 вакансии"
+                android:textAppearance="@style/textAppearanceRegular16sp400w"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                tools:text="найдено 283 вакансии" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dataList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
