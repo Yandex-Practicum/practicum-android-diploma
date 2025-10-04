@@ -8,3 +8,4 @@ interface FavoritesRepository {
     fun getAllVacancies(): Flow<List<Vacancy>>
     fun getVacancy(id: Int): Flow<Vacancy>
 }
+
