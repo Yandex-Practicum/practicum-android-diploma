@@ -4,6 +4,7 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.database.AppDatabase
+import ru.practicum.android.diploma.data.database.converters.VacancyDbConverter
 import ru.practicum.android.diploma.data.database.dao.VacancyDao
 import ru.practicum.android.diploma.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
@@ -22,5 +23,8 @@ val favoritesModule = module {
     }
     factory<FavoritesInteractor> {
         FavoritesInteractorImpl(get())
+    }
+    factory<VacancyDbConverter> {
+        VacancyDbConverter()
     }
 }
