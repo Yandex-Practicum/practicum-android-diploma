@@ -6,5 +6,6 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 interface FavoritesRepository {
     suspend fun setVacancy(vacancy: Vacancy)
     fun getAllVacancies(): Flow<List<Vacancy>>
+    fun checkVacanciesInFavorite(id: String): Flow<Boolean>
 }
 

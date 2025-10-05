@@ -22,4 +22,11 @@ class FavoritesRepositoryImpl(
             emit(listVacancy)
         }
     }
+
+    override fun checkVacanciesInFavorite(id: String): Flow<Boolean> {
+        return flow {
+            val response = database.checkInFavorite(id = id)
+            emit(response)
+        }
+    }
 }

@@ -15,4 +15,8 @@ class FavoritesInteractorImpl(
     override fun getAllVacancies(): Flow<List<Vacancy>> {
         return repository.getAllVacancies()
     }
+
+    override fun checkVacancyInFavorite(id: String): Flow<Boolean> {
+        return repository.checkVacanciesInFavorite(id)
+    }
 }

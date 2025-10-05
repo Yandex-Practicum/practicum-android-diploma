@@ -16,4 +16,7 @@ interface VacancyDao {
 
     @Query("SELECT vacancy_id FROM vacancy_table")
     suspend fun getFavoritesVacancyById(): List<Long>
+
+    @Query("SELECT EXISTS (SELECT 1 FROM vacancy_table WHERE vacancyId =:id)")
+    suspend fun checkInFavorite(id:String):Boolean
 }
