@@ -17,9 +17,9 @@ class VacancyDbConverter {
             id = vacancy.id.toIntOrNull() ?: 0,
             title = vacancy.title,
             description = vacancy.description,
-            salary = vacancy.salary?.currency, // Salary -> String (currency)
-            employer = vacancy.employer?.id,   // String?
-            area = vacancy.area?.id             // String?
+            salary = vacancy.salary?.currency,
+            employer = vacancy.employer?.id,
+            area = vacancy.area?.id
         )
     }
 
@@ -31,7 +31,7 @@ class VacancyDbConverter {
         areaEntity: AreaEntity?
     ): Vacancy {
         return Vacancy(
-            id = vacancyEntity.id.toString(), // Int -> String
+            id = vacancyEntity.id.toString(),
             title = vacancyEntity.title,
             description = vacancyEntity.description,
             salary = mapSalary(salaryEntity),
