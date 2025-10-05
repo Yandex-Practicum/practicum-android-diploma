@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -57,7 +58,7 @@ dependencies {
 
     val roomVersion = "2.7.2"
     implementation("androidx.room:room-runtime:$roomVersion")
-
+    kapt(libs.room.compiler.v272)
     implementation("androidx.room:room-ktx:$roomVersion")
 
     implementation("com.google.code.gson:gson:2.10.1")
