@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class VacancyEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "vacancy_id")
     val id: Long = 0L,
+    val vacancyId: String,
     @ColumnInfo(name = "vacancy_title")
     val title: String,
     val description: String
