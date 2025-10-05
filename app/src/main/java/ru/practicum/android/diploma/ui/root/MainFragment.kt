@@ -15,8 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.ui.search.SearchViewModel
 import ru.practicum.android.diploma.ui.search.SearchState
+import ru.practicum.android.diploma.ui.search.SearchViewModel
 import ru.practicum.android.diploma.ui.search.VacanciesAdapter
 import ru.practicum.android.diploma.util.showToast
 
@@ -38,13 +38,12 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(layoutInflater)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerView()
         setupSearchField()
         setupClickListeners()
@@ -64,9 +63,11 @@ class MainFragment : Fragment() {
                     val totalItemCount = layoutManager.itemCount
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
-                    // Загружаем следующую страницу когда до конца осталось 3 элемента
                     if (lastVisibleItemPosition >= totalItemCount - 3) {
-                        println("DEBUG: Loading next page... current items: $totalItemCount")
+                        println(
+                            "DEBUG: Loading next page... " +
+                                "current items: $totalItemCount"
+                        )
                         viewModel.loadNextPage()
                     }
                 }
@@ -78,7 +79,6 @@ class MainFragment : Fragment() {
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-
             override fun afterTextChanged(s: Editable?) {
                 viewModel.search(s.toString())
             }
@@ -99,10 +99,11 @@ class MainFragment : Fragment() {
                 is SearchState.EmptyQuery -> showEmptyQueryState()
                 is SearchState.Loading -> showLoadingState()
                 is SearchState.Success -> {
-                    println("DEBUG: Success state - vacancies: ${state.vacancies.size}, isFirstPage: ${state.isFirstPage}")
+                    println(
+                        "DEBUG: Success state - vacancies: ${state.vacancies.size}, " +
+                            "isFirstPage: ${state.isFirstPage}"
+                    )
                     showSuccessState(state)
-
-                    // ВАЖНО: Обновляем адаптер для ВСЕХ успешных состояний
                     adapter.submitVacancies(state.vacancies)
                     adapter.setLoading(false)
                     adapter.setHasMore(viewModel.hasMorePages())
@@ -122,46 +123,47 @@ class MainFragment : Fragment() {
     }
 
     private fun showEmptyQueryState() {
-        binding.loadingProgressBar.isVisible = false
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.noResultsContainer.isVisible = false
-        binding.emptyStateText.isVisible = true
-        binding.resultsCountText.isVisible = false
-
+        binding.apply {
+            loadingProgressBar.isVisible = false
+            vacanciesRecyclerView.isVisible = false
+            errorStateContainer.isVisible = false
+            noResultsContainer.isVisible = false
+            emptyStateText.isVisible = true
+            resultsCountText.isVisible = false
+        }
         adapter.submitVacancies(emptyList())
         adapter.setLoading(false)
         adapter.setHasMore(false)
     }
 
     private fun showLoadingState() {
-        binding.loadingProgressBar.isVisible = true
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.noResultsContainer.isVisible = false
-        binding.emptyStateText.isVisible = false
-        binding.resultsCountText.isVisible = false
-
+        binding.apply {
+            loadingProgressBar.isVisible = true
+            vacanciesRecyclerView.isVisible = false
+            errorStateContainer.isVisible = false
+            noResultsContainer.isVisible = false
+            emptyStateText.isVisible = false
+            resultsCountText.isVisible = false
+        }
         adapter.setLoading(false)
         adapter.setHasMore(false)
     }
 
     private fun showSuccessState(state: SearchState.Success) {
-        binding.loadingProgressBar.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.emptyStateText.isVisible = false
+        binding.apply {
+            loadingProgressBar.isVisible = false
+            errorStateContainer.isVisible = false
+            emptyStateText.isVisible = false
 
-        // ВАЖНО: Проверяем есть ли вакансии
-        if (state.vacancies.isEmpty()) {
-            // Показываем состояние "нет результатов"
-            binding.vacanciesRecyclerView.isVisible = false
-            binding.noResultsContainer.isVisible = true
-            binding.resultsCountText.isVisible = false
-        } else {
-            // Показываем список вакансий
-            binding.vacanciesRecyclerView.isVisible = true
-            binding.noResultsContainer.isVisible = false
-            showResultsCount(state.found, state.vacancies.size)
+            if (state.vacancies.isEmpty()) {
+                vacanciesRecyclerView.isVisible = false
+                noResultsContainer.isVisible = true
+                resultsCountText.isVisible = false
+            } else {
+                vacanciesRecyclerView.isVisible = true
+                noResultsContainer.isVisible = false
+                showResultsCount(state.found, state.vacancies.size)
+            }
         }
 
         adapter.submitVacancies(state.vacancies)
@@ -174,16 +176,15 @@ class MainFragment : Fragment() {
     }
 
     private fun showErrorState(message: String) {
-        binding.loadingProgressBar.isVisible = false
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.emptyStateText.isVisible = false
-        binding.noResultsContainer.isVisible = false
-        binding.errorStateContainer.isVisible = true
-
-        // ВСЕГДА показываем "Нет интернета" вместо сообщения из ViewModel
-        binding.errorStateText.text = getString(R.string.no_internet_title)
-        binding.resultsCountText.isVisible = false
-
+        binding.apply {
+            loadingProgressBar.isVisible = false
+            vacanciesRecyclerView.isVisible = false
+            emptyStateText.isVisible = false
+            noResultsContainer.isVisible = false
+            errorStateContainer.isVisible = true
+            errorStateText.text = getString(R.string.no_internet_title)
+            resultsCountText.isVisible = false
+        }
         adapter.setLoading(false)
         adapter.setHasMore(false)
     }
@@ -197,7 +198,7 @@ class MainFragment : Fragment() {
 
     private fun onVacancyClick(vacancy: Vacancy) {
         requireContext().showToast("Открываем вакансию: ${vacancy.title}")
-        // TODO: Добавить навигацию к экрану деталей вакансии
+        // Навигация к экрану деталей вакансии будет добавлена позже
         // findNavController().navigate(MainFragmentDirections.actionMainFragmentToVacancyDetailsFragment(vacancy.id))
     }
 
