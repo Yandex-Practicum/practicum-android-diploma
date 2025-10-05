@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
+import ru.practicum.android.diploma.domain.models.SalaryFormatter
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacanciesAdapter(
@@ -135,7 +136,10 @@ class VacanciesAdapter(
             binding.companyName.text = companyName ?: ""
             binding.companyName.isVisible = !companyName.isNullOrEmpty()
 
-            val salaryText = vacancy.salary?.getFormattedSalary() ?: "Зарплата не указана"
+            // ИСПРАВЛЕНИЕ: используем SalaryFormatter вместо метода data class
+            val salaryText = vacancy.salary?.let { salary ->
+                SalaryFormatter.getFormattedSalary(salary)
+            } ?: "Зарплата не указана"
             binding.salaryText.text = salaryText
 
             val logoUrl = vacancy.employer?.logoUrl

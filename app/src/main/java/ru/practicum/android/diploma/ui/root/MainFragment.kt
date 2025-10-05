@@ -33,6 +33,10 @@ class MainFragment : Fragment() {
         )
     }
 
+    companion object {
+        private const val LOAD_NEXT_PAGE_THRESHOLD = 3
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,8 +68,7 @@ class MainFragment : Fragment() {
                     val totalItemCount = layoutManager.itemCount
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
-                    // Загружаем следующую страницу когда до конца осталось 3 элемента
-                    if (lastVisibleItemPosition >= totalItemCount - 3) {
+                    if (lastVisibleItemPosition >= totalItemCount - LOAD_NEXT_PAGE_THRESHOLD) {
                         println("DEBUG: Loading next page... current items: $totalItemCount")
                         viewModel.loadNextPage()
                     }
@@ -99,7 +102,10 @@ class MainFragment : Fragment() {
                 is SearchState.EmptyQuery -> showEmptyQueryState()
                 is SearchState.Loading -> showLoadingState()
                 is SearchState.Success -> {
-                    println("DEBUG: Success state - vacancies: ${state.vacancies.size}, isFirstPage: ${state.isFirstPage}")
+                    println(
+                        "DEBUG: Success state - vacancies: ${state.vacancies.size}, " +
+                            "isFirstPage: ${state.isFirstPage}"
+                    )
                     showSuccessState(state)
 
                     // ВАЖНО: Обновляем адаптер для ВСЕХ успешных состояний
@@ -200,8 +206,6 @@ class MainFragment : Fragment() {
 
     private fun onVacancyClick(vacancy: Vacancy) {
         requireContext().showToast("Открываем вакансию: ${vacancy.title}")
-        // TODO: Добавить навигацию к экрану деталей вакансии
-        // findNavController().navigate(MainFragmentDirections.actionMainFragmentToVacancyDetailsFragment(vacancy.id))
     }
 
     override fun onDestroyView() {

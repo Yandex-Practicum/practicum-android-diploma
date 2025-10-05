@@ -10,6 +10,8 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.network.HhApi
 import java.util.concurrent.TimeUnit
 
+private const val TIMEOUT_SECONDS = 30L
+
 val networkModule = module {
     single {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -19,7 +21,6 @@ val networkModule = module {
         val authInterceptor = Interceptor { chain ->
             val originalRequest = chain.request()
 
-            // Добавляем заголовок авторизации с токеном
             val requestBuilder = originalRequest.newBuilder()
                 .header("User-Agent", "DiplomaApp/1.0")
                 .header("Accept", "application/json")
@@ -32,8 +33,8 @@ val networkModule = module {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(authInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .build()
 
         Retrofit.Builder()
