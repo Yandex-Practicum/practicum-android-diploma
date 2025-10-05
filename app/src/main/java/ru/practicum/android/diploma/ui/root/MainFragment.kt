@@ -26,11 +26,12 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: SearchViewModel by viewModel()
-
     private val adapter: VacanciesAdapter by lazy {
-        VacanciesAdapter(
-            onItemClick = { vacancy -> onVacancyClick(vacancy) }
-        )
+        VacanciesAdapter(onItemClick = { vacancy -> onVacancyClick(vacancy) })
+    }
+
+    private companion object {
+        const val LOAD_MORE_THRESHOLD = 3
     }
 
     override fun onCreateView(
@@ -63,11 +64,8 @@ class MainFragment : Fragment() {
                     val totalItemCount = layoutManager.itemCount
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
-                    if (lastVisibleItemPosition >= totalItemCount - 3) {
-                        println(
-                            "DEBUG: Loading next page... " +
-                                "current items: $totalItemCount"
-                        )
+                    if (lastVisibleItemPosition >= totalItemCount - LOAD_MORE_THRESHOLD) {
+                        println("DEBUG: Loading next page... current items: $totalItemCount")
                         viewModel.loadNextPage()
                     }
                 }

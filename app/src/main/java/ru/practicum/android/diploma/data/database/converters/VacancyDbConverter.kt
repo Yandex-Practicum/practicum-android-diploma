@@ -14,12 +14,12 @@ class VacancyDbConverter {
     // Domain -> Entity
     fun map(vacancy: Vacancy): VacancyEntity {
         return VacancyEntity(
-            id = vacancy.id.toIntOrNull() ?: 0, // String -> Int
+            id = vacancy.id.toIntOrNull() ?: 0,
             title = vacancy.title,
             description = vacancy.description,
-            salary = vacancy.salary?.currency,   // Salary -> String (currency)
-            employer = vacancy.employer?.id,     // String?
-            area = vacancy.area?.id              // String?
+            salary = vacancy.salary?.currency, // Salary -> String (currency)
+            employer = vacancy.employer?.id,   // String?
+            area = vacancy.area?.id             // String?
         )
     }
 
@@ -31,7 +31,7 @@ class VacancyDbConverter {
         areaEntity: AreaEntity?
     ): Vacancy {
         return Vacancy(
-            id = vacancyEntity.id.toString(),  // Int -> String
+            id = vacancyEntity.id.toString(), // Int -> String
             title = vacancyEntity.title,
             description = vacancyEntity.description,
             salary = mapSalary(salaryEntity),
@@ -63,4 +63,3 @@ class VacancyDbConverter {
         return areaEntity?.let { Area(id = it.id, name = it.name) }
     }
 }
-
