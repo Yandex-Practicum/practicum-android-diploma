@@ -11,7 +11,7 @@ class NetworkClient(
 ) {
     val apiService: ApiService = retrofit.create(ApiService::class.java)
 
-    private fun createOkHttpClient(): OkHttpClient {
+    fun createOkHttpClient(): OkHttpClient {
         val token = BuildConfig.API_ACCESS_TOKEN
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
