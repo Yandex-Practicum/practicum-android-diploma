@@ -4,11 +4,12 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.network.ApiService
+import ru.practicum.android.diploma.data.network.Config
 
 val networkModule = module {
     single {
         Retrofit.Builder()
-            .baseUrl("https://api.example.com/")
+            .baseUrl(Config.API_EXAMPLE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
