@@ -33,9 +33,9 @@ class FavoritesRepositoryImpl(
     override fun deleteVacancyFromFavorite(id: Int): Flow<Boolean> {
         return flow {
             val response = database.deleteVacancyFromFavorites(id)
-            if(response == null || response == 0) {
+            if (response == null || response == 0) {
                 emit(false)
-            }else{
+            } else {
                 emit(true)
             }
         }
