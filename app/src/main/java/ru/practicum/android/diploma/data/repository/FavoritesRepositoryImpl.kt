@@ -18,15 +18,26 @@ class FavoritesRepositoryImpl(
 
     override fun getAllVacancies(): Flow<List<Vacancy>> {
         return flow {
-            val listVacancy = converter.map(database.getAllFavoritesVacancies())
-            emit(listVacancy)
+            /*val listVacancy = converter.map(database.getAllFavoritesVacancies())
+            emit(listVacancy)*/
         }
     }
 
-    override fun checkVacanciesInFavorite(id: String): Flow<Boolean> {
+    override fun checkVacanciesInFavorite(id: Int): Flow<Boolean> {
         return flow {
             val response = database.checkInFavorite(id = id)
             emit(response)
+        }
+    }
+
+    override fun deleteVacancyFromFavorite(id: Int): Flow<Boolean> {
+        return flow {
+            val response = database.deleteVacancyFromFavorites(id)
+            if (response == null || response == 0) {
+                emit(false)
+            } else {
+                emit(true)
+            }
         }
     }
 }
