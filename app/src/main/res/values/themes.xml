@@ -13,6 +13,9 @@
 
         <item name="colorOnSurface">@color/text_primary_light</item>
         <item name="colorSurface">@color/background_light</item>
+        <item name="edit_text_background_color">@color/color_e6e8eb</item>
+        <item name="hint_color_edit_text">@color/grey</item>
+        <item name="attr_white_black_color">@color/black</item>
     </style>
 
     <style name="ThemeOverlay.SearchView" parent="">

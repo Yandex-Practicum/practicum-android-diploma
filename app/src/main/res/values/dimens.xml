@@ -3,5 +3,6 @@
     <dimen name="title_height">64dp</dimen>
     <dimen name="button_size">48dp</dimen>
     <dimen name="merge_size">16dp</dimen>
-    <dimen name="text_size">22dp</dimen>
+    <dimen name="text_size">22sp</dimen>
+    <dimen name="edit_text_search_radius">12dp</dimen>
 </resources>
