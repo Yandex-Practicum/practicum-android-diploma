@@ -22,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.ui.models.SearchState
-import ru.practicum.android.diploma.ui.vmodels.MainViewModel
+import ru.practicum.android.diploma.presentation.vmodels.MainViewModel
 import ru.practicum.android.diploma.util.SearchDebounce
 
 class MainFragment : Fragment() {
