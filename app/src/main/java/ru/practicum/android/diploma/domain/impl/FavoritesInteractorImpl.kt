@@ -16,7 +16,11 @@ class FavoritesInteractorImpl(
         return repository.getAllVacancies()
     }
 
-    override fun checkVacancyInFavorite(id: String): Flow<Boolean> {
+    override fun checkVacancyInFavorite(id: Int): Flow<Boolean> {
         return repository.checkVacanciesInFavorite(id)
+    }
+
+    override fun deleteVacancyFromFavorite(id: Int): Flow<Boolean> {
+        return repository.deleteVacancyFromFavorite(id)
     }
 }

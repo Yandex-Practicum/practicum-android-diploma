@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vmodels
+package ru.practicum.android.diploma.presentation.vmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

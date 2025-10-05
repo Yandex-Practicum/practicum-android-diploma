@@ -1,215 +1,152 @@
 package ru.practicum.android.diploma.ui.root
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity.INPUT_METHOD_SERVICE
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.ui.search.SearchViewModel
-import ru.practicum.android.diploma.ui.search.SearchState
-import ru.practicum.android.diploma.ui.search.VacanciesAdapter
-import ru.practicum.android.diploma.util.showToast
+import ru.practicum.android.diploma.ui.models.SearchState
+import ru.practicum.android.diploma.presentation.vmodels.MainViewModel
+import ru.practicum.android.diploma.util.SearchDebounce
 
 class MainFragment : Fragment() {
-
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+    private var textWatcher: TextWatcher? = null
+    private val viewModel: MainViewModel by viewModel()
+    private val debounce = SearchDebounce<String>(scope = lifecycleScope)
+    private var recyclerView: RecyclerView? = null
 
-    private val viewModel: SearchViewModel by viewModel()
-
-    private val adapter: VacanciesAdapter by lazy {
-        VacanciesAdapter(
-            onItemClick = { vacancy -> onVacancyClick(vacancy) }
-        )
-    }
-
-    companion object {
-        private const val LOAD_NEXT_PAGE_THRESHOLD = 3
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainBinding.inflate(layoutInflater)
+        val trailingButton = binding.trailingButton
+        trailingButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_filtrationFragment)
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupRecyclerView()
-        setupSearchField()
+        recyclerView = binding.dataList
+        textWatcher = binding.editSearchText.doOnTextChanged { text, _, _, _ ->
+            binding.clearTheField.isVisible = !text.isNullOrEmpty()
+            if (text.isNullOrEmpty()) {
+                viewModel.setIdleState()
+            } else {
+                viewModel.setNothingState()
+            }
+            debounce.execute(text.toString())
+        }
+        textWatcher.let { binding.editSearchText.addTextChangedListener(it) }
         setupClickListeners()
-        observeViewModel()
-    }
-
-    private fun setupRecyclerView() {
-        binding.vacanciesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.vacanciesRecyclerView.adapter = adapter
-
-        binding.vacanciesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                if (dy > 0 && !viewModel.isLoading() && viewModel.hasMorePages()) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val totalItemCount = layoutManager.itemCount
-                    val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-
-                    if (lastVisibleItemPosition >= totalItemCount - LOAD_NEXT_PAGE_THRESHOLD) {
-                        println("DEBUG: Loading next page... current items: $totalItemCount")
-                        viewModel.loadNextPage()
-                    }
-                }
-            }
-        })
-    }
-
-    private fun setupSearchField() {
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.search(s.toString())
-            }
-        })
+        setupObservers()
     }
 
     private fun setupClickListeners() {
-        binding.trailingButton.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_filtrationFragment)
+        binding.clearTheField.setOnClickListener {
+            binding.editSearchText.setText("")
+            val inputMethodManager =
+                requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+            inputMethodManager?.hideSoftInputFromWindow(
+                binding.clearTheField.windowToken,
+                0
+            )
         }
     }
 
-    private fun observeViewModel() {
-        viewModel.searchState.observe(viewLifecycleOwner) { state ->
-            println("DEBUG: State changed to: ${state.javaClass.simpleName}")
+    private fun setupObservers() {
+        viewModel.observeSearchState.observe(viewLifecycleOwner) { state ->
+            renderState(state)
+        }
 
-            when (state) {
-                is SearchState.EmptyQuery -> showEmptyQueryState()
-                is SearchState.Loading -> showLoadingState()
-                is SearchState.Success -> {
-                    println(
-                        "DEBUG: Success state - vacancies: ${state.vacancies.size}, " +
-                            "isFirstPage: ${state.isFirstPage}"
-                    )
-                    showSuccessState(state)
-
-                    // ВАЖНО: Обновляем адаптер для ВСЕХ успешных состояний
-                    adapter.submitVacancies(state.vacancies)
-                    adapter.setLoading(false)
-                    adapter.setHasMore(viewModel.hasMorePages())
-                }
-                is SearchState.Error -> showErrorState(state.message)
-                is SearchState.LoadingNextPage -> {
-                    println("DEBUG: Loading next page state")
-                    adapter.setLoading(true)
-                    adapter.setHasMore(true)
-                }
-                is SearchState.NextPageError -> {
-                    adapter.setLoading(false)
-                    requireContext().showToast(state.message)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                debounce.debounceFlow.collect { searchRequestText ->
+                    searchRequestText?.let {
+                        if (searchRequestText.isNotEmpty()) {
+                            viewModel.search(searchRequestText)
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun showEmptyQueryState() {
-        binding.loadingProgressBar.isVisible = false
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.noResultsContainer.isVisible = false
-        binding.emptyStateText.isVisible = true
-        binding.resultsCountText.isVisible = false
+    private fun renderState(state: SearchState) {
+        when (state) {
+            is SearchState.Idle -> {
+                renderImage(true, R.drawable.image_search_default)
+                renderLoading(false)
+                renderRecyclerSearchList(false)
+            }
 
-        adapter.submitVacancies(emptyList())
-        adapter.setLoading(false)
-        adapter.setHasMore(false)
-    }
+            is SearchState.Nothing -> {
+                renderImage(false)
+                renderLoading(false)
+                renderRecyclerSearchList(false)
+            }
 
-    private fun showLoadingState() {
-        binding.loadingProgressBar.isVisible = true
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.noResultsContainer.isVisible = false
-        binding.emptyStateText.isVisible = false
-        binding.resultsCountText.isVisible = false
+            is SearchState.Loading -> {
+                renderImage(false)
+                renderLoading(true)
+                renderRecyclerSearchList(false)
+            }
 
-        adapter.setLoading(false)
-        adapter.setHasMore(false)
-    }
+            is SearchState.Complete -> {
+                renderLoading(false)
+                if (state.data.isNotEmpty()) {
+                    renderRecyclerSearchList(true, data = state.data)
+                } else {
+                    renderImage(true, R.drawable.cat_with_the_plate, R.string.no_list_vacancies)
+                }
+            }
 
-    private fun showSuccessState(state: SearchState.Success) {
-        binding.loadingProgressBar.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.emptyStateText.isVisible = false
-
-        // ВАЖНО: Проверяем есть ли вакансии
-        if (state.vacancies.isEmpty()) {
-            // Показываем состояние "нет результатов"
-            binding.vacanciesRecyclerView.isVisible = false
-            binding.noResultsContainer.isVisible = true
-            binding.resultsCountText.isVisible = false
-        } else {
-            // Показываем список вакансий
-            binding.vacanciesRecyclerView.isVisible = true
-            binding.noResultsContainer.isVisible = false
-            showResultsCount(state.found, state.vacancies.size)
-        }
-
-        adapter.submitVacancies(state.vacancies)
-        adapter.setLoading(false)
-        adapter.setHasMore(viewModel.hasMorePages())
-
-        if (state.vacancies.isNotEmpty() && state.isFirstPage) {
-            requireContext().showToast("Найдено вакансий: ${state.found}")
+            is SearchState.Error -> {
+                renderImage(true, R.drawable.image_yorik, R.string.not_internet)
+                renderRecyclerSearchList(false)
+                renderLoading(false)
+            }
         }
     }
 
-    private fun showErrorState(message: String) {
-        binding.loadingProgressBar.isVisible = false
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.emptyStateText.isVisible = false
-        binding.noResultsContainer.isVisible = false
-        binding.errorStateContainer.isVisible = true
-
-        // ИСПРАВЛЕНИЕ: Показываем реальное сообщение об ошибке вместо "Нет интернета"
-        binding.errorStateText.text = message
-        binding.resultsCountText.isVisible = false
-
-        adapter.setLoading(false)
-        adapter.setHasMore(false)
-
-        // Можно оставить toast для отладки
-        requireContext().showToast(message)
-    }
-
-    private fun showResultsCount(totalFound: Int, displayed: Int) {
-        binding.resultsCountText.isVisible = totalFound > 0
-        if (totalFound > 0) {
-            binding.resultsCountText.text = "Найдено $totalFound вакансий"
+    private fun renderImage(visible: Boolean, @DrawableRes resource: Int? = null, @StringRes message: Int? = null) {
+        binding.searchImage.isVisible = visible
+        binding.textImage.isVisible = visible
+        if (visible) {
+            resource?.let {
+                binding.searchImage.setImageResource(resource)
+            }
+            message?.let { binding.textImage.text = getString(it) }
         }
     }
 
-    private fun onVacancyClick(vacancy: Vacancy) {
-        requireContext().showToast("Открываем вакансию: ${vacancy.title}")
+    private fun renderLoading(value: Boolean) {
+        binding.progressCircular.isVisible = value
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun renderRecyclerSearchList(value: Boolean, data: List<Int>? = null) {
+        binding.dataList.isVisible = value
+    }
+
+    override fun onDestroy() {
+        textWatcher?.let { binding.editSearchText.removeTextChangedListener(it) }
+        super.onDestroy()
     }
 }
