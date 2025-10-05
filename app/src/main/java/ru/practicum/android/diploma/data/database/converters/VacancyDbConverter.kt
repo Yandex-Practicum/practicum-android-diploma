@@ -7,6 +7,7 @@ class VacancyDbConverter {
     fun map(vacancy: Vacancy): VacancyEntity {
         return with(vacancy) {
             VacancyEntity(
+                vacancyId = id,
                 title = title,
                 description = description
             )
@@ -16,7 +17,7 @@ class VacancyDbConverter {
     fun map(vacancyEntity: VacancyEntity): Vacancy {
         return with(vacancyEntity) {
             Vacancy(
-                id = id.toInt(),
+                id = vacancyId,
                 title = title,
                 description = description
             )
@@ -27,7 +28,7 @@ class VacancyDbConverter {
         return list.map {
             with(it) {
                 Vacancy(
-                    id = id.toInt(),
+                    id = vacancyId,
                     title = title,
                     description = description
                 )
