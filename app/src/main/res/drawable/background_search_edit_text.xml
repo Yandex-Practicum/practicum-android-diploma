@@ -4,5 +4,5 @@
     android:padding="10dp">
 
     <solid android:color="?attr/edit_text_background_color" />
-    <corners android:radius="@dimen/edit_text_search_radius" />
+    <corners android:radius="12dp" />
 </shape>

@@ -14,6 +14,7 @@
     <color name="text_primary_dark">#FFFFFF</color>
     <color name="text_secondary_light">#757575</color>
     <color name="text_secondary_dark">#B3B3B3</color>
+    <color name="light_grey">#E6E8EB</color>
 
     <!-- Добавленные цвета из develop -->
     <color name="black">#1A1B22</color>

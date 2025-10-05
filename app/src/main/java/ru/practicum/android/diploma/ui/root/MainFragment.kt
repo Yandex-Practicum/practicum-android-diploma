@@ -180,12 +180,15 @@ class MainFragment : Fragment() {
         binding.noResultsContainer.isVisible = false
         binding.errorStateContainer.isVisible = true
 
-        // ВСЕГДА показываем "Нет интернета" вместо сообщения из ViewModel
-        binding.errorStateText.text = getString(R.string.no_internet_title)
+        // ИСПРАВЛЕНИЕ: Показываем реальное сообщение об ошибке вместо "Нет интернета"
+        binding.errorStateText.text = message
         binding.resultsCountText.isVisible = false
 
         adapter.setLoading(false)
         adapter.setHasMore(false)
+
+        // Можно оставить toast для отладки
+        requireContext().showToast(message)
     }
 
     private fun showResultsCount(totalFound: Int, displayed: Int) {
