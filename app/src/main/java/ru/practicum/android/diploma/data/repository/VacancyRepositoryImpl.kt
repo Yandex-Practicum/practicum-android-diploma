@@ -8,12 +8,13 @@ class VacancyRepositoryImpl(private val apiService: ApiService) : VacancyReposit
 
     override suspend fun getVacancies(): List<Vacancy> {
         val dtoList = apiService.getVacancies()
-        return dtoList.map { dto ->
+        /*return dtoList.map { dto ->
             Vacancy(
                 id = dto.id,
                 title = dto.title,
                 description = dto.description
             )
-        }
+        }*/
+        return listOf()
     }
 }
