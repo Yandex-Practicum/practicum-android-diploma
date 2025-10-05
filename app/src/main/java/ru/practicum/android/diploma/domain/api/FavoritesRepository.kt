@@ -7,5 +7,6 @@ interface FavoritesRepository {
     suspend fun setVacancy(vacancy: Vacancy)
     fun getAllVacancies(): Flow<List<Vacancy>>
     fun checkVacanciesInFavorite(id: Int): Flow<Boolean>
+    fun deleteVacancyFromFavorite(id: Int): Flow<Boolean>
 }
 

@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.database.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -19,4 +20,7 @@ interface VacancyDao {
 
     @Query("SELECT EXISTS (SELECT 1 FROM vacancy_table WHERE vacancy_id =:id)")
     suspend fun checkInFavorite(id: Int): Boolean
+
+    @Query("DELETE FROM vacancy_table WHERE vacancy_id =:id")
+    suspend fun deleteVacancyFromFavorites(id: Int): Int?
 }

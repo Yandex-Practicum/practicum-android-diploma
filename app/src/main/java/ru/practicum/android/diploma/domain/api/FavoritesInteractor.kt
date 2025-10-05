@@ -7,4 +7,5 @@ interface FavoritesInteractor {
     suspend fun setVacancy(vacancy: Vacancy)
     fun getAllVacancies(): Flow<List<Vacancy>>
     fun checkVacancyInFavorite(id: Int): Flow<Boolean>
+    fun deleteVacancyFromFavorite(id: Int): Flow<Boolean>
 }
