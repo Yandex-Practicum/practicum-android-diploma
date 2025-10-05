@@ -1,11 +1,8 @@
 package ru.practicum.android.diploma.ui.search
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter

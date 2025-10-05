@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.practicum.android.diploma.data.dto.VacancySearchResponse
 
-interface ApiService {
+interface HhApi {
     @GET("vacancies")
     suspend fun searchVacancies(
         @Query("text") query: String,

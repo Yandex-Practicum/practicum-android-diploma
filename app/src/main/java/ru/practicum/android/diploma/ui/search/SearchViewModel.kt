@@ -15,6 +15,10 @@ class SearchViewModel(
     private val searchVacanciesUseCase: SearchVacanciesUseCase
 ) : ViewModel() {
 
+    companion object {
+        private const val DEBOUNCE_PERIOD = 2000L
+    }
+
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
 
@@ -25,7 +29,7 @@ class SearchViewModel(
     private var isLoadingNextPage = false
     private var searchJob: Job? = null
 
-    private val debouncePeriod = 2000L
+    private val debouncePeriod = DEBOUNCE_PERIOD
 
     private val _allVacancies = mutableListOf<Vacancy>()
     val allVacancies: List<Vacancy> get() = _allVacancies
@@ -129,7 +133,7 @@ class SearchViewModel(
         setLoadingStates(isNewSearch)
 
         viewModelScope.launch {
-            when (val result = searchVacanciesUseCase(query, page)) {
+            when (val result = searchVacanciesUseCase.execute(query, page)) {
                 is Resource.Success -> handleSearchSuccess(result, isNewSearch)
                 is Resource.Error -> handleSearchError(result, isNewSearch)
                 is Resource.Loading -> handleSearchLoading()

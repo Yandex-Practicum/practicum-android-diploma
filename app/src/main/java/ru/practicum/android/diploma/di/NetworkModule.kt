@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.di
 
-import android.content.Context
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,7 +7,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.data.network.ApiService
+import ru.practicum.android.diploma.data.network.HhApi
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
@@ -44,5 +43,5 @@ val networkModule = module {
             .build()
     }
 
-    single { get<Retrofit>().create(ApiService::class.java) }
+    single { get<Retrofit>().create(HhApi::class.java) }
 }
