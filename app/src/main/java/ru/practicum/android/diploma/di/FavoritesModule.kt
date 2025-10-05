@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.domain.impl.FavoritesInteractorImpl
 val favoritesModule = module {
     single<VacancyDao> {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
-            .fallbackToDestructiveMigration(dropAllTables = true)
+            .fallbackToDestructiveMigration()
             .build()
             .getVacancyDao()
     }
