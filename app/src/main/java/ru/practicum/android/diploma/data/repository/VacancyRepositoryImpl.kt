@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.repository.VacancyRepository
 
-class DataRepository(private val apiService: ApiService) : VacancyRepository {
+class VacancyRepositoryImpl(private val apiService: ApiService) : VacancyRepository {
 
     override suspend fun getVacancies(): List<Vacancy> {
         val dtoList = apiService.getVacancies()
