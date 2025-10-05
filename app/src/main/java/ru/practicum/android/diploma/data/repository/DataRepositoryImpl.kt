@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.repository
 
+import android.util.Log
 import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
 import ru.practicum.android.diploma.data.dto.SalaryDto
@@ -24,6 +25,7 @@ class DataRepositoryImpl(
         private const val HTTP_FORBIDDEN = 403
         private const val HTTP_NOT_FOUND = 404
         private const val HTTP_SERVER_ERROR = 500
+        private const val TAG = "DataRepositoryImpl"
     }
 
     override suspend fun searchVacancies(query: String, page: Int): Resource<SearchResult> {
@@ -39,10 +41,13 @@ class DataRepositoryImpl(
                 else -> Resource.Error("Ошибка: ${response.code()} - ${response.message()}")
             }
         } catch (e: UnknownHostException) {
+            Log.w(TAG, "Network connection error", e)
             Resource.Error("Проверьте подключение к интернету")
         } catch (e: SSLHandshakeException) {
+            Log.w(TAG, "SSL handshake error", e)
             Resource.Error("Ошибка безопасности соединения")
         } catch (e: IOException) {
+            Log.w(TAG, "IO error during network request", e)
             Resource.Error("Ошибка сети: ${e.message ?: "Неизвестная ошибка"}")
         }
     }
