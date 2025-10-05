@@ -89,14 +89,6 @@ class MainFragment : Fragment() {
         binding.trailingButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_filtrationFragment)
         }
-
-        binding.retryButton.setOnClickListener {
-            viewModel.retry()
-        }
-
-        binding.noResultsRetryButton.setOnClickListener {
-            viewModel.retry()
-        }
     }
 
     private fun observeViewModel() {
@@ -156,20 +148,27 @@ class MainFragment : Fragment() {
 
     private fun showSuccessState(state: SearchState.Success) {
         binding.loadingProgressBar.isVisible = false
-        binding.vacanciesRecyclerView.isVisible = true
         binding.errorStateContainer.isVisible = false
         binding.emptyStateText.isVisible = false
-        binding.noResultsContainer.isVisible = false
+
+        // ВАЖНО: Проверяем есть ли вакансии
+        if (state.vacancies.isEmpty()) {
+            // Показываем состояние "нет результатов"
+            binding.vacanciesRecyclerView.isVisible = false
+            binding.noResultsContainer.isVisible = true
+            binding.resultsCountText.isVisible = false
+        } else {
+            // Показываем список вакансий
+            binding.vacanciesRecyclerView.isVisible = true
+            binding.noResultsContainer.isVisible = false
+            showResultsCount(state.found, state.vacancies.size)
+        }
 
         adapter.submitVacancies(state.vacancies)
         adapter.setLoading(false)
         adapter.setHasMore(viewModel.hasMorePages())
 
-        showResultsCount(state.found, state.vacancies.size)
-
-        if (state.vacancies.isEmpty()) {
-            showNoResultsState(state.found)
-        } else if (state.isFirstPage) {
+        if (state.vacancies.isNotEmpty() && state.isFirstPage) {
             requireContext().showToast("Найдено вакансий: ${state.found}")
         }
     }
@@ -180,19 +179,9 @@ class MainFragment : Fragment() {
         binding.emptyStateText.isVisible = false
         binding.noResultsContainer.isVisible = false
         binding.errorStateContainer.isVisible = true
-        binding.errorStateText.text = message
-        binding.resultsCountText.isVisible = false
 
-        adapter.setLoading(false)
-        adapter.setHasMore(false)
-        requireContext().showToast(message)
-    }
-
-    private fun showNoResultsState(found: Int) {
-        binding.vacanciesRecyclerView.isVisible = false
-        binding.emptyStateText.isVisible = false
-        binding.errorStateContainer.isVisible = false
-        binding.noResultsContainer.isVisible = true
+        // ВСЕГДА показываем "Нет интернета" вместо сообщения из ViewModel
+        binding.errorStateText.text = getString(R.string.no_internet_title)
         binding.resultsCountText.isVisible = false
 
         adapter.setLoading(false)
@@ -208,6 +197,8 @@ class MainFragment : Fragment() {
 
     private fun onVacancyClick(vacancy: Vacancy) {
         requireContext().showToast("Открываем вакансию: ${vacancy.title}")
+        // TODO: Добавить навигацию к экрану деталей вакансии
+        // findNavController().navigate(MainFragmentDirections.actionMainFragmentToVacancyDetailsFragment(vacancy.id))
     }
 
     override fun onDestroyView() {

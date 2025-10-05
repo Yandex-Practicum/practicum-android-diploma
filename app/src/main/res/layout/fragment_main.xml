@@ -40,7 +40,7 @@
                 android:src="@drawable/trailing_icon" />
         </RelativeLayout>
 
-        <!-- TextInputLayout с OutlinedBox -->
+        <!-- TextInputLayout с OutlinedBox и крестиком -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,6 +51,8 @@
             app:boxCornerRadiusTopStart="8dp"
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/grey"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -69,17 +71,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
-            android:paddingEnd="3dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="17dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_medium"
             android:gravity="center"
             android:background="@drawable/bg_results_count"
             android:visibility="gone"
-            android:layout_gravity="center_horizontal"
-            />
-
+            android:layout_gravity="center_horizontal" />
 
         <!-- RecyclerView для вакансий -->
         <androidx.recyclerview.widget.RecyclerView
@@ -118,22 +118,26 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:paddingTop="100dp">
 
+        <!-- Картинка 328x223 -->
+        <ImageView
+            android:layout_width="328dp"
+            android:layout_height="223dp"
+            android:src="@drawable/ic_no_internet"
+            android:contentDescription="@string/no_internet_content_description"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Текст "Нет интернета" под картинкой -->
         <TextView
             android:id="@+id/error_state_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/error_network"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
-
-        <Button
-            android:id="@+id/retry_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/merge_size"
-            android:text="@string/retry" />
+            android:text="@string/no_internet_title"
+            android:textColor="@color/black2"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -144,22 +148,45 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:paddingTop="100dp">
 
+        <!-- Текст "Ничего не найдено" НАД картинкой - на синем фоне -->
         <TextView
-            android:id="@+id/no_results_text"
+            android:id="@+id/no_results_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_results_text"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
+            android:text="@string/no_results_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            android:gravity="center"
+            android:background="@drawable/bg_results_count"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp" />
 
-        <Button
-            android:id="@+id/no_results_retry_button"
+        <!-- Картинка 328x223 -->
+        <ImageView
+            android:layout_width="328dp"
+            android:layout_height="223dp"
+            android:src="@drawable/ic_no_results"
+            android:contentDescription="@string/no_results_content_description"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Дополнительный текст снизу -->
+        <TextView
+            android:id="@+id/no_results_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/merge_size"
-            android:text="@string/retry" />
+            android:text="@string/no_results_subtitle"
+            android:textColor="@color/black2"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp" />
 
     </LinearLayout>
 

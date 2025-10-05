@@ -12,4 +12,11 @@
     <string name="error_network">Проверьте подключение к интернету</string>
     <string name="error_server">Ошибка сервера</string>
     <string name="error_unknown">Произошла неизвестная ошибка</string>
+    <!-- Для состояния "нет результатов" -->
+    <string name="no_results_title">Ничего не найдено</string>
+    <string name="no_results_subtitle">Не удалось получить список вакансий</string>
+    <string name="no_results_content_description">Нет результатов поиска</string>
+    <!-- Для состояния ошибки -->
+    <string name="no_internet_title">Нет интернета</string>
+    <string name="no_internet_content_description">Нет интернета</string>
 </resources>
