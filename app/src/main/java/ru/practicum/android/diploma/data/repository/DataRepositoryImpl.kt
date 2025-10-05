@@ -11,8 +11,8 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.repository.DataRepository
 import ru.practicum.android.diploma.util.Resource
 import java.io.IOException
-import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import javax.net.ssl.SSLHandshakeException
 
 class DataRepositoryImpl(
     private val api: HhApi
@@ -38,14 +38,12 @@ class DataRepositoryImpl(
                 HTTP_SERVER_ERROR -> Resource.Error("Ошибка сервера")
                 else -> Resource.Error("Ошибка: ${response.code()} - ${response.message()}")
             }
+        } catch (e: UnknownHostException) {
+            Resource.Error("Проверьте подключение к интернету")
+        } catch (e: SSLHandshakeException) {
+            Resource.Error("Ошибка безопасности соединения")
         } catch (e: IOException) {
-            Resource.Error("Проверьте подключение к интернету").also {
-                e.printStackTrace() // Логируем исключение вместо проглатывания
-            }
-        } catch (e: Exception) {
-            Resource.Error("Неизвестная ошибка: ${e.message}").also {
-                e.printStackTrace() // Логируем исключение вместо проглатывания
-            }
+            Resource.Error("Ошибка сети: ${e.message ?: "Неизвестная ошибка"}")
         }
     }
 
