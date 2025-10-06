@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
-import ru.practicum.android.diploma.data.repository.VacancyRepositoryImpl
-import ru.practicum.android.diploma.domain.repository.VacancyRepository
+import ru.practicum.android.diploma.data.repository.DataRepositoryImpl
+import ru.practicum.android.diploma.domain.repository.DataRepository
 
 val repositoryModule = module {
-    single<VacancyRepository> { VacancyRepositoryImpl(apiService = get()) }
+    single<DataRepository> {
+        DataRepositoryImpl(api = get())
+    }
 }

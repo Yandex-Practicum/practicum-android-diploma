@@ -10,35 +10,34 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacancyDbConverter {
+
+    // Domain -> Entity
     fun map(vacancy: Vacancy): VacancyEntity {
-        return with(vacancy) {
-            VacancyEntity(
-                id = id,
-                title = title,
-                description = description,
-                salary = salary?.currency,
-                employer = employer?.id,
-                area = area?.id
-            )
-        }
+        return VacancyEntity(
+            id = vacancy.id.toIntOrNull() ?: 0,
+            title = vacancy.title,
+            description = vacancy.description,
+            salary = vacancy.salary?.currency,
+            employer = vacancy.employer?.id,
+            area = vacancy.area?.id
+        )
     }
 
+    // Entity -> Domain
     fun map(
         vacancyEntity: VacancyEntity,
         salaryEntity: SalaryEntity?,
         employerEntity: EmployerEntity?,
         areaEntity: AreaEntity?
     ): Vacancy {
-        return with(vacancyEntity) {
-            Vacancy(
-                id = id,
-                title = title,
-                description = description,
-                salary = mapSalary(salaryEntity = salaryEntity),
-                employer = mapEmployee(employerEntity = employerEntity),
-                area = mapArea(areaEntity = areaEntity)
-            )
-        }
+        return Vacancy(
+            id = vacancyEntity.id.toString(),
+            title = vacancyEntity.title,
+            description = vacancyEntity.description,
+            salary = mapSalary(salaryEntity),
+            employer = mapEmployee(employerEntity),
+            area = mapArea(areaEntity)
+        )
     }
 
     fun map(
@@ -48,40 +47,19 @@ class VacancyDbConverter {
         areaEntity: AreaEntity?
     ): List<Vacancy> {
         return list.map {
-            with(it) {
-                Vacancy(
-                    id = id,
-                    title = title,
-                    description = description,
-                    salary = mapSalary(salaryEntity = salaryEntity),
-                    employer = mapEmployee(employerEntity = employerEntity),
-                    area = mapArea(areaEntity = areaEntity)
-                )
-            }
+            map(it, salaryEntity, employerEntity, areaEntity)
         }
     }
 
     private fun mapSalary(salaryEntity: SalaryEntity?): Salary? {
-        return if (salaryEntity != null) {
-            Salary(to = salaryEntity.to, from = salaryEntity.from, currency = salaryEntity.currency)
-        } else {
-            null
-        }
-    }
-
-    private fun mapArea(areaEntity: AreaEntity?): Area? {
-        return if (areaEntity != null) {
-            Area(id = areaEntity.id, name = areaEntity.name)
-        } else {
-            null
-        }
+        return salaryEntity?.let { Salary(to = it.to, from = it.from, currency = it.currency) }
     }
 
     private fun mapEmployee(employerEntity: EmployerEntity?): Employer? {
-        return if (employerEntity != null) {
-            Employer(id = employerEntity.id, name = employerEntity.name, logoUrl = employerEntity.logoUrl)
-        } else {
-            null
-        }
+        return employerEntity?.let { Employer(id = it.id, name = it.name, logoUrl = it.logoUrl) }
+    }
+
+    private fun mapArea(areaEntity: AreaEntity?): Area? {
+        return areaEntity?.let { Area(id = it.id, name = it.name) }
     }
 }

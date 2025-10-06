@@ -1,146 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:paddingBottom="72dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/job_search_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/merge_size"
-            android:text="@string/job_search"
-            android:textColor="?attr/attr_white_black_color"
-            android:textSize="@dimen/text_size"
-            tools:ignore="RtlSymmetry" />
-
-        <ImageButton
-            android:id="@+id/trailing_button"
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/merge_size"
-            android:background="@null"
-            android:src="@drawable/trailing_icon"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginVertical="8dp">
-
-        <EditText
-            android:id="@+id/editSearchText"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/background_search_edit_text"
-            android:drawableRight="@drawable/search_icon"
-            android:drawablePadding="8dp"
-            android:fontFamily="@font/ys_display_regular"
-            android:hint="@string/hint_edit_text"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="16dp"
-            android:singleLine="true"
-            android:textAppearance="@style/textAppearanceRegular16sp400w"
-            android:textColor="@color/black"
-            android:textColorHint="?attr/hint_color_edit_text"
-            android:textCursorDrawable="@drawable/cursor" />
-
-        <ImageView
-            android:id="@+id/clear_the_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="30dp"
-            android:background="?attr/edit_text_background_color"
-            android:contentDescription="@string/contentDescription"
-            android:visibility="gone"
-            app:srcCompat="@drawable/close_edit_text_search" />
-    </FrameLayout>
-
-    <FrameLayout
+    <!-- Основной контент -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- Существующий заголовок -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/title_height"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/items_count"
+                android:id="@+id/job_search_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/background_notify_blue"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:text="найдено 283 вакансии"
-                android:textAppearance="@style/textAppearanceRegular16sp400w"
-                android:textColor="@color/white"
-                android:visibility="gone"
-                tools:text="найдено 283 вакансии" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/merge_size"
+                android:text="@string/job_search"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size"
+                tools:ignore="RtlSymmetry" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dataList"
+            <ImageButton
+                android:id="@+id/trailing_button"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/merge_size"
+                android:background="@null"
+                android:src="@drawable/trailing_icon" />
+        </RelativeLayout>
+
+        <!-- TextInputLayout с OutlinedBox и крестиком -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/merge_size"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/grey"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:textColor="@color/black" />
 
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/results_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            android:gravity="center"
+            android:background="@drawable/bg_results_count"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal" />
 
-            <ImageView
-                android:id="@+id/search_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/contentDescription"
-                android:src="@drawable/image_search_default"
-                android:visibility="gone" />
+        <!-- RecyclerView для вакансий -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vacancies_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/text_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:textAppearance="@style/textAppearanceMedium22sp500w"
-                android:textColor="?attr/attr_white_black_color"
-                android:visibility="gone"
-                tools:text="@string/not_internet" />
-        </LinearLayout>
+    </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/blue"
-            android:visibility="gone" />
-    </FrameLayout>
+    <!-- Состояния поверх основного контента -->
 
-</LinearLayout>
+    <!-- Прогресс-бар загрузки (центрированный) -->
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <!-- Состояние пустого запроса -->
+    <TextView
+        android:id="@+id/empty_state_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/empty_query_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_medium"
+        android:visibility="gone" />
+
+    <!-- Состояние ошибки -->
+    <LinearLayout
+        android:id="@+id/error_state_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="100dp">
+
+        <!-- Картинка 328x223 -->
+        <ImageView
+            android:layout_width="328dp"
+            android:layout_height="223dp"
+            android:src="@drawable/ic_no_internet"
+            android:contentDescription="@string/no_internet_content_description"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Текст "Нет интернета" под картинкой -->
+        <TextView
+            android:id="@+id/error_state_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_internet_title"
+            android:textColor="@color/black2"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Состояние нет результатов -->
+    <LinearLayout
+        android:id="@+id/no_results_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="100dp">
+
+        <!-- Текст "Ничего не найдено" НАД картинкой - на синем фоне -->
+        <TextView
+            android:id="@+id/no_results_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_results_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            android:gravity="center"
+            android:background="@drawable/bg_results_count"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Картинка 328x223 -->
+        <ImageView
+            android:layout_width="328dp"
+            android:layout_height="223dp"
+            android:src="@drawable/ic_no_results"
+            android:contentDescription="@string/no_results_content_description"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Дополнительный текст снизу -->
+        <TextView
+            android:id="@+id/no_results_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_results_subtitle"
+            android:textColor="@color/black2"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
