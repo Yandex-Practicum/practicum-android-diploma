@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,13 +8,36 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.FavoritesInteractor
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.usecase.SearchVacanciesUseCase
 import ru.practicum.android.diploma.util.Resource
 
 class SearchViewModel(
-    private val searchVacanciesUseCase: SearchVacanciesUseCase
+    private val searchVacanciesUseCase: SearchVacanciesUseCase,
+    private val interactor: FavoritesInteractor
 ) : ViewModel() {
+    init {
+        viewModelScope.launch {
+            interactor.setVacancy(
+                Vacancy(
+                    "5","afasf","asfasdfaef", Salary(null,null,"afafdsd"), Employer("as","aaf","afaf"),
+                    Area("afaf","adfafdsd")
+
+
+                )
+            )
+            interactor.checkVacancyInFavorite(2).collect{
+                Log.v("my","view model  $it")
+            }
+            interactor.deleteVacancyFromFavorite(2).collect{
+                Log.v("my","view model delete $it")
+            }
+        }
+    }
 
     companion object {
         private const val DEBOUNCE_PERIOD = 2000L

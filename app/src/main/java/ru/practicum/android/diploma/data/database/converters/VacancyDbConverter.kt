@@ -8,18 +8,19 @@ import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Employer
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
+import java.util.UUID
 
 class VacancyDbConverter {
 
     // Domain -> Entity
-    fun map(vacancy: Vacancy): VacancyEntity {
+    fun map(vacancy: Vacancy, area: UUID?, employer: UUID?, salary: UUID?): VacancyEntity {
         return VacancyEntity(
             id = vacancy.id.toIntOrNull() ?: 0,
             title = vacancy.title,
             description = vacancy.description,
-            salary = vacancy.salary?.currency,
-            employer = vacancy.employer?.id,
-            area = vacancy.area?.id
+            salary = salary,
+            employer = employer,
+            area = area
         )
     }
 

@@ -4,12 +4,33 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import ru.practicum.android.diploma.data.database.entity.AreaEntity
+import ru.practicum.android.diploma.data.database.entity.EmployerEntity
+import ru.practicum.android.diploma.data.database.entity.SalaryEntity
 import ru.practicum.android.diploma.data.database.entity.VacancyEntity
 
 @Dao
 interface VacancyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setFavoriteVacancy(vacancy: VacancyEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun setFavoriteArea(area: AreaEntity?)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun setFavoriteEmployer(employer: EmployerEntity?)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun setFavoriteSalary(salary: SalaryEntity?)
+
+    @Transaction
+    suspend fun setVacancyTransaction(vacancy: VacancyEntity,area: AreaEntity?,employer: EmployerEntity?, salary: SalaryEntity?){
+        setFavoriteVacancy(vacancy = vacancy)
+        setFavoriteArea(area = area)
+        setFavoriteEmployer(employer = employer)
+        setFavoriteSalary(salary = salary)
+    }
 
     @Query("SELECT * FROM vacancy_table")
     suspend fun getAllFavoritesVacancies(): List<VacancyEntity>
