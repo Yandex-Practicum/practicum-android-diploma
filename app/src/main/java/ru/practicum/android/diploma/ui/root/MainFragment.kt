@@ -180,7 +180,7 @@ class MainFragment : Fragment() {
             emptyStateText.isVisible = false
             noResultsContainer.isVisible = false
             errorStateContainer.isVisible = true
-            errorStateText.text = getString(R.string.no_internet_title)
+            errorStateText.text = message
             resultsCountText.isVisible = false
         }
         adapter.setLoading(false)
