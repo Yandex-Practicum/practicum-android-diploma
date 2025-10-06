@@ -16,16 +16,16 @@ interface VacancyDao {
     suspend fun setFavoriteVacancy(vacancy: VacancyEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun setFavoriteArea(area: AreaEntity?)
+    suspend fun setFavoriteArea(area: AreaEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun setFavoriteEmployer(employer: EmployerEntity?)
+    suspend fun setFavoriteEmployer(employer: EmployerEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun setFavoriteSalary(salary: SalaryEntity?)
+    suspend fun setFavoriteSalary(salary: SalaryEntity)
 
     @Transaction
-    suspend fun setVacancyTransaction(vacancy: VacancyEntity,area: AreaEntity?,employer: EmployerEntity?, salary: SalaryEntity?){
+    suspend fun setVacancyTransaction(vacancy: VacancyEntity,area: AreaEntity,employer: EmployerEntity, salary: SalaryEntity){
         setFavoriteVacancy(vacancy = vacancy)
         setFavoriteArea(area = area)
         setFavoriteEmployer(employer = employer)

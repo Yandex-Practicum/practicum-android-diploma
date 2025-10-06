@@ -22,14 +22,14 @@ class SearchViewModel(
 ) : ViewModel() {
     init {
         viewModelScope.launch {
-            interactor.setVacancy(
+            /*interactor.setVacancy(
                 Vacancy(
                     "5","afasf","asfasdfaef", Salary(null,null,"afafdsd"), Employer("as","aaf","afaf"),
                     Area("afaf","adfafdsd")
 
 
                 )
-            )
+            )*/
             interactor.checkVacancyInFavorite(2).collect{
                 Log.v("my","view model  $it")
             }

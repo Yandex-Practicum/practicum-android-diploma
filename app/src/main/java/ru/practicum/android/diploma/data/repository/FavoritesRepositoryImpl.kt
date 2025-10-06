@@ -21,12 +21,12 @@ class FavoritesRepositoryImpl(
         val area =  vacancy.area?.let { converterArea.map(it) }
         val employer =  vacancy.employer?.let { converterEmployer.map(it) }
         val salary =  vacancy.salary?.let { converterSalary.map(it) }
-        database.setVacancyTransaction(
+        /*database.setVacancyTransaction(
             vacancy = converterVacancy.map(vacancy = vacancy, area = area?.pk, employer = employer?.pk, salary = salary?.pk),
             area = area,
             employer = employer,
             salary = salary
-        )
+        )*/
     }
 
     override fun getAllVacancies(): Flow<List<Vacancy>> {
