@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 class FavoritesInteractorImpl(
     private val repository: FavoritesRepository
 ) : FavoritesInteractor {
-    override fun setVacancy(vacancy: Vacancy):Flow<Boolean> {
+    override fun setVacancy(vacancy: Vacancy): Flow<Boolean> {
         return repository.setVacancy(vacancy = vacancy)
     }
 

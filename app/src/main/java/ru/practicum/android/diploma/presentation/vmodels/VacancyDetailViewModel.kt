@@ -74,7 +74,8 @@ class VacancyDetailViewModel(
         deleteFavoritesJob?.cancel()
         deleteFavoritesJob = viewModelScope.launch {
             if (_vacancyDetailState.value is VacancyDetailState.Success) {
-                interactorFavorites.deleteVacancyFromFavorite((_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.id)
+                interactorFavorites.deleteVacancyFromFavorite(
+                    (_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.id)
                     .collect { delete ->
                         _vacancyFavoriteState.postValue(!delete)
                     }

@@ -55,10 +55,10 @@ class VacancyDetailFragment : Fragment() {
         }
     }
 
-    private fun renderFavorites(value: Boolean){
-        if(value) {
+    private fun renderFavorites(value: Boolean) {
+        if (value) {
             binding.favoriteButton.setImageResource(R.drawable.favorite_icon_red)
-        }else{
+        } else {
             binding.favoriteButton.setImageResource(R.drawable.favorite_icon)
         }
     }
