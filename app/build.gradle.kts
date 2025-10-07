@@ -57,7 +57,11 @@ dependencies {
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+<<<<<<< HEAD
     kapt(libs.androidx.room.compiler.v261) // Kotlin-кодогенератор
+=======
+    kapt("androidx.room:room-compiler:$roomVersion") // Kotlin-кодогенератор
+>>>>>>> refs/heads/develop
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
