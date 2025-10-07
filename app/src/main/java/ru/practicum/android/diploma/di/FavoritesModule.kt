@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.di
 
 import androidx.room.Room
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.database.AppDatabase
@@ -21,6 +22,9 @@ val favoritesModule = module {
             .build()
             .getVacancyDao()
     }
+    single<Gson> {
+        Gson()
+    }
     factory<FavoritesRepository> {
         FavoritesRepositoryImpl(get(), get(), get(), get(), get())
     }
@@ -28,7 +32,7 @@ val favoritesModule = module {
         FavoritesInteractorImpl(get())
     }
     factory<VacancyDbConverter> {
-        VacancyDbConverter()
+        VacancyDbConverter(get())
     }
     factory<AreaDbConverter> {
         AreaDbConverter()

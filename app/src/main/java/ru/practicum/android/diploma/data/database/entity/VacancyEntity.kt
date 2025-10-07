@@ -12,7 +12,7 @@ data class VacancyEntity(
     @ColumnInfo(name = "vacancy_title")
     val title: String,
     val description: String,
-    val salary: UUID?,
-    val employer: UUID?,
-    val area: UUID?
+    val salary: String,
+    val employer: String,
+    val area: String
 )

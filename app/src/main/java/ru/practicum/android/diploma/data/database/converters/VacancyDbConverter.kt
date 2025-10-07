@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.database.converters
 
+import com.google.gson.Gson
 import ru.practicum.android.diploma.data.database.entity.AreaEntity
 import ru.practicum.android.diploma.data.database.entity.EmployerEntity
 import ru.practicum.android.diploma.data.database.entity.SalaryEntity
@@ -10,7 +11,9 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 import java.util.UUID
 
-class VacancyDbConverter {
+class VacancyDbConverter(
+    private val gson: Gson
+) {
 
     // Domain -> Entity
     fun map(vacancy: Vacancy, area: UUID?, employer: UUID?, salary: UUID?): VacancyEntity {
@@ -18,9 +21,9 @@ class VacancyDbConverter {
             id = vacancy.id.toIntOrNull() ?: 0,
             title = vacancy.title,
             description = vacancy.description,
-            salary = salary,
-            employer = employer,
-            area = area
+            salary = gson.toJson(vacancy.salary),
+            employer = gson.toJson(vacancy.employer),
+            area = gson.toJson(vacancy.area)
         )
     }
 
