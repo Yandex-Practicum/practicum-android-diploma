@@ -5,6 +5,9 @@ java = "VERSION_1_8"
 # Build constants
 minSdk = "26"
 compileSdk = "34"
+roomCompiler = "2.6.1"
+roomRuntime = "2.5.1"
+roomVersion = "2.7.2"
 targetSdk = "33"
 
 # Detekt
@@ -14,6 +17,10 @@ detektTwitterComposeRules ="0.0.26"
 [libraries]
 
 # Detekt
+androidx-room-compiler-v261 = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+room-compiler-v272 = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
