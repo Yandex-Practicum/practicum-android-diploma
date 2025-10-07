@@ -38,6 +38,9 @@ class VacancyDetailFragment : Fragment() {
         binding.returnButton.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.favoriteButton.setOnClickListener {
+            viewModel.addFavorites(vacancyId)
+        }
     }
 
     private fun observeViewModel() {

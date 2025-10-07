@@ -1,8 +1,5 @@
 package ru.practicum.android.diploma.data.database.converters
 
-import ru.practicum.android.diploma.data.database.entity.AreaEntity
-import ru.practicum.android.diploma.data.database.entity.EmployerEntity
-import ru.practicum.android.diploma.data.database.entity.SalaryEntity
 import ru.practicum.android.diploma.data.database.entity.VacancyEntity
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Employer

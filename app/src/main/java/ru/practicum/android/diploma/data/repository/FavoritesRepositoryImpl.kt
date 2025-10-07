@@ -9,17 +9,25 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavoritesRepositoryImpl(
     private val database: VacancyDao,
-    private val converter: VacancyDbConverter
+    private val converterVacancy: VacancyDbConverter
 ) : FavoritesRepository {
     override suspend fun setVacancy(vacancy: Vacancy) {
-        val vacancyEntity = converter.map(vacancy = vacancy)
+        val vacancyEntity = converterVacancy.map(vacancy)
         database.setFavoriteVacancy(vacancyEntity)
+    }
+
+    override fun getVacancy(id: Int): Flow<Vacancy> {
+        return flow {
+            val vacancyEntity = database.getFavoritesVacancyById(id)
+            val vacancy = converterVacancy.map(vacancyEntity)
+            emit(vacancy)
+        }
     }
 
     override fun getAllVacancies(): Flow<List<Vacancy>> {
         return flow {
-            /*val listVacancy = converter.map(database.getAllFavoritesVacancies())
-            emit(listVacancy)*/
+            val listVacancyEntity = database.getAllFavoritesVacancies()
+            emit(converterVacancy.map(listVacancyEntity))
         }
     }
 
