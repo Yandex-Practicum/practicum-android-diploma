@@ -1,22 +1,17 @@
 package ru.practicum.android.diploma.data.database.converters
 
 import com.google.gson.Gson
-import ru.practicum.android.diploma.data.database.entity.AreaEntity
-import ru.practicum.android.diploma.data.database.entity.EmployerEntity
-import ru.practicum.android.diploma.data.database.entity.SalaryEntity
 import ru.practicum.android.diploma.data.database.entity.VacancyEntity
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Employer
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
-import java.util.UUID
 
 class VacancyDbConverter(
     private val gson: Gson
 ) {
-
     // Domain -> Entity
-    fun map(vacancy: Vacancy, area: UUID?, employer: UUID?, salary: UUID?): VacancyEntity {
+    fun map(vacancy: Vacancy): VacancyEntity {
         return VacancyEntity(
             id = vacancy.id.toIntOrNull() ?: 0,
             title = vacancy.title,
@@ -29,41 +24,30 @@ class VacancyDbConverter(
 
     // Entity -> Domain
     fun map(
-        vacancyEntity: VacancyEntity,
-        salaryEntity: SalaryEntity?,
-        employerEntity: EmployerEntity?,
-        areaEntity: AreaEntity?
+        vacancyEntity: VacancyEntity
     ): Vacancy {
         return Vacancy(
             id = vacancyEntity.id.toString(),
             title = vacancyEntity.title,
             description = vacancyEntity.description,
-            salary = mapSalary(salaryEntity),
-            employer = mapEmployee(employerEntity),
-            area = mapArea(areaEntity)
+            salary = gson.fromJson(vacancyEntity.salary, Salary::class.java),
+            employer = gson.fromJson(vacancyEntity.salary, Employer::class.java),
+            area = gson.fromJson(vacancyEntity.salary, Area::class.java),
         )
     }
 
-    fun map(
-        list: List<VacancyEntity>,
-        salaryEntity: SalaryEntity?,
-        employerEntity: EmployerEntity?,
-        areaEntity: AreaEntity?
-    ): List<Vacancy> {
-        return list.map {
-            map(it, salaryEntity, employerEntity, areaEntity)
+    fun map(vacancyEntityList: List<VacancyEntity>): List<Vacancy> {
+        return vacancyEntityList.map {
+            with(it) {
+                Vacancy(
+                    id = it.id.toString(),
+                    title = it.title,
+                    description = it.description,
+                    salary = gson.fromJson(it.salary, Salary::class.java),
+                    employer = gson.fromJson(it.employer, Employer::class.java),
+                    area = gson.fromJson(it.area, Area::class.java)
+                )
+            }
         }
-    }
-
-    private fun mapSalary(salaryEntity: SalaryEntity?): Salary? {
-        return salaryEntity?.let { Salary(to = it.to, from = it.from, currency = it.currency) }
-    }
-
-    private fun mapEmployee(employerEntity: EmployerEntity?): Employer? {
-        return employerEntity?.let { Employer(id = it.id, name = it.name, logoUrl = it.logoUrl) }
-    }
-
-    private fun mapArea(areaEntity: AreaEntity?): Area? {
-        return areaEntity?.let { Area(id = it.id, name = it.name) }
     }
 }

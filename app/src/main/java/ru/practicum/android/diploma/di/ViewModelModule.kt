@@ -5,5 +5,5 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.ui.search.SearchViewModel
 
 val viewModelModule = module {
-    viewModel { SearchViewModel(searchVacanciesUseCase = get(),get()) }
+    viewModel { SearchViewModel(searchVacanciesUseCase = get()) }
 }
