@@ -13,6 +13,8 @@
     <string name="error_server">Ошибка сервера</string>
     <string name="error_unknown">Произошла неизвестная ошибка</string>
     <string name="vacancy">Вакансии</string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="description">Описание вакансии</string>
     <!-- Для состояния "нет результатов" -->
     <string name="no_results_title">Ничего не найдено</string>
     <string name="no_results_subtitle">Не удалось получить список вакансий</string>

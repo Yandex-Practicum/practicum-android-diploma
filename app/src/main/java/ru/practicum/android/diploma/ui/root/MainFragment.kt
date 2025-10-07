@@ -106,12 +106,14 @@ class MainFragment : Fragment() {
                     adapter.setLoading(false)
                     adapter.setHasMore(viewModel.hasMorePages())
                 }
+
                 is SearchState.Error -> showErrorState(state.message)
                 is SearchState.LoadingNextPage -> {
                     println("DEBUG: Loading next page state")
                     adapter.setLoading(true)
                     adapter.setHasMore(true)
                 }
+
                 is SearchState.NextPageError -> {
                     adapter.setLoading(false)
                     requireContext().showToast(state.message)
@@ -196,8 +198,9 @@ class MainFragment : Fragment() {
 
     private fun onVacancyClick(vacancy: Vacancy) {
         requireContext().showToast("Открываем вакансию: ${vacancy.title}")
-        // Навигация к экрану деталей вакансии будет добавлена позже
-        // findNavController().navigate(MainFragmentDirections.actionMainFragmentToVacancyDetailsFragment(vacancy.id))
+        val bundle = Bundle()
+        bundle.putString("vacancyId", vacancy.id)
+        findNavController().navigate(R.id.action_mainFragment_to_vacancyDetailFragment, bundle)
     }
 
     override fun onDestroyView() {

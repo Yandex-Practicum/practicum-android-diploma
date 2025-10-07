@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_mainFragment_to_filtrationFragment"
             app:destination="@id/filtrationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_vacancyDetailFragment"
+            app:destination="@id/vacancyDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -48,4 +51,8 @@
             android:id="@+id/action_filtrationFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/vacancyDetailFragment"
+        android:name="ru.practicum.android.diploma.ui.root.VacancyDetailFragment"
+        android:label="VacancyDetailFragment" />
 </navigation>
