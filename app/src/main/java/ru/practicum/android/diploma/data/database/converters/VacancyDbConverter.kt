@@ -13,7 +13,7 @@ class VacancyDbConverter(
     // Domain -> Entity
     fun map(vacancy: Vacancy): VacancyEntity {
         return VacancyEntity(
-            id = vacancy.id.toIntOrNull() ?: 0,
+            id = vacancy.id,
             title = vacancy.title,
             description = vacancy.description,
             salary = gson.toJson(vacancy.salary),

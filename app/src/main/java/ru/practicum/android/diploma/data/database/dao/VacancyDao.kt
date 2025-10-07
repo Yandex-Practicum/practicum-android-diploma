@@ -8,18 +8,18 @@ import ru.practicum.android.diploma.data.database.entity.VacancyEntity
 
 @Dao
 interface VacancyDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun setFavoriteVacancy(vacancy: VacancyEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun setFavoriteVacancy(vacancy: VacancyEntity): Long
 
     @Query("SELECT * FROM vacancy_table WHERE vacancy_id=:id")
-    suspend fun getFavoritesVacancyById(id: Int): VacancyEntity
+    suspend fun getFavoritesVacancyById(id: String): VacancyEntity
 
     @Query("SELECT * FROM vacancy_table")
     suspend fun getAllFavoritesVacancies(): List<VacancyEntity>
 
     @Query("SELECT EXISTS (SELECT 1 FROM vacancy_table WHERE vacancy_id =:id)")
-    suspend fun checkInFavorite(id: Int): Boolean
+    suspend fun checkInFavorite(id: String): Boolean
 
     @Query("DELETE FROM vacancy_table WHERE vacancy_id =:id")
-    suspend fun deleteVacancyFromFavorites(id: Int): Int?
+    suspend fun deleteVacancyFromFavorites(id: String): Int?
 }
