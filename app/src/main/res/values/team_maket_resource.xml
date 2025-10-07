@@ -12,5 +12,5 @@
         <item name="android:textSize">16sp</item>
     </style>
     <string name="app_developers">Над приложением работали</string>
-    <string name="developers_names">Разработчик 1 \n\nРазработчик 2 \n\nРазработчик 3 \n\nРазработчик 4 \n\nРазработчик 5 \n\n</string>
+    <string name="developers_names">Александр Бочкарев Разработчик \n\nРуслан Соловьев Разработчик \n\nДмитрий Мариевский Разработчик \n\nМихаил Горелов Разработчик \n\nВиктор Фролов Разработчик \n\n</string>
 </resources>
