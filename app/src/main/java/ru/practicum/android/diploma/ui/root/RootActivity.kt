@@ -24,6 +24,7 @@ class RootActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottomNavigationView.isVisible = destination.id != R.id.filtrationFragment
+            bottomNavigationView.isVisible = destination.id != R.id.vacancyDetailFragment
         }
     }
 }
