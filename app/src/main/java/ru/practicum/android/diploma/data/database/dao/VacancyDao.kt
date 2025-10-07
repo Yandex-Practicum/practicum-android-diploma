@@ -11,11 +11,11 @@ interface VacancyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setFavoriteVacancy(vacancy: VacancyEntity)
 
+    @Query("SELECT * FROM vacancy_table WHERE vacancy_id=:id")
+    suspend fun getFavoritesVacancyById(id: Int): VacancyEntity
+
     @Query("SELECT * FROM vacancy_table")
     suspend fun getAllFavoritesVacancies(): List<VacancyEntity>
-
-    @Query("SELECT vacancy_id FROM vacancy_table")
-    suspend fun getFavoritesVacancyById(): List<Int>
 
     @Query("SELECT EXISTS (SELECT 1 FROM vacancy_table WHERE vacancy_id =:id)")
     suspend fun checkInFavorite(id: Int): Boolean
