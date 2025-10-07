@@ -8,11 +8,11 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 class FavoritesInteractorImpl(
     private val repository: FavoritesRepository
 ) : FavoritesInteractor {
-    override suspend fun setVacancy(vacancy: Vacancy) {
-        repository.setVacancy(vacancy = vacancy)
+    override fun setVacancy(vacancy: Vacancy):Flow<Boolean> {
+        return repository.setVacancy(vacancy = vacancy)
     }
 
-    override fun getVacancy(id: Int): Flow<Vacancy> {
+    override fun getVacancy(id: String): Flow<Vacancy> {
         return repository.getVacancy(id = id)
     }
 
@@ -20,11 +20,11 @@ class FavoritesInteractorImpl(
         return repository.getAllVacancies()
     }
 
-    override fun checkVacancyInFavorite(id: Int): Flow<Boolean> {
+    override fun checkVacancyInFavorite(id: String): Flow<Boolean> {
         return repository.checkVacanciesInFavorite(id)
     }
 
-    override fun deleteVacancyFromFavorite(id: Int): Flow<Boolean> {
+    override fun deleteVacancyFromFavorite(id: String): Flow<Boolean> {
         return repository.deleteVacancyFromFavorite(id)
     }
 }

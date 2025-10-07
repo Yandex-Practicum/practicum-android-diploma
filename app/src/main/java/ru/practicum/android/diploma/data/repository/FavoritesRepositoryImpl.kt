@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.database.converters.VacancyDbConverter
@@ -11,12 +12,20 @@ class FavoritesRepositoryImpl(
     private val database: VacancyDao,
     private val converterVacancy: VacancyDbConverter
 ) : FavoritesRepository {
-    override suspend fun setVacancy(vacancy: Vacancy) {
-        val vacancyEntity = converterVacancy.map(vacancy)
-        database.setFavoriteVacancy(vacancyEntity)
+    override fun setVacancy(vacancy: Vacancy): Flow<Boolean> {
+        return flow {
+            val vacancyEntity = converterVacancy.map(vacancy)
+            val response = database.setFavoriteVacancy(vacancyEntity)
+            Log.v("my", "response  $response")
+            if (response > -1) {
+                emit(true)
+            } else {
+                emit(false)
+            }
+        }
     }
 
-    override fun getVacancy(id: Int): Flow<Vacancy> {
+    override fun getVacancy(id: String): Flow<Vacancy> {
         return flow {
             val vacancyEntity = database.getFavoritesVacancyById(id)
             val vacancy = converterVacancy.map(vacancyEntity)
@@ -31,14 +40,14 @@ class FavoritesRepositoryImpl(
         }
     }
 
-    override fun checkVacanciesInFavorite(id: Int): Flow<Boolean> {
+    override fun checkVacanciesInFavorite(id: String): Flow<Boolean> {
         return flow {
             val response = database.checkInFavorite(id = id)
             emit(response)
         }
     }
 
-    override fun deleteVacancyFromFavorite(id: Int): Flow<Boolean> {
+    override fun deleteVacancyFromFavorite(id: String): Flow<Boolean> {
         return flow {
             val response = database.deleteVacancyFromFavorites(id)
             if (response == null || response == 0) {

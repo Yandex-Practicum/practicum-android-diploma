@@ -34,12 +34,13 @@ class VacancyDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val vacancyId = arguments?.getString("vacancyId").toString()
         viewModel.search(vacancyId)
+        viewModel.checkFavorites(vacancyId)
         observeViewModel()
         binding.returnButton.setOnClickListener {
             findNavController().navigateUp()
         }
         binding.favoriteButton.setOnClickListener {
-            viewModel.addFavorites(vacancyId)
+            viewModel.addFavorites()
         }
     }
 
@@ -48,6 +49,17 @@ class VacancyDetailFragment : Fragment() {
             when (state) {
                 is VacancyDetailState.Success -> getVacancyDetail(state.vacancyDetail)
             }
+        }
+        viewModel.vacancyFavoriteState.observe(viewLifecycleOwner) { state ->
+            renderFavorites(state)
+        }
+    }
+
+    private fun renderFavorites(value: Boolean){
+        if(value) {
+            binding.favoriteButton.setImageResource(R.drawable.favorite_icon_red)
+        }else{
+            binding.favoriteButton.setImageResource(R.drawable.favorite_icon)
         }
     }
 
