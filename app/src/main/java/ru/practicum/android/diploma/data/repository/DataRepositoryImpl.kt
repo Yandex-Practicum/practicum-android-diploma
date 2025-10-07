@@ -91,7 +91,8 @@ class DataRepositoryImpl(
         }
     }
 
-    private fun handleSuccessResponseVacancyDetail(body: VacancyDetailSearchResponse?): Resource<SearchResultVacancyDetail> {
+    private fun handleSuccessResponseVacancyDetail(body: VacancyDetailSearchResponse?):
+        Resource<SearchResultVacancyDetail> {
         return if (body != null) {
             createSuccessResultVacancyDetail(body)
         } else {
