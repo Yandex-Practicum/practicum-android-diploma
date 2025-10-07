@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="attr_white_black_color" format="color" />
+    <attr name="attr_black_white_color" format="color" />
+</resources>

@@ -16,5 +16,6 @@
         <item name="edit_text_background_color">#C9CDDF</item>
         <item name="hint_color_edit_text">@color/grey</item>
         <item name="attr_white_black_color">@color/black</item>
+        <item name="attr_black_white_color">@color/white</item>
     </style>
 </resources>

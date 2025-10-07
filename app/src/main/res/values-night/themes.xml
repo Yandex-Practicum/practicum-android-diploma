@@ -17,5 +17,6 @@
         <item name="edit_text_background_color">@color/grey</item>
         <item name="hint_color_edit_text">@color/white</item>
         <item name="attr_white_black_color">@color/white</item>
+        <item name="attr_black_white_color">@color/black</item>
     </style>
 </resources>
