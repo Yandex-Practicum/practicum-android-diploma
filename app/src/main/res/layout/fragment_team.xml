@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="16dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,12 +16,25 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingStart="@dimen/merge_size"
             android:text="@string/team"
-            android:textColor="@color/black"
+            android:textColor="?attr/maket_team_black_white_color"
             android:textSize="@dimen/text_size"
             tools:ignore="RtlSymmetry" />
-
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textColor="?attr/maket_team_black_white_color"
+        android:textAppearance="@style/textAppearanceBold32sp700w"
+        android:text="@string/app_developers" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/textAppearanceMedium16sp500w"
+        android:layout_marginTop="24dp"
+        android:textColor="?attr/maket_team_black_white_color"
+        android:text="@string/developers_names" />
 </LinearLayout>

@@ -12,6 +12,8 @@
         <item name="colorOnSurface">@color/text_primary_dark</item>
         <item name="colorSurface">@color/background_dark</item>
 
+        <item name="maket_team_black_white_color">@color/white</item>
+
         <item name="edit_text_background_color">@color/grey</item>
         <item name="hint_color_edit_text">@color/white</item>
         <item name="attr_white_black_color">@color/white</item>
