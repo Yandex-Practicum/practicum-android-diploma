@@ -1,51 +1,67 @@
 package ru.practicum.android.diploma.data.database.converters
 
 import com.google.gson.Gson
-import ru.practicum.android.diploma.data.database.entity.VacancyEntity
+import ru.practicum.android.diploma.data.database.entity.VacancyDetailEntity
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Employment
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.FilterIndustry
 import ru.practicum.android.diploma.domain.models.Salary
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.Schedule
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 
-class VacancyDbConverter(
+class VacancyDetailDbConverter(
     private val gson: Gson
 ) {
     // Domain -> Entity
-    fun map(vacancy: Vacancy): VacancyEntity {
-        return VacancyEntity(
+    fun map(vacancy: VacancyDetail): VacancyDetailEntity {
+        return VacancyDetailEntity(
             id = vacancy.id,
-            title = vacancy.title,
+            title = vacancy.name,
             description = vacancy.description,
             salary = gson.toJson(vacancy.salary),
             employer = gson.toJson(vacancy.employer),
-            area = gson.toJson(vacancy.area)
+            industry = gson.toJson(vacancy.industry),
+            area = gson.toJson(vacancy.area),
+            experience = gson.toJson(vacancy.experience),
+            schedule = gson.toJson(vacancy.schedule),
+            employment = gson.toJson(vacancy.employment)
         )
     }
 
     // Entity -> Domain
     fun map(
-        vacancyEntity: VacancyEntity
-    ): Vacancy {
-        return Vacancy(
-            id = vacancyEntity.id.toString(),
-            title = vacancyEntity.title,
-            description = vacancyEntity.description,
-            salary = gson.fromJson(vacancyEntity.salary, Salary::class.java),
-            employer = gson.fromJson(vacancyEntity.salary, Employer::class.java),
-            area = gson.fromJson(vacancyEntity.salary, Area::class.java),
+        vacancyDetailEntity: VacancyDetailEntity
+    ): VacancyDetail {
+        return VacancyDetail(
+            id = vacancyDetailEntity.id,
+            name = vacancyDetailEntity.title,
+            description = vacancyDetailEntity.description,
+            salary = gson.fromJson(vacancyDetailEntity.salary, Salary::class.java),
+            employer = gson.fromJson(vacancyDetailEntity.salary, Employer::class.java),
+            industry = gson.fromJson(vacancyDetailEntity.salary, FilterIndustry::class.java),
+            area = gson.fromJson(vacancyDetailEntity.salary, Area::class.java),
+            experience = gson.fromJson(vacancyDetailEntity.salary, Experience::class.java),
+            schedule = gson.fromJson(vacancyDetailEntity.salary, Schedule::class.java),
+            employment = gson.fromJson(vacancyDetailEntity.salary, Employment::class.java)
         )
     }
 
-    fun map(vacancyEntityList: List<VacancyEntity>): List<Vacancy> {
-        return vacancyEntityList.map {
+    fun map(vacancyDetailEntityList: List<VacancyDetailEntity>): List<VacancyDetail> {
+        return vacancyDetailEntityList.map {
             with(it) {
-                Vacancy(
-                    id = it.id.toString(),
-                    title = it.title,
-                    description = it.description,
-                    salary = gson.fromJson(it.salary, Salary::class.java),
-                    employer = gson.fromJson(it.employer, Employer::class.java),
-                    area = gson.fromJson(it.area, Area::class.java)
+                VacancyDetail(
+                    id = id,
+                    name = title,
+                    description = description,
+                    salary = gson.fromJson(salary, Salary::class.java),
+                    employer = gson.fromJson(employer, Employer::class.java),
+                    industry = gson.fromJson(industry, FilterIndustry::class.java),
+                    area = gson.fromJson(area, Area::class.java),
+                    experience = gson.fromJson(experience, Experience::class.java),
+                    schedule = gson.fromJson(schedule, Schedule::class.java),
+                    employment = gson.fromJson(employment, Employment::class.java)
                 )
             }
         }

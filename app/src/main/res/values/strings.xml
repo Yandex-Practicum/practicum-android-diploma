@@ -3,6 +3,7 @@
     <string name="main">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="not_money">Зарплата не указана</string>
     <string name="job_search">Поиск вакансий</string>
     <string name="filtration_settings">Настройки фильтрации</string>
     <string name="search_hint">Должность, навыки или компания</string>

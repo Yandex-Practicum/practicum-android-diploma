@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root.favorites
+package ru.practicum.android.diploma.presentation.vmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.root.favorites.models.FavoritesState
 
 class FavoritesViewModel(
@@ -28,7 +29,18 @@ class FavoritesViewModel(
             favoritesInteractor.getAllVacancies().collect { list ->
                 if (list.isNotEmpty()) {
                     _favoritesState.postValue(
-                        FavoritesState.Complete(list)
+                        FavoritesState.Complete(
+                            list.map {
+                                Vacancy(
+                                    id = it.id,
+                                    title = it.name,
+                                    description = it.description,
+                                    salary = it.salary,
+                                    employer = it.employer,
+                                    area = it.area
+                                )
+                            }
+                        )
                     )
                 } else {
                     _favoritesState.postValue(

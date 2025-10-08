@@ -3,16 +3,16 @@ package ru.practicum.android.diploma.data.repository
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.database.converters.VacancyDbConverter
+import ru.practicum.android.diploma.data.database.converters.VacancyDetailDbConverter
 import ru.practicum.android.diploma.data.database.dao.VacancyDao
 import ru.practicum.android.diploma.domain.api.FavoritesRepository
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 class FavoritesRepositoryImpl(
     private val database: VacancyDao,
-    private val converterVacancy: VacancyDbConverter
+    private val converterVacancy: VacancyDetailDbConverter
 ) : FavoritesRepository {
-    override fun setVacancy(vacancy: Vacancy): Flow<Boolean> {
+    override fun setVacancy(vacancy: VacancyDetail): Flow<Boolean> {
         return flow {
             val vacancyEntity = converterVacancy.map(vacancy)
             val response = database.setFavoriteVacancy(vacancyEntity)
@@ -25,7 +25,7 @@ class FavoritesRepositoryImpl(
         }
     }
 
-    override fun getVacancy(id: String): Flow<Vacancy> {
+    override fun getVacancy(id: String): Flow<VacancyDetail> {
         return flow {
             val vacancyEntity = database.getFavoritesVacancyById(id)
             val vacancy = converterVacancy.map(vacancyEntity)
@@ -33,7 +33,7 @@ class FavoritesRepositoryImpl(
         }
     }
 
-    override fun getAllVacancies(): Flow<List<Vacancy>> {
+    override fun getAllVacancies(): Flow<List<VacancyDetail>> {
         return flow {
             val listVacancyEntity = database.getAllFavoritesVacancies()
             emit(converterVacancy.map(listVacancyEntity))

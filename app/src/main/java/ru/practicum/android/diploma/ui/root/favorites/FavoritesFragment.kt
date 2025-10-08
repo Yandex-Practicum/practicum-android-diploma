@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
+import ru.practicum.android.diploma.presentation.vmodels.FavoritesViewModel
 import ru.practicum.android.diploma.ui.root.favorites.models.FavoritesState
 import ru.practicum.android.diploma.ui.search.VacanciesAdapter
 
@@ -17,9 +19,12 @@ class FavoritesFragment : Fragment() {
     private val viewModel by viewModel<FavoritesViewModel>()
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val adapter = VacanciesAdapter {
+    private val adapter = VacanciesAdapter { vacancy ->
         findNavController().navigate(
-            R.id.action_favoritesFragment_to_vacancyDetailFragment
+            R.id.action_favoritesFragment_to_vacancyDetailFragment,
+            bundleOf(
+                ARGS_VACANCY_ID_BY_DB to vacancy.id
+             )
         )
     }
 
@@ -103,5 +108,9 @@ class FavoritesFragment : Fragment() {
 
     private fun renderRecycler(value: Boolean) {
         binding.recycler.isVisible = value
+    }
+
+    private companion object{
+        private const val ARGS_VACANCY_ID_BY_DB = "vacancyIdByDatabase"
     }
 }
