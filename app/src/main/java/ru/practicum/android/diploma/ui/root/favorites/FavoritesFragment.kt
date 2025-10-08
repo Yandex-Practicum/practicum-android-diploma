@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
-import ru.practicum.android.diploma.ui.models.FavoritesState
+import ru.practicum.android.diploma.ui.root.favorites.models.FavoritesState
 import ru.practicum.android.diploma.ui.search.VacanciesAdapter
 
 class FavoritesFragment : Fragment() {

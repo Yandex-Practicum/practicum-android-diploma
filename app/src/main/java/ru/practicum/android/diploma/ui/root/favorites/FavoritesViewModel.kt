@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
-import ru.practicum.android.diploma.ui.models.FavoritesState
+import ru.practicum.android.diploma.ui.root.favorites.models.FavoritesState
 
 class FavoritesViewModel(
     private val favoritesInteractor: FavoritesInteractor
