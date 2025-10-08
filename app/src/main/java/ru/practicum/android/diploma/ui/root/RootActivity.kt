@@ -24,11 +24,12 @@ class RootActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when(destination.id){
+            when (destination.id) {
                 R.id.filtrationFragment, R.id.vacancyDetailFragment -> {
                     bottomNavigationView.isVisible = false
                     line.isVisible = false
                 }
+
                 else -> {
                     bottomNavigationView.isVisible = true
                     line.isVisible = true
