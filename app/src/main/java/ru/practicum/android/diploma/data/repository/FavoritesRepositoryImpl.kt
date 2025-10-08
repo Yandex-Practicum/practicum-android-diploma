@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.database.converters.VacancyDetailDbConverter
@@ -16,7 +15,6 @@ class FavoritesRepositoryImpl(
         return flow {
             val vacancyEntity = converterVacancy.map(vacancy)
             val response = database.setFavoriteVacancy(vacancyEntity)
-            Log.v("my", "response  $response")
             if (response > -1) {
                 emit(true)
             } else {

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.vmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,6 +34,7 @@ class VacancyDetailViewModel(
             vacancyByDatabase?.cancel()
             vacancyByDatabase = viewModelScope.launch {
                 interactorFavorites.getVacancy(id).collect { vacancy ->
+                    Log.v("my", "vm \n"+vacancy.toString())
                     _vacancyDetailState.postValue(VacancyDetailState.Success(vacancy))
                 }
             }
@@ -61,6 +63,7 @@ class VacancyDetailViewModel(
 
     fun addFavorites() {
         if (_vacancyFavoriteState.value == false) {
+            Log.v("my", (_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.toString())
             addFavoritesJob?.cancel()
             addFavoritesJob = viewModelScope.launch {
                 if (_vacancyDetailState.value is VacancyDetailState.Success) {

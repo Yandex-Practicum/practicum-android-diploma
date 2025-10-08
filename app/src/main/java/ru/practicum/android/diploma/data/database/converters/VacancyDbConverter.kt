@@ -39,12 +39,12 @@ class VacancyDetailDbConverter(
             name = vacancyDetailEntity.title,
             description = vacancyDetailEntity.description,
             salary = gson.fromJson(vacancyDetailEntity.salary, Salary::class.java),
-            employer = gson.fromJson(vacancyDetailEntity.salary, Employer::class.java),
-            industry = gson.fromJson(vacancyDetailEntity.salary, FilterIndustry::class.java),
-            area = gson.fromJson(vacancyDetailEntity.salary, Area::class.java),
-            experience = gson.fromJson(vacancyDetailEntity.salary, Experience::class.java),
-            schedule = gson.fromJson(vacancyDetailEntity.salary, Schedule::class.java),
-            employment = gson.fromJson(vacancyDetailEntity.salary, Employment::class.java)
+            employer = gson.fromJson(vacancyDetailEntity.employer, Employer::class.java),
+            industry = gson.fromJson(vacancyDetailEntity.industry, FilterIndustry::class.java),
+            area = gson.fromJson(vacancyDetailEntity.area, Area::class.java),
+            experience = gson.fromJson(vacancyDetailEntity.experience, Experience::class.java),
+            schedule = gson.fromJson(vacancyDetailEntity.schedule, Schedule::class.java),
+            employment = gson.fromJson(vacancyDetailEntity.employment, Employment::class.java)
         )
     }
 
