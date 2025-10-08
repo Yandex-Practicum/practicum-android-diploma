@@ -58,12 +58,12 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_edit_text"
+                style="@style/text_black_white_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_hint"
                 android:imeOptions="actionSearch"
-                android:maxLines="1"
-                android:textColor="@color/black" />
+                android:maxLines="1"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,10 +134,10 @@
         <!-- Текст "Нет интернета" под картинкой -->
         <TextView
             android:id="@+id/error_state_text"
+            style="@style/text_black_white_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_internet_title"
-            android:textColor="@color/black2"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -156,6 +156,7 @@
         <!-- Текст "Ничего не найдено" НАД картинкой - на синем фоне -->
         <TextView
             android:id="@+id/no_results_title"
+            style="@style/text_black_white_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_results_title"
@@ -181,10 +182,10 @@
         <!-- Дополнительный текст снизу -->
         <TextView
             android:id="@+id/no_results_subtitle"
+            style="@style/text_black_white_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_results_subtitle"
-            android:textColor="@color/black2"
             android:textSize="22sp"
             android:gravity="center"
             android:paddingStart="48dp"
