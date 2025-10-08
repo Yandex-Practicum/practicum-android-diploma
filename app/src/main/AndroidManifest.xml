@@ -6,28 +6,28 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="ru.practicum.android.diploma.App"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
         android:theme="@style/Theme.Diploma"
-    android:name="ru.practicum.android.diploma.App"
-    android:allowBackup="true"
-    android:dataExtractionRules="@xml/data_extraction_rules"
-    android:fullBackupContent="@xml/backup_rules"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    tools:targetApi="31">
-    <activity
-        android:name=".ui.root.RootActivity"
-        android:exported="true"
-        android:screenOrientation="portrait"
-        tools:ignore="LockedOrientationActivity"
-        android:windowSoftInputMode="adjustNothing">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.root.RootActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-</application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
-    </manifest>
+</manifest>
