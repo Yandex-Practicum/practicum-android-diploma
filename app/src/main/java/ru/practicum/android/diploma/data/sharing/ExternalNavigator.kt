@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.sharing
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -24,7 +25,8 @@ class ExternalNavigator(
                     appContext.getString(R.string.sharing_select_an_application)
                 ).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
+                }
+            )
             return null
         } else {
             return appContext.getString(R.string.sharing_there_are_no_apps)
@@ -53,7 +55,7 @@ class ExternalNavigator(
     private fun startApp(intent: Intent): String? {
         try {
             appContext.startActivity(intent)
-        } catch (e: Exception) {
+        } catch (e: ActivityNotFoundException) {
             return appContext.getString(R.string.sharing_there_are_no_apps)
         }
         return null
