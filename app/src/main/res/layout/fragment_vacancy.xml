@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/attr_black_white_color"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -13,12 +14,12 @@
 
         <TextView
             android:id="@+id/vacancy_text"
+            style="@style/text_black_white_color"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingStart="56dp"
             android:text="@string/vacancy"
-            android:textColor="@color/black"
             android:textSize="@dimen/text_size"
             tools:ignore="RelativeOverlap,RtlSymmetry,SpUsage" />
 
@@ -62,23 +63,23 @@
 
     <TextView
         android:id="@+id/vacancy_title"
+        style="@style/text_black_white_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingStart="16dp"
         android:paddingTop="24dp"
         android:paddingEnd="16dp"
-        android:textColor="@color/black"
         android:textSize="32sp"
         tools:ignore="RtlSymmetry"
         tools:text="Android-разработчик" />
 
     <TextView
         android:id="@+id/salary_text"
+        style="@style/text_black_white_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
-        android:textColor="@color/black"
         android:textSize="22sp"
         tools:ignore="RtlSymmetry"
         tools:text="от 100 000 ₽" />
@@ -93,7 +94,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             app:cardBackgroundColor="@color/light_grey"
             app:cardCornerRadius="8dp">
@@ -152,11 +153,11 @@
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/text_black_white_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:text="@string/experience"
-            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
@@ -167,10 +168,10 @@
 
         <TextView
             android:id="@+id/experience"
+            style="@style/text_black_white_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
-            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="RtlSymmetry"
             tools:text="От 1 года до 3 лет" />
@@ -183,22 +184,22 @@
 
         <TextView
             android:id="@+id/schedule"
+            style="@style/text_black_white_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="16dp"
-            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="RtlSymmetry"
             tools:text="Полная занятость" />
 
         <TextView
             android:id="@+id/employment"
+            style="@style/text_black_white_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="5dp"
-            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="RtlSymmetry"
             tools:text="Удаленная работа" />
@@ -211,12 +212,12 @@
         android:orientation="vertical">
 
         <TextView
+            style="@style/text_black_white_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="16dp"
             android:text="@string/description"
-            android:textColor="@color/black"
             android:textSize="22sp"
             tools:ignore="RtlSymmetry" />
 
@@ -234,11 +235,11 @@
 
             <TextView
                 android:id="@+id/description"
+                style="@style/text_black_white_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:ignore="RtlSymmetry"
                 tools:text="Удаленная работа" />

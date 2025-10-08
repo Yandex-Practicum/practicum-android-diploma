@@ -14,6 +14,7 @@
         app:navGraph="@navigation/navigation_graph" />
 
     <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height=".5dp"
         android:background="?attr/attr_white_black_color"

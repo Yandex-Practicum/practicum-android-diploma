@@ -20,11 +20,20 @@ class RootActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.containerView) as NavHostFragment
         val navController = navHostFragment.navController
         val bottomNavigationView = binding.bottomNavigationView
+        val line = binding.line
         bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            bottomNavigationView.isVisible = destination.id != R.id.filtrationFragment
-            bottomNavigationView.isVisible = destination.id != R.id.vacancyDetailFragment
+            when(destination.id){
+                R.id.filtrationFragment, R.id.vacancyDetailFragment -> {
+                    bottomNavigationView.isVisible = false
+                    line.isVisible = false
+                }
+                else -> {
+                    bottomNavigationView.isVisible = true
+                    line.isVisible = true
+                }
+            }
         }
     }
 }
