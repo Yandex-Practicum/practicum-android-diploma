@@ -31,29 +31,29 @@ class ExternalNavigator(
         }
     }
 
-        fun openEmail(emailData: String):String? {
-            intent.apply {
-                action = Intent.ACTION_SENDTO
-                data = Uri.parse(appContext.getString(R.string.sharedMailto))
-                putExtra(Intent.EXTRA_EMAIL, arrayOf(emailData))
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            return startApp(intent)
+    fun openEmail(emailData: String): String? {
+        intent.apply {
+            action = Intent.ACTION_SENDTO
+            data = Uri.parse(appContext.getString(R.string.sharedMailto))
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(emailData))
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        return startApp(intent)
+    }
 
-        fun openTerms(value: String):String? {
-            intent.apply {
-                action = Intent.ACTION_VIEW
-                data = Uri.parse(value)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            return startApp(intent)
+    fun openTerms(value: String): String? {
+        intent.apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(value)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        return startApp(intent)
+    }
 
-    private fun startApp(intent:Intent):String?{
-        try{
+    private fun startApp(intent: Intent): String? {
+        try {
             appContext.startActivity(intent)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             return appContext.getString(R.string.sharing_there_are_no_apps)
         }
         return null
