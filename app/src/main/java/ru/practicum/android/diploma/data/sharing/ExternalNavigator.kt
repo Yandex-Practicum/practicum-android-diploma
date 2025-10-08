@@ -35,6 +35,7 @@ class ExternalNavigator(
             intent.apply {
                 action = Intent.ACTION_SENDTO
                 data = Uri.parse(appContext.getString(R.string.sharedMailto))
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(emailData))
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             return startApp(intent)
