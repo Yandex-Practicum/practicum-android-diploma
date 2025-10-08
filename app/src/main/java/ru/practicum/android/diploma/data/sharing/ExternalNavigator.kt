@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import ru.practicum.android.diploma.R
 
 class ExternalNavigator(
@@ -57,6 +58,7 @@ class ExternalNavigator(
         try {
             appContext.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
+            Log.e("error", "Error ${e.message.toString()}", e)
             return appContext.getString(R.string.sharing_there_are_no_apps)
         }
         return null
