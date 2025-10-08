@@ -102,12 +102,16 @@ class VacancyDetailFragment : Fragment() {
                     viewModel.sharedEmail(email)
                 }
             }
-
-            var str = ""
-            it.phone?.forEach { tel ->
+            it.phone?.let { phone ->
+                var str = ""
+                phone.forEach { tel ->
                 str += tel + "\n"
             }
-            binding.contactPhone.text = str
+                binding.contactPhone.text = str
+                binding.contactPhone.setOnClickListener {
+                    viewModel.sharedPhone(str)
+                }
+            }
         }
     }
 

@@ -41,10 +41,10 @@ class ExternalNavigator(
             return startApp(intent)
         }
 
-        fun openTerms(value: String):String? {
+        fun openPhone(value: String):String? {
             intent.apply {
-                action = Intent.ACTION_VIEW
-                data = Uri.parse(value)
+                action = Intent.ACTION_DIAL
+                data = Uri.parse("tel: $value")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             return startApp(intent)
