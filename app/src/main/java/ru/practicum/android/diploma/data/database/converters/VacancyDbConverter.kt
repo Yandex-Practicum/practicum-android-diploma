@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.database.converters
 import com.google.gson.Gson
 import ru.practicum.android.diploma.data.database.entity.VacancyDetailEntity
 import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Contact
 import ru.practicum.android.diploma.domain.models.Employer
 import ru.practicum.android.diploma.domain.models.Employment
 import ru.practicum.android.diploma.domain.models.Experience
@@ -26,7 +27,8 @@ class VacancyDetailDbConverter(
             area = gson.toJson(vacancy.area),
             experience = gson.toJson(vacancy.experience),
             schedule = gson.toJson(vacancy.schedule),
-            employment = gson.toJson(vacancy.employment)
+            employment = gson.toJson(vacancy.employment),
+            contact = gson.toJson(vacancy.contact)
         )
     }
 
@@ -44,7 +46,8 @@ class VacancyDetailDbConverter(
             area = gson.fromJson(vacancyDetailEntity.area, Area::class.java),
             experience = gson.fromJson(vacancyDetailEntity.experience, Experience::class.java),
             schedule = gson.fromJson(vacancyDetailEntity.schedule, Schedule::class.java),
-            employment = gson.fromJson(vacancyDetailEntity.employment, Employment::class.java)
+            employment = gson.fromJson(vacancyDetailEntity.employment, Employment::class.java),
+            contact = gson.fromJson(vacancyDetailEntity.contact, Contact::class.java),
         )
     }
 
@@ -61,7 +64,8 @@ class VacancyDetailDbConverter(
                     area = gson.fromJson(area, Area::class.java),
                     experience = gson.fromJson(experience, Experience::class.java),
                     schedule = gson.fromJson(schedule, Schedule::class.java),
-                    employment = gson.fromJson(employment, Employment::class.java)
+                    employment = gson.fromJson(employment, Employment::class.java),
+                    contact = gson.fromJson(contact, Contact::class.java)
                 )
             }
         }

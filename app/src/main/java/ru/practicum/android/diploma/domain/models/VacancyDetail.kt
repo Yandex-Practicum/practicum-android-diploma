@@ -10,5 +10,6 @@ data class VacancyDetail(
     val area: Area?,
     val experience: Experience?,
     val schedule: Schedule?,
-    val employment: Employment?
+    val employment: Employment?,
+    val contact: Contact?
 )

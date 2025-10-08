@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.presentation.vmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ru.practicum.android.diploma.data.sharing.ExternalNavigator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
@@ -15,7 +15,8 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacancyDetailViewModel(
     private val searchVacancyDetailUseCase: SearchVacancyDetailUseCase,
-    private val interactorFavorites: FavoritesInteractor
+    private val interactorFavorites: FavoritesInteractor,
+    private val shared: ExternalNavigator
 ) : ViewModel() {
 
     private val _vacancyDetailState = MutableLiveData<VacancyDetailState>()
@@ -34,10 +35,21 @@ class VacancyDetailViewModel(
             vacancyByDatabase?.cancel()
             vacancyByDatabase = viewModelScope.launch {
                 interactorFavorites.getVacancy(id).collect { vacancy ->
-                    Log.v("my", "vm \n"+vacancy.toString())
                     _vacancyDetailState.postValue(VacancyDetailState.Success(vacancy))
                 }
             }
+        }
+    }
+
+    fun sharedEmail(value: String){
+        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+            shared.openEmail(value)
+        }
+    }
+
+    fun shared(){
+        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+            shared.shareLink((_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.name)
         }
     }
 
@@ -63,7 +75,6 @@ class VacancyDetailViewModel(
 
     fun addFavorites() {
         if (_vacancyFavoriteState.value == false) {
-            Log.v("my", (_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.toString())
             addFavoritesJob?.cancel()
             addFavoritesJob = viewModelScope.launch {
                 if (_vacancyDetailState.value is VacancyDetailState.Success) {
@@ -96,7 +107,9 @@ class VacancyDetailViewModel(
     private fun performSearch(query: String) {
         viewModelScope.launch {
             when (val result = searchVacancyDetailUseCase.execute(query)) {
-                is Resource.Success -> handleSearchSuccess(result)
+                is Resource.Success -> {
+                    handleSearchSuccess(result)
+                }
                 is Resource.Error -> null
                 is Resource.Loading -> null
             }
@@ -116,7 +129,8 @@ class VacancyDetailViewModel(
                 searchResult.area,
                 searchResult.experience,
                 searchResult.schedule,
-                searchResult.employment
+                searchResult.employment,
+                searchResult.contact
             )
         _vacancyDetailState.value = VacancyDetailState.Success(vacancyDetail)
     }
