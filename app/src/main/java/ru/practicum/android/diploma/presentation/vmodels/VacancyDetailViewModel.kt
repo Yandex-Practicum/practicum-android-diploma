@@ -41,14 +41,14 @@ class VacancyDetailViewModel(
         }
     }
 
-    fun sharedEmail(value: String){
-        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+    fun sharedEmail(value: String) {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
             shared.openEmail(value)
         }
     }
 
-    fun shared(){
-        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+    fun shared() {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
             shared.shareLink((_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.name)
         }
     }

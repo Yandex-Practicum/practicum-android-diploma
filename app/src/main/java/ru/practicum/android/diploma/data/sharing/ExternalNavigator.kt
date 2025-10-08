@@ -24,7 +24,8 @@ class ExternalNavigator(
                     appContext.getString(R.string.sharing_select_an_application)
                 ).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
+                }
+            )
             return null
         } else {
             return appContext.getString(R.string.sharing_there_are_no_apps)

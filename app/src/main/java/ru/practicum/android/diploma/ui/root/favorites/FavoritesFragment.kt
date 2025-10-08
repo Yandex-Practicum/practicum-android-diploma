@@ -24,7 +24,7 @@ class FavoritesFragment : Fragment() {
             R.id.action_favoritesFragment_to_vacancyDetailFragment,
             bundleOf(
                 ARGS_VACANCY_ID_BY_DB to vacancy.id
-             )
+            )
         )
     }
 
@@ -110,7 +110,7 @@ class FavoritesFragment : Fragment() {
         binding.recycler.isVisible = value
     }
 
-    private companion object{
+    private companion object {
         private const val ARGS_VACANCY_ID_BY_DB = "vacancyIdByDatabase"
     }
 }
