@@ -42,19 +42,19 @@ class VacancyDetailViewModel(
     }
 
     fun sharedPhone(value: String) {
-        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
             shared.openPhone(value)
         }
     }
 
     fun sharedEmail(value: String) {
-        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
             shared.openEmail(value)
         }
     }
 
-    fun shared(){
-        if(_vacancyDetailState.value is VacancyDetailState.Success) {
+    fun shared() {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
             shared.shareLink((_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.name)
         }
     }
@@ -116,6 +116,7 @@ class VacancyDetailViewModel(
                 is Resource.Success -> {
                     handleSearchSuccess(result)
                 }
+
                 is Resource.Error -> null
                 is Resource.Loading -> null
             }

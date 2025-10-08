@@ -34,24 +34,24 @@ class ExternalNavigator(
         }
     }
 
-        fun openEmail(emailData: String):String? {
-            intent.apply {
-                action = Intent.ACTION_SENDTO
-                data = Uri.parse(appContext.getString(R.string.sharedMailto))
-                putExtra(Intent.EXTRA_EMAIL, arrayOf(emailData))
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            return startApp(intent)
+    fun openEmail(emailData: String): String? {
+        intent.apply {
+            action = Intent.ACTION_SENDTO
+            data = Uri.parse(appContext.getString(R.string.sharedMailto))
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(emailData))
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        return startApp(intent)
+    }
 
-        fun openPhone(value: String):String? {
-            intent.apply {
-                action = Intent.ACTION_DIAL
-                data = Uri.parse("tel: $value")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            return startApp(intent)
+    fun openPhone(value: String): String? {
+        intent.apply {
+            action = Intent.ACTION_DIAL
+            data = Uri.parse("tel: $value")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        return startApp(intent)
+    }
 
     private fun startApp(intent: Intent): String? {
         try {

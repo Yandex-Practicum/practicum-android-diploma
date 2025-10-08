@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.sharing.ExternalNavigator
 
 val sharedModule = module {
     factory<ExternalNavigator> {
-        ExternalNavigator(get(),get())
+        ExternalNavigator(get(), get())
     }
     factory<Intent> {
         Intent()
