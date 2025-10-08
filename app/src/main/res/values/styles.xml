@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="contentDescription">Картинка</string>
-
+    <style name="text_black_white_color">
+        <item name="android:textColor">?attr/attr_white_black_color</item>
+    </style>
+    <style name="backgroun_white_black_color">
+        <item name="android:background">?attr/attr_black_white_color</item>
+    </style>
     <style name="BottomNavigationStyle">
         <item name="android:background">@color/white</item>
         <item name="itemIconTint">@color/navigation_color</item>
