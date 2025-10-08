@@ -24,7 +24,8 @@ class ExternalNavigator(
                     appContext.getString(R.string.sharing_select_an_application)
                 ).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
+                }
+            )
             return null
         } else {
             return appContext.getString(R.string.sharing_there_are_no_apps)
@@ -50,10 +51,11 @@ class ExternalNavigator(
             return startApp(intent)
         }
 
-    private fun startApp(intent:Intent):String?{
-        try{
+    private fun startApp(intent: Intent): String? {
+        try {
             appContext.startActivity(intent)
-        }catch (e:Exception){
+        } catch (e: ActivityNotFoundException) {
+            Log.e("error", "Error ${e.message}", e)
             return appContext.getString(R.string.sharing_there_are_no_apps)
         }
         return null

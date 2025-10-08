@@ -91,9 +91,7 @@ class VacancyDetailFragment : Fragment() {
         binding.employment.text = vacancyDetail.employment?.name
         binding.description.text = vacancyDetail.description
         vacancyDetail.contact?.let {
-            if(it.phone == null && it.email == "") {
-                return@let
-            } else {
+            if (it.phone != null && it.email != "") {
                 binding.contactGroup.isVisible = true
             }
             it.email?.let { email ->
@@ -113,9 +111,10 @@ class VacancyDetailFragment : Fragment() {
                 }
             }
         }
-    }
+            }
 
-    private companion object{
+
+    private companion object {
         private const val ARGS_VACANCY_ID = "vacancyId"
         private const val ARGS_VACANCY_ID_BY_DB = "vacancyIdByDatabase"
     }
