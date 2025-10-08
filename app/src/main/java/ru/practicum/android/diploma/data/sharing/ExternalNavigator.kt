@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.data.sharing
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import ru.practicum.android.diploma.R
 
 class ExternalNavigator(

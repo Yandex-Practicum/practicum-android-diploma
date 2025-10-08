@@ -34,7 +34,7 @@ class VacancyDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var vacancyId = arguments?.getString(ARGS_VACANCY_ID)
-        vacancyId?:let {
+        vacancyId ?: let {
             vacancyId = arguments?.getString(ARGS_VACANCY_ID_BY_DB)
             viewModel.loadDatabase(vacancyId)
         }
@@ -91,28 +91,27 @@ class VacancyDetailFragment : Fragment() {
         binding.employment.text = vacancyDetail.employment?.name
         binding.description.text = vacancyDetail.description
         vacancyDetail.contact?.let {
-            if (it.phone != null && it.email != "") {
+            if (it.phone != null || it.email != "") {
                 binding.contactGroup.isVisible = true
-            }
-            it.email?.let { email ->
-                binding.contactEmail.text = email
-                binding.contactEmail.setOnClickListener {
-                    viewModel.sharedEmail(email)
+                it.email?.let { email ->
+                    binding.contactEmail.text = email
+                    binding.contactEmail.setOnClickListener {
+                        viewModel.sharedEmail(email)
+                    }
                 }
-            }
-            it.phone?.let { phone ->
-                var str = ""
-                phone.forEach { tel ->
-                str += tel + "\n"
-            }
-                binding.contactPhone.text = str
-                binding.contactPhone.setOnClickListener {
-                    viewModel.sharedPhone(str)
+                it.phone?.let { phone ->
+                    var str = ""
+                    phone.forEach { tel ->
+                        str += tel + "\n"
+                    }
+                    binding.contactPhone.text = str
+                    binding.contactPhone.setOnClickListener {
+                        viewModel.sharedPhone(str)
+                    }
                 }
             }
         }
-            }
-
+    }
 
     private companion object {
         private const val ARGS_VACANCY_ID = "vacancyId"
