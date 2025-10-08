@@ -91,7 +91,7 @@ class VacancyDetailFragment : Fragment() {
         binding.employment.text = vacancyDetail.employment?.name
         binding.description.text = vacancyDetail.description
         vacancyDetail.contact?.let {
-            if (it.phone != null && it.email != "") {
+            if (it.phone != null || it.email != "") {
                 binding.contactGroup.isVisible = true
                 it.email?.let { email ->
                     binding.contactEmail.text = email
@@ -99,11 +99,16 @@ class VacancyDetailFragment : Fragment() {
                         viewModel.sharedEmail(email)
                     }
                 }
-                var str = ""
-                it.phone?.forEach { tel ->
-                    str += tel + "\n"
+                it.phone?.let { phone ->
+                    var str = ""
+                    phone.forEach { tel ->
+                        str += tel + "\n"
+                    }
+                    binding.contactPhone.text = str
+                    binding.contactPhone.setOnClickListener {
+                        viewModel.sharedPhone(str)
+                    }
                 }
-                binding.contactPhone.text = str
             }
         }
     }

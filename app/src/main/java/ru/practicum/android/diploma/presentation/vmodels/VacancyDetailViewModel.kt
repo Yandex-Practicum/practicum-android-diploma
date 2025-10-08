@@ -41,6 +41,12 @@ class VacancyDetailViewModel(
         }
     }
 
+    fun sharedPhone(value: String) {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
+            shared.openPhone(value)
+        }
+    }
+
     fun sharedEmail(value: String) {
         if (_vacancyDetailState.value is VacancyDetailState.Success) {
             shared.openEmail(value)
@@ -110,6 +116,7 @@ class VacancyDetailViewModel(
                 is Resource.Success -> {
                     handleSearchSuccess(result)
                 }
+
                 is Resource.Error -> null
                 is Resource.Loading -> null
             }
