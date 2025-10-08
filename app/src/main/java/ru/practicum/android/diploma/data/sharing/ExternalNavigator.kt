@@ -8,9 +8,10 @@ import android.net.Uri
 import ru.practicum.android.diploma.R
 
 class ExternalNavigator(
-    private val appContext: Context,
-    private val intent: Intent
+    private val appContext: Context
 ) {
+    private val intent: Intent = Intent()
+
     @SuppressLint("QueryPermissionsNeeded")
     fun shareLink(value: String): String? {
         intent.apply {
