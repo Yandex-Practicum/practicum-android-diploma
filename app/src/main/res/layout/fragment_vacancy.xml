@@ -1,281 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/attr_black_white_color">
+    android:paddingBottom="16dp"
+    android:background="?attr/attr_black_white_color"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/vacancy_text"
-                style="@style/text_black_white_color"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingStart="56dp"
-                android:text="@string/vacancy"
-                android:textSize="@dimen/text_size"
-                tools:ignore="RelativeOverlap,RtlSymmetry,SpUsage" />
-
-            <ImageButton
-                android:id="@+id/return_button"
-                android:layout_width="@dimen/button_size"
-                android:layout_height="@dimen/button_size"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/merge_size"
-                android:background="@null"
-                android:src="@drawable/arrow_back_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <ImageButton
-                android:id="@+id/favorite_button"
-                android:layout_width="@dimen/button_size"
-                android:layout_height="@dimen/button_size"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/merge_size"
-                android:background="@null"
-                android:src="@drawable/favorite_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <ImageButton
-                android:id="@+id/share_button"
-                android:layout_width="@dimen/button_size"
-                android:layout_height="@dimen/button_size"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="60dp"
-                android:background="@null"
-                android:src="@drawable/share_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
+        android:layout_height="@dimen/title_height"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/vacancy_title"
+            android:id="@+id/vacancy_text"
             style="@style/text_black_white_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="16dp"
-            android:textSize="32sp"
-            tools:ignore="RtlSymmetry"
-            tools:text="Android-разработчик" />
+            android:paddingStart="56dp"
+            android:text="@string/vacancy"
+            android:textSize="@dimen/text_size"
+            tools:ignore="RelativeOverlap,RtlSymmetry,SpUsage" />
 
-        <TextView
-            android:id="@+id/salary_text"
-            style="@style/text_black_white_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:textSize="22sp"
-            tools:ignore="RtlSymmetry"
-            tools:text="от 100 000 ₽" />
+        <ImageButton
+            android:id="@+id/return_button"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/merge_size"
+            android:background="@null"
+            android:src="@drawable/arrow_back_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/favorite_button"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/merge_size"
+            android:background="@null"
+            android:src="@drawable/favorite_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/share_button"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="60dp"
+            android:background="@null"
+            android:src="@drawable/share_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
+            android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+            <TextView
+                android:id="@+id/vacancy_title"
+                style="@style/text_black_white_color"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                app:cardBackgroundColor="@color/light_grey"
-                app:cardCornerRadius="8dp">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="16dp"
+                android:textSize="32sp"
+                tools:ignore="RtlSymmetry"
+                tools:text="Android-разработчик" />
+
+            <TextView
+                android:id="@+id/salary_text"
+                style="@style/text_black_white_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:textSize="22sp"
+                tools:ignore="RtlSymmetry"
+                tools:text="от 100 000 ₽" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    app:cardBackgroundColor="@color/light_grey"
                     app:cardCornerRadius="8dp">
 
-                    <ImageView
-                        android:id="@+id/vacancy_cover"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitCenter"
-                        tools:ignore="ContentDescription"
-                        tools:srcCompat="@drawable/vacancy_pic" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        app:cardCornerRadius="8dp">
+
+                        <ImageView
+                            android:id="@+id/vacancy_cover"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitCenter"
+                            tools:ignore="ContentDescription"
+                            tools:srcCompat="@drawable/vacancy_pic" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="72dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/industry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            tools:ignore="RtlSymmetry"
+                            tools:text="Еда" />
+
+                        <TextView
+                            android:id="@+id/area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry"
+                            tools:text="Москва" />
+
+                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
-                <LinearLayout
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/text_black_white_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:text="@string/experience"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/experience"
+                    style="@style/text_black_white_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="От 1 года до 3 лет" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/schedule"
+                    style="@style/text_black_white_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="72dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="16dp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="Полная занятость" />
 
-                    <TextView
-                        android:id="@+id/industry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="22sp"
-                        tools:ignore="RtlSymmetry"
-                        tools:text="Еда" />
+                <TextView
+                    android:id="@+id/employment"
+                    style="@style/text_black_white_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="5dp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="Удаленная работа" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/area"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:ignore="RtlSymmetry"
-                        tools:text="Москва" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/text_black_white_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:text="@string/experience"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/experience"
-                style="@style/text_black_white_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry"
-                tools:text="От 1 года до 3 лет" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/schedule"
-                style="@style/text_black_white_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingStart="16dp"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry"
-                tools:text="Полная занятость" />
-
-            <TextView
-                android:id="@+id/employment"
-                style="@style/text_black_white_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingStart="5dp"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry"
-                tools:text="Удаленная работа" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/text_black_white_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingStart="16dp"
-                android:text="@string/description"
-                android:textSize="22sp"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="39dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/description"
-                style="@style/text_black_white_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry"
-                tools:text="Удаленная работа" />
             <LinearLayout
-                android:id="@+id/contactGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:layout_marginTop="32dp"
                 android:orientation="vertical">
-            <TextView
-                style="@style/text_black_white_color"
-                android:layout_width="match_parent"
+
+                <TextView
+                    style="@style/text_black_white_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="16dp"
+                    android:text="@string/description"
+                    android:textSize="22sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textAppearance="@style/textAppearanceMedium16sp500w"
-                android:text="@string/contacts"
-                android:layout_marginTop="16dp"/>
-            <TextView
-                android:id="@+id/contactEmail"
-                style="@style/text_black_white_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/textAppearanceRegular16sp400w"
-                android:paddingStart="16dp"
-                android:layout_marginTop="10dp"
-                android:paddingEnd="16dp"/>
-            <TextView
-                android:id="@+id/contactPhone"
-                style="@style/text_black_white_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/textAppearanceRegular16sp400w"
-                android:paddingStart="16dp"
-                android:layout_marginTop="10dp"
-                android:paddingEnd="16dp"/>
+                android:layout_marginTop="39dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/description"
+                    style="@style/text_black_white_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="Удаленная работа" />
+
+                <LinearLayout
+                    android:id="@+id/contactGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/text_black_white_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/contacts"
+                        android:textAppearance="@style/textAppearanceMedium16sp500w" />
+
+                    <TextView
+                        android:id="@+id/contactEmail"
+                        style="@style/text_black_white_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textAppearance="@style/textAppearanceRegular16sp400w" />
+
+                    <TextView
+                        android:id="@+id/contactPhone"
+                        style="@style/text_black_white_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textAppearance="@style/textAppearanceRegular16sp400w" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+
+    </ScrollView>
+</LinearLayout>
