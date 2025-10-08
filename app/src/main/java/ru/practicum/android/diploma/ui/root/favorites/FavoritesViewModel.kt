@@ -12,21 +12,21 @@ import ru.practicum.android.diploma.ui.models.FavoritesState
 
 class FavoritesViewModel(
     private val favoritesInteractor: FavoritesInteractor
-): ViewModel() {
+) : ViewModel() {
     private val _favoritesState = MutableLiveData<FavoritesState>(FavoritesState.Idle)
-    val favoritesState:LiveData<FavoritesState> = _favoritesState
+    val favoritesState: LiveData<FavoritesState> = _favoritesState
 
     private var allFavoritesJob: Job? = null
     private val coroutineError = CoroutineExceptionHandler { _, _ ->
         _favoritesState.postValue(FavoritesState.Error)
     }
 
-    fun getListAllFavorites(){
+    fun getListAllFavorites() {
         allFavoritesJob?.cancel()
         allFavoritesJob = viewModelScope.launch(coroutineError) {
             _favoritesState.postValue(FavoritesState.Loading)
-            favoritesInteractor.getAllVacancies().collect{ list ->
-                if(list.isNotEmpty()) {
+            favoritesInteractor.getAllVacancies().collect { list ->
+                if (list.isNotEmpty()) {
                     _favoritesState.postValue(
                         FavoritesState.Complete(list)
                     )

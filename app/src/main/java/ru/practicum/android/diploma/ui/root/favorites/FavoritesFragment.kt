@@ -16,11 +16,15 @@ class FavoritesFragment : Fragment() {
     private val viewModel by viewModel<FavoritesViewModel>()
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val adapter = VacanciesAdapter{
+    private val adapter = VacanciesAdapter {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentFavoritesBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -32,35 +36,39 @@ class FavoritesFragment : Fragment() {
         setupObservers()
     }
 
-    private fun setupObservers(){
-        viewModel.favoritesState.observe(viewLifecycleOwner){ state ->
+    private fun setupObservers() {
+        viewModel.favoritesState.observe(viewLifecycleOwner) { state ->
             renderUi(state = state)
         }
     }
 
-    private fun renderUi(state: FavoritesState){
-        when(state){
+    private fun renderUi(state: FavoritesState) {
+        when (state) {
             FavoritesState.Idle -> {
                 renderRecycler(false)
                 renderGroupImageText(false, state)
                 renderProgressBar(false)
             }
+
             FavoritesState.Loading -> {
                 renderRecycler(false)
                 renderGroupImageText(false, state)
                 renderProgressBar(true)
             }
+
             is FavoritesState.Complete -> {
                 adapter.submitVacancies(state.data)
                 renderGroupImageText(false, state)
                 renderRecycler(true)
                 renderProgressBar(false)
             }
+
             is FavoritesState.Nothing -> {
                 renderRecycler(false)
                 renderGroupImageText(true, state)
                 renderProgressBar(false)
             }
+
             is FavoritesState.Error -> {
                 renderRecycler(false)
                 renderGroupImageText(true, state)
@@ -69,14 +77,15 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun renderGroupImageText(value: Boolean, state: FavoritesState){
+    private fun renderGroupImageText(value: Boolean, state: FavoritesState) {
         binding.groupImageText.isVisible = value
-        if(value) {
+        if (value) {
             when (state) {
                 FavoritesState.Nothing -> {
                     binding.textView.text = getString(R.string.empty_list)
                     binding.imageView.setImageResource(R.drawable.image_empty_list_database_)
                 }
+
                 else -> {
                     binding.imageView.setImageResource(R.drawable.cat_with_the_plate)
                     binding.textView.text = getString(R.string.error_database_list)
@@ -85,11 +94,11 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun renderProgressBar(value: Boolean){
+    private fun renderProgressBar(value: Boolean) {
         binding.loadingProgressBar.isVisible = value
     }
 
-    private fun renderRecycler(value: Boolean){
+    private fun renderRecycler(value: Boolean) {
         binding.recycler.isVisible = value
     }
 }
