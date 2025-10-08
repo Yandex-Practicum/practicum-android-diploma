@@ -3,12 +3,17 @@
     <string name="main">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="not_money">Зарплата не указана</string>
+    <string name="sharing_select_an_application">Выберите приложение</string>
+    <string name="sharing_there_are_no_apps">Приложения не найдены</string>
     <string name="job_search">Поиск вакансий</string>
     <string name="filtration_settings">Настройки фильтрации</string>
     <string name="search_hint">Должность, навыки или компания</string>
     <string name="empty_query_text">Введите запрос для поиска вакансий</string>
     <string name="no_results_text">По вашему запросу ничего не найдено</string>
     <string name="retry">Повторить</string>
+    <string name="sharedMailto">mailto:</string>
+    <string name="contacts">Контакты</string>
     <string name="error_network">Проверьте подключение к интернету</string>
     <string name="error_server">Ошибка сервера</string>
     <string name="error_unknown">Произошла неизвестная ошибка</string>

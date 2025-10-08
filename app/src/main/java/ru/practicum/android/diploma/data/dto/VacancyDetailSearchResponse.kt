@@ -10,5 +10,6 @@ data class VacancyDetailSearchResponse(
     val area: AreaDto,
     val experience: ExperienceDto,
     val schedule: ScheduleDto,
-    val employment: EmploymentDto
+    val employment: EmploymentDto,
+    val contacts: ContactDto
 )

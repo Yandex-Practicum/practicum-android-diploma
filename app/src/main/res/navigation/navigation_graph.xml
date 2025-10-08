@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_favoritesFragment_to_teamFragment"
             app:destination="@id/teamFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_vacancyDetailFragment"
+            app:destination="@id/vacancyDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"

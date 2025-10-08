@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -32,7 +33,11 @@ class VacancyDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vacancyId = arguments?.getString("vacancyId").toString()
+        var vacancyId = arguments?.getString(ARGS_VACANCY_ID)
+        vacancyId ?: let {
+            vacancyId = arguments?.getString(ARGS_VACANCY_ID_BY_DB)
+            viewModel.loadDatabase(vacancyId)
+        }
         viewModel.search(vacancyId)
         viewModel.checkFavorites(vacancyId)
         observeViewModel()
@@ -41,6 +46,9 @@ class VacancyDetailFragment : Fragment() {
         }
         binding.favoriteButton.setOnClickListener {
             viewModel.addFavorites()
+        }
+        binding.shareButton.setOnClickListener {
+            viewModel.shared()
         }
     }
 
@@ -67,7 +75,7 @@ class VacancyDetailFragment : Fragment() {
         binding.vacancyTitle.text = vacancyDetail.name
         val salaryText = vacancyDetail.salary?.let { salary ->
             SalaryFormatter.getFormattedSalary(salary)
-        } ?: "Зарплата не указана"
+        } ?: getString(R.string.not_money)
         binding.salaryText.text = salaryText
 
         Glide.with(this)
@@ -82,5 +90,26 @@ class VacancyDetailFragment : Fragment() {
         binding.schedule.text = vacancyDetail.schedule?.name
         binding.employment.text = vacancyDetail.employment?.name
         binding.description.text = vacancyDetail.description
+        vacancyDetail.contact?.let {
+            if (it.phone != null && it.email != "") {
+                binding.contactGroup.isVisible = true
+                it.email?.let { email ->
+                    binding.contactEmail.text = email
+                    binding.contactEmail.setOnClickListener {
+                        viewModel.sharedEmail(email)
+                    }
+                }
+                var str = ""
+                it.phone?.forEach { tel ->
+                    str += tel + "\n"
+                }
+                binding.contactPhone.text = str
+            }
+        }
+    }
+
+    private companion object {
+        private const val ARGS_VACANCY_ID = "vacancyId"
+        private const val ARGS_VACANCY_ID_BY_DB = "vacancyIdByDatabase"
     }
 }

@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ru.practicum.android.diploma.data.sharing.ExternalNavigator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
-import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyDetail
 import ru.practicum.android.diploma.domain.usecase.SearchVacancyDetailUseCase
 import ru.practicum.android.diploma.ui.root.search.VacancyDetailState
@@ -15,7 +15,8 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacancyDetailViewModel(
     private val searchVacancyDetailUseCase: SearchVacancyDetailUseCase,
-    private val interactorFavorites: FavoritesInteractor
+    private val interactorFavorites: FavoritesInteractor,
+    private val shared: ExternalNavigator
 ) : ViewModel() {
 
     private val _vacancyDetailState = MutableLiveData<VacancyDetailState>()
@@ -27,19 +28,47 @@ class VacancyDetailViewModel(
     private var addFavoritesJob: Job? = null
     private var deleteFavoritesJob: Job? = null
     private var checkFavoritesJob: Job? = null
+    private var vacancyByDatabase: Job? = null
 
-    fun search(query: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            performSearch(query)
+    fun loadDatabase(id: String?) {
+        id?.let {
+            vacancyByDatabase?.cancel()
+            vacancyByDatabase = viewModelScope.launch {
+                interactorFavorites.getVacancy(id).collect { vacancy ->
+                    _vacancyDetailState.postValue(VacancyDetailState.Success(vacancy))
+                }
+            }
         }
     }
 
-    fun checkFavorites(id: String) {
-        checkFavoritesJob?.cancel()
-        checkFavoritesJob = viewModelScope.launch {
-            interactorFavorites.checkVacancyInFavorite(id).collect { presence ->
-                _vacancyFavoriteState.postValue(presence)
+    fun sharedEmail(value: String) {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
+            shared.openEmail(value)
+        }
+    }
+
+    fun shared() {
+        if (_vacancyDetailState.value is VacancyDetailState.Success) {
+            shared.shareLink((_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.name)
+        }
+    }
+
+    fun search(query: String?) {
+        query?.let {
+            searchJob?.cancel()
+            searchJob = viewModelScope.launch {
+                performSearch(query)
+            }
+        }
+    }
+
+    fun checkFavorites(id: String?) {
+        id?.let {
+            checkFavoritesJob?.cancel()
+            checkFavoritesJob = viewModelScope.launch {
+                interactorFavorites.checkVacancyInFavorite(id).collect { presence ->
+                    _vacancyFavoriteState.postValue(presence)
+                }
             }
         }
     }
@@ -50,16 +79,7 @@ class VacancyDetailViewModel(
             addFavoritesJob = viewModelScope.launch {
                 if (_vacancyDetailState.value is VacancyDetailState.Success) {
                     interactorFavorites.setVacancy(
-                        with(_vacancyDetailState.value as VacancyDetailState.Success) {
-                            Vacancy(
-                                id = vacancyDetail.id,
-                                title = vacancyDetail.name,
-                                description = vacancyDetail.description,
-                                salary = vacancyDetail.salary,
-                                employer = vacancyDetail.employer,
-                                area = vacancyDetail.area
-                            )
-                        }
+                        (_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail
                     ).collect { state ->
                         _vacancyFavoriteState.postValue(state)
                     }
@@ -75,7 +95,8 @@ class VacancyDetailViewModel(
         deleteFavoritesJob = viewModelScope.launch {
             if (_vacancyDetailState.value is VacancyDetailState.Success) {
                 interactorFavorites.deleteVacancyFromFavorite(
-                    (_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.id)
+                    (_vacancyDetailState.value as VacancyDetailState.Success).vacancyDetail.id
+                )
                     .collect { delete ->
                         _vacancyFavoriteState.postValue(!delete)
                     }
@@ -86,7 +107,9 @@ class VacancyDetailViewModel(
     private fun performSearch(query: String) {
         viewModelScope.launch {
             when (val result = searchVacancyDetailUseCase.execute(query)) {
-                is Resource.Success -> handleSearchSuccess(result)
+                is Resource.Success -> {
+                    handleSearchSuccess(result)
+                }
                 is Resource.Error -> null
                 is Resource.Loading -> null
             }
@@ -106,7 +129,8 @@ class VacancyDetailViewModel(
                 searchResult.area,
                 searchResult.experience,
                 searchResult.schedule,
-                searchResult.employment
+                searchResult.employment,
+                searchResult.contact
             )
         _vacancyDetailState.value = VacancyDetailState.Success(vacancyDetail)
     }

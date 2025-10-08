@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.data.repository
 
 import android.util.Log
 import ru.practicum.android.diploma.data.dto.AreaDto
+import ru.practicum.android.diploma.data.dto.ContactDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
 import ru.practicum.android.diploma.data.dto.EmploymentDto
 import ru.practicum.android.diploma.data.dto.ExperienceDto
@@ -12,6 +13,7 @@ import ru.practicum.android.diploma.data.dto.VacancyDetailSearchResponse
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.data.dto.VacancySearchResponse
 import ru.practicum.android.diploma.data.network.HhApi
+import ru.practicum.android.diploma.domain.models.Contact
 import ru.practicum.android.diploma.domain.models.SearchResult
 import ru.practicum.android.diploma.domain.models.SearchResultVacancyDetail
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -63,7 +65,9 @@ class DataRepositoryImpl(
             val response = api.searchVacancyDetail(query)
 
             when (response.code()) {
-                HTTP_OK -> handleSuccessResponseVacancyDetail(response.body())
+                HTTP_OK -> {
+                    handleSuccessResponseVacancyDetail(response.body())
+                }
                 HTTP_UNAUTHORIZED -> Resource.Error("Ошибка авторизации")
                 HTTP_FORBIDDEN -> Resource.Error("Доступ запрещен")
                 HTTP_NOT_FOUND -> Resource.Error("Ресурс не найден")
@@ -164,6 +168,15 @@ class DataRepositoryImpl(
         )
     }
 
+    private fun mapContacts(contactDto: ContactDto) = contactDto?.let { dto ->
+        ru.practicum.android.diploma.domain.models.Contact(
+            id = dto.id,
+            name = dto.name,
+            email = dto.email,
+            phone = dto.phone
+        )
+    }
+
     private fun createSuccessResult(
         body: VacancySearchResponse,
         vacancies: List<Vacancy>
@@ -192,7 +205,8 @@ class DataRepositoryImpl(
                 area = mapArea(body.area),
                 experience = mapExperience(body.experience),
                 schedule = mapSchedule(body.schedule),
-                employment = mapEmployment(body.employment)
+                employment = mapEmployment(body.employment),
+                contact = mapContacts(body.contacts)
             )
         )
     }
