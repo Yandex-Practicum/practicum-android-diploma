@@ -58,7 +58,7 @@ class ExternalNavigator(
         try {
             appContext.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            Log.e("error", "Error ${e.message.toString()}", e)
+            Log.e("error", "Error ${e.message}", e)
             return appContext.getString(R.string.sharing_there_are_no_apps)
         }
         return null
