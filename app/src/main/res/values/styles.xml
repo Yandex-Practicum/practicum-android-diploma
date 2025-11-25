@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+        <item name="titleTextAppearance">@style/ToolbarTitle</item>
+        <item name="buttonGravity">center_vertical</item>
+        <item name="contentInsetStartWithNavigation">@dimen/corner_radius</item>
+    </style>
+
+    <style name="ToolbarTitle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:fontWeight">@dimen/font_weight_medium</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+
+    <style name="RegularTextSmall">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+</resources>

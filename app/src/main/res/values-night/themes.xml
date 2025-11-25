@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorOnBackground">@color/white_day</item>
         <item name="android:colorBackground">@color/black_day</item>
         <item name="colorSurfaceVariant">@color/gray</item>
         <item name="colorOnSurfaceVariant">@color/white_day</item>
+        <item name="colorOnContainer">@color/gray</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="hintTextColor">@color/white_day</item>
     </style>
 </resources>
