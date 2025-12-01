@@ -53,8 +53,8 @@
 
     <style name="SearchInfo">
         <item name="android:background">@drawable/bg_search_info</item>
-        <item name="android:paddingVertical">@dimen/corner_radius</item>
-        <item name="android:paddingHorizontal">@dimen/corner_radius</item>
+        <item name="android:paddingVertical">@dimen/padding_small</item>
+        <item name="android:paddingHorizontal">@dimen/padding_small</item>
         <item name="android:layout_marginTop">@dimen/corner_radius</item>
         <item name="android:textColor">@color/white_universal</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>

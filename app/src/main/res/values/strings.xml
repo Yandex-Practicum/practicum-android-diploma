@@ -6,6 +6,10 @@
     <string name="vacancies_search">Поиск вакансий</string>
     <string name="filters">Настройки фильтрации</string>
     <string name="enter_search_placeholder">Введите запрос</string>
+    <string name="error_no_internet">Нет интернета</string>
+    <string name="error_server">Ошибка сервера</string>
+    <string name="error_nothing_found">Не удалось получить список вакансий</string>
+    <string name="empty_vacancy">Таких вакансий нет</string>
     <string name="vacancy">Вакансия</string>
     <string name="job_description">Описание вакансии</string>
     <string name="key_skills">Ключевые навыки</string>
