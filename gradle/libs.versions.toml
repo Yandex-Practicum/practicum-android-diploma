@@ -21,9 +21,6 @@ gson = "2.10.1"
 # Persistence
 room = "2.6.1"
 
-# Image loading
-glide = "4.16.0"
-
 # AndroidX
 activityCompose = "1.8.2"
 
@@ -79,10 +76,6 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
-# Glide
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
-
 # Jetpack Compose
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
@@ -94,5 +87,9 @@ compose-runtime = { module = "androidx.compose.runtime:runtime" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidX-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+
+# Coil (image loading for Compose)
+coil = { module = "io.coil-kt:coil", version = "2.5.0" }
+coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 
 [bundles]

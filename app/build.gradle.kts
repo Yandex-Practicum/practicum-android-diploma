@@ -70,10 +70,6 @@ dependencies {
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
 
-    // Glide
-    implementation(libs.glide)
-    kapt(libs.glide.compiler)
-
     // Navigation
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
@@ -92,6 +88,10 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    // Coil (images + Compose)
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
