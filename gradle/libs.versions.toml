@@ -1,11 +1,28 @@
 [versions]
 
-java = "VERSION_1_8"
+java = "VERSION_17"
 
 # Build constants
 minSdk = "26"
 compileSdk = "34"
 targetSdk = "33"
+
+# Jetpack Compose
+composeBom = "2023.10.01"
+composeCompiler = "1.5.7"
+
+# Coroutines
+kotlinxCoroutines = "1.7.3"
+
+# Networking
+retrofit = "2.9.0"
+gson = "2.10.1"
+
+# Persistence
+room = "2.6.1"
+
+# AndroidX
+activityCompose = "1.8.2"
 
 # Detekt
 detekt = "1.23.3"
@@ -25,6 +42,9 @@ staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules
 # AndroidX
 androidX-core = "androidx.core:core-ktx:1.12.0"
 androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+androidX-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+androidX-lifecycle-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
+androidX-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
 
 # UI layer libraries
 ui-material = "com.google.android.material:material:1.10.0"
@@ -36,5 +56,40 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+uiTests-navigation-testing = "androidx.navigation:navigation-testing:2.7.7"
+
+# Navigation
+navigation-fragment = "androidx.navigation:navigation-fragment-ktx:2.7.7"
+navigation-ui = "androidx.navigation:navigation-ui-ktx:2.7.7"
+
+# Networking
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+# Coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+
+# Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# Jetpack Compose
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-foundation = { module = "androidx.compose.foundation:foundation" }
+compose-runtime = { module = "androidx.compose.runtime:runtime" }
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidX-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+
+# Coil (image loading for Compose)
+coil = { module = "io.coil-kt:coil", version = "2.5.0" }
+coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 
 [bundles]
