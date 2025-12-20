@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.theme
 
 import androidx.compose.ui.unit.dp
 
-//список размеров буду менять по мере необходимости
+// список размеров буду менять по мере необходимости
 val dp0 = 0.dp
 val dp2 = 2.dp
 val dp4 = 4.dp
