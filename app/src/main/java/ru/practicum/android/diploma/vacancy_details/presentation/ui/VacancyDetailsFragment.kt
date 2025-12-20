@@ -27,6 +27,6 @@ class VacancyDetailsFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() : VacancyDetailsFragment = VacancyDetailsFragment()
+        fun newInstance(): VacancyDetailsFragment = VacancyDetailsFragment()
     }
 }
