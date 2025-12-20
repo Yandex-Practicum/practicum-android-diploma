@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name" translatable="false">Practicum-Android-Diploma</string>
+    <string name="nav_main" translatable="false">Главное</string>
+    <string name="nav_favorites" translatable="false">Избранное</string>
+    <string name="nav_team_info" translatable="false">Команда</string>
+    <string name="title_search" translatable="false">Поиск вакансий</string>
+    <string name="title_vacancy_details" translatable="false">Вакансия</string>
+    <string name="title_filters" translatable="false">Настройки фильтрации</string>
+    <string name="title_industry_filter" translatable="false">Выбор отрасли</string>
+    <string name="title_favorites" translatable="false">Избранное</string>
+    <string name="title_team_info" translatable="false">Команда</string>
+
 </resources>

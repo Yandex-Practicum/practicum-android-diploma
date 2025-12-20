@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menu_main">
+
+    <fragment
+        android:id="@+id/menu_main"
+        android:name="ru.practicum.android.diploma.search.presentation.ui.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment2_to_searchFiltersFragment2"
+            app:destination="@id/searchFiltersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_favorites"
+        android:name="ru.practicum.android.diploma.favorites.vacansies.presentation.ui.FavoritesVacanciesFragment"
+        android:label="FavoritesVacanciesFragment" >
+        <action
+            android:id="@+id/action_favoritesVacanciesFragment_to_vacancyDetailsFragment"
+            app:destination="@id/vacancyDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_team_info"
+        android:name="ru.practicum.android.diploma.team.information.presentation.ui.TeamInformationFragment"
+        android:label="TeamInformationFragment" />
+
+    <fragment
+        android:id="@+id/searchFiltersFragment"
+        android:name="ru.practicum.android.diploma.search.presentation.ui.SearchFiltersFragment"
+        android:label="SearchFiltersFragment" >
+        <action
+            android:id="@+id/action_searchFiltersFragment_to_searchIndustryFilterFragment"
+            app:destination="@id/searchIndustryFilterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchIndustryFilterFragment"
+        android:name="ru.practicum.android.diploma.search.presentation.ui.SearchIndustryFilterFragment"
+        android:label="SearchIndustryFilterFragment" />
+
+    <fragment
+        android:id="@+id/vacancyDetailsFragment"
+        android:name="ru.practicum.android.diploma.vacancy.details.presentation.ui.VacancyDetailsFragment"
+        android:label="VacancyDetailsFragment" />
+</navigation>
