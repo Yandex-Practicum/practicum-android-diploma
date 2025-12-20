@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.favorites_vacancies.presentation.ui
+package ru.practicum.android.diploma.favorites.vacansies.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

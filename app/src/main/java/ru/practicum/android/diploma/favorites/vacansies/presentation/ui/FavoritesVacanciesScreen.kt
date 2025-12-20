@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.vacancy_details.presentation.ui
+package ru.practicum.android.diploma.favorites.vacansies.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,8 +13,8 @@ import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
 
 @Composable
-fun VacancyDetailsScreen(
-    onBack: () -> Unit,
+fun FavoritesVacanciesScreen(
+    onOpenVacancyDetails: () -> Unit,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -24,10 +24,10 @@ fun VacancyDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            Text(text = stringResource(id = R.string.title_vacancy_details))
+            Text(text = stringResource(id = R.string.title_favorites))
 
-            Button(onClick = onBack) {
-                Text(text = "Переход назад")
+            Button(onClick = onOpenVacancyDetails) {
+                Text(text = "Переход на экран деталей вакансии")
             }
         }
     }

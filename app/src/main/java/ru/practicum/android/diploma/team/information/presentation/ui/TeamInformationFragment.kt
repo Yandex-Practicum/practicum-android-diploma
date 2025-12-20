@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.team_information.presentation.ui
+package ru.practicum.android.diploma.team.information.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
