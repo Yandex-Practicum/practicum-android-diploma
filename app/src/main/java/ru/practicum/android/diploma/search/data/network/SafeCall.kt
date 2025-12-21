@@ -25,9 +25,9 @@ suspend fun <T> safeApiCall(
             Resource.Success(response)
         } catch (e: HttpException) {
             when (e.code()) {
-                403 -> Resource.Error("403 Forbidden", exception = e)
-                404 -> Resource.Error("404 Not Found", exception = e)
-                500 -> {
+                NetworkClientImpl.HttpStatusCodes.FORBIDDEN -> Resource.Error("403 Forbidden", exception = e)
+                NetworkClientImpl.HttpStatusCodes.NOT_FOUND -> Resource.Error("404 Not Found", exception = e)
+                NetworkClientImpl.HttpStatusCodes.INTERNAL_SERVER_ERROR -> {
                     Resource.Error("Ошибка сервера", exception = e)
                 }
 
