@@ -19,6 +19,4 @@ class NetworkConnectionChecker(private val appContext: Context) {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
         return isNetworkAvailable
     }
-
-
 }

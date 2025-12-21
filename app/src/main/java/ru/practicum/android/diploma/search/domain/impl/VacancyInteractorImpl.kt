@@ -21,7 +21,8 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
                         it.id,
                         it.name,
                         it.parentId,
-                        it.areas.map { FilterArea(it.id, it.name, it.parentId, emptyList()) })
+                        it.areas.map { FilterArea(it.id, it.name, it.parentId, emptyList()) }
+                    )
                 })
 
                 is Resource.Error -> {
@@ -37,7 +38,8 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
             when (resource) {
                 is Resource.Success -> Result.Success(resource.data.map {
                     FilterIndustry(
-                        it.id, it.name
+                        it.id,
+                        it.name
                     )
                 })
 
@@ -53,7 +55,10 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
             when (resource) {
                 is Resource.Success -> Result.Success(
                     VacancyResponse(
-                        resource.data.found, resource.data.pages, resource.data.page, resource.data.vacancies.map {
+                        resource.data.found,
+                        resource.data.pages,
+                        resource.data.page,
+                        resource.data.vacancies.map {
                             VacancyDetail(
                                 it.id,
                                 it.name,

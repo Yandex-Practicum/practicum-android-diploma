@@ -10,7 +10,8 @@ import java.io.IOException
 
 @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
 suspend fun <T> safeApiCall(
-    networkConnectionChecker: NetworkConnectionChecker, apiCall: suspend () -> T
+    networkConnectionChecker: NetworkConnectionChecker,
+    apiCall: suspend () -> T
 ): Resource<T> {
     if (!networkConnectionChecker.isNetworkAvailable()) {
         return Resource.Error(

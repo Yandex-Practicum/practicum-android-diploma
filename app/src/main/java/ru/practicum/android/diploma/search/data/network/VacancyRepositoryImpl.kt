@@ -10,10 +10,7 @@ import ru.practicum.android.diploma.search.domain.api.VacancyRepository
 
 class VacancyRepositoryImpl(private val networkClientImpl: NetworkClientImpl) : VacancyRepository {
     override fun getAreas(): Flow<Resource<List<FilterAreaDto>>> = flow {
-
-
         emit(networkClientImpl.getAreas())
-
     }
 
     override fun getIndustry(): Flow<Resource<List<FilterIndustryDto>>> = flow {
