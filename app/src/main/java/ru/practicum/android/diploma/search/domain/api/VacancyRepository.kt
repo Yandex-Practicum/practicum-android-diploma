@@ -11,7 +11,14 @@ interface VacancyRepository {
     fun getAreas(): Flow<Resource<List<FilterAreaDto>>>
     fun getIndustry(): Flow<Resource<List<FilterIndustryDto>>>
 
-    fun getVacancies(): Flow<Resource<VacancyResponseDto>>
+    fun getVacancies(
+        area: Int?,
+        industry: Int?,
+        text: String?,
+        salary: Int?,
+        page: Int?,
+        onlyWithSalary: Boolean?
+    ): Flow<Resource<VacancyResponseDto>>
 
     fun getVacancyById(
         id: String

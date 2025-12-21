@@ -11,7 +11,14 @@ interface NetworkClient {
 
     suspend fun getIndustry(): Resource<List<FilterIndustryDto>>
 
-    suspend fun getVacancies(): Resource<VacancyResponseDto>
+    suspend fun getVacancies(
+        area: Int?,
+        industry: Int?,
+        text: String?,
+        salary: Int?,
+        page: Int?,
+        onlyWithSalary: Boolean?
+    ): Resource<VacancyResponseDto>
 
     suspend fun getVacancyById(
         id: String

@@ -24,7 +24,7 @@ import ru.practicum.android.diploma.search.domain.model.Schedule
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
-class Mapper {
+class DtoMapper {
     fun fromDto(vacancyDetailDto: VacancyDetailDto): VacancyDetail =
         VacancyDetail(
             id = vacancyDetailDto.id,
@@ -88,7 +88,9 @@ class Mapper {
             contactsDto.id,
             contactsDto.name,
             contactsDto.email,
-            contactsDto.phone
+            contactsDto.phones.map {
+                it.formatted
+            }
         )
 
     fun fromDto(filterIndustryDto: FilterIndustryDto): FilterIndustry =
@@ -115,4 +117,6 @@ class Mapper {
                 fromDto(it)
             } ?: emptyList()
         )
+
+
 }

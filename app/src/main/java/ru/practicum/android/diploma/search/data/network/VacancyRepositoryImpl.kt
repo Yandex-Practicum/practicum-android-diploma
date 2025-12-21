@@ -17,8 +17,24 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
         emit(networkClient.getIndustry())
     }
 
-    override fun getVacancies(): Flow<Resource<VacancyResponseDto>> = flow {
-        emit(networkClient.getVacancies())
+    override fun getVacancies(
+        area: Int?,
+        industry: Int?,
+        text: String?,
+        salary: Int?,
+        page: Int?,
+        onlyWithSalary: Boolean?
+    ): Flow<Resource<VacancyResponseDto>> = flow {
+        emit(
+            networkClient.getVacancies(
+                area,
+                industry,
+                text,
+                salary,
+                page,
+                onlyWithSalary
+            )
+        )
     }
 
     override fun getVacancyById(id: String): Flow<Resource<VacancyDetailDto>> = flow {

@@ -11,7 +11,14 @@ interface VacancyInteractor {
     fun getAreas(): Flow<Result<List<FilterArea>>>
     fun getIndustry(): Flow<Result<List<FilterIndustry>>>
 
-    fun getVacancies(): Flow<Result<VacancyResponse>>
+    fun getVacancies(
+        area: Int? = null,
+        industry: Int? = null,
+        text: String? = null,
+        salary: Int? = null,
+        page: Int? = null,
+        onlyWithSalary: Boolean? = null
+    ): Flow<Result<VacancyResponse>>
 
     fun getVacancyById(
         id: String
