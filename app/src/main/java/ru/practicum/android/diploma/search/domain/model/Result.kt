@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.search.domain.model
 import ru.practicum.android.diploma.search.data.network.Resource
 import java.lang.Exception
 
-sealed class Result<out T>() {
+sealed class Result<out T> {
     class Success<T>(val data: T) : Result<T>()
     class Error(val message: String, val exception: Exception? = null) : Result<Nothing>()
 }
