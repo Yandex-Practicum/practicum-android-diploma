@@ -10,8 +10,7 @@ import java.io.IOException
 
 @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
 suspend fun <T> safeApiCall(
-    networkConnectionChecker: NetworkConnectionChecker,
-    apiCall: suspend () -> T
+    networkConnectionChecker: NetworkConnectionChecker, apiCall: suspend () -> T
 ): Resource<T> {
     if (!networkConnectionChecker.isNetworkAvailable()) {
         return Resource.Error(
@@ -27,14 +26,14 @@ suspend fun <T> safeApiCall(
             when (e.code()) {
                 403 -> Resource.Error("403 Forbidden", exception = e)
                 404 -> Resource.Error("404 Not Found", exception = e)
-                else -> {
+                500 -> {
                     Resource.Error("Ошибка сервера", exception = e)
                 }
+
+                else -> Resource.Error("Неизвестная ошибка", exception = e)
             }
         } catch (e: IOException) {
             Resource.Error("Плохое соединение", exception = e)
-        } catch (e: Exception) {
-            Resource.Error("Неизвестная ошибка", exception = e)
         }
     }
 }
