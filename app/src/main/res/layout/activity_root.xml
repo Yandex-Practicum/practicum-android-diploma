@@ -24,13 +24,15 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@color/White"
+        android:paddingBottom="4dp"
+        app:itemTextAppearanceActive="@style/TextAppearance.Practicum.BottomNav"
+        app:itemTextAppearanceInactive="@style/TextAppearance.Practicum.BottomNav"
         app:itemActiveIndicatorStyle="@style/ShapeAppearance.Material3.Corner.None"
         app:itemIconTint="@color/bottom_navigation_menu_colors"
         app:itemTextColor="@color/bottom_navigation_menu_colors"
         app:menu="@menu/bottom_navigation_menu"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
