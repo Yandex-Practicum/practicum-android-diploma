@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.search.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.search.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
 import ru.practicum.android.diploma.search.domain.api.VacancyRepository
+import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 
 class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyRepository {
     override fun getAreas(): Flow<Resource<List<FilterAreaDto>>> = flow {
@@ -18,21 +19,11 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
     }
 
     override fun getVacancies(
-        area: Int?,
-        industry: Int?,
-        text: String?,
-        salary: Int?,
-        page: Int?,
-        onlyWithSalary: Boolean?
+        vacancyFilter: VacancyFilter
     ): Flow<Resource<VacancyResponseDto>> = flow {
         emit(
             networkClient.getVacancies(
-                area,
-                industry,
-                text,
-                salary,
-                page,
-                onlyWithSalary
+                vacancyFilter
             )
         )
     }

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.data.mapper
 
-import android.util.Log
 import ru.practicum.android.diploma.search.data.dto.AddressDto
 import ru.practicum.android.diploma.search.data.dto.ContactsDto
 import ru.practicum.android.diploma.search.data.dto.EmployerDto
@@ -25,81 +24,93 @@ import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
 class DtoMapper {
-    fun fromDto(vacancyDetailDto: VacancyDetailDto): VacancyDetail =
+    fun vacancyDetailDtoToDomain(vacancyDetailDto: VacancyDetailDto): VacancyDetail =
         VacancyDetail(
             id = vacancyDetailDto.id,
             name = vacancyDetailDto.name,
             description = vacancyDetailDto.description,
-            salary = fromDto(vacancyDetailDto.salary),
-            address = fromDto(vacancyDetailDto.address),
-            experience = fromDto(vacancyDetailDto.experience),
-            schedule = fromDto(vacancyDetailDto.schedule),
-            employment = fromDto(vacancyDetailDto.employment),
-            contacts = fromDto(vacancyDetailDto.contacts),
-            employer = fromDto(vacancyDetailDto.employer),
-            area = fromDto(vacancyDetailDto.area),
+            salary = salaryDtoToDomain(vacancyDetailDto.salary),
+            address = addressDtoToDomain(vacancyDetailDto.address),
+            experience = experienceDtoToDomain(vacancyDetailDto.experience),
+            schedule = scheduleDtoToDto(vacancyDetailDto.schedule),
+            employment = employmentDto(vacancyDetailDto.employment),
+            contacts = contactsDtoToDomain(vacancyDetailDto.contacts),
+            employer = employerDtoToDomain(vacancyDetailDto.employer),
+            area = filterAreaDtoToDomain(vacancyDetailDto.area),
             skills = vacancyDetailDto.skills,
             url = vacancyDetailDto.url,
-            industry = fromDto(vacancyDetailDto.industry)
+            industry = filterIndustryDtoToDomain(vacancyDetailDto.industry)
         )
 
-    fun fromDto(salaryDto: SalaryDto?): Salary? = if (salaryDto == null) null else
-        Salary(
-            salaryDto.from,
-            salaryDto.to,
-            salaryDto.currency
-        )
+    fun salaryDtoToDomain(salaryDto: SalaryDto?): Salary? {
+        return if (salaryDto == null) null else
+            Salary(
+                salaryDto.from,
+                salaryDto.to,
+                salaryDto.currency
+            )
+    }
 
-    fun fromDto(addressDto: AddressDto?): Address? = if (addressDto == null) null else
-        Address(
-            addressDto.city,
-            addressDto.street,
-            addressDto.building,
-            addressDto.fullAddress
-        )
+    fun addressDtoToDomain(addressDto: AddressDto?): Address? {
+        return if (addressDto == null) null else
+            Address(
+                addressDto.city,
+                addressDto.street,
+                addressDto.building,
+                addressDto.fullAddress
+            )
+    }
 
-    fun fromDto(experienceDto: ExperienceDto?): Experience? = if (experienceDto == null) null else
-        Experience(
-            experienceDto.id,
-            experienceDto.name
-        )
+    fun experienceDtoToDomain(experienceDto: ExperienceDto?): Experience? {
+        return if (experienceDto == null) null else
+            Experience(
+                experienceDto.id,
+                experienceDto.name
+            )
+    }
 
-    fun fromDto(scheduleDto: ScheduleDto?): Schedule? = if (scheduleDto == null) null else
-        Schedule(
-            scheduleDto.id,
-            scheduleDto.name
-        )
+    fun scheduleDtoToDto(scheduleDto: ScheduleDto?): Schedule? {
+        return if (scheduleDto == null) null else
+            Schedule(
+                scheduleDto.id,
+                scheduleDto.name
+            )
+    }
 
-    fun fromDto(employmentDto: EmploymentDto?): Employment? = if (employmentDto == null) null else
-        Employment(
-            employmentDto.id,
-            employmentDto.name
-        )
+    fun employmentDto(employmentDto: EmploymentDto?): Employment? {
+        return if (employmentDto == null) null else
+            Employment(
+                employmentDto.id,
+                employmentDto.name
+            )
+    }
 
-    fun fromDto(employerDto: EmployerDto): Employer =
+    fun employerDtoToDomain(employerDto: EmployerDto): Employer =
         Employer(
             employerDto.id,
             employerDto.name,
             employerDto.logo
         )
 
-    fun fromDto(contactsDto: ContactsDto?): Contacts? = if (contactsDto == null) null else
-        Contacts(
-            contactsDto.id,
-            contactsDto.name,
-            contactsDto.email,
-            contactsDto.phones.map {
-                it.formatted
-            }
-        )
+    fun contactsDtoToDomain(contactsDto: ContactsDto?): Contacts? {
+        return if (contactsDto == null) null else
+            Contacts(
+                contactsDto.id,
+                contactsDto.name,
+                contactsDto.email,
+                contactsDto.phones.map {
+                    it.formatted
+                }
+            )
+    }
 
-    fun fromDto(filterIndustryDto: FilterIndustryDto): FilterIndustry =
+    fun filterIndustryDtoToDomain(filterIndustryDto: FilterIndustryDto): FilterIndustry =
         FilterIndustry(
             filterIndustryDto.id,
             filterIndustryDto.name
         )
 
-    fun fromDto(filterAreaDto: FilterAreaDto): FilterArea =
+    fun filterAreaDtoToDomain(filterAreaDto: FilterAreaDto): FilterArea =
         FilterArea(
             filterAreaDto.id,
             filterAreaDto.name,
@@ -107,16 +118,14 @@ class DtoMapper {
             filterAreaDto.areas.map { FilterArea(it.id, it.name, it.parentId, emptyList()) }
         )
 
-    fun fromDto(vacancyResponseDto: VacancyResponseDto): VacancyResponse =
+    fun vacancyResponseDtoToDomain(vacancyResponseDto: VacancyResponseDto): VacancyResponse =
         VacancyResponse(
             vacancyResponseDto.found,
             vacancyResponseDto.pages,
             vacancyResponseDto.page,
             vacancyResponseDto.vacancies?.map {
-                Log.d("Taaaag", it.toString())
-                fromDto(it)
+                vacancyDetailDtoToDomain(it)
             } ?: emptyList()
         )
-
 
 }

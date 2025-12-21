@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.search.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.search.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
 import ru.practicum.android.diploma.search.data.mapper.FilterMapper
+import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 import ru.practicum.android.diploma.search.utils.NetworkConnectionChecker
 
 class NetworkClientImpl(
@@ -22,22 +23,16 @@ class NetworkClientImpl(
     }
 
     override suspend fun getVacancies(
-        area: Int?,
-        industry: Int?,
-        text: String?,
-        salary: Int?,
-        page: Int?,
-        onlyWithSalary: Boolean?
-    )
-        : Resource<VacancyResponseDto> {
+        vacancyFilter: VacancyFilter
+    ): Resource<VacancyResponseDto> {
         return safeApiCall(networkConnectionChecker) {
             val queryMap = filterMapper.buildVacancyQueryMap(
-                area = area,
-                industry = industry,
-                text = text,
-                salary = salary,
-                page = page,
-                onlyWithSalary = onlyWithSalary
+                area = vacancyFilter.area,
+                industry = vacancyFilter.industry,
+                text = vacancyFilter.text,
+                salary = vacancyFilter.salary,
+                page = vacancyFilter.page,
+                onlyWithSalary = vacancyFilter.onlyWithSalary
             )
             vacancyApi.getVacancies(queryMap)
         }

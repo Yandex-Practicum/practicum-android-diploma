@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.search.domain.model.FilterArea
 import ru.practicum.android.diploma.search.domain.model.FilterIndustry
 import ru.practicum.android.diploma.search.domain.model.Result
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
+import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
 class VacancyInteractorImpl(private val repository: VacancyRepository, val mapper: DtoMapper) : VacancyInteractor {
@@ -17,7 +18,7 @@ class VacancyInteractorImpl(private val repository: VacancyRepository, val mappe
         return repository.getAreas().map { resource ->
             when (resource) {
                 is Resource.Success -> Result.Success(resource.data.map {
-                    mapper.fromDto(it)
+                    mapper.filterAreaDtoToDomain(it)
                 })
 
                 is Resource.Error -> {
@@ -32,7 +33,7 @@ class VacancyInteractorImpl(private val repository: VacancyRepository, val mappe
         return repository.getIndustry().map { resource ->
             when (resource) {
                 is Resource.Success -> Result.Success(resource.data.map {
-                    mapper.fromDto(it)
+                    mapper.filterIndustryDtoToDomain(it)
                 })
 
                 is Resource.Error -> {
@@ -43,24 +44,14 @@ class VacancyInteractorImpl(private val repository: VacancyRepository, val mappe
     }
 
     override fun getVacancies(
-        area: Int?,
-        industry: Int?,
-        text: String?,
-        salary: Int?,
-        page: Int?,
-        onlyWithSalary: Boolean?
+        vacancyFilter: VacancyFilter
     ): Flow<Result<VacancyResponse>> {
         return repository.getVacancies(
-            area,
-            industry,
-            text,
-            salary,
-            page,
-            onlyWithSalary
+            vacancyFilter
         ).map { resource ->
             when (resource) {
                 is Resource.Success -> Result.Success(
-                    mapper.fromDto(resource.data)
+                    mapper.vacancyResponseDtoToDomain(resource.data)
                 )
 
 
@@ -75,7 +66,7 @@ class VacancyInteractorImpl(private val repository: VacancyRepository, val mappe
         return repository.getVacancyById(id).map { resource ->
             when (resource) {
                 is Resource.Success -> Result.Success(
-                    mapper.fromDto(resource.data)
+                    mapper.vacancyDetailDtoToDomain(resource.data)
                 )
 
                 is Resource.Error -> {

@@ -4,6 +4,7 @@ import ru.practicum.android.diploma.search.data.dto.FilterAreaDto
 import ru.practicum.android.diploma.search.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.search.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
+import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 
 interface NetworkClient {
 
@@ -12,12 +13,7 @@ interface NetworkClient {
     suspend fun getIndustry(): Resource<List<FilterIndustryDto>>
 
     suspend fun getVacancies(
-        area: Int?,
-        industry: Int?,
-        text: String?,
-        salary: Int?,
-        page: Int?,
-        onlyWithSalary: Boolean?
+        vacancyFilter: VacancyFilter
     ): Resource<VacancyResponseDto>
 
     suspend fun getVacancyById(
