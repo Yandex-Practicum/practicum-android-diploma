@@ -21,13 +21,11 @@ object NetworkConnectionChecker {
 
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
-
-        return capabilitiesNetwork(capabilities)
-    }
-
-    fun capabilitiesNetwork(capabilities: NetworkCapabilities): Boolean {
-        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+        val isNetworkAvailable = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        return isNetworkAvailable
     }
+
+
 }
