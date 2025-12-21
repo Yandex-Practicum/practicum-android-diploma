@@ -8,20 +8,20 @@ import ru.practicum.android.diploma.search.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
 import ru.practicum.android.diploma.search.domain.api.VacancyRepository
 
-class VacancyRepositoryImpl(private val networkClientImpl: NetworkClientImpl) : VacancyRepository {
+class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyRepository {
     override fun getAreas(): Flow<Resource<List<FilterAreaDto>>> = flow {
-        emit(networkClientImpl.getAreas())
+        emit(networkClient.getAreas())
     }
 
     override fun getIndustry(): Flow<Resource<List<FilterIndustryDto>>> = flow {
-        emit(networkClientImpl.getIndustry())
+        emit(networkClient.getIndustry())
     }
 
     override fun getVacancies(): Flow<Resource<VacancyResponseDto>> = flow {
-        emit(networkClientImpl.getVacancies())
+        emit(networkClient.getVacancies())
     }
 
     override fun getVacancyById(id: String): Flow<Resource<VacancyDetailDto>> = flow {
-        emit(networkClientImpl.getVacancyById(id))
+        emit(networkClient.getVacancyById(id))
     }
 }
