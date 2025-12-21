@@ -6,14 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.annotation.RequiresPermission
 
-object NetworkConnectionChecker {
-
-    private lateinit var appContext: Context
-
-    fun init(context: Context) {
-        appContext = context.applicationContext
-    }
-
+class NetworkConnectionChecker(private val appContext: Context) {
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     fun isNetworkAvailable(): Boolean {
         val connectivityManager =

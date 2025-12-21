@@ -16,14 +16,13 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
     override fun getAreas(): Flow<Result<List<FilterArea>>> {
         return repository.getAreas().map { resource ->
             when (resource) {
-                is Resource.Success ->
-                    Result.Success(resource.data.map {
-                        FilterArea(
-                            it.id,
-                            it.name,
-                            it.parentId,
-                            it.areas.map { FilterArea(it.id, it.name, it.parentId, emptyList()) })
-                    })
+                is Resource.Success -> Result.Success(resource.data.map {
+                    FilterArea(
+                        it.id,
+                        it.name,
+                        it.parentId,
+                        it.areas.map { FilterArea(it.id, it.name, it.parentId, emptyList()) })
+                })
 
                 is Resource.Error -> {
                     Result.Error(resource.message, resource.exception)
@@ -36,17 +35,14 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
     override fun getIndustry(): Flow<Result<List<FilterIndustry>>> {
         return repository.getIndustry().map { resource ->
             when (resource) {
-                is Resource.Success ->
-                    Result.Success(resource.data.map {
-                        FilterIndustry(
-                            it.id,
-                            it.name
-                        )
-                    })
+                is Resource.Success -> Result.Success(resource.data.map {
+                    FilterIndustry(
+                        it.id, it.name
+                    )
+                })
 
                 is Resource.Error -> {
                     Result.Error(resource.message, resource.exception)
-
                 }
             }
         }
@@ -55,35 +51,31 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
     override fun getVacancies(): Flow<Result<VacancyResponse>> {
         return repository.getVacancies().map { resource ->
             when (resource) {
-                is Resource.Success ->
-                    Result.Success(
-                        VacancyResponse(
-                            resource.data.found,
-                            resource.data.pages,
-                            resource.data.page,
-                            resource.data.vacancies.map {
-                                VacancyDetail(
-                                    it.id,
-                                    it.name,
-                                    it.description,
-                                    Salary(it.salary?.from, it.salary?.to, it.salary?.currency),
-                                    it.address,
-                                    it.experience,
-                                    it.schedule,
-                                    it.employment,
-                                    it.contacts,
-                                    it.employer,
-                                    it.area,
-                                    it.skills,
-                                    it.url,
-                                    it.industry
-                                )
-                            })
+                is Resource.Success -> Result.Success(
+                    VacancyResponse(
+                        resource.data.found, resource.data.pages, resource.data.page, resource.data.vacancies.map {
+                            VacancyDetail(
+                                it.id,
+                                it.name,
+                                it.description,
+                                Salary(it.salary?.from, it.salary?.to, it.salary?.currency),
+                                it.address,
+                                it.experience,
+                                it.schedule,
+                                it.employment,
+                                it.contacts,
+                                it.employer,
+                                it.area,
+                                it.skills,
+                                it.url,
+                                it.industry
+                            )
+                        }
                     )
+                )
 
                 is Resource.Error -> {
                     Result.Error(resource.message, resource.exception)
-
                 }
             }
         }
