@@ -43,46 +43,61 @@ class DtoMapper {
         )
 
     fun salaryDtoToDomain(salaryDto: SalaryDto?): Salary? {
-        return if (salaryDto == null) null else
+        return if (salaryDto == null) {
+            null
+        } else {
             Salary(
                 salaryDto.from,
                 salaryDto.to,
                 salaryDto.currency
             )
+        }
     }
 
     fun addressDtoToDomain(addressDto: AddressDto?): Address? {
-        return if (addressDto == null) null else
+        return if (addressDto == null) {
+            null
+        } else {
             Address(
                 addressDto.city,
                 addressDto.street,
                 addressDto.building,
                 addressDto.fullAddress
             )
+        }
     }
 
     fun experienceDtoToDomain(experienceDto: ExperienceDto?): Experience? {
-        return if (experienceDto == null) null else
+        return if (experienceDto == null) {
+            null
+        } else {
             Experience(
                 experienceDto.id,
                 experienceDto.name
             )
+        }
     }
 
     fun scheduleDtoToDto(scheduleDto: ScheduleDto?): Schedule? {
-        return if (scheduleDto == null) null else
+        return if (scheduleDto == null) {
+            null
+        } else {
             Schedule(
                 scheduleDto.id,
                 scheduleDto.name
             )
+        }
     }
 
     fun employmentDto(employmentDto: EmploymentDto?): Employment? {
-        return if (employmentDto == null) null else
+        return if (employmentDto == null) {
+            null
+        } else {
             Employment(
                 employmentDto.id,
                 employmentDto.name
             )
+        }
     }
 
     fun employerDtoToDomain(employerDto: EmployerDto): Employer =
@@ -93,7 +108,9 @@ class DtoMapper {
         )
 
     fun contactsDtoToDomain(contactsDto: ContactsDto?): Contacts? {
-        return if (contactsDto == null) null else
+        return if (contactsDto == null) {
+            null
+        } else {
             Contacts(
                 contactsDto.id,
                 contactsDto.name,
@@ -102,6 +119,7 @@ class DtoMapper {
                     it.formatted
                 }
             )
+        }
     }
 
     fun filterIndustryDtoToDomain(filterIndustryDto: FilterIndustryDto): FilterIndustry =

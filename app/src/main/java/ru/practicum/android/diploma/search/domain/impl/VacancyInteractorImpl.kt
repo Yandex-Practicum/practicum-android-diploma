@@ -54,7 +54,6 @@ class VacancyInteractorImpl(private val repository: VacancyRepository, val mappe
                     mapper.vacancyResponseDtoToDomain(resource.data)
                 )
 
-
                 is Resource.Error -> {
                     Result.Error(resource.message, resource.exception)
                 }
@@ -75,5 +74,4 @@ class VacancyInteractorImpl(private val repository: VacancyRepository, val mappe
             }
         }
     }
-
 }

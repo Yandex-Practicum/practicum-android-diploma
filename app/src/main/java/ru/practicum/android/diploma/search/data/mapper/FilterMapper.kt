@@ -9,7 +9,6 @@ class FilterMapper {
         page: Int? = null,
         onlyWithSalary: Boolean? = null
     ): Map<String, String> {
-
         val map = mutableMapOf<String, String>()
 
         area?.let { map["area"] = it.toString() }
