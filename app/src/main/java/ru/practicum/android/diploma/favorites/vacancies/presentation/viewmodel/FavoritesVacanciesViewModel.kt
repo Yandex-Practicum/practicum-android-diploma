@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.favorites.vacansies.presentation.viewmodel
+package ru.practicum.android.diploma.favorites.vacancies.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
