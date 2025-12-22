@@ -9,17 +9,17 @@ import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 import ru.practicum.android.diploma.search.utils.NetworkConnectionChecker
 
 class NetworkClientImpl(
-    private val vacancyApi: VacancyApi,
+    private val searchApi: SearchApi,
     private val networkConnectionChecker: NetworkConnectionChecker,
     private val filterMapper: FilterMapper
 ) : NetworkClient {
 
     override suspend fun getAreas(): Resource<List<FilterAreaDto>> {
-        return safeApiCall(networkConnectionChecker) { vacancyApi.getAreas() }
+        return safeApiCall(networkConnectionChecker) { searchApi.getAreas() }
     }
 
     override suspend fun getIndustry(): Resource<List<FilterIndustryDto>> {
-        return safeApiCall(networkConnectionChecker) { vacancyApi.getIndustry() }
+        return safeApiCall(networkConnectionChecker) { searchApi.getIndustry() }
     }
 
     override suspend fun getVacancies(
@@ -34,12 +34,12 @@ class NetworkClientImpl(
                 page = vacancyFilter.page,
                 onlyWithSalary = vacancyFilter.onlyWithSalary
             )
-            vacancyApi.getVacancies(queryMap)
+            searchApi.getVacancies(queryMap)
         }
     }
 
     override suspend fun getVacancyById(id: String): Resource<VacancyDetailDto> {
-        return safeApiCall(networkConnectionChecker) { vacancyApi.getVacancyById(id) }
+        return safeApiCall(networkConnectionChecker) { searchApi.getVacancyById(id) }
     }
 
     object HttpStatusCodes {
