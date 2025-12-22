@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.data.network
+package ru.practicum.android.diploma.search.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -6,10 +6,12 @@ import ru.practicum.android.diploma.search.data.dto.FilterAreaDto
 import ru.practicum.android.diploma.search.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.search.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
-import ru.practicum.android.diploma.search.domain.api.VacancyRepository
+import ru.practicum.android.diploma.search.data.network.NetworkClient
+import ru.practicum.android.diploma.search.data.network.Resource
+import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 
-class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyRepository {
+class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
     override fun getAreas(): Flow<Resource<List<FilterAreaDto>>> = flow {
         emit(networkClient.getAreas())
     }
