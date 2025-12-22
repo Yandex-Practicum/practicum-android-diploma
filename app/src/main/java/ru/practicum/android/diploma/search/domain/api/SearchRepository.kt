@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
 import ru.practicum.android.diploma.search.data.network.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 
-interface VacancyRepository {
+interface SearchRepository {
     fun getAreas(): Flow<Resource<List<FilterAreaDto>>>
     fun getIndustry(): Flow<Resource<List<FilterIndustryDto>>>
 

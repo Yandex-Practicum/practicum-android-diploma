@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/menu_favorites"
-        android:name="ru.practicum.android.diploma.favorites.vacansies.presentation.ui.FavoritesVacanciesFragment"
+        android:name="ru.practicum.android.diploma.favorites.vacancies.presentation.ui.FavoritesVacanciesFragment"
         android:label="FavoritesVacanciesFragment" >
         <action
             android:id="@+id/action_favoritesVacanciesFragment_to_vacancyDetailsFragment"

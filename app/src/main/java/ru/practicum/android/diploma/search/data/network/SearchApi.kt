@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.search.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.search.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
 
-interface VacancyApi {
+interface SearchApi {
     @GET("/areas")
     suspend fun getAreas(): List<FilterAreaDto>
 
