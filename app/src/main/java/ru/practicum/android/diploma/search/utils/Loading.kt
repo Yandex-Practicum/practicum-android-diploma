@@ -12,14 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
 
-
 @Composable
 fun Loading(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
-
-        ) {
+    ) {
         CircularProgressIndicator(
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(36.dp)
