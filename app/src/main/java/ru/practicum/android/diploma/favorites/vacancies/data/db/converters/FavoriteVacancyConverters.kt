@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.favorites.vacansies.data.db.converters
+package ru.practicum.android.diploma.favorites.vacancies.data.db.converters
 
 import androidx.room.TypeConverter
 

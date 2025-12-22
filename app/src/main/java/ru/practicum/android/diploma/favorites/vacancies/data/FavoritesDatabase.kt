@@ -1,11 +1,11 @@
-package ru.practicum.android.diploma.favorites.vacansies.data
+package ru.practicum.android.diploma.favorites.vacancies.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ru.practicum.android.diploma.favorites.vacansies.data.db.converters.FavoriteVacancyConverters
-import ru.practicum.android.diploma.favorites.vacansies.data.db.dao.FavoriteVacancyDao
-import ru.practicum.android.diploma.favorites.vacansies.data.db.entity.FavoriteVacancyEntity
+import ru.practicum.android.diploma.favorites.vacancies.data.db.converters.FavoriteVacancyConverters
+import ru.practicum.android.diploma.favorites.vacancies.data.db.dao.FavoriteVacancyDao
+import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
 
 @Database(
     entities = [FavoriteVacancyEntity::class],

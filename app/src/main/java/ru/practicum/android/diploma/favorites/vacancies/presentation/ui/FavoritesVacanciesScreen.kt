@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.favorites.vacansies.presentation.ui
+package ru.practicum.android.diploma.favorites.vacancies.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
