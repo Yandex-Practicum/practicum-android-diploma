@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.utils
+package ru.practicum.android.diploma.core.presentation.ui.util
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
