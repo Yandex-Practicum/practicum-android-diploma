@@ -1,16 +1,15 @@
 package ru.practicum.android.diploma.search.di
 
-import okhttp3.OkHttpClient
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.search.data.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.data.mapper.DtoMapper
 import ru.practicum.android.diploma.search.data.mapper.FilterMapper
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.NetworkClientImpl
 import ru.practicum.android.diploma.search.data.network.SearchApi
+import ru.practicum.android.diploma.search.data.network.provideOkHttpClient
 import ru.practicum.android.diploma.search.data.network.provideRetrofit
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
