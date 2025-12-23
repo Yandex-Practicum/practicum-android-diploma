@@ -8,17 +8,8 @@ import ru.practicum.android.diploma.vacancy.details.domain.repository.VacancyRep
 import ru.practicum.android.diploma.vacancy.details.domain.repository.VacancyRepositoryImpl
 import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.VacancyDetailsViewModel
 
-//val VacancyDetailViewModule = module {
-//    viewModel { VacancyDetailsViewModel(get()) }
-//}
-
 val vacancyDetailViewModule = module {
-    // Репозиторий с нужными зависимостями
-    single<VacancyRepository> { VacancyRepositoryImpl() } // если нужно NetworkClient и DtoMapper
-
-    // Интерактор
+    single<VacancyRepository> { VacancyRepositoryImpl() }
     single<VacancyInteractor> { VacancyInteractorImpl(get()) }
-
-    // ViewModel
     viewModel { VacancyDetailsViewModel(get()) }
 }
