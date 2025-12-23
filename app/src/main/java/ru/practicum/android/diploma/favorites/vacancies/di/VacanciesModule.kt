@@ -7,6 +7,7 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.vacancies.data.FavoritesDatabase
 import ru.practicum.android.diploma.favorites.vacancies.data.db.dao.FavoriteVacancyDao
 import ru.practicum.android.diploma.favorites.vacancies.data.repository.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.favorites.vacancies.domain.repository.FavoritesRepository
 import ru.practicum.android.diploma.favorites.vacancies.presentation.viewmodel.FavoritesVacanciesViewModel
 
 val databaseModule = module {
@@ -21,10 +22,10 @@ val databaseModule = module {
     single<FavoriteVacancyDao> { get<FavoritesDatabase>().favoriteVacancyDao() }
 }
 
- val repositoryModule = module {
-    single { FavoritesRepositoryImpl(get()) }
- }
+val repositoryModule = module {
+    single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
+}
 
 val viewModelModule = module {
-    viewModel { FavoritesVacanciesViewModel() }
+    viewModel { FavoritesVacanciesViewModel(get()) }
 }
