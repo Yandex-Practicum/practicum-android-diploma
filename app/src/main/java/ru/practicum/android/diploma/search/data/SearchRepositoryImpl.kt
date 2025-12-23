@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.search.data.dto.VacancyResponseDto
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyFilter
-import ru.practicum.android.diploma.search.domain.repository.SearchRepository
+import ru.practicum.android.diploma.search.domain.api.SearchRepository
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
     override fun getAreas(): Flow<Resource<List<FilterAreaDto>>> = flow {

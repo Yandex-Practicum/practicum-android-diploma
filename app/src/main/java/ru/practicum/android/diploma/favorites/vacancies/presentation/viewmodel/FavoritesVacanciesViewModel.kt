@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
-import ru.practicum.android.diploma.favorites.vacancies.domain.repository.FavoritesRepository
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesRepository
 
 class FavoritesVacanciesViewModel(
     private val repository: FavoritesRepository

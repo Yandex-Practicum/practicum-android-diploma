@@ -1,10 +1,11 @@
-package ru.practicum.android.diploma.search.domain.repository
+package ru.practicum.android.diploma.search.domain.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.search.data.mapper.DtoMapper
 import ru.practicum.android.diploma.search.data.network.Resource
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
+import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.model.FilterArea
 import ru.practicum.android.diploma.search.domain.model.FilterIndustry
 import ru.practicum.android.diploma.search.domain.model.Result

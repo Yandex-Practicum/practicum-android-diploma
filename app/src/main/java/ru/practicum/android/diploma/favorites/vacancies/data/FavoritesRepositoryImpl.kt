@@ -1,10 +1,10 @@
-package ru.practicum.android.diploma.favorites.vacancies.data.repository
+package ru.practicum.android.diploma.favorites.vacancies.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.favorites.vacancies.data.db.dao.FavoriteVacancyDao
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
-import ru.practicum.android.diploma.favorites.vacancies.domain.repository.FavoritesRepository
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesRepository
 
 class FavoritesRepositoryImpl(
     private val dao: FavoriteVacancyDao

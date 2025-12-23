@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.favorites.vacancies.domain.repository
+package ru.practicum.android.diploma.favorites.vacancies.domain.api
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
