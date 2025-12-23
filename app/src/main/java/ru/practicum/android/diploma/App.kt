@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.search.di.networkModule
 import ru.practicum.android.diploma.search.di.searchRepositoryModule
 import ru.practicum.android.diploma.search.di.searchViewModelModule
 import ru.practicum.android.diploma.search.di.utilsModule
+import ru.practicum.android.diploma.vacancy.details.di.vacancyDetailViewModule
 
 class App : Application() {
     override fun onCreate() {
@@ -24,6 +25,7 @@ class App : Application() {
                 favoritesViewModelModule,
                 searchRepositoryModule,
                 searchViewModelModule,
+                vacancyDetailViewModule
             )
         }
     }
