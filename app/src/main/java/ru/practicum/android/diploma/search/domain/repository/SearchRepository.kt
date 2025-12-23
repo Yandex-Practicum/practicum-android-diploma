@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.domain.api
+package ru.practicum.android.diploma.search.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.search.data.dto.FilterAreaDto

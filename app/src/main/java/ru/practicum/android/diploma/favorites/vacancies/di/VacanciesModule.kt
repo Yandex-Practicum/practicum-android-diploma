@@ -22,10 +22,10 @@ val databaseModule = module {
     single<FavoriteVacancyDao> { get<FavoritesDatabase>().favoriteVacancyDao() }
 }
 
-val repositoryModule = module {
+val favoritesRepositoryModule = module {
     single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 }
 
-val viewModelModule = module {
+val favoritesViewModelModule = module {
     viewModel { FavoritesVacanciesViewModel(get()) }
 }

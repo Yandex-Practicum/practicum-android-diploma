@@ -1,11 +1,10 @@
-package ru.practicum.android.diploma.search.domain.impl
+package ru.practicum.android.diploma.search.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.search.data.mapper.DtoMapper
 import ru.practicum.android.diploma.search.data.network.Resource
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
-import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.model.FilterArea
 import ru.practicum.android.diploma.search.domain.model.FilterIndustry
 import ru.practicum.android.diploma.search.domain.model.Result
@@ -13,7 +12,8 @@ import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
-class SearchInteractorImpl(private val repository: SearchRepository, val mapper: DtoMapper) : SearchInteractor {
+class SearchInteractorImpl(private val repository: SearchRepository, val mapper: DtoMapper) :
+    SearchInteractor {
     override fun getAreas(): Flow<Result<List<FilterArea>>> {
         return repository.getAreas().map { resource ->
             when (resource) {

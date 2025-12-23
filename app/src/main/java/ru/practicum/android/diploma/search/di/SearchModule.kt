@@ -12,8 +12,8 @@ import ru.practicum.android.diploma.search.data.network.SearchApi
 import ru.practicum.android.diploma.search.data.network.provideOkHttpClient
 import ru.practicum.android.diploma.search.data.network.provideRetrofit
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
-import ru.practicum.android.diploma.search.domain.api.SearchRepository
-import ru.practicum.android.diploma.search.domain.impl.SearchInteractorImpl
+import ru.practicum.android.diploma.search.domain.repository.SearchRepository
+import ru.practicum.android.diploma.search.domain.repository.SearchInteractorImpl
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchFiltersViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchIndustryFilterViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
@@ -26,13 +26,13 @@ val utilsModule = module {
 }
 
 val networkModule = module {
-    single { provideOkHttpClient() }
+    single { provideOkHttpClient(get()) }
     single { provideRetrofit(get()) }
     single { get<Retrofit>().create(SearchApi::class.java) }
     single<NetworkClient> { NetworkClientImpl(get(), get(), get()) }
 }
 
-val repositoryModule = module {
+val searchRepositoryModule = module {
     single<SearchRepository> { SearchRepositoryImpl(get()) }
 }
 
@@ -40,7 +40,7 @@ val interactorModule = module {
     single<SearchInteractor> { SearchInteractorImpl(get(), get()) }
 }
 
-val viewModelModule = module {
+val searchViewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { SearchFiltersViewModel(get()) }
     viewModel { SearchIndustryFilterViewModel(get()) }
