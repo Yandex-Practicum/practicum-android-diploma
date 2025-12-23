@@ -12,8 +12,8 @@ import ru.practicum.android.diploma.search.data.network.SearchApi
 import ru.practicum.android.diploma.search.data.network.provideOkHttpClient
 import ru.practicum.android.diploma.search.data.network.provideRetrofit
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
-import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.search.domain.repository.SearchInteractorImpl
+import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchFiltersViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchIndustryFilterViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
