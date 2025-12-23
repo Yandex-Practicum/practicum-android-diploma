@@ -4,11 +4,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.favorites.vacancies.data.db.dao.FavoriteVacancyDao
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
-import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesRepository
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesRepository
 
-class FavoritesRepositoryImpl(
+class FavoritesVacanciesRepositoryImpl(
     private val dao: FavoriteVacancyDao
-) : FavoritesRepository {
+) : FavoritesVacanciesRepository {
 
     override fun getFavorites(): Flow<List<FavoriteVacancyEntity>> = flow {
         emit(dao.getAllFavorites())

@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.favorites.vacancies.di.databaseModule
+import ru.practicum.android.diploma.favorites.vacancies.di.favoritesInteractorModule
 import ru.practicum.android.diploma.favorites.vacancies.di.favoritesRepositoryModule
 import ru.practicum.android.diploma.favorites.vacancies.di.favoritesViewModelModule
 import ru.practicum.android.diploma.search.di.interactorModule
@@ -24,6 +25,7 @@ class App : Application() {
                 interactorModule,
                 databaseModule,
                 favoritesRepositoryModule,
+                favoritesInteractorModule,
                 favoritesViewModelModule,
                 searchRepositoryModule,
                 searchViewModelModule,
