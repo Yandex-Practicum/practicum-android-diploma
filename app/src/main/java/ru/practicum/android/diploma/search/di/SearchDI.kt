@@ -36,7 +36,7 @@ val searchRepositoryModule = module {
     single<SearchRepository> { SearchRepositoryImpl(get()) }
 }
 
-val interactorModule = module {
+val searchInteractorModule = module {
     single<SearchInteractor> { SearchInteractorImpl(get(), get()) }
 }
 

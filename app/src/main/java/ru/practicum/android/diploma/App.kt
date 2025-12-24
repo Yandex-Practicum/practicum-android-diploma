@@ -7,8 +7,8 @@ import ru.practicum.android.diploma.favorites.vacancies.di.databaseModule
 import ru.practicum.android.diploma.favorites.vacancies.di.favoritesInteractorModule
 import ru.practicum.android.diploma.favorites.vacancies.di.favoritesRepositoryModule
 import ru.practicum.android.diploma.favorites.vacancies.di.favoritesViewModelModule
-import ru.practicum.android.diploma.search.di.interactorModule
 import ru.practicum.android.diploma.search.di.networkModule
+import ru.practicum.android.diploma.search.di.searchInteractorModule
 import ru.practicum.android.diploma.search.di.searchRepositoryModule
 import ru.practicum.android.diploma.search.di.searchViewModelModule
 import ru.practicum.android.diploma.search.di.utilsModule
@@ -22,7 +22,7 @@ class App : Application() {
             modules(
                 utilsModule,
                 networkModule,
-                interactorModule,
+                searchInteractorModule,
                 databaseModule,
                 favoritesRepositoryModule,
                 favoritesInteractorModule,
