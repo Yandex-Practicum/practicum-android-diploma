@@ -102,4 +102,10 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
     androidTestImplementation(libs.uiTests.navigation.testing)
     // endregion
+
+    // Koin
+    implementation("io.insert-koin:koin-core:3.4.3")
+    implementation("io.insert-koin:koin-android:3.4.3")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.3")
+
 }

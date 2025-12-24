@@ -1,9 +1,36 @@
 package ru.practicum.android.diploma
 
 import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import ru.practicum.android.diploma.favorites.vacancies.di.databaseModule
+import ru.practicum.android.diploma.favorites.vacancies.di.favoritesInteractorModule
+import ru.practicum.android.diploma.favorites.vacancies.di.favoritesRepositoryModule
+import ru.practicum.android.diploma.favorites.vacancies.di.favoritesViewModelModule
+import ru.practicum.android.diploma.search.di.networkModule
+import ru.practicum.android.diploma.search.di.searchInteractorModule
+import ru.practicum.android.diploma.search.di.searchRepositoryModule
+import ru.practicum.android.diploma.search.di.searchViewModelModule
+import ru.practicum.android.diploma.search.di.utilsModule
+import ru.practicum.android.diploma.vacancy.details.di.vacancyDetailViewModule
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            androidContext(this@App)
+            modules(
+                utilsModule,
+                networkModule,
+                searchInteractorModule,
+                databaseModule,
+                favoritesRepositoryModule,
+                favoritesInteractorModule,
+                favoritesViewModelModule,
+                searchRepositoryModule,
+                searchViewModelModule,
+                vacancyDetailViewModule
+            )
+        }
     }
 }

@@ -13,7 +13,8 @@ import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
-class SearchInteractorImpl(private val repository: SearchRepository, val mapper: DtoMapper) : SearchInteractor {
+class SearchInteractorImpl(private val repository: SearchRepository, val mapper: DtoMapper) :
+    SearchInteractor {
     override fun getAreas(): Flow<Result<List<FilterArea>>> {
         return repository.getAreas().map { resource ->
             when (resource) {

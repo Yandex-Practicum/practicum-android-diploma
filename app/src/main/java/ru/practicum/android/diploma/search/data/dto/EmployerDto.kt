@@ -5,4 +5,3 @@ data class EmployerDto(
     val name: String,
     val logo: String
 )
-
