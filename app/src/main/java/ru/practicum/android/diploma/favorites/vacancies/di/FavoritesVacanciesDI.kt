@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVaca
 import ru.practicum.android.diploma.favorites.vacancies.domain.impl.FavoritesVacanciesInteractorImpl
 import ru.practicum.android.diploma.favorites.vacancies.presentation.viewmodel.FavoritesVacanciesViewModel
 
-val databaseModule = module {
+val favoritesDataModule = module {
     single<FavoritesDatabase> {
         Room.databaseBuilder(
             androidApplication(),
@@ -22,18 +22,21 @@ val databaseModule = module {
             .build()
     }
     single<FavoriteVacancyDao> { get<FavoritesDatabase>().favoriteVacancyDao() }
-}
-
-val favoritesRepositoryModule = module {
     single<FavoritesVacanciesRepository> { FavoritesVacanciesRepositoryImpl(get()) }
 }
 
-val favoritesInteractorModule = module {
+val favoritesDomainModule = module {
     single<FavoritesVacanciesInteractor> {
         FavoritesVacanciesInteractorImpl(get())
     }
 }
 
-val favoritesViewModelModule = module {
+val favoritesPresentationModule = module {
     viewModel { FavoritesVacanciesViewModel(get()) }
 }
+
+val favoritesVacanciesModules = listOf(
+    favoritesDataModule,
+    favoritesDomainModule,
+    favoritesPresentationModule
+)
