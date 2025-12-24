@@ -8,8 +8,20 @@ import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsRep
 import ru.practicum.android.diploma.vacancy.details.domain.impl.VacancyDetailsInteractorImpl
 import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.VacancyDetailsViewModel
 
-val vacancyDetailViewModule = module {
+val vacancyDetailsDataModule = module {
     single<VacancyDetailsRepository> { VacancyDetailsRepositoryImpl() }
+}
+
+val vacancyDetailsDomainModule = module {
     single<VacancyDetailsInteractor> { VacancyDetailsInteractorImpl(get()) }
+}
+
+val vacancyDetailsPresentationModule = module {
     viewModel { VacancyDetailsViewModel(get()) }
 }
+
+val vacancyDetailsModules = listOf(
+    vacancyDetailsDataModule,
+    vacancyDetailsDomainModule,
+    vacancyDetailsPresentationModule
+)

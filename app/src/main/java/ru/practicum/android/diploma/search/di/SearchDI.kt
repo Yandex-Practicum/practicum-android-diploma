@@ -19,29 +19,29 @@ import ru.practicum.android.diploma.search.presentation.viewmodel.SearchIndustry
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.search.utils.NetworkConnectionChecker
 
-val utilsModule = module {
+val searchDataModule = module {
     single { NetworkConnectionChecker(get()) }
     single { DtoMapper() }
     single { FilterMapper() }
-}
-
-val networkModule = module {
     single { provideOkHttpClient(get()) }
     single { provideRetrofit(get()) }
     single { get<Retrofit>().create(SearchApi::class.java) }
     single<NetworkClient> { NetworkClientImpl(get(), get(), get()) }
-}
-
-val searchRepositoryModule = module {
     single<SearchRepository> { SearchRepositoryImpl(get()) }
 }
 
-val searchInteractorModule = module {
+val searchDomainModule = module {
     single<SearchInteractor> { SearchInteractorImpl(get(), get()) }
 }
 
-val searchViewModelModule = module {
+val searchPresentationModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { SearchFiltersViewModel(get()) }
     viewModel { SearchIndustryFilterViewModel(get()) }
 }
+
+val searchModules = listOf(
+    searchDataModule,
+    searchDomainModule,
+    searchPresentationModule
+)

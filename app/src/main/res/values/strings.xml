@@ -9,5 +9,11 @@
     <string name="title_industry_filter" translatable="false">Выбор отрасли</string>
     <string name="title_favorites" translatable="false">Избранное</string>
     <string name="title_team_info" translatable="false">Команда</string>
+    <string name="error_no_internet" translatable="false">Нет подключения к интернету</string>
+    <string name="error_403_forbidden" translatable="false">403 Forbidden</string>
+    <string name="error_404_not_found" translatable="false">404 Not Found</string>
+    <string name="error_server" translatable="false">Ошибка сервера</string>
+    <string name="error_unknown" translatable="false">Неизвестная ошибка</string>
+    <string name="error_poor_connection" translatable="false">Плохое соединение</string>
 
 </resources>
