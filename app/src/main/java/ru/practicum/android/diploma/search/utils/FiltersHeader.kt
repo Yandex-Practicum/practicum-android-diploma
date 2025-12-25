@@ -15,9 +15,8 @@ import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
 
-
 @Composable
-fun HeaderWithBackArrow(text: String) {
+fun FiltersHeader(text: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             painter = painterResource(R.drawable.arrow_back_24px),
@@ -39,6 +38,6 @@ fun HeaderWithBackArrow(text: String) {
 
 @Preview
 @Composable
-fun HeaderWithBackArrowPreview() {
-    VacancySearchAppTheme { HeaderWithBackArrow("Выбор места работы") }
+fun FiltersHeaderPreview() {
+    VacancySearchAppTheme { FiltersHeader("Выбор места работы") }
 }
