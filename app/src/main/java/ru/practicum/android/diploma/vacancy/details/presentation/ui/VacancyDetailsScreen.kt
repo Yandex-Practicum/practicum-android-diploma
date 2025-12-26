@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,6 +26,8 @@ import ru.practicum.android.diploma.R
 @Composable
 fun VacancyDetailsScreen(
     onBack: () -> Unit,
+    onShare: () -> Unit,
+    onFavoriteClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -36,6 +40,20 @@ fun VacancyDetailsScreen(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Назад"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onShare) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = "Поделиться"
+                        )
+                    }
+                    IconButton(onClick = onFavoriteClick) {
+                        Icon(
+                            imageVector = Icons.Default.FavoriteBorder,
+                            contentDescription = "В избранное"
                         )
                     }
                 }

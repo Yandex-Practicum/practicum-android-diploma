@@ -16,7 +16,9 @@ class VacancyDetailsFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 VacancyDetailsScreen(
-                    onBack = { navigateBack() }
+                    onBack = { navigateBack() },
+                    onShare = {},
+                    onFavoriteClick = {}
                 )
             }
         }
