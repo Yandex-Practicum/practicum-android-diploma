@@ -13,4 +13,8 @@ class VacancyDetailsViewModel(
     private val _vacancy = MutableStateFlow<VacancyDetail?>(null)
     val vacancy: StateFlow<VacancyDetail?> = _vacancy
 
+    fun getShareUrl(): String? {
+        return _vacancy.value?.url
+    }
+
 }
