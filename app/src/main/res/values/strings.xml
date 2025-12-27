@@ -15,5 +15,6 @@
     <string name="error_server" translatable="false">Ошибка сервера</string>
     <string name="error_unknown" translatable="false">Неизвестная ошибка</string>
     <string name="error_poor_connection" translatable="false">Плохое соединение</string>
+    <string name="salary_not_specified" translatable="false">Зарплата не указана</string>
 
 </resources>
