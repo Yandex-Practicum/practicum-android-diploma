@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
@@ -30,7 +31,7 @@ import ru.practicum.android.diploma.core.presentation.ui.theme.dp48
 @Composable
 fun VacancyItem(
     id: String,
-    logoUrl:String?,
+    logoUrl: String?,
     vacancyName: String,
     city: String?,
     employer: String?,
@@ -54,19 +55,19 @@ fun VacancyItem(
                 .padding(dp16),
             horizontalArrangement = Arrangement.spacedBy(dp12)
         ) {
-                if (!logoUrl.isNullOrEmpty()) {
-                    AsyncImage(
-                        model = logoUrl,
-                        contentDescription = null,
-                        modifier = Modifier.size(dp48)
-                    )
-                } else {
-                    Icon(
-                        painter = painterResource(R.drawable.logo_placeholder),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                }
+            if (!logoUrl.isNullOrEmpty()) {
+                AsyncImage(
+                    model = logoUrl,
+                    contentDescription = null,
+                    modifier = Modifier.size(dp48)
+                )
+            } else {
+                Icon(
+                    painter = painterResource(R.drawable.logo_placeholder),
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+            }
 
             Row(
                 modifier = Modifier
@@ -103,6 +104,14 @@ fun VacancyItem(
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
+                    } else {
+                        Text(
+                            text = stringResource(R.string.salary_not_specified),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     }
                 }
             }
@@ -120,7 +129,7 @@ private fun VacancyItemPreview() {
             vacancyName = "Java-разработчик",
             city = "Омск",
             employer = "Авто.ру",
-            salary = "от 150 000 ₽",
+            salary = "",
             modifier = Modifier.padding(dp16),
             onClick = {},
         )

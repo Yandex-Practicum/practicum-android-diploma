@@ -66,6 +66,14 @@ private fun VacanciesListPreview() {
             employer = "Яндекс",
             salary = "до 250 000 ₽",
         ),
+        VacancyListItemUi(
+            id = "3",
+            logoUrl = null,
+            vacancyName = "Курьер",
+            city = "Москва",
+            employer = "Яндекс-Еда",
+            salary = "",
+        ),
     )
 
     VacancySearchAppTheme {
@@ -75,5 +83,3 @@ private fun VacanciesListPreview() {
         )
     }
 }
-
-
