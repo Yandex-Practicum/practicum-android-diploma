@@ -55,66 +55,85 @@ fun VacancyItem(
                 .padding(dp16),
             horizontalArrangement = Arrangement.spacedBy(dp12)
         ) {
-            if (!logoUrl.isNullOrEmpty()) {
-                AsyncImage(
-                    model = logoUrl,
-                    contentDescription = null,
-                    modifier = Modifier.size(dp48)
-                )
-            } else {
-                Icon(
-                    painter = painterResource(R.drawable.logo_placeholder),
-                    contentDescription = null,
-                    tint = Color.Unspecified
-                )
-            }
+            VacancyLogo(logoUrl = logoUrl)
 
             Row(
                 modifier = Modifier
                     .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f),
-                ) {
-                    Text(
-                        text = "$vacancyName, $city",
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-
-                    if (!employer.isNullOrEmpty()) {
-                        Text(
-                            text = employer,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-
-                    if (!salary.isNullOrEmpty()) {
-                        Text(
-                            text = salary,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    } else {
-                        Text(
-                            text = stringResource(R.string.salary_not_specified),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                }
+                VacancyTexts(
+                    vacancyName = vacancyName,
+                    city = city,
+                    employer = employer,
+                    salary = salary,
+                )
             }
+        }
+    }
+}
+
+@Composable
+private fun VacancyLogo(logoUrl: String?) {
+    if (!logoUrl.isNullOrEmpty()) {
+        AsyncImage(
+            model = logoUrl,
+            contentDescription = null,
+            modifier = Modifier.size(dp48)
+        )
+    } else {
+        Icon(
+            painter = painterResource(R.drawable.logo_placeholder),
+            contentDescription = null,
+            tint = Color.Unspecified
+        )
+    }
+}
+
+@Composable
+private fun VacancyTexts(
+    vacancyName: String,
+    city: String?,
+    employer: String?,
+    salary: String?,
+) {
+    Column(
+        modifier = Modifier,
+    ) {
+        Text(
+            text = "$vacancyName, $city",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+        )
+
+        if (!employer.isNullOrEmpty()) {
+            Text(
+                text = employer,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+
+        if (!salary.isNullOrEmpty()) {
+            Text(
+                text = salary,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        } else {
+            Text(
+                text = stringResource(R.string.salary_not_specified),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
         }
     }
 }

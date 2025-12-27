@@ -7,16 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
-
-data class VacancyListItemUi(
-    val id: String,
-    val logoUrl: String?,
-    val vacancyName: String,
-    val city: String?,
-    val employer: String?,
-    val salary: String?,
-)
 
 @Composable
 fun VacanciesList(
