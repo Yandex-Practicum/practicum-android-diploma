@@ -3,10 +3,10 @@ package ru.practicum.android.diploma.core.presentation.ui.util
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,42 +16,41 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
+import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
+import ru.practicum.android.diploma.core.presentation.ui.theme.dp30
 
 @Composable
 fun PlaceHolder(
-    modifier: Modifier = Modifier,
     @DrawableRes placeholderImage: Int,
     @StringRes placeholderText: Int = 0
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = dp16),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Image(
             painter = painterResource(placeholderImage),
             contentDescription = null,
-            modifier = modifier
-                .size(width = 328.dp, height = 223.dp)
-                .padding(top = 102.dp),
         )
 
         Text(
             text = stringResource(placeholderText),
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier
+                .padding(top = dp16)
+                .padding(horizontal = dp30),
             textAlign = TextAlign.Center,
-//            style = MaterialTheme.typography.bodyMedium,
-            lineHeight = 26.sp,
-            color = MaterialTheme.colorScheme.onPrimary,
-            fontSize = 22.sp
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun PlaceholderPreview() {
     VacancySearchAppTheme {
