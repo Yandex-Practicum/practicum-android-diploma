@@ -16,4 +16,7 @@
     <string name="error_unknown" translatable="false">Неизвестная ошибка</string>
     <string name="error_poor_connection" translatable="false">Плохое соединение</string>
     <string name="bullet" translatable="false">·</string>
+    <string name="salary_not_specified" translatable="false">Зарплата не указана</string>
+    <string name="get_vacancies_error" translatable="false">Не удалось получить список вакансий</string>
+
 </resources>
