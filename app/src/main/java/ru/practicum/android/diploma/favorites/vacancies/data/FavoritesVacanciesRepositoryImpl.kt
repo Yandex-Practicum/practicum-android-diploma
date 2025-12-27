@@ -18,7 +18,7 @@ class FavoritesVacanciesRepositoryImpl(
                 FavoritesResourse.Success(list)
             }
             .catch { throwable ->
-                val exception = (throwable as? Exception) ?: Exception(throwable)
+                val exception = throwable as? Exception ?: Exception(throwable)
                 emit(
                     FavoritesResourse.Error(
                         message = "Database error while loading favorites",
