@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesLis
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.util.PlaceHolder
+import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
 import ru.practicum.android.diploma.favorites.vacancies.presentation.viewmodel.FavoritesVacanciesViewModel
 
@@ -83,6 +84,9 @@ private fun FavoriteVacancyEntity.toVacancyListItemUi(): VacancyListItemUi =
         vacancyName = name,
         city = city,
         employer = employerName,
-        salary = null,//доделать форматер для зарплаты
+        salary = formatSalary(
+            from = salaryFrom,
+            to = salaryTo,
+            currency = currency,
+        ),
     )
-
