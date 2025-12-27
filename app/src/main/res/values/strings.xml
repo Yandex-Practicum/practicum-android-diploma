@@ -15,5 +15,5 @@
     <string name="error_server" translatable="false">Ошибка сервера</string>
     <string name="error_unknown" translatable="false">Неизвестная ошибка</string>
     <string name="error_poor_connection" translatable="false">Плохое соединение</string>
-
+    <string name="bullet" translatable="false">·</string>
 </resources>

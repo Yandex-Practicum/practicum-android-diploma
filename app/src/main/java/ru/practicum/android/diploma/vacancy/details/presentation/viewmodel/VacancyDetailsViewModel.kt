@@ -8,11 +8,11 @@ import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Employer
 import ru.practicum.android.diploma.search.domain.model.Employment
 import ru.practicum.android.diploma.search.domain.model.Experience
+import ru.practicum.android.diploma.search.domain.model.FilterArea
+import ru.practicum.android.diploma.search.domain.model.FilterIndustry
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.Schedule
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
-import ru.practicum.android.diploma.search.domain.model.FilterArea
-import ru.practicum.android.diploma.search.domain.model.FilterIndustry
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
 
 class VacancyDetailsViewModel(
@@ -22,16 +22,16 @@ class VacancyDetailsViewModel(
     private val _vacancy = MutableStateFlow<VacancyDetail?>(null)
     val vacancy: StateFlow<VacancyDetail?> = _vacancy
 
-    //временное решение для верстки
+    // временное решение для верстки
     init {
         _vacancy.value = createFakeVacancy()
     }
 
-    //временная заглушка для верстки
+    // временная заглушка для верстки
     private fun createFakeVacancy(): VacancyDetail =
         VacancyDetail(
             id = "123",
-            name = "Android Developer",
+            name = "Андроид-разработчик",
             description = "Разработка Android-приложений на Kotlin",
             salary = Salary(
                 from = 150000,
@@ -45,8 +45,10 @@ class VacancyDetailsViewModel(
                 fullAddress = "Москва, Тверская 10"
             ),
             experience = Experience("3-6", "3–6 лет"),
-            schedule = Schedule("fullDay", "Полный день"),
-            employment = Employment("full", "Полная занятость"),
+//            schedule = null,
+            schedule = Schedule("fullDay", "Работа в офисе пон-пят"),
+//            employment = null,
+            employment = Employment("full", "Полная занятость"), // ?
             contacts = Contacts(
                 id = "1",
                 name = "HR",
