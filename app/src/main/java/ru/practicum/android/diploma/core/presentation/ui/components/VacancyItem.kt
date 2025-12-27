@@ -149,7 +149,6 @@ private fun VacancyItemPreview() {
             city = "Омск",
             employer = "Авто.ру",
             salary = "",
-            modifier = Modifier.padding(dp16),
             onClick = {},
         )
     }
