@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.core.presentation.ui.components
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -30,8 +29,6 @@ fun VacanciesList(
                 city = vacancy.city,
                 employer = vacancy.employer,
                 salary = vacancy.salary,
-                modifier = Modifier
-                    .fillMaxWidth(),
                 onClick = onVacancyClick,
             )
         }
