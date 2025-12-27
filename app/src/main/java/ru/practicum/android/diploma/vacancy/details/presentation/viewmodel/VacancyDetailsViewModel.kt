@@ -34,9 +34,17 @@ class VacancyDetailsViewModel(
 
 object VacancyFakeFactory {
 
+    private const val VACANCY_ID = "123"
+    private const val EMPLOYER_ID = "777"
+    private const val CONTACT_ID = "1"
+    private const val SALARY_FROM = 150_000
+    private const val SALARY_TO = 250_000
+    private const val AREA_ID = 1
+    private const val INDUSTRY_ID = 10
+
     fun create(): VacancyDetail =
         VacancyDetail(
-            id = "123",
+            id = VACANCY_ID,
             name = "Андроид-разработчик",
             description = "Разработка Android-приложений на Kotlin",
             salary = fakeSalary(),
@@ -52,7 +60,7 @@ object VacancyFakeFactory {
             industry = fakeIndustry()
         )
 
-    private fun fakeSalary() = Salary(150_000, 250_000, "RUB")
+    private fun fakeSalary() = Salary(SALARY_FROM, SALARY_TO, "RUB")
 
     private fun fakeAddress() = Address(
         city = "Москва",
@@ -68,20 +76,20 @@ object VacancyFakeFactory {
     private fun fakeEmployment() = Employment("full", "Полная занятость")
 
     private fun fakeContacts() = Contacts(
-        id = "1",
+        id = CONTACT_ID,
         name = "HR",
         email = "hr@test.ru",
         phone = listOf("+7 999 123-45-67")
     )
 
     private fun fakeEmployer() = Employer(
-        id = "777",
+        id = EMPLOYER_ID,
         name = "Super Company",
         logo = "https://example.com/logo.png"
     )
 
     private fun fakeArea() = FilterArea(
-        id = 1,
+        id = AREA_ID,
         name = "Москва",
         parentId = null,
         areas = emptyList()
@@ -89,5 +97,5 @@ object VacancyFakeFactory {
 
     private fun fakeSkills() = listOf("Kotlin", "Compose", "Coroutines")
 
-    private fun fakeIndustry() = FilterIndustry(10, "IT")
+    private fun fakeIndustry() = FilterIndustry(INDUSTRY_ID, "IT")
 }
