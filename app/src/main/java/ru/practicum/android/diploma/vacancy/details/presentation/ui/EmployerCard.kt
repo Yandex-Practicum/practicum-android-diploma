@@ -102,8 +102,8 @@ fun EmployerItemPreview() {
             fullAddress = "Москва, Тверская, 1"
         ),
         salary = Salary(
-            from = 100000,
-            to = 150000,
+            from = 100_000,
+            to = 15_0000,
             currency = "RUB"
         ),
         experience = null,
