@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
+import ru.practicum.android.diploma.search.domain.model.Experience
+import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 
 // нужно будет доработать код. после получения реальных описаний вакансий
@@ -84,113 +87,115 @@ fun VacancyDetailsScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun VacancyDetailsContent(vacancy: VacancyDetail) {
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
-//        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        vacancy.name.let {
-            item {
-                Text(
-                    vacancy.name,
-                    style = CustomTypography.displayLarge
-//                    style = MaterialTheme.typography.displayLarge
-                )
-            }
+        item { VacancyTitle(vacancy.name) }
+
+        vacancy.salary?.let {
+            item { VacancySalary(it) }
         }
 
-        // откорректировать после получения функции анализа данных по ЗП
-        vacancy.salary?.let { salary ->
-            item {
-                Text(
-                    text = "от: ${salary.from}, до: ${salary.to}, ${salary.currency}",
-                    style = CustomTypography.headlineMedium
-                )
-            }
+        item { EmployerItem(vacancy) }
+
+        vacancy.experience?.let {
+            item { VacancyExperience(it) }
         }
 
-        // Блок с работодателем
-        item {
-            EmployerItem(vacancy = vacancy)
-        }
+        item { VacancyEmploymentAndSchedule(vacancy) }
 
-        vacancy.experience?.let { experience ->
-            item {
-                Text(
-                    text = "Требуемый опыт",
-                    style = CustomTypography.titleMedium
-                )
-            }
-            item {
-                Text(
-                    text = experience.name,
-                    style = CustomTypography.bodyMedium
-                )
-            }
-        }
+        item { VacancyDescription(vacancy.description) }
 
-        if (vacancy.employment != null && vacancy.schedule != null) {
-            item {
-                Text(
-                    text = "${vacancy.employment.name} ${vacancy.schedule.name}",
-                    style = CustomTypography.bodyMedium
-                )
-            }
-        } else {
-            vacancy.employment?.let { employment ->
-                item {
-                    Text(
-                        text = employment.name,
-                        style = CustomTypography.bodyMedium
-                    )
-                }
-            }
+        item { VacancySkills(vacancy.skills) }
+    }
+}
 
-            vacancy.schedule?.let { schedule ->
-                item {
-                    Text(
-                        text = schedule.name,
-                        style = CustomTypography.bodyMedium
-                    )
-                }
-            }
-        }
+@Composable
+private fun VacancyTitle(name: String) {
+    Text(
+        text = name,
+        style = CustomTypography.displayLarge
+    )
+}
 
-        vacancy.description.let { description ->
-            item {
-                Text(
-                    text = "Описание вакансии",
-                    style = CustomTypography.headlineMedium
-                )
-                Text(
-                    text = "Обязанности",
-                    style = CustomTypography.titleMedium
-                )
-                Text(
-                    text = description,
-                    style = CustomTypography.bodyMedium
-                )
-            }
-        }
+@Composable
+private fun VacancySalary(salary: Salary) {
+    Text(
+        text = "от: ${salary.from}, до: ${salary.to}, ${salary.currency}",
+        style = CustomTypography.headlineMedium
+    )
+}
 
-        vacancy.skills.let {
-            item {
-                Text(
-                    text = "Ключевые навыки",
-                    style = CustomTypography.headlineMedium
+@Composable
+private fun VacancyExperience(experience: Experience) {
+    Column {
+        Text(
+            text = "Требуемый опыт",
+            style = CustomTypography.titleMedium
+        )
+        Text(
+            text = experience.name,
+            style = CustomTypography.bodyMedium
+        )
+    }
+}
 
-                )
-            }
-            vacancy.skills.forEach { skill ->
-                item {
-                    Text(
-                        text = skill,
-                        style = CustomTypography.bodyMedium
-                    )
-                }
-            }
+@Composable
+private fun VacancyEmploymentAndSchedule(vacancy: VacancyDetail) {
+    val text = when {
+        vacancy.employment != null && vacancy.schedule != null ->
+            "${vacancy.employment.name} ${vacancy.schedule.name}"
+
+        vacancy.employment != null ->
+            vacancy.employment.name
+
+        vacancy.schedule != null ->
+            vacancy.schedule.name
+
+        else -> null
+    }
+
+    text?.let {
+        Text(
+            text = it,
+            style = CustomTypography.bodyMedium
+        )
+    }
+}
+
+@Composable
+private fun VacancyDescription(description: String) {
+    Column {
+        Text(
+            text = "Описание вакансии",
+            style = CustomTypography.headlineMedium
+        )
+        Text(
+            text = "Обязанности",
+            style = CustomTypography.titleMedium
+        )
+        Text(
+            text = description,
+            style = CustomTypography.bodyMedium
+        )
+    }
+}
+
+@Composable
+private fun VacancySkills(skills: List<String>) {
+    Column {
+        Text(
+            text = "Ключевые навыки",
+            style = CustomTypography.headlineMedium
+        )
+
+        skills.forEach { skill ->
+            Text(
+                text = skill,
+                style = CustomTypography.bodyMedium
+            )
         }
     }
 }
