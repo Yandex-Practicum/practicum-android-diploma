@@ -75,7 +75,6 @@ fun VacancyDetailsScreen(
                 .padding(paddingValues)
         ) {
             if (vacancy == null) {
-                // TODO: Показать состояние загрузки или ошибки
                 Text(
                     text = "Загрузка...",
                     modifier = Modifier.padding(16.dp)
