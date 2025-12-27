@@ -8,4 +8,5 @@ interface FavoritesVacanciesRepository {
     suspend fun addToFavorites(entity: FavoriteVacancyEntity)
     suspend fun removeFromFavorites(id: String)
     suspend fun isFavorite(id: String): Boolean
+    suspend fun getFavoriteById(id: String): FavoriteVacancyEntity?
 }

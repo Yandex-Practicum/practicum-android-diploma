@@ -24,4 +24,8 @@ class FavoritesVacanciesInteractorImpl(
     override suspend fun isFavorite(id: String): Boolean {
         return repository.isFavorite(id)
     }
+
+    override suspend fun getFavoriteById(id: String): FavoriteVacancyEntity? {
+        return repository.getFavoriteById(id)
+    }
 }
