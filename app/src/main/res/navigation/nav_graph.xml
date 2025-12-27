@@ -44,5 +44,14 @@
     <fragment
         android:id="@+id/vacancyDetailsFragment"
         android:name="ru.practicum.android.diploma.vacancy.details.presentation.ui.VacancyDetailsFragment"
-        android:label="VacancyDetailsFragment" />
+        android:label="VacancyDetailsFragment" >
+        <argument
+            android:name="vacancyId"
+            app:argType="string"
+            android:defaultValue="@null" />
+        <argument
+            android:name="openedFromFavorites"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>
