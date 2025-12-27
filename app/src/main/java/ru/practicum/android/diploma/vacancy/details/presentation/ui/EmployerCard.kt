@@ -103,7 +103,7 @@ fun EmployerItemPreview() {
         ),
         salary = Salary(
             from = 100_000,
-            to = 15_0000,
+            to = 150_000,
             currency = "RUB"
         ),
         experience = null,

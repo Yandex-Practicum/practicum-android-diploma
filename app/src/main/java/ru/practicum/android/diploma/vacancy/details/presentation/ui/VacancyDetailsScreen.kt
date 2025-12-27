@@ -78,7 +78,7 @@ fun VacancyDetailsScreen(
                     modifier = Modifier.padding(16.dp)
                 )
             } else {
-                VacancyDetailsContent2(vacancy = vacancy)
+                VacancyDetailsContent(vacancy = vacancy)
             }
         }
     }
@@ -86,7 +86,7 @@ fun VacancyDetailsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun VacancyDetailsContent2(vacancy: VacancyDetail) {
+private fun VacancyDetailsContent(vacancy: VacancyDetail) {
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
 //        verticalArrangement = Arrangement.spacedBy(16.dp)
