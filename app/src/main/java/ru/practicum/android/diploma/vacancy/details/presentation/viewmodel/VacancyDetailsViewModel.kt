@@ -34,8 +34,8 @@ class VacancyDetailsViewModel(
             name = "Андроид-разработчик",
             description = "Разработка Android-приложений на Kotlin",
             salary = Salary(
-                from = 150000,
-                to = 250000,
+                from = 150_000,
+                to = 250_000,
                 currency = "RUB"
             ),
             address = Address(
