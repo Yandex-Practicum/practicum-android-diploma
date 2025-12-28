@@ -17,5 +17,6 @@
     <string name="error_poor_connection" translatable="false">Плохое соединение</string>
     <string name="salary_not_specified" translatable="false">Зарплата не указана</string>
     <string name="get_vacancies_error" translatable="false">Не удалось получить список вакансий</string>
+    <string name="favorites_list_empty" translatable="false">Список пуст</string>
 
 </resources>
