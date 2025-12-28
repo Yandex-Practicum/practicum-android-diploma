@@ -5,12 +5,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -25,6 +27,7 @@ import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
 import ru.practicum.android.diploma.core.presentation.ui.theme.corner12
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp48
 import ru.practicum.android.diploma.core.presentation.ui.theme.lightGrey
+import ru.practicum.android.diploma.core.presentation.ui.theme.red
 import ru.practicum.android.diploma.search.domain.model.Address
 import ru.practicum.android.diploma.search.domain.model.Employer
 import ru.practicum.android.diploma.search.domain.model.FilterArea
@@ -37,8 +40,11 @@ fun EmployerItem(vacancy: VacancyDetail) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .height(80.dp)
             .clip(RoundedCornerShape(corner12))
-            .background(lightGrey)
+//            .background(red)
+            .background(lightGrey),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         val context = LocalContext.current
 
@@ -51,6 +57,7 @@ fun EmployerItem(vacancy: VacancyDetail) {
             error = painterResource(R.drawable.ic_launcher_background),
             contentDescription = "company logo",
             modifier = Modifier
+                .padding(start = 16.dp)
                 .size(dp48)
                 .border(
                     width = 1.dp,
@@ -62,7 +69,8 @@ fun EmployerItem(vacancy: VacancyDetail) {
             contentScale = ContentScale.Fit
         )
 
-        Column {
+        Column(modifier = Modifier.padding(start = 12.dp))
+        {
             Text(
                 // нужно добавить отсуп текста слева
                 text = vacancy.employer.name,
