@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,9 @@ class VacancyDetailsFragment : Fragment() {
                     isFavorite = isFavorite,
                     onBack = { navigateBack() },
                     onShare = { shareVacancy() },
-                    onFavoriteClick = { viewModel.toggleFavorite() }
+                    onFavoriteClick = { viewModel.toggleFavorite() },
+                    onPhoneClick = { phone -> dialPhone(phone) },
+                    onEmailClick = { email -> sendEmail(email) }
                 )
             }
         }
@@ -52,6 +55,20 @@ class VacancyDetailsFragment : Fragment() {
             val chooserIntent = Intent.createChooser(shareIntent, "Поделиться вакансией")
             startActivity(chooserIntent)
         }
+    }
+
+    private fun dialPhone(phone: String) {
+        val dialIntent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phone")
+        }
+        startActivity(dialIntent)
+    }
+
+    private fun sendEmail(email: String) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$email")
+        }
+        startActivity(emailIntent)
     }
 
     companion object {

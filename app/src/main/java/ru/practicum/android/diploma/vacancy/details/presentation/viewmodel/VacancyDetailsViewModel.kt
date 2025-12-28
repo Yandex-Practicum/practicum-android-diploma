@@ -115,7 +115,7 @@ object VacancyFakeFactory {
         id = CONTACT_ID,
         name = "HR",
         email = "hr@test.ru",
-        phone = listOf("+7 999 123-45-67")
+        phone = listOf("+7 999 123-45-67", "+7 495-123-45-67")
     )
 
     private fun fakeEmployer() = Employer(

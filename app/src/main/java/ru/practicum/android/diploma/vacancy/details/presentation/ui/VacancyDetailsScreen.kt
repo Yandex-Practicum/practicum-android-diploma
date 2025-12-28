@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,10 +21,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
+import ru.practicum.android.diploma.core.presentation.ui.theme.black
+import ru.practicum.android.diploma.core.presentation.ui.theme.grey
+import ru.practicum.android.diploma.core.presentation.ui.theme.red
+import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Experience
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
@@ -39,6 +46,8 @@ fun VacancyDetailsScreen(
     onBack: () -> Unit,
     onShare: () -> Unit,
     onFavoriteClick: () -> Unit,
+    onPhoneClick: (String) -> Unit = {},
+    onEmailClick: (String) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -63,8 +72,12 @@ fun VacancyDetailsScreen(
                     }
                     IconButton(onClick = onFavoriteClick) {
                         Icon(
-                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                            contentDescription = if (isFavorite) "Удалить из избранного" else "В избранное"
+                            painter = painterResource(
+                                id = if (isFavorite) R.drawable.ic_favorites_active else R.drawable.ic_favorites_inactive
+                            ),
+                            contentDescription = if (isFavorite) "Удалить из избранного" else "В избранное",
+                            tint = if (isFavorite) red else black,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 }
@@ -82,14 +95,22 @@ fun VacancyDetailsScreen(
                     modifier = Modifier.padding(16.dp)
                 )
             } else {
-                VacancyDetailsContent(vacancy = vacancy)
+                VacancyDetailsContent(
+                    vacancy = vacancy,
+                    onPhoneClick = onPhoneClick,
+                    onEmailClick = onEmailClick
+                )
             }
         }
     }
 }
 
 @Composable
-private fun VacancyDetailsContent(vacancy: VacancyDetail) {
+private fun VacancyDetailsContent(
+    vacancy: VacancyDetail,
+    onPhoneClick: (String) -> Unit,
+    onEmailClick: (String) -> Unit,
+) {
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
     ) {
@@ -110,6 +131,10 @@ private fun VacancyDetailsContent(vacancy: VacancyDetail) {
         item { VacancyDescription(vacancy.description) }
 
         item { VacancySkills(vacancy.skills) }
+
+        vacancy.contacts?.let {
+            item { VacancyContacts(it, onPhoneClick, onEmailClick) }
+        }
     }
 }
 
@@ -195,6 +220,30 @@ private fun VacancySkills(skills: List<String>) {
         skills.forEach { skill ->
             Text(
                 text = skill,
+                style = CustomTypography.bodyMedium
+            )
+        }
+    }
+}
+
+@Composable
+private fun VacancyContacts(
+    contacts: Contacts,
+    onPhoneClick: (String) -> Unit,
+    onEmailClick: (String) -> Unit,
+) {
+    Column {
+        contacts.phone.forEach { phone ->
+            Text(
+                text = phone,
+                modifier = Modifier.clickable { onPhoneClick(phone) },
+                style = CustomTypography.bodyMedium
+            )
+        }
+        if (contacts.email.isNotBlank()) {
+            Text(
+                text = contacts.email,
+                modifier = Modifier.clickable { onEmailClick(contacts.email) },
                 style = CustomTypography.bodyMedium
             )
         }
