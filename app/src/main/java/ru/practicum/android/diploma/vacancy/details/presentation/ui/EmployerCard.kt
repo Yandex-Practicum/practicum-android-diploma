@@ -27,7 +27,6 @@ import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
 import ru.practicum.android.diploma.core.presentation.ui.theme.corner12
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp48
 import ru.practicum.android.diploma.core.presentation.ui.theme.lightGrey
-import ru.practicum.android.diploma.core.presentation.ui.theme.red
 import ru.practicum.android.diploma.search.domain.model.Address
 import ru.practicum.android.diploma.search.domain.model.Employer
 import ru.practicum.android.diploma.search.domain.model.FilterArea
@@ -42,7 +41,6 @@ fun EmployerItem(vacancy: VacancyDetail) {
             .fillMaxWidth()
             .height(80.dp)
             .clip(RoundedCornerShape(corner12))
-//            .background(red)
             .background(lightGrey),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -69,8 +67,7 @@ fun EmployerItem(vacancy: VacancyDetail) {
             contentScale = ContentScale.Fit
         )
 
-        Column(modifier = Modifier.padding(start = 12.dp))
-        {
+        Column(modifier = Modifier.padding(start = 12.dp)) {
             Text(
                 // нужно добавить отсуп текста слева
                 text = vacancy.employer.name,
