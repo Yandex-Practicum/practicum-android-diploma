@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
 import ru.practicum.android.diploma.core.presentation.ui.theme.black
-import ru.practicum.android.diploma.core.presentation.ui.theme.grey
 import ru.practicum.android.diploma.core.presentation.ui.theme.red
 import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Experience
@@ -71,11 +68,18 @@ fun VacancyDetailsScreen(
                         )
                     }
                     IconButton(onClick = onFavoriteClick) {
+
                         Icon(
                             painter = painterResource(
-                                id = if (isFavorite) R.drawable.ic_favorites_active else R.drawable.ic_favorites_inactive
+                                id = if (isFavorite)
+                                    R.drawable.ic_favorites_active
+                                else
+                                    R.drawable.ic_favorites_inactive
                             ),
-                            contentDescription = if (isFavorite) "Удалить из избранного" else "В избранное",
+                            contentDescription = if (isFavorite)
+                                "Удалить из избранного"
+                            else
+                                "В избранное",
                             tint = if (isFavorite) red else black,
                             modifier = Modifier.size(24.dp)
                         )
