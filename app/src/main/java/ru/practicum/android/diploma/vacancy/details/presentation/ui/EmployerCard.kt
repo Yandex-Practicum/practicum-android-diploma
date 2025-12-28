@@ -69,7 +69,6 @@ fun EmployerItem(vacancy: VacancyDetail) {
 
         Column(modifier = Modifier.padding(start = 12.dp)) {
             Text(
-                // нужно добавить отсуп текста слева
                 text = vacancy.employer.name,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = CustomTypography.headlineMedium
@@ -77,7 +76,6 @@ fun EmployerItem(vacancy: VacancyDetail) {
 
             if (vacancy.address?.city != null) {
                 Text(
-                    // нужно добавить отсуп текста слева
                     text = vacancy.address.city,
                     color = MaterialTheme.colorScheme.onBackground,
                     style = CustomTypography.titleMedium
