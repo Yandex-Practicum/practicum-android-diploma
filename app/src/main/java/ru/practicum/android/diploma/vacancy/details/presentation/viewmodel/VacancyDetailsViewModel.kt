@@ -1,8 +1,15 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.viewmodel
 
+
+
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.vacancy.details.data.VacancyDetailToFavoriteMapper
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.model.Address
 import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Employer
@@ -16,15 +23,46 @@ import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
 
 class VacancyDetailsViewModel(
-    private val interactor: VacancyDetailsInteractor
+    private val interactor: VacancyDetailsInteractor,
+    private val favoritesInteractor: FavoritesVacanciesInteractor
 ) : ViewModel() {
 
+    private val vacancyDetailToFavoriteMapper = VacancyDetailToFavoriteMapper()
     private val _vacancy = MutableStateFlow<VacancyDetail?>(null)
-    val vacancy: StateFlow<VacancyDetail?> = _vacancy
+    val vacancy: StateFlow<VacancyDetail?> = _vacancy.asStateFlow()
+
+    private val _isFavorite = MutableStateFlow<Boolean>(false)
+    val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
 
     // временное решение для верстки
     init {
         _vacancy.value = VacancyFakeFactory.create()
+        checkFavoriteStatus()
+    }
+
+    private fun checkFavoriteStatus() {
+        viewModelScope.launch {
+            val vacancyId = _vacancy.value?.id ?: return@launch
+            _isFavorite.value = favoritesInteractor.isFavorite(vacancyId)
+        }
+    }
+
+    fun toggleFavorite() {
+        viewModelScope.launch {
+            val currentVacancy = _vacancy.value ?: return@launch
+            val currentIsFavorite = _isFavorite.value
+
+            if (currentIsFavorite) {
+                favoritesInteractor.removeFromFavorites(currentVacancy.id)
+                _isFavorite.value = false
+            } else {
+                val favoriteEntity = with(vacancyDetailToFavoriteMapper) {
+                    currentVacancy.toFavoriteVacancyEntity()
+                }
+                favoritesInteractor.addToFavorites(favoriteEntity)
+                _isFavorite.value = true
+            }
+        }
     }
 
     fun getShareUrl(): String? {

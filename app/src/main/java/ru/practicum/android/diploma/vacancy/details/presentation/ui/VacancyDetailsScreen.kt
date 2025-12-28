@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,6 +35,7 @@ import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 @Composable
 fun VacancyDetailsScreen(
     vacancy: VacancyDetail?,
+    isFavorite: Boolean = false,
     onBack: () -> Unit,
     onShare: () -> Unit,
     onFavoriteClick: () -> Unit,
@@ -61,8 +63,8 @@ fun VacancyDetailsScreen(
                     }
                     IconButton(onClick = onFavoriteClick) {
                         Icon(
-                            imageVector = Icons.Default.FavoriteBorder,
-                            contentDescription = "В избранное"
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            contentDescription = if (isFavorite) "Удалить из избранного" else "В избранное"
                         )
                     }
                 }

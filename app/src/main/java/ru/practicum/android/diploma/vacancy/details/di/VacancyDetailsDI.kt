@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.vacancy.details.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.vacancy.details.domain.impl.VacancyDetailsInteractorImpl
@@ -12,7 +13,8 @@ val vacancyDetailsDomainModule = module {
 }
 
 val vacancyDetailsPresentationModule = module {
-    viewModel { VacancyDetailsViewModel(get()) }
+    viewModel { VacancyDetailsViewModel(get(), get<FavoritesVacanciesInteractor>()) }
+//    viewModel { VacancyDetailsViewModel(get()) }
 }
 
 val vacancyDetailsModules = listOf(

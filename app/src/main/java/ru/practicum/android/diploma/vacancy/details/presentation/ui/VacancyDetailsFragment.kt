@@ -24,12 +24,14 @@ class VacancyDetailsFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 val vacancy by viewModel.vacancy.collectAsState()
+                val isFavorite by viewModel.isFavorite.collectAsState()
 
                 VacancyDetailsScreen(
                     vacancy = vacancy,
+                    isFavorite = isFavorite,
                     onBack = { navigateBack() },
                     onShare = { shareVacancy() },
-                    onFavoriteClick = {}
+                    onFavoriteClick = { viewModel.toggleFavorite() }
                 )
             }
         }
