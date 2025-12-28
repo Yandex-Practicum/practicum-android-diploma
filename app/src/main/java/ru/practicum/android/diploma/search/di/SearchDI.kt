@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.di
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.search.data.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.data.mapper.DtoMapper
 import ru.practicum.android.diploma.search.data.mapper.FilterMapper
@@ -23,7 +24,8 @@ val searchDataModule = module {
     single { NetworkConnectionChecker(get()) }
     single { DtoMapper() }
     single { FilterMapper() }
-    single { provideOkHttpClient(get()) }
+//    single { provideOkHttpClient(get()) }
+    single { provideOkHttpClient { BuildConfig.API_ACCESS_TOKEN } }
     single { provideRetrofit(get()) }
     single { get<Retrofit>().create(SearchApi::class.java) }
     single<NetworkClient> { NetworkClientImpl(get(), get(), get()) }
