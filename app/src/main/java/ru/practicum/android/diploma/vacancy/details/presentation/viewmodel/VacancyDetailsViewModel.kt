@@ -1,14 +1,11 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.viewmodel
 
-
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.vacancy.details.data.VacancyDetailToFavoriteMapper
 import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.model.Address
 import ru.practicum.android.diploma.search.domain.model.Contacts
@@ -20,6 +17,7 @@ import ru.practicum.android.diploma.search.domain.model.FilterIndustry
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.Schedule
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
+import ru.practicum.android.diploma.vacancy.details.data.VacancyDetailToFavoriteMapper
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
 
 class VacancyDetailsViewModel(
@@ -41,15 +39,24 @@ class VacancyDetailsViewModel(
     }
 
     private fun checkFavoriteStatus() {
+        val vacancyId = _vacancy.value?.id ?: return
         viewModelScope.launch {
-            val vacancyId = _vacancy.value?.id ?: return@launch
             _isFavorite.value = favoritesInteractor.isFavorite(vacancyId)
         }
     }
 
+///////////////////////////////////////////////////////////////////
+//    private fun checkFavoriteStatus() {
+//        viewModelScope.launch {
+//            val vacancyId = _vacancy.value?.id ?: return@launch
+//            _isFavorite.value = favoritesInteractor.isFavorite(vacancyId)
+//        }
+//    }
+///////////////////////////////////////////////////////////////////
+
     fun toggleFavorite() {
+        val currentVacancy = _vacancy.value ?: return
         viewModelScope.launch {
-            val currentVacancy = _vacancy.value ?: return@launch
             val currentIsFavorite = _isFavorite.value
 
             if (currentIsFavorite) {
@@ -64,6 +71,26 @@ class VacancyDetailsViewModel(
             }
         }
     }
+
+///////////////////////////////////////////////////////////////////
+//    fun toggleFavorite() {
+//        viewModelScope.launch {
+//            val currentVacancy = _vacancy.value ?: return@launch
+//            val currentIsFavorite = _isFavorite.value
+//
+//            if (currentIsFavorite) {
+//                favoritesInteractor.removeFromFavorites(currentVacancy.id)
+//                _isFavorite.value = false
+//            } else {
+//                val favoriteEntity = with(vacancyDetailToFavoriteMapper) {
+//                    currentVacancy.toFavoriteVacancyEntity()
+//                }
+//                favoritesInteractor.addToFavorites(favoriteEntity)
+//                _isFavorite.value = true
+//            }
+//        }
+//    }
+///////////////////////////////////////////////////////////////////
 
     fun getShareUrl(): String? {
         return _vacancy.value?.url
