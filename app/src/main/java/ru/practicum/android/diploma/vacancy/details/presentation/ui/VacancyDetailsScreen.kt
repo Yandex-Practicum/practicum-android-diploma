@@ -68,18 +68,19 @@ fun VacancyDetailsScreen(
                         )
                     }
                     IconButton(onClick = onFavoriteClick) {
-
                         Icon(
                             painter = painterResource(
-                                id = if (isFavorite)
+                                id = if (isFavorite) {
                                     R.drawable.ic_favorites_active
-                                else
+                                } else {
                                     R.drawable.ic_favorites_inactive
+                                }
                             ),
-                            contentDescription = if (isFavorite)
+                            contentDescription = if (isFavorite) {
                                 "Удалить из избранного"
-                            else
-                                "В избранное",
+                            } else {
+                                "В избранное"
+                            },
                             tint = if (isFavorite) red else black,
                             modifier = Modifier.size(24.dp)
                         )
