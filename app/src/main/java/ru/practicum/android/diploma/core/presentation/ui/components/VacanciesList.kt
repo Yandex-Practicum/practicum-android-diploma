@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
+import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 
 @Composable
 fun VacanciesList(
@@ -45,7 +46,7 @@ private fun VacanciesListPreview() {
             vacancyName = "Java-разработчик",
             city = "Омск",
             employer = "Авто.ру",
-            salary = "от 150 000 ₽",
+            salary = formatSalary(2_000, 5_000, "EUR"),
         ),
         VacancyListItemUi(
             id = "2",
@@ -53,7 +54,7 @@ private fun VacanciesListPreview() {
             vacancyName = "Android-разработчик",
             city = "Санкт-Петербург",
             employer = "Яндекс",
-            salary = "до 250 000 ₽",
+            salary = formatSalary(null, 300_000, "RUB"),
         ),
         VacancyListItemUi(
             id = "3",
@@ -61,7 +62,15 @@ private fun VacanciesListPreview() {
             vacancyName = "Курьер",
             city = "Москва",
             employer = "Яндекс-Еда",
-            salary = "",
+            salary = formatSalary(2_000, null, "USD"),
+        ),
+        VacancyListItemUi(
+            id = "4",
+            logoUrl = null,
+            vacancyName = "Дантист",
+            city = "Пермь",
+            employer = "Ультра-Дент",
+            salary = formatSalary(null, null, null),
         ),
     )
 
