@@ -45,15 +45,6 @@ class VacancyDetailsViewModel(
         }
     }
 
-///////////////////////////////////////////////////////////////////
-//    private fun checkFavoriteStatus() {
-//        viewModelScope.launch {
-//            val vacancyId = _vacancy.value?.id ?: return@launch
-//            _isFavorite.value = favoritesInteractor.isFavorite(vacancyId)
-//        }
-//    }
-///////////////////////////////////////////////////////////////////
-
     fun toggleFavorite() {
         val currentVacancy = _vacancy.value ?: return
         viewModelScope.launch {
@@ -71,26 +62,6 @@ class VacancyDetailsViewModel(
             }
         }
     }
-
-///////////////////////////////////////////////////////////////////
-//    fun toggleFavorite() {
-//        viewModelScope.launch {
-//            val currentVacancy = _vacancy.value ?: return@launch
-//            val currentIsFavorite = _isFavorite.value
-//
-//            if (currentIsFavorite) {
-//                favoritesInteractor.removeFromFavorites(currentVacancy.id)
-//                _isFavorite.value = false
-//            } else {
-//                val favoriteEntity = with(vacancyDetailToFavoriteMapper) {
-//                    currentVacancy.toFavoriteVacancyEntity()
-//                }
-//                favoritesInteractor.addToFavorites(favoriteEntity)
-//                _isFavorite.value = true
-//            }
-//        }
-//    }
-///////////////////////////////////////////////////////////////////
 
     fun getShareUrl(): String? {
         return _vacancy.value?.url
