@@ -19,6 +19,8 @@ import ru.practicum.android.diploma.search.domain.model.Schedule
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.vacancy.details.data.VacancyDetailToFavoriteMapper
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
+import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
+import ru.practicum.android.diploma.vacancy.details.domain.model.Result
 
 class VacancyDetailsViewModel(
     private val interactor: VacancyDetailsInteractor,
@@ -32,11 +34,11 @@ class VacancyDetailsViewModel(
     private val _isFavorite = MutableStateFlow<Boolean>(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
 
-    // временное решение для верстки
-    init {
-        _vacancy.value = VacancyFakeFactory.create()
-        checkFavoriteStatus()
-    }
+    private val _isLoading = MutableStateFlow<Boolean>(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    private val _error = MutableStateFlow<Throwable?>(null)
+    val error: StateFlow<Throwable?> = _error.asStateFlow()
 
     private fun checkFavoriteStatus() {
         val vacancyId = _vacancy.value?.id ?: return
@@ -65,6 +67,28 @@ class VacancyDetailsViewModel(
 
     fun getShareUrl(): String? {
         return _vacancy.value?.url
+    }
+
+    fun loadVacancy(id: String, source: VacancyDetailsSource) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _error.value = null
+            interactor.getVacancyById(id, source)
+                .collect { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            _vacancy.value = result.data
+                            _isLoading.value = false
+                            checkFavoriteStatus()
+                        }
+
+                        is Result.Error -> {
+                            _isLoading.value = false
+                            _error.value = result.throwable
+                        }
+                    }
+                }
+        }
     }
 }
 

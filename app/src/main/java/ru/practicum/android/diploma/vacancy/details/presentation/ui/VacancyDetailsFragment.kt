@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
 import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.VacancyDetailsViewModel
 
 class VacancyDetailsFragment : Fragment() {
@@ -22,14 +23,35 @@ class VacancyDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Получаем аргументы из навигации
+        val vacancyId = arguments?.getString("vacancyId")
+        val openedFromFavorites = arguments?.getBoolean("openedFromFavorites", false) ?: false
+
+        // Загружаем вакансию
+        if (vacancyId != null) {
+            val source = if (openedFromFavorites) {
+                VacancyDetailsSource.FAVORITES
+            } else {
+                VacancyDetailsSource.SEARCH
+            }
+            viewModel.loadVacancy(vacancyId, source)
+        } else {
+            // Если ID не передан, загружаем фейковую вакансию для тестирования
+            viewModel.loadVacancy("123", VacancyDetailsSource.SEARCH)
+        }
+
         return ComposeView(requireContext()).apply {
             setContent {
                 val vacancy by viewModel.vacancy.collectAsState()
                 val isFavorite by viewModel.isFavorite.collectAsState()
+                val isLoading by viewModel.isLoading.collectAsState()
+                val error by viewModel.error.collectAsState()
 
                 VacancyDetailsScreen(
                     vacancy = vacancy,
                     isFavorite = isFavorite,
+                    isLoading = isLoading,
+                    error = error,
                     onBack = { navigateBack() },
                     onShare = { shareVacancy() },
                     onFavoriteClick = { viewModel.toggleFavorite() },

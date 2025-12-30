@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,6 +43,8 @@ import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 fun VacancyDetailsScreen(
     vacancy: VacancyDetail?,
     isFavorite: Boolean = false,
+    isLoading: Boolean = false,
+    error: Throwable? = null,
     onBack: () -> Unit,
     onShare: () -> Unit,
     onFavoriteClick: () -> Unit,
@@ -94,17 +99,47 @@ fun VacancyDetailsScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            if (vacancy == null) {
-                Text(
-                    text = "Загрузка...",
-                    modifier = Modifier.padding(16.dp)
-                )
-            } else {
-                VacancyDetailsContent(
-                    vacancy = vacancy,
-                    onPhoneClick = onPhoneClick,
-                    onEmailClick = onEmailClick
-                )
+            when {
+                isLoading -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                        Text(
+                            text = "Загрузка...",
+                            modifier = Modifier.padding(top = 16.dp)
+                        )
+                    }
+                }
+                error != null -> {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Ошибка загрузки: ${error.message ?: "Неизвестная ошибка"}",
+                            style = CustomTypography.bodyMedium
+                        )
+                    }
+                }
+                vacancy != null -> {
+                    VacancyDetailsContent(
+                        vacancy = vacancy,
+                        onPhoneClick = onPhoneClick,
+                        onEmailClick = onEmailClick
+                    )
+                }
+                else -> {
+                    Text(
+                        text = "Нет данных",
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
             }
         }
     }
