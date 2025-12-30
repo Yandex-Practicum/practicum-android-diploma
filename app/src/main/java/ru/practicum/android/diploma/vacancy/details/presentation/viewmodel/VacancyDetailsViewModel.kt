@@ -19,8 +19,8 @@ import ru.practicum.android.diploma.search.domain.model.Schedule
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.vacancy.details.data.VacancyDetailToFavoriteMapper
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
-import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
 import ru.practicum.android.diploma.vacancy.details.domain.model.Result
+import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
 
 class VacancyDetailsViewModel(
     private val interactor: VacancyDetailsInteractor,

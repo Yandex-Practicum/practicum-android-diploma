@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsRepository
-import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.VacancyFakeFactory
 import ru.practicum.android.diploma.vacancy.details.domain.model.Result
+import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.VacancyFakeFactory
 
 class VacancyDetailsRepositoryImpl : VacancyDetailsRepository {
 
@@ -19,7 +19,7 @@ class VacancyDetailsRepositoryImpl : VacancyDetailsRepository {
 }
 
 // возможно нужно удалить репозиторий
-//class VacancyDetailsRepositoryImpl : VacancyDetailsRepository {
+// class VacancyDetailsRepositoryImpl : VacancyDetailsRepository {
 //    override fun getVacancyById(id: String): Flow<Result<VacancyDetail>> = flow {
 //    }
-//}
+// }

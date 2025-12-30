@@ -9,6 +9,6 @@ interface VacancyDetailsRepository {
     fun getDetailsFromDataBase(id: String): Flow<Result<VacancyDetail>>
 }
 
-//interface VacancyDetailsRepository {
+// interface VacancyDetailsRepository {
 //    fun getVacancyById(id: String): Flow<Result<VacancyDetail>>
-//}
+// }
