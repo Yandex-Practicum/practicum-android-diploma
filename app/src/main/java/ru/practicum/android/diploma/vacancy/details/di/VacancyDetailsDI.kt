@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.Vacan
 val vacancyDetailsDomainModule = module {
 
     single<VacancyDetailsRepository> {
-        VacancyDetailsRepositoryImpl()
+        VacancyDetailsRepositoryImpl(get(), get())
     }
 
     single<VacancyDetailsInteractor> {

@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl("https://your-api-url.com")
+        .baseUrl("https://practicum-diploma-8bc38133faba.herokuapp.com/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

@@ -37,7 +37,8 @@ class VacancyDetailsFragment : Fragment() {
             viewModel.loadVacancy(vacancyId, source)
         } else {
             // Если ID не передан, загружаем фейковую вакансию для тестирования
-            viewModel.loadVacancy("123", VacancyDetailsSource.SEARCH)
+            viewModel.loadVacancy("0002af81-c469-46fe-ba9e-8e2f339086c7", VacancyDetailsSource.SEARCH)
+//            viewModel.loadVacancy("123", VacancyDetailsSource.SEARCH)
         }
 
         return ComposeView(requireContext()).apply {
