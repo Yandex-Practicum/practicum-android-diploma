@@ -18,73 +18,172 @@ class FavoriteToVacancyDetailMapper {
             id = id,
             name = name,
             description = description,
-            salary = if (salaryFrom != null || salaryTo != null || currency != null) {
-                Salary(
-                    from = salaryFrom,
-                    to = salaryTo,
-                    currency = currency
-                )
-            } else {
-                null
-            },
-            address = if (city != null || street != null || building != null || fullAddress != null) {
-                Address(
-                    city = city ?: "",
-                    street = street ?: "",
-                    building = building ?: "",
-                    fullAddress = fullAddress ?: ""
-                )
-            } else {
-                null
-            },
-            experience = if (experienceId != null && experienceName != null) {
-                Experience(
-                    id = experienceId!!,
-                    name = experienceName!!
-                )
-            } else {
-                null
-            },
-            schedule = if (scheduleId != null && scheduleName != null) {
-                Schedule(
-                    id = scheduleId!!,
-                    name = scheduleName!!
-                )
-            } else {
-                null
-            },
-            employment = if (employmentId != null && employmentName != null) {
-                Employment(
-                    id = employmentId!!,
-                    name = employmentName!!
-                )
-            } else {
-                null
-            },
-            // нужно проверить сохранение Contacts в БД, пока пустые поля
-            contacts = Contacts(
-                id = "",
-                name = "",
-                email = "",
-                phone = emptyList()
-            ),
-            employer = Employer(
-                id = employerId,
-                name = employerName,
-                logo = employerLogoUrl ?: ""
-            ),
-            area = FilterArea(
-                id = areaId ?: 0,
-                name = areaName ?: "",
-                parentId = null,
-                areas = emptyList()
-            ),
+            salary = mapSalary(),
+            address = mapAddress(),
+            experience = mapExperience(),
+            schedule = mapSchedule(),
+            employment = mapEmployment(),
+            contacts = mapContacts(),
+            employer = mapEmployer(),
+            area = mapArea(),
             skills = skills,
             url = url,
-            industry = FilterIndustry(
-                id = industryId ?: 0,
-                name = industryName ?: ""
-            )
+            industry = mapIndustry()
         )
     }
 }
+
+private fun FavoriteVacancyEntity.mapSalary(): Salary? {
+    if (salaryFrom == null && salaryTo == null && currency == null) return null
+    return Salary(
+        from = salaryFrom,
+        to = salaryTo,
+        currency = currency
+    )
+}
+
+private fun FavoriteVacancyEntity.mapAddress(): Address? {
+    if (city == null && street == null && building == null && fullAddress == null) return null
+
+    return Address(
+        city = city.orEmpty(),
+        street = street.orEmpty(),
+        building = building.orEmpty(),
+        fullAddress = fullAddress.orEmpty()
+    )
+}
+
+private fun FavoriteVacancyEntity.mapExperience(): Experience? {
+    return experienceId?.let { id ->
+        experienceName?.let { name ->
+            Experience(id, name)
+        }
+    }
+}
+
+private fun FavoriteVacancyEntity.mapSchedule(): Schedule? {
+    return scheduleId?.let { id ->
+        scheduleName?.let { name ->
+            Schedule(id, name)
+        }
+    }
+}
+
+private fun FavoriteVacancyEntity.mapEmployment(): Employment? {
+    return employmentId?.let { id ->
+        employmentName?.let { name ->
+            Employment(id, name)
+        }
+    }
+}
+
+// нужно будет проверить сохранение Contacts в БД
+private fun FavoriteVacancyEntity.mapContacts(): Contacts {
+    return Contacts(
+        id = "",
+        name = "",
+        email = "",
+        phone = emptyList()
+    )
+}
+
+private fun FavoriteVacancyEntity.mapEmployer(): Employer {
+    return Employer(
+        id = employerId,
+        name = employerName,
+        logo = employerLogoUrl.orEmpty()
+    )
+}
+
+private fun FavoriteVacancyEntity.mapArea(): FilterArea {
+    return FilterArea(
+        id = areaId ?: 0,
+        name = areaName.orEmpty(),
+        parentId = null,
+        areas = emptyList()
+    )
+}
+
+private fun FavoriteVacancyEntity.mapIndustry(): FilterIndustry {
+    return FilterIndustry(
+        id = industryId ?: 0,
+        name = industryName.orEmpty()
+    )
+}
+
+// class FavoriteToVacancyDetailMapper {
+//    fun FavoriteVacancyEntity.toVacancyDetail(): VacancyDetail {
+//        return VacancyDetail(
+//            id = id,
+//            name = name,
+//            description = description,
+//            salary = if (salaryFrom != null || salaryTo != null || currency != null) {
+//                Salary(
+//                    from = salaryFrom,
+//                    to = salaryTo,
+//                    currency = currency
+//                )
+//            } else {
+//                null
+//            },
+//            address = if (city != null || street != null || building != null || fullAddress != null) {
+//                Address(
+//                    city = city ?: "",
+//                    street = street ?: "",
+//                    building = building ?: "",
+//                    fullAddress = fullAddress ?: ""
+//                )
+//            } else {
+//                null
+//            },
+//            experience = if (experienceId != null && experienceName != null) {
+//                Experience(
+//                    id = experienceId!!,
+//                    name = experienceName!!
+//                )
+//            } else {
+//                null
+//            },
+//            schedule = if (scheduleId != null && scheduleName != null) {
+//                Schedule(
+//                    id = scheduleId!!,
+//                    name = scheduleName!!
+//                )
+//            } else {
+//                null
+//            },
+//            employment = if (employmentId != null && employmentName != null) {
+//                Employment(
+//                    id = employmentId!!,
+//                    name = employmentName!!
+//                )
+//            } else {
+//                null
+//            },
+//            // нужно проверить сохранение Contacts в БД, пока пустые поля
+//            contacts = Contacts(
+//                id = "",
+//                name = "",
+//                email = "",
+//                phone = emptyList()
+//            ),
+//            employer = Employer(
+//                id = employerId,
+//                name = employerName,
+//                logo = employerLogoUrl ?: ""
+//            ),
+//            area = FilterArea(
+//                id = areaId ?: 0,
+//                name = areaName ?: "",
+//                parentId = null,
+//                areas = emptyList()
+//            ),
+//            skills = skills,
+//            url = url,
+//            industry = FilterIndustry(
+//                id = industryId ?: 0,
+//                name = industryName ?: ""
+//            )
+//        )
+//    }
+// }
