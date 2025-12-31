@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.search.data.network.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsRepository
 import ru.practicum.android.diploma.vacancy.details.domain.model.Result
+import java.sql.SQLException
 
 class VacancyDetailsRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -41,10 +42,28 @@ class VacancyDetailsRepositoryImpl(
                 }
                 emit(Result.Success(vacancyDetail))
             } else {
-                emit(Result.Error(Exception("Вакансия не найдена в избранном")))
+                emit(Result.Error(NoSuchElementException("Вакансия не найдена в избранном")))
             }
-        } catch (e: Exception) {
+        } catch (e: IllegalStateException) {
+            emit(Result.Error(e))
+        } catch (e: SQLException) {
             emit(Result.Error(e))
         }
     }
+
+//    override fun getDetailsFromDataBase(id: String): Flow<Result<VacancyDetail>> = flow {
+//        try {
+//            val favoriteEntity = favoritesInteractor.getFavoriteById(id)
+//            if (favoriteEntity != null) {
+//                val vacancyDetail = with(favoriteToVacancyDetailMapper) {
+//                    favoriteEntity.toVacancyDetail()
+//                }
+//                emit(Result.Success(vacancyDetail))
+//            } else {
+//                emit(Result.Error(Exception("Вакансия не найдена в избранном")))
+//            }
+//        } catch (e: Exception) {
+//            emit(Result.Error(e))
+//        }
+//    }
 }

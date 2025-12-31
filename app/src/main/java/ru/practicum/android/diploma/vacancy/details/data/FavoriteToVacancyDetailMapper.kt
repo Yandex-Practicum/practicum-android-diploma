@@ -53,17 +53,6 @@ private fun FavoriteVacancyEntity.mapAddress(): Address? {
     )
 }
 
-// private fun FavoriteVacancyEntity.mapAddress(): Address? {
-//    if (city == null && street == null && building == null && fullAddress == null) return null
-//
-//    return Address(
-//        city = city.orEmpty(),
-//        street = street.orEmpty(),
-//        building = building.orEmpty(),
-//        fullAddress = fullAddress.orEmpty()
-//    )
-// }
-
 private fun FavoriteVacancyEntity.mapExperience(): Experience? {
     return experienceId?.let { id ->
         experienceName?.let { name ->
