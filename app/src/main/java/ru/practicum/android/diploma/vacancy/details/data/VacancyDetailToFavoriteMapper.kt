@@ -30,6 +30,10 @@ class VacancyDetailToFavoriteMapper {
             industryId = industry.id,
             industryName = industry.name,
             skills = skills,
+            contactId = contacts?.id,
+            contactName = contacts?.name,
+            contactEmail = contacts?.email,
+            contactPhones = contacts?.phone ?: emptyList(),
             url = url,
             addedAt = System.currentTimeMillis()
         )

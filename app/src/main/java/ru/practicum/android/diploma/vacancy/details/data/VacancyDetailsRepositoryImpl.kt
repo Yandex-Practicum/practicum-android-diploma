@@ -26,6 +26,7 @@ class VacancyDetailsRepositoryImpl(
                 val vacancyDetail = dtoMapper.vacancyDetailDtoToDomain(resource.data)
                 emit(Result.Success(vacancyDetail))
             }
+
             is Resource.Error -> {
                 val throwable = resource.exception ?: Exception(resource.message)
                 emit(Result.Error(throwable))
@@ -50,20 +51,4 @@ class VacancyDetailsRepositoryImpl(
             emit(Result.Error(e))
         }
     }
-
-//    override fun getDetailsFromDataBase(id: String): Flow<Result<VacancyDetail>> = flow {
-//        try {
-//            val favoriteEntity = favoritesInteractor.getFavoriteById(id)
-//            if (favoriteEntity != null) {
-//                val vacancyDetail = with(favoriteToVacancyDetailMapper) {
-//                    favoriteEntity.toVacancyDetail()
-//                }
-//                emit(Result.Success(vacancyDetail))
-//            } else {
-//                emit(Result.Error(Exception("Вакансия не найдена в избранном")))
-//            }
-//        } catch (e: Exception) {
-//            emit(Result.Error(e))
-//        }
-//    }
 }

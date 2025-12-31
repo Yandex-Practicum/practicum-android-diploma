@@ -2,8 +2,10 @@ package ru.practicum.android.diploma.vacancy.details.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,8 +27,11 @@ import coil.request.ImageRequest
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
 import ru.practicum.android.diploma.core.presentation.ui.theme.corner12
+import ru.practicum.android.diploma.core.presentation.ui.theme.dp12
+import ru.practicum.android.diploma.core.presentation.ui.theme.dp4
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp48
 import ru.practicum.android.diploma.core.presentation.ui.theme.lightGrey
+import ru.practicum.android.diploma.core.presentation.ui.theme.white
 import ru.practicum.android.diploma.search.domain.model.Address
 import ru.practicum.android.diploma.search.domain.model.Employer
 import ru.practicum.android.diploma.search.domain.model.FilterArea
@@ -46,28 +51,35 @@ fun EmployerItem(vacancy: VacancyDetail) {
     ) {
         val context = LocalContext.current
 
-        AsyncImage(
-            model = ImageRequest.Builder(context)
-                .data(vacancy.employer.logo)
-                .crossfade(true)
-                .build(),
-            placeholder = painterResource(R.drawable.ic_launcher_background),
-            error = painterResource(R.drawable.ic_launcher_background),
-            contentDescription = "company logo",
+        Box(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .size(dp48)
+                .clip(RoundedCornerShape(corner12))
+                .background(white)
                 .border(
                     width = 1.dp,
                     color = lightGrey,
                     shape = RoundedCornerShape(corner12)
-                )
-                .padding(0.dp)
-                .clip(RoundedCornerShape(corner12)),
-            contentScale = ContentScale.Fit
-        )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            AsyncImage(
+                model = ImageRequest.Builder(context)
+                    .data(vacancy.employer.logo)
+                    .crossfade(true)
+                    .build(),
+                placeholder = painterResource(R.drawable.ic_launcher_background),
+                error = painterResource(R.drawable.ic_launcher_background),
+                contentDescription = "company logo",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dp4),
+                contentScale = ContentScale.Fit
+            )
+        }
 
-        Column(modifier = Modifier.padding(start = 12.dp)) {
+        Column(modifier = Modifier.padding(start = dp12)) {
             Text(
                 text = vacancy.employer.name,
                 color = MaterialTheme.colorScheme.onBackground,

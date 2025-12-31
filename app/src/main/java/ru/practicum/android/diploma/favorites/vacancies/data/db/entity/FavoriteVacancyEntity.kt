@@ -48,6 +48,12 @@ data class FavoriteVacancyEntity(
     // Ключевые навыки
     val skills: List<String>,
 
+    // Контакты
+    val contactId: String?,
+    val contactName: String?,
+    val contactEmail: String?,
+    val contactPhones: List<String>,
+
     // Прочее
     val url: String,
 

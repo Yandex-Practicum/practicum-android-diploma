@@ -77,13 +77,18 @@ private fun FavoriteVacancyEntity.mapEmployment(): Employment? {
     }
 }
 
-// нужно будет проверить сохранение Contacts в БД
-private fun FavoriteVacancyEntity.mapContacts(): Contacts {
+private fun FavoriteVacancyEntity.mapContacts(): Contacts? {
+    // Если все поля контактов пустые, возвращаем null
+    if (contactId.isNullOrBlank() && contactName.isNullOrBlank() &&
+        contactEmail.isNullOrBlank() && contactPhones.isEmpty()) {
+        return null
+    }
+
     return Contacts(
-        id = "",
-        name = "",
-        email = "",
-        phone = emptyList()
+        id = contactId ?: "",
+        name = contactName ?: "",
+        email = contactEmail ?: "",
+        phone = contactPhones
     )
 }
 
