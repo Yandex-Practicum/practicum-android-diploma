@@ -88,7 +88,8 @@ class VacancyDetailsViewModel(
 
                             // Если переход из избранного и вакансия не найдена (404), удаляем из БД
                             if (source == VacancyDetailsSource.FAVORITES &&
-                                isNotFoundError(result.throwable)) {
+                                isNotFoundError(result.throwable)
+                            ) {
                                 favoritesInteractor.removeFromFavorites(id)
                             }
 
@@ -98,24 +99,17 @@ class VacancyDetailsViewModel(
                 }
         }
     }
+}
 
-    private fun isNotFoundError(throwable: Throwable?): Boolean {
-        if (throwable == null) return false
-
-        // Проверяем сообщение об ошибке
-        if (throwable.message == "404 Not Found") return true
-
-        // Проверяем, является ли это HttpException с кодом 404
-        if (throwable is HttpException && throwable.code() == 404) return true
-
-        // Проверяем cause
-        if (throwable.cause is HttpException &&
-            (throwable.cause as HttpException).code() == 404) {
-            return true
-        }
-
-        return false
+private const val HTTP_NOT_FOUND = 404
+private fun isNotFoundError(throwable: Throwable?): Boolean {
+    val httpException = when (throwable) {
+        is HttpException -> throwable
+        else -> throwable?.cause as? HttpException
     }
+
+    return throwable?.message == "404 Not Found" ||
+        httpException?.code() == HTTP_NOT_FOUND
 }
 
 object VacancyFakeFactory {
