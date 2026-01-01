@@ -18,8 +18,12 @@ class VacancyDetailsInteractorImpl(
         return when (source) {
             VacancyDetailsSource.SEARCH ->
                 repository.getDetailsFromApi(id)
-            VacancyDetailsSource.FAVORITES ->
-                repository.getDetailsFromDataBase(id)
+
+            VacancyDetailsSource.FAVORITES -> {
+                // При переходе из избранного сначала пытаемся загрузить из API
+                // Если вакансия не найдена (404), ошибка будет обработана в ViewModel
+                repository.getDetailsFromApi(id)
+            }
         }
     }
 }

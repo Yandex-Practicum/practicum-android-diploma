@@ -119,26 +119,36 @@ fun VacancyDetailsScreen(
                 }
 
                 error != null -> {
-                    // Проверяем, является ли ошибка ошибкой отсутствия интернета
+                    // Проверяем тип ошибки
                     val isInternetError = error.message == "Нет подключения к интернету"
+                    val isNotFoundError = error.message == "404 Not Found"
 
-                    if (isInternetError) {
-                        PlaceHolder(
-                            placeholderImage = R.drawable.internet_connection_error_placeholder,
-                            placeholderText = R.string.error_no_internet
-                        )
-                    } else {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = "Ошибка загрузки: ${error.message ?: "Неизвестная ошибка"}",
-                                style = CustomTypography.bodyMedium
+                    when {
+                        isInternetError -> {
+                            PlaceHolder(
+                                placeholderImage = R.drawable.internet_connection_error_placeholder,
+                                placeholderText = R.string.error_no_internet
                             )
+                        }
+                        isNotFoundError -> {
+                            PlaceHolder(
+                                placeholderImage = R.drawable.vacancy_not_found_placeholder,
+                                placeholderText = R.string.vacancy_not_found
+                            )
+                        }
+                        else -> {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "Ошибка загрузки: ${error.message ?: "Неизвестная ошибка"}",
+                                    style = CustomTypography.bodyMedium
+                                )
+                            }
                         }
                     }
                 }
@@ -262,12 +272,7 @@ private fun VacancyDescription(description: String) {
             style = CustomTypography.headlineMedium
         )
         Spacer(modifier = Modifier.height(16.dp))
-// /////////////////////////////////////////////////
-//        Text(
-//            text = "Обязанности",
-//            style = CustomTypography.titleMedium
-//        )
-// /////////////////////////////////////////////////
+
         Text(
             text = description,
             style = CustomTypography.bodyMedium
@@ -282,12 +287,23 @@ private fun VacancySkills(skills: List<String>) {
             text = "Ключевые навыки",
             style = CustomTypography.headlineMedium
         )
-
-        skills.forEach { skill ->
-            Text(
-                text = skill,
-                style = CustomTypography.bodyMedium
-            )
+        // добавление точек перед skills
+        if (skills.size > 1) {
+            // Если это список навыков, добавляем точки
+            skills.forEach { skill ->
+                Text(
+                    text = "${stringResource(R.string.bullet)} $skill",
+                    style = CustomTypography.bodyMedium
+                )
+            }
+        } else {
+            // Если это один навык, отображаем без точки
+            skills.forEach { skill ->
+                Text(
+                    text = skill,
+                    style = CustomTypography.bodyMedium
+                )
+            }
         }
     }
 }

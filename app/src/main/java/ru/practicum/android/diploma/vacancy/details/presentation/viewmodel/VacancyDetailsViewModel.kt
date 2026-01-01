@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.model.Address
 import ru.practicum.android.diploma.search.domain.model.Contacts
@@ -84,11 +85,36 @@ class VacancyDetailsViewModel(
 
                         is Result.Error -> {
                             _isLoading.value = false
+
+                            // Если переход из избранного и вакансия не найдена (404), удаляем из БД
+                            if (source == VacancyDetailsSource.FAVORITES &&
+                                isNotFoundError(result.throwable)) {
+                                favoritesInteractor.removeFromFavorites(id)
+                            }
+
                             _error.value = result.throwable
                         }
                     }
                 }
         }
+    }
+
+    private fun isNotFoundError(throwable: Throwable?): Boolean {
+        if (throwable == null) return false
+
+        // Проверяем сообщение об ошибке
+        if (throwable.message == "404 Not Found") return true
+
+        // Проверяем, является ли это HttpException с кодом 404
+        if (throwable is HttpException && throwable.code() == 404) return true
+
+        // Проверяем cause
+        if (throwable.cause is HttpException &&
+            (throwable.cause as HttpException).code() == 404) {
+            return true
+        }
+
+        return false
     }
 }
 
