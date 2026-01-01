@@ -78,16 +78,18 @@ private fun FavoriteVacancyEntity.mapEmployment(): Employment? {
 }
 
 private fun FavoriteVacancyEntity.mapContacts(): Contacts? {
-    // Если все поля контактов пустые, возвращаем null
-    if (contactId.isNullOrBlank() && contactName.isNullOrBlank() &&
-        contactEmail.isNullOrBlank() && contactPhones.isEmpty()) {
-        return null
-    }
+    val isEmpty = listOf(
+        contactId,
+        contactName,
+        contactEmail
+    ).all { it.isNullOrBlank() } && contactPhones.isEmpty()
+
+    if (isEmpty) return null
 
     return Contacts(
-        id = contactId ?: "",
-        name = contactName ?: "",
-        email = contactEmail ?: "",
+        id = contactId.orEmpty(),
+        name = contactName.orEmpty(),
+        email = contactEmail.orEmpty(),
         phone = contactPhones
     )
 }
