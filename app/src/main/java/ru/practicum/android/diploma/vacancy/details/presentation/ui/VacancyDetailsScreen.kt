@@ -4,7 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -29,6 +31,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
 import ru.practicum.android.diploma.core.presentation.ui.theme.black
 import ru.practicum.android.diploma.core.presentation.ui.theme.red
+import ru.practicum.android.diploma.core.presentation.ui.util.PlaceHolder
+import ru.practicum.android.diploma.core.presentation.ui.util.format
 import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Experience
 import ru.practicum.android.diploma.search.domain.model.Salary
@@ -113,20 +117,32 @@ fun VacancyDetailsScreen(
                         )
                     }
                 }
+
                 error != null -> {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "Ошибка загрузки: ${error.message ?: "Неизвестная ошибка"}",
-                            style = CustomTypography.bodyMedium
+                    // Проверяем, является ли ошибка ошибкой отсутствия интернета
+                    val isInternetError = error.message == "Нет подключения к интернету"
+
+                    if (isInternetError) {
+                        PlaceHolder(
+                            placeholderImage = R.drawable.internet_connection_error_placeholder,
+                            placeholderText = R.string.error_no_internet
                         )
+                    } else {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "Ошибка загрузки: ${error.message ?: "Неизвестная ошибка"}",
+                                style = CustomTypography.bodyMedium
+                            )
+                        }
                     }
                 }
+
                 vacancy != null -> {
                     VacancyDetailsContent(
                         vacancy = vacancy,
@@ -134,6 +150,7 @@ fun VacancyDetailsScreen(
                         onEmailClick = onEmailClick
                     )
                 }
+
                 else -> {
                     Text(
                         text = "Нет данных",
@@ -159,19 +176,24 @@ private fun VacancyDetailsContent(
         vacancy.salary?.let {
             item { VacancySalary(it) }
         }
-
-        item { EmployerItem(vacancy) }
-
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item { EmployerCard(vacancy) }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
         vacancy.experience?.let {
             item { VacancyExperience(it) }
         }
-
         item { VacancyEmploymentAndSchedule(vacancy) }
-
+        item { Spacer(modifier = Modifier.height(16.dp)) }
         item { VacancyDescription(vacancy.description) }
-
+        item { Spacer(modifier = Modifier.height(16.dp)) }
         item { VacancySkills(vacancy.skills) }
-
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item {
+            Text(
+                text = "Контакты",
+                style = CustomTypography.headlineMedium
+            )
+        }
         vacancy.contacts?.let {
             item { VacancyContacts(it, onPhoneClick, onEmailClick) }
         }
@@ -188,8 +210,9 @@ private fun VacancyTitle(name: String) {
 
 @Composable
 private fun VacancySalary(salary: Salary) {
+    val formattedSalary = salary.format() ?: stringResource(R.string.salary_not_specified)
     Text(
-        text = "от: ${salary.from}, до: ${salary.to}, ${salary.currency}",
+        text = formattedSalary,
         style = CustomTypography.headlineMedium
     )
 }
@@ -212,7 +235,7 @@ private fun VacancyExperience(experience: Experience) {
 private fun VacancyEmploymentAndSchedule(vacancy: VacancyDetail) {
     val text = when {
         vacancy.employment != null && vacancy.schedule != null ->
-            "${vacancy.employment.name} ${vacancy.schedule.name}"
+            "${vacancy.employment.name}\n${vacancy.schedule.name}"
 
         vacancy.employment != null ->
             vacancy.employment.name
@@ -238,10 +261,13 @@ private fun VacancyDescription(description: String) {
             text = "Описание вакансии",
             style = CustomTypography.headlineMedium
         )
-        Text(
-            text = "Обязанности",
-            style = CustomTypography.titleMedium
-        )
+        Spacer(modifier = Modifier.height(16.dp))
+// /////////////////////////////////////////////////
+//        Text(
+//            text = "Обязанности",
+//            style = CustomTypography.titleMedium
+//        )
+// /////////////////////////////////////////////////
         Text(
             text = description,
             style = CustomTypography.bodyMedium

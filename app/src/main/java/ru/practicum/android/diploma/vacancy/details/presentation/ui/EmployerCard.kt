@@ -40,7 +40,7 @@ import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 
 @Composable
-fun EmployerItem(vacancy: VacancyDetail) {
+fun EmployerCard(vacancy: VacancyDetail) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -135,5 +135,5 @@ fun EmployerItemPreview() {
         industry = FilterIndustry(id = 1, name = "IT")
     )
 
-    EmployerItem(vacancy = testVacancy)
+    EmployerCard(vacancy = testVacancy)
 }
