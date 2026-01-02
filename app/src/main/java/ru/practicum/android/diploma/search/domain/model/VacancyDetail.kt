@@ -14,5 +14,6 @@ data class VacancyDetail(
     val area: FilterArea,
     val skills: List<String>,
     val url: String,
-    val industry: FilterIndustry
+    val industry: FilterIndustry,
+    val isFavourite: Boolean = false
 )
