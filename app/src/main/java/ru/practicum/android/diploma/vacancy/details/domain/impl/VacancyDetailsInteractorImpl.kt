@@ -6,6 +6,7 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
+import ru.practicum.android.diploma.vacancy.details.data.FavoriteToVacancyDetailMapper
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.vacancy.details.domain.model.Result
 import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
@@ -14,7 +15,7 @@ import ru.practicum.android.diploma.search.domain.model.Result as SearchResult
 class VacancyDetailsInteractorImpl(
     private val searchInteractor: SearchInteractor,
     private val favoritesInteractor: FavoritesVacanciesInteractor,
-//    private val dtoMapper: DtoMapper
+    private val favoriteToVacancyDetailMapper: FavoriteToVacancyDetailMapper
 ) : VacancyDetailsInteractor {
 
     override fun getVacancyById(
@@ -29,9 +30,25 @@ class VacancyDetailsInteractorImpl(
                             emit(Result.Success(searchResult.data))
                         }
                         is SearchResult.Error -> {
-                            val throwable = searchResult.exception ?: Exception(searchResult.message)
+                            val throwable = searchResult.exception?.let { exception ->
+                                Exception(searchResult.message, exception)
+                            } ?: Exception(searchResult.message)
 
-                            // Бизнес-логика: если переход из избранного и вакансия не найдена (404), удаляем из БД
+                            // если переход из избранного и нет интернета, загружаем из БД
+                            if (source == VacancyDetailsSource.FAVORITES &&
+                                searchResult.message == "Нет подключения к интернету"
+                            ) {
+                                val favoriteEntity = favoritesInteractor.getFavoriteById(id)
+                                if (favoriteEntity != null) {
+                                    val vacancyDetail = with(favoriteToVacancyDetailMapper) {
+                                        favoriteEntity.toVacancyDetail()
+                                    }
+                                    emit(Result.Success(vacancyDetail))
+                                    return@collect
+                                }
+                            }
+
+                            // если переход из избранного и вакансия не найдена (404), удаляем из БД
                             if (source == VacancyDetailsSource.FAVORITES &&
                                 isNotFoundError(throwable)
                             ) {

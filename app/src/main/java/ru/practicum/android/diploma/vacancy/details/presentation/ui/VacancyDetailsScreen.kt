@@ -111,10 +111,10 @@ fun VacancyDetailsScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
                         CircularProgressIndicator()
-                        Text(
-                            text = "Загрузка...",
-                            modifier = Modifier.padding(top = 16.dp)
-                        )
+//                        Text(
+//                            text = "Загрузка...",
+//                            modifier = Modifier.padding(top = 16.dp)
+//                        )
                     }
                 }
 

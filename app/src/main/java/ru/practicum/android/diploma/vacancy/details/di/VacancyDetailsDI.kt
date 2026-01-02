@@ -4,17 +4,19 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
+import ru.practicum.android.diploma.vacancy.details.data.FavoriteToVacancyDetailMapper
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.vacancy.details.domain.impl.VacancyDetailsInteractorImpl
 import ru.practicum.android.diploma.vacancy.details.presentation.viewmodel.VacancyDetailsViewModel
 
 val vacancyDetailsDomainModule = module {
+    single<FavoriteToVacancyDetailMapper> { FavoriteToVacancyDetailMapper() }
 
     single<VacancyDetailsInteractor> {
         VacancyDetailsInteractorImpl(
             searchInteractor = get<SearchInteractor>(),
             favoritesInteractor = get<FavoritesVacanciesInteractor>(),
-//            dtoMapper = get()
+            favoriteToVacancyDetailMapper = get<FavoriteToVacancyDetailMapper>()
         )
     }
 }
