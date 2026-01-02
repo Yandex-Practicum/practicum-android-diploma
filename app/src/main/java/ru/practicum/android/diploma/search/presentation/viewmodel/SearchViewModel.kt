@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
-import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
 class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
     private val _vacancies = MutableStateFlow<List<VacancyDetail>>(emptyList())
@@ -31,7 +30,6 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
                 isShowClearIc = query.isNotEmpty()
             )
         }
-
     }
 
     fun searchVacancies() {
@@ -42,21 +40,19 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
             }
             viewModelScope.launch {
                 interactor.getVacancies().collect {
-
                 }
             }
         }
-
     }
 
-    fun processResult(vacancyResponse: VacancyResponse) {
+//    fun processResult(vacancyResponse: VacancyResponse) {
+//
+//
+//    }
 
-
-    }
-
-    private fun renderSearchState(state: SearchState) {
-        searchState.update { state }
-    }
+//    private fun renderSearchState(state: SearchState) {
+//        searchState.update { state }
+//    }
 
     companion object {
         private const val MAX_PAGES = 1000

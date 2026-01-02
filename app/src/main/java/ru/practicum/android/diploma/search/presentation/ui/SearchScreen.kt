@@ -28,10 +28,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesList
-import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp20
-import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchTextFieldState
@@ -72,44 +70,10 @@ fun SearchScreen(
                 textFieldState.isShowClearIc,
                 onQueryChange = {},
                 onClearIcClick = {},
-                onVacancyClickDebounce = {})
+                onVacancyClickDebounce = {}
+            )
 
-            VacanciesList(
-                listOf(
-                    VacancyListItemUi(
-                        id = "1",
-                        logoUrl = null,
-                        vacancyName = "Java-разработчик",
-                        city = "Омск",
-                        employer = "Авто.ру",
-                        salary = formatSalary(2_000, 5_000, "EUR"),
-                    ),
-                    VacancyListItemUi(
-                        id = "2",
-                        logoUrl = null,
-                        vacancyName = "Android-разработчик",
-                        city = "Санкт-Петербург",
-                        employer = "Яндекс",
-                        salary = formatSalary(null, 300_000, "RUB"),
-                    ),
-                    VacancyListItemUi(
-                        id = "3",
-                        logoUrl = null,
-                        vacancyName = "Курьер",
-                        city = "Москва",
-                        employer = "Яндекс-Еда",
-                        salary = formatSalary(2_000, null, "USD"),
-                    ),
-                    VacancyListItemUi(
-                        id = "4",
-                        logoUrl = null,
-                        vacancyName = "Дантист",
-                        city = "Пермь",
-                        employer = "Ультра-Дент",
-                        salary = formatSalary(null, null, null),
-                    ),
-                )
-            ) { }
+            VacanciesList(emptyList()) { }
         }
     }
 }
@@ -172,8 +136,7 @@ private fun SearchInput(
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurface
                 ),
-
-                )
+            )
 
             if (showClearIc) {
                 IconButton(
