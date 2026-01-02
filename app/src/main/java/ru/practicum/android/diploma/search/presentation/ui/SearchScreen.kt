@@ -92,7 +92,6 @@ private fun SearchInput(
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Box() {
-
             TextField(
                 value = query,
                 onValueChange = onQueryChange,
