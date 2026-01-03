@@ -28,63 +28,62 @@ class VacancyDetailsViewModel(
 ) : ViewModel() {
 
     private val vacancyDetailToFavoriteMapper = VacancyDetailToFavoriteMapper()
-    private val _vacancy = MutableStateFlow<VacancyDetail?>(null)
-    val vacancy: StateFlow<VacancyDetail?> = _vacancy.asStateFlow()
-
-    private val _isFavorite = MutableStateFlow<Boolean>(false)
-    val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
-
-    private val _isLoading = MutableStateFlow<Boolean>(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
-
-    private val _error = MutableStateFlow<Throwable?>(null)
-    val error: StateFlow<Throwable?> = _error.asStateFlow()
+    private val _state = MutableStateFlow(VacancyDetailsState())
+    val state: StateFlow<VacancyDetailsState> = _state.asStateFlow()
 
     private fun checkFavoriteStatus() {
-        val vacancyId = _vacancy.value?.id ?: return
+        val vacancyId = _state.value.vacancy?.id ?: return
         viewModelScope.launch {
-            _isFavorite.value = favoritesInteractor.isFavorite(vacancyId)
+            _state.value = _state.value.copy(
+                isFavorite = favoritesInteractor.isFavorite(vacancyId)
+            )
         }
     }
 
     fun toggleFavorite() {
-        val currentVacancy = _vacancy.value ?: return
+        val currentVacancy = _state.value.vacancy ?: return
         viewModelScope.launch {
-            val currentIsFavorite = _isFavorite.value
+            val currentIsFavorite = _state.value.isFavorite
 
             if (currentIsFavorite) {
                 favoritesInteractor.removeFromFavorites(currentVacancy.id)
-                _isFavorite.value = false
+                _state.value = _state.value.copy(isFavorite = false)
             } else {
                 val favoriteEntity = with(vacancyDetailToFavoriteMapper) {
                     currentVacancy.toFavoriteVacancyEntity()
                 }
                 favoritesInteractor.addToFavorites(favoriteEntity)
-                _isFavorite.value = true
+                _state.value = _state.value.copy(isFavorite = true)
             }
         }
     }
 
     fun getShareUrl(): String? {
-        return _vacancy.value?.url
+        return _state.value.vacancy?.url
     }
 
     fun loadVacancy(id: String, source: VacancyDetailsSource) {
         viewModelScope.launch {
-            _isLoading.value = true
-            _error.value = null
+            _state.value = _state.value.copy(
+                isLoading = true,
+                error = null
+            )
             interactor.getVacancyById(id, source)
                 .collect { result ->
                     when (result) {
                         is Result.Success -> {
-                            _vacancy.value = result.data
-                            _isLoading.value = false
+                            _state.value = _state.value.copy(
+                                vacancy = result.data,
+                                isLoading = false
+                            )
                             checkFavoriteStatus()
                         }
 
                         is Result.Error -> {
-                            _isLoading.value = false
-                            _error.value = result.throwable
+                            _state.value = _state.value.copy(
+                                isLoading = false,
+                                error = result.throwable
+                            )
                         }
                     }
                 }

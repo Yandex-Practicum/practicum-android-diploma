@@ -44,16 +44,13 @@ class VacancyDetailsFragment : Fragment() {
 
         return ComposeView(requireContext()).apply {
             setContent {
-                val vacancy by viewModel.vacancy.collectAsState()
-                val isFavorite by viewModel.isFavorite.collectAsState()
-                val isLoading by viewModel.isLoading.collectAsState()
-                val error by viewModel.error.collectAsState()
+                val state by viewModel.state.collectAsState()
 
                 VacancyDetailsScreen(
-                    vacancy = vacancy,
-                    isFavorite = isFavorite,
-                    isLoading = isLoading,
-                    error = error,
+                    vacancy = state.vacancy,
+                    isFavorite = state.isFavorite,
+                    isLoading = state.isLoading,
+                    error = state.error,
                     onBack = { navigateBack() },
                     onShare = { shareVacancy() },
                     onFavoriteClick = { viewModel.toggleFavorite() },
