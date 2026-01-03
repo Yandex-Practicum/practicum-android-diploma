@@ -21,8 +21,6 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
-
         return ComposeView(requireContext()).apply {
             setContent {
                 VacancySearchAppTheme {
@@ -36,7 +34,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-
     private fun openVacancyDetails(vacancyId: String) {
         val args = bundleOf(
             "vacancyId" to vacancyId,
@@ -44,7 +41,6 @@ class SearchFragment : Fragment() {
         )
         findNavController().navigate(R.id.vacancyDetailsFragment, args)
     }
-
 
     private fun openFilters() {
         findNavController().navigate(R.id.searchFiltersFragment)
