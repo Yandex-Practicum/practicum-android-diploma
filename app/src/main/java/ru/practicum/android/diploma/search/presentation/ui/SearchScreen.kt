@@ -42,7 +42,7 @@ import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewMode
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    onOpenVacancyDetails: () -> Unit,
+    onOpenVacancyDetails: (String) -> Unit,
     onOpenFilters: () -> Unit,
     viewModel: SearchViewModel,
 ) {
@@ -91,7 +91,7 @@ fun SearchScreen(
                             PlaceHolder(R.drawable.vacancy_not_found_placeholder, R.string.favorites_list_empty)
                         }
                     } else {
-                        VacanciesList(data) {}
+                        VacanciesList(data, onVacancyClick = onOpenVacancyDetails)
                     }
                 }
 

@@ -3,8 +3,10 @@ package ru.practicum.android.diploma.core.presentation.ui.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -87,8 +89,6 @@ private fun VacancyLogo(logoUrl: String?) {
         .logger(DebugLogger())
         .build()
 
-    val url = logoUrl?.indexOfLast { it == '/' }?.plus(1) ?: 0
-
     val header = NetworkHeaders.Builder().set("User-Agent", "Mozilla/5.0").build()
 
     val imageRequest = ImageRequest
@@ -96,18 +96,25 @@ private fun VacancyLogo(logoUrl: String?) {
         .data(logoUrl)
         .httpHeaders(header)
         .build()
-    AsyncImage(
-        model = imageRequest,
-        contentDescription = null,
-        imageLoader = imageLoader,
+    Box(
         modifier = Modifier
+            .size(48.dp)
             .clip(RoundedCornerShape(12.dp))
-            .border(1.dp, MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
-            .size(48.dp),
-        contentScale = ContentScale.Crop,
-        placeholder = painterResource(R.drawable.logo_placeholder),
-        error = painterResource(R.drawable.logo_placeholder)
-    )
+            .border(1.dp, MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp)),
+        contentAlignment = Alignment.Center
+    ) {
+        AsyncImage(
+            model = imageRequest,
+            contentDescription = null,
+            imageLoader = imageLoader,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(6.dp),
+            contentScale = ContentScale.Fit,
+            placeholder = painterResource(R.drawable.logo_placeholder),
+            error = painterResource(R.drawable.logo_placeholder)
+        )
+    }
 }
 
 @Composable
