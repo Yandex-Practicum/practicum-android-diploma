@@ -66,8 +66,6 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         this.latestSearchText = changedText
 
         searchVacanciesDebounce(changedText)
-
-
     }
 
     fun onClearIcClick() {

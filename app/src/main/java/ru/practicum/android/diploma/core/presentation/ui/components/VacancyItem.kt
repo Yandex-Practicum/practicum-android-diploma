@@ -86,8 +86,11 @@ private fun VacancyLogo(logoUrl: String?) {
     val imageLoader = LocalContext.current.imageLoader.newBuilder()
         .logger(DebugLogger())
         .build()
+
     val url = logoUrl?.indexOfLast { it == '/' }?.plus(1) ?: 0
+
     val header = NetworkHeaders.Builder().set("User-Agent", "Mozilla/5.0").build()
+
     val imageRequest = ImageRequest
         .Builder(LocalContext.current)
         .data(logoUrl)
