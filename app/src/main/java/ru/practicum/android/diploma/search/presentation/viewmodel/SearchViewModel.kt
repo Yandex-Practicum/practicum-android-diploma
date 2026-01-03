@@ -7,8 +7,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
+import ru.practicum.android.diploma.core.presentation.ui.util.debounce
+import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
+import ru.practicum.android.diploma.search.domain.model.Result
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
+import ru.practicum.android.diploma.search.domain.model.VacancyFilter
+import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
 class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
     private val _vacancies = MutableStateFlow<List<VacancyDetail>>(emptyList())
@@ -16,12 +22,16 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
     var currentPage = 1
 
     private var latestSearchText: String? = null
+    val vacanciesList = mutableListOf<VacancyListItemUi>()
 
-    private val searchState = MutableStateFlow<SearchState>(SearchState.Loading)
-    fun getSearchState() = searchState.asStateFlow()
+    private val _searchState = MutableStateFlow<SearchState>(SearchState.Nothing)
+    val searchState = _searchState.asStateFlow()
 
     private val _textFieldState = MutableStateFlow(SearchTextFieldState())
     val textFieldState = _textFieldState.asStateFlow()
+    val searchVacanciesDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, false) {
+        searchVacancies()
+    }
 
     fun onQueryChange(query: String) {
         _textFieldState.update {
@@ -30,32 +40,88 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
                 isShowClearIc = query.isNotEmpty()
             )
         }
+        searchDebounce(query)
     }
 
     fun searchVacancies() {
         val newSearchText = textFieldState.value.query
         if (newSearchText.isNotEmpty()) {
-            searchState.update {
-                SearchState.Loading
-            }
+            renderSearchState(SearchState.Loading)
             viewModelScope.launch {
-                interactor.getVacancies().collect {
+                interactor.getVacancies(VacancyFilter(text = newSearchText)).collect { result ->
+                    when (result) {
+                        is Result.Error -> processResult(errorMessage = result.message)
+                        is Result.Success<VacancyResponse> -> processResult(result.data)
+                    }
                 }
             }
         }
     }
 
-//    fun processResult(vacancyResponse: VacancyResponse) {
-//
-//
-//    }
+    fun searchDebounce(changedText: String) {
+        if (latestSearchText == changedText) {
+            return
+        }
 
-//    private fun renderSearchState(state: SearchState) {
-//        searchState.update { state }
-//    }
+        this.latestSearchText = changedText
+
+        searchVacanciesDebounce(changedText)
+    }
+
+    fun onClearIcClick() {
+        onQueryChange("")
+        removeSearchList()
+    }
+
+    fun processResult(
+        vacancyResponse: VacancyResponse = VacancyResponse(0, 0, 0, emptyList()),
+        errorMessage: String = ""
+    ) {
+        vacanciesList.clear()
+        currentPage = vacancyResponse.page
+        if (vacancyResponse.vacancies.isNotEmpty()) {
+            vacanciesList.addAll(vacancyResponse.vacancies.map {
+                VacancyListItemUi(
+                    it.id,
+                    it.employer.logo,
+                    it.name,
+                    it.address?.city,
+                    it.employer.name,
+                    formatSalary(it.salary?.from, it.salary?.to, it.salary?.currency)
+                )
+            })
+        }
+        when {
+            errorMessage != "" -> {
+                renderSearchState(
+                    SearchState.Error(
+                        message = errorMessage
+                    )
+                )
+            }
+
+            else -> {
+                renderSearchState(
+                    SearchState.Content(
+                        vacanciesList
+                    )
+                )
+            }
+        }
+    }
+
+    fun removeSearchList() {
+        renderSearchState(SearchState.Content(emptyList()))
+        vacanciesList.clear()
+    }
+
+    private fun renderSearchState(state: SearchState) {
+        _searchState.update { state }
+    }
 
     companion object {
         private const val MAX_PAGES = 1000
+        private const val SEARCH_DEBOUNCE_DELAY = 3000L
     }
 
 }

@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
-import ru.practicum.android.diploma.search.presentation.viewmodel.SearchState
-import ru.practicum.android.diploma.search.presentation.viewmodel.SearchTextFieldState
+import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 
 class SearchFragment : Fragment() {
 
+    val viewModel by viewModel<SearchViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,8 +26,7 @@ class SearchFragment : Fragment() {
                     SearchScreen(
                         onOpenVacancyDetails = { openVacancyDetails() },
                         onOpenFilters = { openFilters() },
-                        SearchState.Loading,
-                        textFieldState = SearchTextFieldState()
+                        viewModel
                     )
                 }
             }
