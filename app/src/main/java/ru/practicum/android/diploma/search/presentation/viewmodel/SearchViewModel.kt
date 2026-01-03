@@ -118,9 +118,7 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
     private fun renderSearchState(state: SearchState) {
         _searchState.update { state }
     }
-    private fun pagination() {
-        searchVacancies()
-    }
+
     companion object {
         private const val MAX_PAGES = 1000
         private const val SEARCH_DEBOUNCE_DELAY = 3000L
