@@ -20,4 +20,6 @@
     <string name="get_vacancies_error" translatable="false">Не удалось получить список вакансий</string>
     <string name="favorites_list_empty" translatable="false">Список пуст</string>
     <string name="vacancy_not_found" translatable="false">Вакансия не найдена или удалена</string>
+    <string name="search_textField_hint">Введите запрос</string>
+    <string name="search_screen_header">Поиск вакансий</string>
 </resources>
