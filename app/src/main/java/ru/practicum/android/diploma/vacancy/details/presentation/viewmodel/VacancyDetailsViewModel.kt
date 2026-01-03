@@ -1,16 +1,160 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
+import ru.practicum.android.diploma.search.domain.model.Address
+import ru.practicum.android.diploma.search.domain.model.Contacts
+import ru.practicum.android.diploma.search.domain.model.Employer
+import ru.practicum.android.diploma.search.domain.model.Employment
+import ru.practicum.android.diploma.search.domain.model.Experience
+import ru.practicum.android.diploma.search.domain.model.FilterArea
+import ru.practicum.android.diploma.search.domain.model.FilterIndustry
+import ru.practicum.android.diploma.search.domain.model.Salary
+import ru.practicum.android.diploma.search.domain.model.Schedule
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
+import ru.practicum.android.diploma.vacancy.details.data.VacancyDetailToFavoriteMapper
 import ru.practicum.android.diploma.vacancy.details.domain.api.VacancyDetailsInteractor
+import ru.practicum.android.diploma.vacancy.details.domain.model.Result
+import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
 
 class VacancyDetailsViewModel(
-    private val interactor: VacancyDetailsInteractor
+    private val interactor: VacancyDetailsInteractor,
+    private val favoritesInteractor: FavoritesVacanciesInteractor
 ) : ViewModel() {
 
-    private val _vacancy = MutableStateFlow<VacancyDetail?>(null)
-    val vacancy: StateFlow<VacancyDetail?> = _vacancy
+    private val vacancyDetailToFavoriteMapper = VacancyDetailToFavoriteMapper()
+    private val _state = MutableStateFlow(VacancyDetailsState())
+    val state: StateFlow<VacancyDetailsState> = _state.asStateFlow()
 
+    private fun checkFavoriteStatus() {
+        val vacancyId = _state.value.vacancy?.id ?: return
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isFavorite = favoritesInteractor.isFavorite(vacancyId)
+            )
+        }
+    }
+
+    fun toggleFavorite() {
+        val currentVacancy = _state.value.vacancy ?: return
+        viewModelScope.launch {
+            val currentIsFavorite = _state.value.isFavorite
+
+            if (currentIsFavorite) {
+                favoritesInteractor.removeFromFavorites(currentVacancy.id)
+                _state.value = _state.value.copy(isFavorite = false)
+            } else {
+                val favoriteEntity = with(vacancyDetailToFavoriteMapper) {
+                    currentVacancy.toFavoriteVacancyEntity()
+                }
+                favoritesInteractor.addToFavorites(favoriteEntity)
+                _state.value = _state.value.copy(isFavorite = true)
+            }
+        }
+    }
+
+    fun getShareUrl(): String? {
+        return _state.value.vacancy?.url
+    }
+
+    fun loadVacancy(id: String, source: VacancyDetailsSource) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isLoading = true,
+                error = null
+            )
+            interactor.getVacancyById(id, source)
+                .collect { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            _state.value = _state.value.copy(
+                                vacancy = result.data,
+                                isLoading = false
+                            )
+                            checkFavoriteStatus()
+                        }
+
+                        is Result.Error -> {
+                            _state.value = _state.value.copy(
+                                isLoading = false,
+                                error = result.throwable
+                            )
+                        }
+                    }
+                }
+        }
+    }
+}
+
+object VacancyFakeFactory {
+
+    private const val VACANCY_ID = "123"
+    private const val EMPLOYER_ID = "777"
+    private const val CONTACT_ID = "1"
+    private const val SALARY_FROM = 150_000
+    private const val SALARY_TO = 250_000
+    private const val AREA_ID = 1
+    private const val INDUSTRY_ID = 10
+
+    fun create(): VacancyDetail =
+        VacancyDetail(
+            id = VACANCY_ID,
+            name = "Андроид-разработчик",
+            description = "Разработка Android-приложений на Kotlin",
+            salary = fakeSalary(),
+            address = fakeAddress(),
+            experience = fakeExperience(),
+            schedule = fakeSchedule(),
+            employment = fakeEmployment(),
+            contacts = fakeContacts(),
+            employer = fakeEmployer(),
+            area = fakeArea(),
+            skills = fakeSkills(),
+            url = "https://hh.ru/vacancy/123",
+            industry = fakeIndustry()
+        )
+
+    private fun fakeSalary() = Salary(SALARY_FROM, SALARY_TO, "RUB")
+
+    private fun fakeAddress() = Address(
+        city = "Москва",
+        street = "Тверская",
+        building = "10",
+        fullAddress = "Москва, Тверская 10"
+    )
+
+    private fun fakeExperience() = Experience("3-6", "3–6 лет")
+
+    private fun fakeSchedule() = Schedule("fullDay", "Работа в офисе пон-пят")
+
+    private fun fakeEmployment() = Employment("full", "Полная занятость")
+
+    private fun fakeContacts() = Contacts(
+        id = CONTACT_ID,
+        name = "HR",
+        email = "hr@test.ru",
+        phone = listOf("+7 999 123-45-67", "+7 495-123-45-67")
+    )
+
+    private fun fakeEmployer() = Employer(
+        id = EMPLOYER_ID,
+        name = "Super Company",
+        logo = "https://example.com/logo.png"
+    )
+
+    private fun fakeArea() = FilterArea(
+        id = AREA_ID,
+        name = "Москва",
+        parentId = null,
+        areas = emptyList()
+    )
+
+    private fun fakeSkills() = listOf("Kotlin", "Compose", "Coroutines")
+
+    private fun fakeIndustry() = FilterIndustry(INDUSTRY_ID, "IT")
 }

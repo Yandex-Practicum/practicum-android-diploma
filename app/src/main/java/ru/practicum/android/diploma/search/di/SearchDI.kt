@@ -24,7 +24,7 @@ val searchDataModule = module {
     single { NetworkConnectionChecker(get()) }
     single { DtoMapper() }
     single { FilterMapper() }
-    single { provideOkHttpClient({ BuildConfig.API_ACCESS_TOKEN }) }
+    single { provideOkHttpClient { BuildConfig.API_ACCESS_TOKEN } }
     single { provideRetrofit(get()) }
     single { get<Retrofit>().create(SearchApi::class.java) }
     single<NetworkClient> { NetworkClientImpl(get(), get(), get()) }
