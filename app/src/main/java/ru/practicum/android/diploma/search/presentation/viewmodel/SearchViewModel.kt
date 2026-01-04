@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -139,7 +138,6 @@ class SearchViewModel(
         }
         when {
             errorMessage != "" -> {
-                Log.d("Taaaag", errorMessage)
                 renderSearchState(
                     SearchState.Error(
                         message = errorMessage
