@@ -21,25 +21,25 @@ class VacancyDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Получаем аргументы из навигации
         val vacancyId = arguments?.getString("vacancyId")
         val openedFromFavorites = arguments?.getBoolean("openedFromFavorites", false) ?: false
+        val isFavorite = arguments?.getBoolean("isFavorite", false) ?: false
 
-        // Загружаем вакансию
+        // Загружаем вакансию, если передан корректный ID
         if (vacancyId != null) {
             val source = if (openedFromFavorites) {
                 VacancyDetailsSource.FAVORITES
             } else {
                 VacancyDetailsSource.SEARCH
             }
-            viewModel.loadVacancy(vacancyId, source)
-        } else {
-            // Если ID не передан, загружаем вакансию для тестирования
-//            viewModel.loadVacancy("0004f537-766a-45dc-beaa-934c605353a8", VacancyDetailsSource.SEARCH)
-            viewModel.loadVacancy("0002af81-c469-46fe-ba9e-8e2f339086c7", VacancyDetailsSource.SEARCH)
-//            viewModel.loadVacancy("123", VacancyDetailsSource.SEARCH)
+            viewModel.loadVacancy(
+                id = vacancyId,
+                source = source,
+                initialIsFavorite = isFavorite
+            )
         }
 
         return ComposeView(requireContext()).apply {

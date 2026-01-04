@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.favorites.vacancies.presentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -17,7 +16,6 @@ import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesList
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
-import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.util.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
@@ -40,7 +38,6 @@ fun FavoritesVacanciesScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = dp16),
         ) {
             TopAppBar(
                 title = {
@@ -89,4 +86,5 @@ private fun FavoriteVacancyEntity.toVacancyListItemUi(): VacancyListItemUi =
             to = salaryTo,
             currency = currency,
         ),
+        isFavorite = true,
     )

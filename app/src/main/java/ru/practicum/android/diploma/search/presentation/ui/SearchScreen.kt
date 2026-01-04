@@ -55,21 +55,25 @@ fun SearchScreen(
         topBar = {
             TopAppBar(title = {
                 Text(
-                    text = "Поиск",
+                    text = stringResource(R.string.title_search),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(horizontal = 4.dp, vertical = 19.dp),
                     maxLines = 1,
                 )
             }, actions = {
-                Icon(
-                    painter = painterResource(R.drawable.filter_off__24px),
-                    contentDescription = null,
+                IconButton(
+                    onClick = onOpenFilters,
                     modifier = Modifier
                         .padding(start = dp16, top = dp20, bottom = dp20, end = dp20)
-                        .size(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
+                        .size(24.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.filter_off__24px),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
             })
         },
     ) { paddingValues ->
@@ -123,7 +127,7 @@ private fun SearchInput(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Box() {
+        Box {
             TextField(
                 value = query,
                 onValueChange = onQueryChange,

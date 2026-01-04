@@ -32,6 +32,7 @@ class FavoritesVacanciesFragment : Fragment() {
         val args = bundleOf(
             "vacancyId" to vacancyId,
             "openedFromFavorites" to true,
+            "isFavorite" to true,
         )
         findNavController().navigate(R.id.vacancyDetailsFragment, args)
     }

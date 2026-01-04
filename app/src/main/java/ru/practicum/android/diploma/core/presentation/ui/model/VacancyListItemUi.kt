@@ -7,4 +7,5 @@ data class VacancyListItemUi(
     val city: String?,
     val employer: String?,
     val salary: String?,
+    val isFavorite: Boolean = false,
 )

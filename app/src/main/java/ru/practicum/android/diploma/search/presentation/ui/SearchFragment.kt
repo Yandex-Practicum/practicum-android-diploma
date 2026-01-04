@@ -35,9 +35,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun openVacancyDetails(vacancyId: String) {
+        val isFavorite = viewModel.isFavorite(vacancyId)
         val args = bundleOf(
             "vacancyId" to vacancyId,
             "openedFromFavorites" to false,
+            "isFavorite" to isFavorite,
         )
         findNavController().navigate(R.id.vacancyDetailsFragment, args)
     }

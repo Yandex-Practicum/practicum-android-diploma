@@ -65,7 +65,7 @@ fun VacancyDetailsScreen(
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Назад"
+                            contentDescription = null
                         )
                     }
                 },
@@ -73,7 +73,7 @@ fun VacancyDetailsScreen(
                     IconButton(onClick = onShare) {
                         Icon(
                             imageVector = Icons.Default.Share,
-                            contentDescription = "Поделиться"
+                            contentDescription = null
                         )
                     }
                     IconButton(onClick = onFavoriteClick) {
@@ -85,11 +85,7 @@ fun VacancyDetailsScreen(
                                     R.drawable.ic_favorites_inactive
                                 }
                             ),
-                            contentDescription = if (isFavorite) {
-                                "Удалить из избранного"
-                            } else {
-                                "В избранное"
-                            },
+                            contentDescription = null,
                             tint = if (isFavorite) red else black,
                             modifier = Modifier.size(24.dp)
                         )
@@ -111,10 +107,6 @@ fun VacancyDetailsScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
                         CircularProgressIndicator()
-//                        Text(
-//                            text = "Загрузка...",
-//                            modifier = Modifier.padding(top = 16.dp)
-//                        )
                     }
                 }
 
@@ -137,18 +129,10 @@ fun VacancyDetailsScreen(
                             )
                         }
                         else -> {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = "Ошибка загрузки: ${error.message ?: "Неизвестная ошибка"}",
-                                    style = CustomTypography.bodyMedium
-                                )
-                            }
+                            PlaceHolder(
+                                placeholderImage = R.drawable.vacancy_details_server_error_placeholder,
+                                placeholderText = R.string.error_server
+                            )
                         }
                     }
                 }
@@ -163,7 +147,7 @@ fun VacancyDetailsScreen(
 
                 else -> {
                     Text(
-                        text = "Нет данных",
+                        text = stringResource(R.string.vacancy_details_no_data),
                         modifier = Modifier.padding(16.dp)
                     )
                 }
@@ -200,7 +184,7 @@ private fun VacancyDetailsContent(
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             Text(
-                text = "Контакты",
+                text = stringResource(R.string.vacancy_details_contacts),
                 style = CustomTypography.headlineMedium
             )
         }
@@ -231,7 +215,7 @@ private fun VacancySalary(salary: Salary) {
 private fun VacancyExperience(experience: Experience) {
     Column {
         Text(
-            text = "Требуемый опыт",
+            text = stringResource(R.string.vacancy_details_required_experience),
             style = CustomTypography.titleMedium
         )
         Text(
@@ -268,7 +252,7 @@ private fun VacancyEmploymentAndSchedule(vacancy: VacancyDetail) {
 private fun VacancyDescription(description: String) {
     Column {
         Text(
-            text = "Описание вакансии",
+            text = stringResource(R.string.vacancy_details_description),
             style = CustomTypography.headlineMedium
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -284,7 +268,7 @@ private fun VacancyDescription(description: String) {
 private fun VacancySkills(skills: List<String>) {
     Column {
         Text(
-            text = "Ключевые навыки",
+            text = stringResource(R.string.vacancy_details_skills),
             style = CustomTypography.headlineMedium
         )
         // добавление точек перед skills
@@ -292,7 +276,7 @@ private fun VacancySkills(skills: List<String>) {
             // Если это список навыков, добавляем точки
             skills.forEach { skill ->
                 Text(
-                    text = "${stringResource(R.string.bullet)} $skill",
+                    text = "${stringResource(R.string.dot)} $skill",
                     style = CustomTypography.bodyMedium
                 )
             }

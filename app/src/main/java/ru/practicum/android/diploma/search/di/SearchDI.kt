@@ -36,7 +36,7 @@ val searchDomainModule = module {
 }
 
 val searchPresentationModule = module {
-    viewModel { SearchViewModel(get()) }
+    viewModel { SearchViewModel(get(), get()) }
     viewModel { SearchFiltersViewModel(get()) }
     viewModel { SearchIndustryFilterViewModel(get()) }
 }

@@ -56,5 +56,9 @@
             android:name="openedFromFavorites"
             app:argType="boolean"
             android:defaultValue="false" />
+        <argument
+            android:name="isFavorite"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>
