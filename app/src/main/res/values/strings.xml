@@ -27,4 +27,8 @@
     <string name="vacancy_details_required_experience" translatable="false">Требуемый опыт</string>
     <string name="vacancy_details_description" translatable="false">Описание вакансии</string>
     <string name="vacancy_details_skills" translatable="false">Ключевые навыки</string>
+    <string name="developers_title" translatable="false">Над приложением работали</string>
+    <string name="dev_gleb" translatable="false">Глеб Рудко</string>
+    <string name="dev_kermen" translatable="false">Кермен Корнаев</string>
+    <string name="dev_semyon" translatable="false">Семен Кардашин</string>
 </resources>
