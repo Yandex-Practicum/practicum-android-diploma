@@ -51,7 +51,6 @@ class VacancyDetailsInteractorImpl(
             Exception(searchResult.message, exception)
         } ?: Exception(searchResult.message)
 
-        // если переход из избранного и нет интернета, загружаем из БД
         if (source == VacancyDetailsSource.FAVORITES &&
             searchResult.message == "Нет подключения к интернету"
         ) {

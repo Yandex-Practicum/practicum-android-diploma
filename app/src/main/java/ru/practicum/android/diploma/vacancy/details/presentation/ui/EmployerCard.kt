@@ -71,9 +71,7 @@ fun EmployerCard(vacancy: VacancyDetail) {
                     .crossfade(true)
                     .build(),
                 placeholder = painterResource(R.drawable.logo_placeholder),
-//                placeholder = painterResource(R.drawable.ic_launcher_background),
                 error = painterResource(R.drawable.logo_placeholder),
-//                error = painterResource(R.drawable.ic_launcher_background),
                 contentDescription = "company logo",
                 modifier = Modifier
                     .fillMaxSize()

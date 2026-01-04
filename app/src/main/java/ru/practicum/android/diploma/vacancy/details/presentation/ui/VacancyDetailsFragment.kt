@@ -23,12 +23,10 @@ class VacancyDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Получаем аргументы из навигации
         val vacancyId = arguments?.getString("vacancyId")
         val openedFromFavorites = arguments?.getBoolean("openedFromFavorites", false) ?: false
         val isFavorite = arguments?.getBoolean("isFavorite", false) ?: false
 
-        // Загружаем вакансию, если передан корректный ID
         if (vacancyId != null) {
             val source = if (openedFromFavorites) {
                 VacancyDetailsSource.FAVORITES
