@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesList
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
-import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 import ru.practicum.android.diploma.favorites.vacancies.data.db.entity.FavoriteVacancyEntity
 import ru.practicum.android.diploma.favorites.vacancies.presentation.viewmodel.FavoritesVacanciesViewModel

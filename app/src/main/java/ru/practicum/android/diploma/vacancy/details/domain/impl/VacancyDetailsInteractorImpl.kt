@@ -78,15 +78,13 @@ class VacancyDetailsInteractorImpl(
 
 private fun isNotFoundError(throwable: Throwable?): Boolean {
     val httpCode = when (throwable) {
-        null -> return false
+        null -> null
         is HttpException -> throwable.code()
         else -> (throwable.cause as? HttpException)?.code()
     }
 
-    if (httpCode != null) {
-        return httpCode == HTTP_NOT_FOUND
+    return when {
+        httpCode != null -> httpCode == HTTP_NOT_FOUND
+        else -> throwable?.message == "404 Not Found"
     }
-
-    return throwable?.message == "404 Not Found"
 }
-

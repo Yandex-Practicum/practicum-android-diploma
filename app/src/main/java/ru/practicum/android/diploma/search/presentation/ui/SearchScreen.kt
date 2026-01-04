@@ -30,11 +30,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.presentation.ui.components.Loading
+import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesList
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp20
-import ru.practicum.android.diploma.core.presentation.ui.components.Loading
-import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 

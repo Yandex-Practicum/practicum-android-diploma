@@ -24,14 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.presentation.ui.theme.black
-import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
-import ru.practicum.android.diploma.core.presentation.ui.theme.red
-import ru.practicum.android.diploma.core.presentation.ui.util.format
 import ru.practicum.android.diploma.core.presentation.ui.components.Loading
 import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
+import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
+import ru.practicum.android.diploma.core.presentation.ui.theme.black
+import ru.practicum.android.diploma.core.presentation.ui.theme.red
+import ru.practicum.android.diploma.core.presentation.ui.util.format
 import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Experience
 import ru.practicum.android.diploma.search.domain.model.Salary
