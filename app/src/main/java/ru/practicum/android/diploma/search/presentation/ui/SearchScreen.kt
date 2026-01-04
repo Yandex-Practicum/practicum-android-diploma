@@ -108,28 +108,29 @@ fun SearchScreen(
                     val message = (searchState as SearchState.Error).message
                     val drawableId =
                         when (message) {
-                        stringResource(R.string.error_no_internet) ->
-                            R.drawable.internet_connection_error_placeholder
+                            stringResource(R.string.error_no_internet) ->
+                                R.drawable.internet_connection_error_placeholder
 
-                        stringResource(R.string.error_server) ->
-                            R.drawable.search_server_error_placeholder
+                            stringResource(R.string.error_server) ->
+                                R.drawable.search_server_error_placeholder
 
-                        stringResource(R.string.error_poor_connection) ->
-                            R.drawable.internet_connection_error_placeholder
+                            stringResource(R.string.error_poor_connection) ->
+                                R.drawable.internet_connection_error_placeholder
 
-                        else ->
-                            R.drawable.get_items_error_placeholder
-                    }
-                    val placeholderMessageId = when (drawableId) {
-                        R.drawable.internet_connection_error_placeholder ->
-                            R.string.error_no_internet
+                            else ->
+                                R.drawable.get_items_error_placeholder
+                        }
+                    val placeholderMessageId =
+                        when (drawableId) {
+                            R.drawable.internet_connection_error_placeholder ->
+                                R.string.error_no_internet
 
-                        R.drawable.search_server_error_placeholder ->
-                            R.string.error_server
+                            R.drawable.search_server_error_placeholder ->
+                                R.string.error_server
 
-                        else ->
-                            R.string.get_vacancies_error
-                    }
+                            else ->
+                                R.string.get_vacancies_error
+                        }
                     PlaceHolder(
                         drawableId,
                         placeholderMessageId
