@@ -25,7 +25,6 @@ fun VacanciesList(
     onLoadNextPage: () -> Unit = {},
     isLoading: Boolean = false
 ) {
-
     val listState = rememberLazyListState()
 
     val shouldLoadNext = remember {
