@@ -91,7 +91,14 @@ fun SearchScreen(
                             PlaceHolder(R.drawable.vacancy_not_found_placeholder, R.string.favorites_list_empty)
                         }
                     } else {
-                        VacanciesList(data, onVacancyClick = onOpenVacancyDetails)
+
+                        VacanciesList(
+                            data,
+                            onVacancyClick = onOpenVacancyDetails,
+                            onLoadNextPage = viewModel::onLoadNextPage,
+                            isLoading = (searchState as SearchState.Content).isLoading
+                        )
+
                     }
                 }
 

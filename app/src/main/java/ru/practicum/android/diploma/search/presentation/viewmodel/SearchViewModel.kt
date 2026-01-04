@@ -19,7 +19,8 @@ import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
     private val _vacancies = MutableStateFlow<List<VacancyDetail>>(emptyList())
     val vacancies: StateFlow<List<VacancyDetail>> = _vacancies
-    var currentPage = 1
+    var currentPage = 0
+    var maxPages = 0
 
     private var latestSearchText: String? = null
     val vacanciesList = mutableListOf<VacancyListItemUi>()
@@ -41,6 +42,7 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
             )
         }
         searchDebounce(query)
+
     }
 
     fun searchVacancies() {
@@ -48,10 +50,13 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         if (newSearchText.isNotEmpty()) {
             renderSearchState(SearchState.Loading)
             viewModelScope.launch {
-                interactor.getVacancies(VacancyFilter(text = newSearchText)).collect { result ->
+                interactor.getVacancies(VacancyFilter(text = newSearchText, page = currentPage)).collect { result ->
                     when (result) {
                         is Result.Error -> processResult(errorMessage = result.message)
-                        is Result.Success<VacancyResponse> -> processResult(result.data)
+                        is Result.Success<VacancyResponse> -> {
+                            processResult(result.data)
+                            maxPages = result.data.pages
+                        }
                     }
                 }
             }
@@ -66,6 +71,7 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         this.latestSearchText = changedText
 
         searchVacanciesDebounce(changedText)
+        removeSearchList()
     }
 
     fun onClearIcClick() {
@@ -73,11 +79,27 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         removeSearchList()
     }
 
+    fun onLoadNextPage() {
+        renderSearchState(SearchState.Content(vacanciesList, true))
+        currentPage++
+        viewModelScope.launch {
+            interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
+                .collect { result ->
+                    when (result) {
+                        is Result.Error -> processResult(errorMessage = result.message)
+                        is Result.Success<VacancyResponse> -> {
+                            processResult(result.data)
+                            renderSearchState(SearchState.Content(vacanciesList, false))
+                        }
+                    }
+                }
+        }
+    }
+
     fun processResult(
         vacancyResponse: VacancyResponse = VacancyResponse(0, 0, 0, emptyList()),
         errorMessage: String = ""
     ) {
-        vacanciesList.clear()
         currentPage = vacancyResponse.page
         if (vacancyResponse.vacancies.isNotEmpty()) {
             vacanciesList.addAll(vacancyResponse.vacancies.map {
@@ -110,8 +132,10 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         }
     }
 
-    fun removeSearchList() {
-        renderSearchState(SearchState.Content(emptyList()))
+    private fun removeSearchList() {
+        vacanciesList.clear()
+        renderSearchState(SearchState.Nothing)
+        currentPage = 0
         vacanciesList.clear()
     }
 
@@ -119,8 +143,8 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         _searchState.update { state }
     }
 
+
     companion object {
-        private const val MAX_PAGES = 1000
         private const val SEARCH_DEBOUNCE_DELAY = 3000L
     }
 
