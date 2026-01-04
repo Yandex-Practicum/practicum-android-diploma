@@ -35,7 +35,6 @@ import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp20
 import ru.practicum.android.diploma.core.presentation.ui.util.Loading
 import ru.practicum.android.diploma.core.presentation.ui.util.PlaceHolder
-import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 
@@ -80,7 +79,6 @@ fun SearchScreen(
                 textFieldState.isShowClearIc,
                 onQueryChange = viewModel::onQueryChange,
                 onClearIcClick = viewModel::onClearIcClick,
-                onVacancyClickDebounce = {}
             )
 
             when (searchState) {
@@ -91,7 +89,13 @@ fun SearchScreen(
                             PlaceHolder(R.drawable.vacancy_not_found_placeholder, R.string.favorites_list_empty)
                         }
                     } else {
-                        VacanciesList(data, onVacancyClick = onOpenVacancyDetails)
+                        VacanciesList(
+                            data,
+                            onVacancyClick = onOpenVacancyDetails,
+                            onLoadNextPage = viewModel::onLoadNextPage,
+                            isLoading = (searchState as SearchState.Content).isLoading
+                        )
+
                     }
                 }
 
@@ -113,7 +117,6 @@ private fun SearchInput(
     showClearIc: Boolean,
     onClearIcClick: () -> Unit,
     onQueryChange: (String) -> Unit,
-    onVacancyClickDebounce: (VacancyDetail) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -179,8 +182,6 @@ private fun SearchInput(
                     color = MaterialTheme.colorScheme.onSurface
                 ),
             )
-
-
         }
     }
 }
