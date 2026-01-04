@@ -12,65 +12,81 @@ import ru.practicum.android.diploma.vacancy.details.domain.model.Result
 import ru.practicum.android.diploma.vacancy.details.domain.model.VacancyDetailsSource
 import ru.practicum.android.diploma.search.domain.model.Result as SearchResult
 
+private const val HTTP_NOT_FOUND = 404
+
 class VacancyDetailsInteractorImpl(
     private val searchInteractor: SearchInteractor,
     private val favoritesInteractor: FavoritesVacanciesInteractor,
-    private val favoriteToVacancyDetailMapper: FavoriteToVacancyDetailMapper
+    private val favoriteToVacancyDetailMapper: FavoriteToVacancyDetailMapper,
 ) : VacancyDetailsInteractor {
 
     override fun getVacancyById(
         id: String,
-        source: VacancyDetailsSource
+        source: VacancyDetailsSource,
     ): Flow<Result<VacancyDetail>> {
         return flow {
-            searchInteractor.getVacancyById(id)
-                .collect { searchResult ->
-                    when (searchResult) {
-                        is SearchResult.Success -> {
-                            emit(Result.Success(searchResult.data))
-                        }
-                        is SearchResult.Error -> {
-                            val throwable = searchResult.exception?.let { exception ->
-                                Exception(searchResult.message, exception)
-                            } ?: Exception(searchResult.message)
+            searchInteractor.getVacancyById(id).collect { searchResult ->
+                when (searchResult) {
+                    is SearchResult.Success -> {
+                        emit(Result.Success(searchResult.data))
+                    }
 
-                            // если переход из избранного и нет интернета, загружаем из БД
-                            if (source == VacancyDetailsSource.FAVORITES &&
-                                searchResult.message == "Нет подключения к интернету"
-                            ) {
-                                val favoriteEntity = favoritesInteractor.getFavoriteById(id)
-                                if (favoriteEntity != null) {
-                                    val vacancyDetail = with(favoriteToVacancyDetailMapper) {
-                                        favoriteEntity.toVacancyDetail()
-                                    }
-                                    emit(Result.Success(vacancyDetail))
-                                    return@collect
-                                }
-                            }
-
-                            // если переход из избранного и вакансия не найдена (404), удаляем из БД
-                            if (source == VacancyDetailsSource.FAVORITES &&
-                                isNotFoundError(throwable)
-                            ) {
-                                favoritesInteractor.removeFromFavorites(id)
-                            }
-
-                            emit(Result.Error(throwable))
+                    is SearchResult.Error -> {
+                        handleError(id, source, searchResult) { result ->
+                            emit(result)
                         }
                     }
                 }
+            }
         }
     }
 
-    private fun isNotFoundError(throwable: Throwable?): Boolean {
-        if (throwable == null) return false
-        if (throwable.message == "404 Not Found") return true
+    private suspend fun handleError(
+        id: String,
+        source: VacancyDetailsSource,
+        searchResult: SearchResult.Error,
+        emitResult: suspend (Result<VacancyDetail>) -> Unit,
+    ) {
+        val throwable = searchResult.exception?.let { exception ->
+            Exception(searchResult.message, exception)
+        } ?: Exception(searchResult.message)
 
-        val httpException = when (throwable) {
-            is HttpException -> throwable
-            else -> throwable.cause as? HttpException
+        // если переход из избранного и нет интернета, загружаем из БД
+        if (source == VacancyDetailsSource.FAVORITES &&
+            searchResult.message == "Нет подключения к интернету"
+        ) {
+            val favoriteEntity = favoritesInteractor.getFavoriteById(id)
+            if (favoriteEntity != null) {
+                val vacancyDetail = with(favoriteToVacancyDetailMapper) {
+                    favoriteEntity.toVacancyDetail()
+                }
+                emitResult(Result.Success(vacancyDetail))
+                return
+            }
         }
 
-        return httpException?.code() == 404
+        // если переход из избранного и вакансия не найдена (404), удаляем из БД
+        if (source == VacancyDetailsSource.FAVORITES &&
+            isNotFoundError(throwable)
+        ) {
+            favoritesInteractor.removeFromFavorites(id)
+        }
+
+        emitResult(Result.Error(throwable))
     }
 }
+
+private fun isNotFoundError(throwable: Throwable?): Boolean {
+    val httpCode = when (throwable) {
+        null -> return false
+        is HttpException -> throwable.code()
+        else -> (throwable.cause as? HttpException)?.code()
+    }
+
+    if (httpCode != null) {
+        return httpCode == HTTP_NOT_FOUND
+    }
+
+    return throwable?.message == "404 Not Found"
+}
+
