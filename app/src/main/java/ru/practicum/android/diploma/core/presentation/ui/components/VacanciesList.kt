@@ -28,12 +28,11 @@ fun VacanciesList(
 
     val listState = rememberLazyListState()
 
-
     val shouldLoadNext = remember {
         derivedStateOf {
             val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-            val totalItemsCount = listState.layoutInfo.totalItemsCount
 
+            val totalItemsCount = listState.layoutInfo.totalItemsCount
 
             lastVisibleItemIndex != null && lastVisibleItemIndex >= totalItemsCount - 1
         }
