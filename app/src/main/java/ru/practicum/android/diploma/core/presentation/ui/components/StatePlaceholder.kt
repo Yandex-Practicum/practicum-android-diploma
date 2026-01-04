@@ -38,15 +38,17 @@ fun PlaceHolder(
             contentDescription = null,
         )
 
-        Text(
-            text = stringResource(placeholderText),
-            modifier = Modifier
-                .padding(top = dp16)
-                .padding(horizontal = dp30),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
+        if (placeholderText != 0) {
+            Text(
+                text = stringResource(placeholderText),
+                modifier = Modifier
+                    .padding(top = dp16)
+                    .padding(horizontal = dp30),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
     }
 }
 

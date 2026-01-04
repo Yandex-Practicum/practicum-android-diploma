@@ -104,12 +104,30 @@ fun SearchScreen(
                 }
 
                 is SearchState.Loading -> Loading(Modifier.fillMaxSize())
-                is SearchState.Error -> PlaceHolder(
-                    R.drawable.empty_favorites_placeholder,
-                    R.string.error_403_forbidden
-                )
+                is SearchState.Error -> {
+                    val message = (searchState as SearchState.Error).message
+                    val drawableId = when (message) {
+                        stringResource(R.string.error_no_internet) -> R.drawable.internet_connection_error_placeholder
+                        stringResource(R.string.error_server) -> R.drawable.search_server_error_placeholder
+                        stringResource(R.string.error_poor_connection) -> R.drawable.internet_connection_error_placeholder
+                        else -> R.drawable.get_items_error_placeholder
+                    }
+                    val placeholderMessageId = when (drawableId) {
+                        R.drawable.internet_connection_error_placeholder -> R.string.error_no_internet
+                        R.drawable.search_server_error_placeholder -> R.string.error_server
+                        else -> R.string.get_vacancies_error
+                    }
+                    PlaceHolder(
+                        drawableId,
+                        placeholderMessageId
+                    )
+                }
 
-                is SearchState.Nothing -> {}
+                is SearchState.Nothing -> {
+                    if (textFieldState.query.isEmpty()) {
+                        PlaceHolder(R.drawable.search_main_placeholder)
+                    }
+                }
             }
         }
     }

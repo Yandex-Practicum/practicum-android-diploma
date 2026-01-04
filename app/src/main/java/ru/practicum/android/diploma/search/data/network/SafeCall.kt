@@ -15,7 +15,7 @@ suspend fun <T> safeApiCall(
 ): Resource<T> {
     if (!networkConnectionChecker.isNetworkAvailable()) {
         return Resource.Error(
-            message = "Нет подключения к интернету"
+            message = "Нет интернета"
         )
     }
 
