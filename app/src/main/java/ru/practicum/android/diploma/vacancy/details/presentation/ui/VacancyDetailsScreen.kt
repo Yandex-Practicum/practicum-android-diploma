@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.vacancy.details.presentation.ui
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,7 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import ru.practicum.android.diploma.core.presentation.ui.components.Loading
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,16 +29,12 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.theme.CustomTypography
 import ru.practicum.android.diploma.core.presentation.ui.theme.black
 import ru.practicum.android.diploma.core.presentation.ui.theme.red
-import ru.practicum.android.diploma.core.presentation.ui.util.PlaceHolder
+import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.util.format
 import ru.practicum.android.diploma.search.domain.model.Contacts
 import ru.practicum.android.diploma.search.domain.model.Experience
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
-
-// нужно будет доработать код. после получения реальных описаний вакансий
-// нужно будет добавить bullets перед списками
-// нужна обработка строк в зависимости от вида предоставления списков в вакансиях
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,13 +95,7 @@ fun VacancyDetailsScreen(
         ) {
             when {
                 isLoading -> {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    Loading(Modifier.fillMaxSize())
                 }
 
                 error != null -> {

@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
-import ru.practicum.android.diploma.core.presentation.ui.util.Loading
 import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
 
 @Composable

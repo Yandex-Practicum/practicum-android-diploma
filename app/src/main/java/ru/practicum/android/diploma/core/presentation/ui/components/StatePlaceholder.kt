@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.core.presentation.ui.util
+package ru.practicum.android.diploma.core.presentation.ui.components
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
