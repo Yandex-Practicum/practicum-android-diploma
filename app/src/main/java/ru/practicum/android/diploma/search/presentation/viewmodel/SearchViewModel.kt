@@ -142,7 +142,6 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
     private fun renderSearchState(state: SearchState) {
         _searchState.update { state }
     }
-    
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 3000L
     }
