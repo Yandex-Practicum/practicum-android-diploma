@@ -10,19 +10,27 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.util.debounce
 import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
+import ru.practicum.android.diploma.favorites.vacancies.domain.api.FavoritesVacanciesInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.Result
 import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.domain.model.VacancyFilter
 import ru.practicum.android.diploma.search.domain.model.VacancyResponse
 
-class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
+class SearchViewModel(
+    private val interactor: SearchInteractor,
+    private val favoritesInteractor: FavoritesVacanciesInteractor
+) : ViewModel() {
     private val _vacancies = MutableStateFlow<List<VacancyDetail>>(emptyList())
     val vacancies: StateFlow<List<VacancyDetail>> = _vacancies
-    var currentPage = 1
+    var currentPage = 0
+    var maxPages = 0
 
     private var latestSearchText: String? = null
     val vacanciesList = mutableListOf<VacancyListItemUi>()
+
+    private val _favoriteIds = MutableStateFlow<Set<String>>(emptySet())
+    val favoriteIds: StateFlow<Set<String>> = _favoriteIds.asStateFlow()
 
     private val _searchState = MutableStateFlow<SearchState>(SearchState.Nothing)
     val searchState = _searchState.asStateFlow()
@@ -33,6 +41,10 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         searchVacancies()
     }
 
+    init {
+        observeFavorites()
+    }
+
     fun onQueryChange(query: String) {
         _textFieldState.update {
             it.copy(
@@ -41,6 +53,7 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
             )
         }
         searchDebounce(query)
+
     }
 
     fun searchVacancies() {
@@ -48,10 +61,13 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         if (newSearchText.isNotEmpty()) {
             renderSearchState(SearchState.Loading)
             viewModelScope.launch {
-                interactor.getVacancies(VacancyFilter(text = newSearchText)).collect { result ->
+                interactor.getVacancies(VacancyFilter(text = newSearchText, page = currentPage)).collect { result ->
                     when (result) {
                         is Result.Error -> processResult(errorMessage = result.message)
-                        is Result.Success<VacancyResponse> -> processResult(result.data)
+                        is Result.Success<VacancyResponse> -> {
+                            processResult(result.data)
+                            maxPages = result.data.pages
+                        }
                     }
                 }
             }
@@ -66,6 +82,17 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         this.latestSearchText = changedText
 
         searchVacanciesDebounce(changedText)
+        removeSearchList()
+    }
+
+    fun isFavorite(id: String): Boolean {
+        val favorites = favoriteIds.value
+        // Источник истины — множество избранных id из БД.
+        // Даже если в элементе списка ещё не обновлён флаг isFavorite,
+        // доверяем favoritesIds, чтобы избежать мигания иконки на экране деталей.
+        if (favorites.contains(id)) return true
+
+        return vacanciesList.firstOrNull { it.id == id }?.isFavorite ?: false
     }
 
     fun onClearIcClick() {
@@ -73,13 +100,30 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         removeSearchList()
     }
 
+    fun onLoadNextPage() {
+        renderSearchState(SearchState.Content(vacanciesList, true))
+        currentPage++
+        viewModelScope.launch {
+            interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
+                .collect { result ->
+                    when (result) {
+                        is Result.Error -> processResult(errorMessage = result.message)
+                        is Result.Success<VacancyResponse> -> {
+                            processResult(result.data)
+                            renderSearchState(SearchState.Content(vacanciesList, false))
+                        }
+                    }
+                }
+        }
+    }
+
     fun processResult(
         vacancyResponse: VacancyResponse = VacancyResponse(0, 0, 0, emptyList()),
         errorMessage: String = ""
     ) {
-        vacanciesList.clear()
         currentPage = vacancyResponse.page
         if (vacancyResponse.vacancies.isNotEmpty()) {
+            val currentFavoriteIds = favoriteIds.value
             vacanciesList.addAll(vacancyResponse.vacancies.map {
                 VacancyListItemUi(
                     it.id,
@@ -87,7 +131,8 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
                     it.name,
                     it.address?.city,
                     it.employer.name,
-                    formatSalary(it.salary?.from, it.salary?.to, it.salary?.currency)
+                    formatSalary(it.salary?.from, it.salary?.to, it.salary?.currency),
+                    currentFavoriteIds.contains(it.id)
                 )
             })
         }
@@ -110,17 +155,31 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
         }
     }
 
-    fun removeSearchList() {
-        renderSearchState(SearchState.Content(emptyList()))
+    private fun removeSearchList() {
         vacanciesList.clear()
+        renderSearchState(SearchState.Nothing)
+        currentPage = 0
     }
 
     private fun renderSearchState(state: SearchState) {
         _searchState.update { state }
     }
 
+    private fun observeFavorites() {
+        viewModelScope.launch {
+            favoritesInteractor.getFavorites().collect { result ->
+                when (result) {
+                    is Result.Success -> {
+                        _favoriteIds.value = result.data.map { it.id }.toSet()
+                    }
+
+                    is Result.Error -> {}
+                }
+            }
+        }
+    }
+
     companion object {
-        private const val MAX_PAGES = 1000
         private const val SEARCH_DEBOUNCE_DELAY = 3000L
     }
 

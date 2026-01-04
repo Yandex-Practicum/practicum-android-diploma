@@ -30,12 +30,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.presentation.ui.components.Loading
+import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesList
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp20
-import ru.practicum.android.diploma.core.presentation.ui.util.Loading
-import ru.practicum.android.diploma.core.presentation.ui.util.PlaceHolder
-import ru.practicum.android.diploma.search.domain.model.VacancyDetail
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 
@@ -56,21 +55,25 @@ fun SearchScreen(
         topBar = {
             TopAppBar(title = {
                 Text(
-                    text = "Поиск",
+                    text = stringResource(R.string.title_search),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(horizontal = 4.dp, vertical = 19.dp),
                     maxLines = 1,
                 )
             }, actions = {
-                Icon(
-                    painter = painterResource(R.drawable.filter_off__24px),
-                    contentDescription = null,
+                IconButton(
+                    onClick = onOpenFilters,
                     modifier = Modifier
                         .padding(start = dp16, top = dp20, bottom = dp20, end = dp20)
-                        .size(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
+                        .size(24.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.filter_off__24px),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
             })
         },
     ) { paddingValues ->
@@ -80,7 +83,6 @@ fun SearchScreen(
                 textFieldState.isShowClearIc,
                 onQueryChange = viewModel::onQueryChange,
                 onClearIcClick = viewModel::onClearIcClick,
-                onVacancyClickDebounce = {}
             )
 
             when (searchState) {
@@ -91,7 +93,13 @@ fun SearchScreen(
                             PlaceHolder(R.drawable.vacancy_not_found_placeholder, R.string.favorites_list_empty)
                         }
                     } else {
-                        VacanciesList(data, onVacancyClick = onOpenVacancyDetails)
+                        VacanciesList(
+                            data,
+                            onVacancyClick = onOpenVacancyDetails,
+                            onLoadNextPage = viewModel::onLoadNextPage,
+                            isLoading = (searchState as SearchState.Content).isLoading
+                        )
+
                     }
                 }
 
@@ -113,14 +121,13 @@ private fun SearchInput(
     showClearIc: Boolean,
     onClearIcClick: () -> Unit,
     onQueryChange: (String) -> Unit,
-    onVacancyClickDebounce: (VacancyDetail) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Box() {
+        Box {
             TextField(
                 value = query,
                 onValueChange = onQueryChange,
@@ -179,8 +186,6 @@ private fun SearchInput(
                     color = MaterialTheme.colorScheme.onSurface
                 ),
             )
-
-
         }
     }
 }
