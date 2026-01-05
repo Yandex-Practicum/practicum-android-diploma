@@ -6,6 +6,6 @@ sealed interface SearchState {
     object Loading : SearchState
     object Nothing : SearchState
     data class Error(val message: String) : SearchState
-    data class Content(val data: List<VacancyListItemUi>,  val isLoading: Boolean = false) :
+    data class Content(val data: List<VacancyListItemUi>, val isLoading: Boolean = false) :
         SearchState
 }
