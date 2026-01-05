@@ -99,8 +99,8 @@ fun VacancyDetailsScreen(
                 }
 
                 error != null -> {
-                    val isInternetError = error.message == "Нет подключения к интернету"
-                    val isNotFoundError = error.message == "404 Not Found"
+                    val isInternetError = error.message == stringResource(R.string.error_no_internet)
+                    val isNotFoundError = error.message == stringResource(R.string.error_404_not_found)
 
                     when {
                         isInternetError -> {

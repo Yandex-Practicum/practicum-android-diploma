@@ -52,7 +52,7 @@ class VacancyDetailsInteractorImpl(
         } ?: Exception(searchResult.message)
 
         if (source == VacancyDetailsSource.FAVORITES &&
-            searchResult.message == "Нет подключения к интернету"
+            searchResult.message == "Нет интернета"
         ) {
             val favoriteEntity = favoritesInteractor.getFavoriteById(id)
             if (favoriteEntity != null) {
