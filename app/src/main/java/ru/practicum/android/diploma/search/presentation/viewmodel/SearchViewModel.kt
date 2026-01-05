@@ -26,6 +26,9 @@ class SearchViewModel(
     var currentPage = 0
     var maxPages = 0
 
+    private val _foundVacancies = MutableStateFlow(0)
+    val foundVacancies = _foundVacancies.asStateFlow()
+
     private var latestSearchText: String? = null
     val vacanciesList = mutableListOf<VacancyListItemUi>()
 
@@ -67,6 +70,9 @@ class SearchViewModel(
                         is Result.Success<VacancyResponse> -> {
                             processResult(result.data)
                             maxPages = result.data.pages
+                            _foundVacancies.update {
+                                result.data.found
+                            }
                         }
                     }
                 }
@@ -87,11 +93,7 @@ class SearchViewModel(
 
     fun isFavorite(id: String): Boolean {
         val favorites = favoriteIds.value
-        // Источник истины — множество избранных id из БД.
-        // Даже если в элементе списка ещё не обновлён флаг isFavorite,
-        // доверяем favoritesIds, чтобы избежать мигания иконки на экране деталей.
         if (favorites.contains(id)) return true
-
         return vacanciesList.firstOrNull { it.id == id }?.isFavorite ?: false
     }
 
@@ -102,18 +104,20 @@ class SearchViewModel(
 
     fun onLoadNextPage() {
         renderSearchState(SearchState.Content(vacanciesList, true))
-        currentPage++
-        viewModelScope.launch {
-            interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
-                .collect { result ->
-                    when (result) {
-                        is Result.Error -> processResult(errorMessage = result.message)
-                        is Result.Success<VacancyResponse> -> {
-                            processResult(result.data)
-                            renderSearchState(SearchState.Content(vacanciesList, false))
+        if (currentPage <= maxPages) {
+            currentPage++
+            viewModelScope.launch {
+                interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
+                    .collect { result ->
+                        when (result) {
+                            is Result.Error -> processResult(errorMessage = result.message)
+                            is Result.Success<VacancyResponse> -> {
+                                processResult(result.data)
+                                renderSearchState(SearchState.Content(vacanciesList, false))
+                            }
                         }
                     }
-                }
+            }
         }
     }
 
@@ -122,6 +126,9 @@ class SearchViewModel(
         errorMessage: String = ""
     ) {
         currentPage = vacancyResponse.page
+        if (errorMessage.isEmpty()) {
+            _foundVacancies.value = vacancyResponse.found
+        }
         if (vacancyResponse.vacancies.isNotEmpty()) {
             val currentFavoriteIds = favoriteIds.value
             vacanciesList.addAll(vacancyResponse.vacancies.map {
@@ -159,6 +166,7 @@ class SearchViewModel(
         vacanciesList.clear()
         renderSearchState(SearchState.Nothing)
         currentPage = 0
+        _foundVacancies.value = 0
     }
 
     private fun renderSearchState(state: SearchState) {

@@ -25,7 +25,7 @@ fun VacanciesList(
     modifier: Modifier = Modifier,
     onVacancyClick: (String) -> Unit,
     onLoadNextPage: () -> Unit = {},
-    isLoading: Boolean = false
+    isLoading: Boolean = false,
 ) {
     val listState = rememberLazyListState()
 
@@ -45,31 +45,33 @@ fun VacanciesList(
         }
     }
 
-    LazyColumn(
-        state = listState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        items(
-            items = vacancies,
-            key = { it.id },
-        ) { vacancy ->
-            VacancyItem(
-                id = vacancy.id,
-                logoUrl = vacancy.logoUrl,
-                vacancyName = vacancy.vacancyName,
-                city = vacancy.city,
-                employer = vacancy.employer,
-                salary = vacancy.salary,
-                onClick = onVacancyClick,
-            )
-        }
-        if (isLoading) {
-            item {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Loading(Modifier.size(80.dp))
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            items(
+                items = vacancies,
+                key = { it.id },
+            ) { vacancy ->
+                VacancyItem(
+                    id = vacancy.id,
+                    logoUrl = vacancy.logoUrl,
+                    vacancyName = vacancy.vacancyName,
+                    city = vacancy.city,
+                    employer = vacancy.employer,
+                    salary = vacancy.salary,
+                    onClick = onVacancyClick,
+                )
+            }
+            if (isLoading) {
+                item {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Loading(Modifier.size(80.dp))
+                    }
                 }
             }
         }

@@ -31,4 +31,6 @@
     <string name="dev_gleb" translatable="false">Глеб Рудко</string>
     <string name="dev_kermen" translatable="false">Кермен Корнаев</string>
     <string name="dev_semyon" translatable="false">Семен Кардашин</string>
+    <string name="found_count_vacancies">Найдено %1$s вакансий</string>
+    <string name="search_nothing_found" translatable="false">Таких вакансий не найдено</string>
 </resources>
