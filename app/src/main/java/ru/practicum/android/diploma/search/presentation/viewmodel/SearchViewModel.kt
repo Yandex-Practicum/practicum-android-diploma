@@ -26,6 +26,8 @@ class SearchViewModel(
     var currentPage = 0
     var maxPages = 0
 
+    private val _foundVacancies = MutableStateFlow(0)
+    val foundVacancies = _foundVacancies.asStateFlow()
     private var latestSearchText: String? = null
     val vacanciesList = mutableListOf<VacancyListItemUi>()
 
@@ -67,6 +69,9 @@ class SearchViewModel(
                         is Result.Success<VacancyResponse> -> {
                             processResult(result.data)
                             maxPages = result.data.pages
+                            _foundVacancies.update {
+                                result.data.found
+                            }
                         }
                     }
                 }
@@ -102,18 +107,20 @@ class SearchViewModel(
 
     fun onLoadNextPage() {
         renderSearchState(SearchState.Content(vacanciesList, true))
-        currentPage++
-        viewModelScope.launch {
-            interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
-                .collect { result ->
-                    when (result) {
-                        is Result.Error -> processResult(errorMessage = result.message)
-                        is Result.Success<VacancyResponse> -> {
-                            processResult(result.data)
-                            renderSearchState(SearchState.Content(vacanciesList, false))
+        if (currentPage <= maxPages) {
+            currentPage++
+            viewModelScope.launch {
+                interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
+                    .collect { result ->
+                        when (result) {
+                            is Result.Error -> processResult(errorMessage = result.message)
+                            is Result.Success<VacancyResponse> -> {
+                                processResult(result.data)
+                                renderSearchState(SearchState.Content(vacanciesList, false))
+                            }
                         }
                     }
-                }
+            }
         }
     }
 

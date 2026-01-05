@@ -1,20 +1,28 @@
 package ru.practicum.android.diploma.core.presentation.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.model.VacancyListItemUi
 import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
 import ru.practicum.android.diploma.core.presentation.ui.util.formatSalary
@@ -25,7 +33,8 @@ fun VacanciesList(
     modifier: Modifier = Modifier,
     onVacancyClick: (String) -> Unit,
     onLoadNextPage: () -> Unit = {},
-    isLoading: Boolean = false
+    isLoading: Boolean = false,
+    foundVacancies: Int = 0
 ) {
     val listState = rememberLazyListState()
 
@@ -45,36 +54,59 @@ fun VacanciesList(
         }
     }
 
-    LazyColumn(
-        state = listState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        items(
-            items = vacancies,
-            key = { it.id },
-        ) { vacancy ->
-            VacancyItem(
-                id = vacancy.id,
-                logoUrl = vacancy.logoUrl,
-                vacancyName = vacancy.vacancyName,
-                city = vacancy.city,
-                employer = vacancy.employer,
-                salary = vacancy.salary,
-                onClick = onVacancyClick,
-            )
-        }
-        if (isLoading) {
-            item {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Loading(Modifier.size(80.dp))
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(top = 38.dp),
+        ) {
+            items(
+                items = vacancies,
+                key = { it.id },
+            ) { vacancy ->
+                VacancyItem(
+                    id = vacancy.id,
+                    logoUrl = vacancy.logoUrl,
+                    vacancyName = vacancy.vacancyName,
+                    city = vacancy.city,
+                    employer = vacancy.employer,
+                    salary = vacancy.salary,
+                    onClick = onVacancyClick,
+                )
+            }
+            if (isLoading) {
+                item {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Loading(Modifier.size(80.dp))
+                    }
                 }
             }
         }
+
+        VacanciesCountBadge(foundVacancies)
     }
 
+}
+
+@Composable
+fun VacanciesCountBadge(
+    count: Int,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = stringResource(R.string.found_count_vacancies, count),
+        color = MaterialTheme.colorScheme.surface,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = modifier
+            .background(
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .padding(horizontal = 12.dp, vertical = 6.dp)
+    )
 }
 
 @Preview(showBackground = true)

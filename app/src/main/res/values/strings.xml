@@ -27,4 +27,5 @@
     <string name="vacancy_details_required_experience" translatable="false">Требуемый опыт</string>
     <string name="vacancy_details_description" translatable="false">Описание вакансии</string>
     <string name="vacancy_details_skills" translatable="false">Ключевые навыки</string>
+    <string name="found_count_vacancies">Найдено %1$s вакансий</string>
 </resources>

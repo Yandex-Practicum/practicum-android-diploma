@@ -97,9 +97,9 @@ fun SearchScreen(
                             data,
                             onVacancyClick = onOpenVacancyDetails,
                             onLoadNextPage = viewModel::onLoadNextPage,
-                            isLoading = (searchState as SearchState.Content).isLoading
+                            isLoading = (searchState as SearchState.Content).isLoading,
+                            foundVacancies = viewModel.foundVacancies.collectAsState().value
                         )
-
                     }
                 }
 
