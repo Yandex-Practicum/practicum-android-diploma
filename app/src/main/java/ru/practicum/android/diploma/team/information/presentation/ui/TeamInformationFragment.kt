@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.core.presentation.ui.theme.VacancySearchAppTheme
 
 class TeamInformationFragment : Fragment() {
     override fun onCreateView(
@@ -15,7 +16,9 @@ class TeamInformationFragment : Fragment() {
     ): View? {
         return ComposeView(requireContext()).apply {
             setContent {
-                TeamInformationScreen()
+                VacancySearchAppTheme {
+                    TeamInformationScreen()
+                }
             }
         }
     }
