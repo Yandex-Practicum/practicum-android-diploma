@@ -99,7 +99,6 @@ fun VacancyDetailsScreen(
                 }
 
                 error != null -> {
-                    // Проверяем тип ошибки
                     val isInternetError = error.message == "Нет подключения к интернету"
                     val isNotFoundError = error.message == "404 Not Found"
 
@@ -110,12 +109,14 @@ fun VacancyDetailsScreen(
                                 placeholderText = R.string.error_no_internet
                             )
                         }
+
                         isNotFoundError -> {
                             PlaceHolder(
                                 placeholderImage = R.drawable.vacancy_not_found_placeholder,
                                 placeholderText = R.string.vacancy_not_found
                             )
                         }
+
                         else -> {
                             PlaceHolder(
                                 placeholderImage = R.drawable.vacancy_details_server_error_placeholder,
@@ -259,9 +260,7 @@ private fun VacancySkills(skills: List<String>) {
             text = stringResource(R.string.vacancy_details_skills),
             style = CustomTypography.headlineMedium
         )
-        // добавление точек перед skills
         if (skills.size > 1) {
-            // Если это список навыков, добавляем точки
             skills.forEach { skill ->
                 Text(
                     text = "${stringResource(R.string.dot)} $skill",
@@ -269,7 +268,6 @@ private fun VacancySkills(skills: List<String>) {
                 )
             }
         } else {
-            // Если это один навык, отображаем без точки
             skills.forEach { skill ->
                 Text(
                     text = skill,
