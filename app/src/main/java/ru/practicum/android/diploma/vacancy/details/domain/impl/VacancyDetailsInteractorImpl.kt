@@ -64,7 +64,6 @@ class VacancyDetailsInteractorImpl(
             }
         }
 
-        // если переход из избранного и вакансия не найдена (404), удаляем из БД
         if (source == VacancyDetailsSource.FAVORITES &&
             isNotFoundError(throwable)
         ) {
