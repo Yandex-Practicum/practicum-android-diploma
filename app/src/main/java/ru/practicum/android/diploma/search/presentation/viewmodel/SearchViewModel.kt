@@ -40,7 +40,7 @@ class SearchViewModel(
 
     private val _textFieldState = MutableStateFlow(SearchTextFieldState())
     val textFieldState = _textFieldState.asStateFlow()
-    val searchVacanciesDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, false) {
+    val searchVacanciesDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) {
         searchVacancies()
     }
 
@@ -188,7 +188,7 @@ class SearchViewModel(
     }
 
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 3000L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
 }
