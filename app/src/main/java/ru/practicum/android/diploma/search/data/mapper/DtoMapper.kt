@@ -112,11 +112,16 @@ class DtoMapper {
             null
         } else {
             Contacts(
-                contactsDto.id,
-                contactsDto.name,
-                contactsDto.email,
-                contactsDto.phones.map {
-                    it.formatted
+                id = contactsDto.id,
+                name = contactsDto.name,
+                email = contactsDto.email,
+                phone = contactsDto.phones.map { phoneDto ->
+                    val comment = phoneDto.comment?.takeIf { it.isNotBlank() }
+                    if (comment != null) {
+                        "${phoneDto.formatted} ($comment)"
+                    } else {
+                        phoneDto.formatted
+                    }
                 }
             )
         }

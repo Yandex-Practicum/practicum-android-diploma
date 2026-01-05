@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.presentation.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -47,15 +49,27 @@ fun SearchScreen(
     onOpenFilters: () -> Unit,
     viewModel: SearchViewModel,
 ) {
-    val textFieldState by viewModel
-        .textFieldState
-        .collectAsState()
-    val searchState by viewModel
-        .searchState
-        .collectAsState()
-    val foundVacancies by viewModel
-        .foundVacancies
-        .collectAsState()
+    val textFieldState by viewModel.textFieldState.collectAsState()
+    val searchState by viewModel.searchState.collectAsState()
+    val foundVacancies by viewModel.foundVacancies.collectAsState()
+    val paginationErrorMessage by viewModel.paginationErrorMessage.collectAsState()
+
+    val context = LocalContext.current
+
+    if (paginationErrorMessage != null) {
+        val toastText = when (paginationErrorMessage) {
+            stringResource(R.string.error_no_internet),
+            stringResource(R.string.error_poor_connection) ->
+                stringResource(R.string.toast_check_internet)
+
+            else ->
+                stringResource(R.string.toast_generic_error)
+        }
+
+        Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+        viewModel.onPaginationErrorShown()
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(title = {
