@@ -158,8 +158,8 @@ private fun VacancyDetailsContent(
 
         vacancy.salary?.let {
             item { VacancySalary(it) }
+            item { Spacer(modifier = Modifier.height(16.dp)) }
         }
-        item { Spacer(modifier = Modifier.height(16.dp)) }
         item { EmployerCard(vacancy) }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         vacancy.experience?.let {
@@ -168,17 +168,20 @@ private fun VacancyDetailsContent(
         item { VacancyEmploymentAndSchedule(vacancy) }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item { VacancyDescription(vacancy.description) }
-        item { Spacer(modifier = Modifier.height(16.dp)) }
-        item { VacancySkills(vacancy.skills) }
-        item { Spacer(modifier = Modifier.height(16.dp)) }
-        item {
-            Text(
-                text = stringResource(R.string.vacancy_details_contacts),
-                style = CustomTypography.headlineMedium
-            )
+        if (vacancy.skills.isNotEmpty()) {
+            item { Spacer(modifier = Modifier.height(16.dp)) }
+            item { VacancySkills(vacancy.skills) }
         }
-        vacancy.contacts?.let {
-            item { VacancyContacts(it, onPhoneClick, onEmailClick) }
+
+        vacancy.contacts?.let { contacts ->
+            item { Spacer(modifier = Modifier.height(16.dp)) }
+            item {
+                Text(
+                    text = stringResource(R.string.vacancy_details_contacts),
+                    style = CustomTypography.headlineMedium
+                )
+            }
+            item { VacancyContacts(contacts, onPhoneClick, onEmailClick) }
         }
     }
 }

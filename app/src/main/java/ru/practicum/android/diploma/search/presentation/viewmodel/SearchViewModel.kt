@@ -38,6 +38,9 @@ class SearchViewModel(
     private val _searchState = MutableStateFlow<SearchState>(SearchState.Nothing)
     val searchState = _searchState.asStateFlow()
 
+    private val _paginationErrorMessage = MutableStateFlow<String?>(null)
+    val paginationErrorMessage: StateFlow<String?> = _paginationErrorMessage.asStateFlow()
+
     private val _textFieldState = MutableStateFlow(SearchTextFieldState())
     val textFieldState = _textFieldState.asStateFlow()
     val searchVacanciesDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) {
@@ -110,7 +113,10 @@ class SearchViewModel(
                 interactor.getVacancies(VacancyFilter(text = _textFieldState.value.query, page = currentPage))
                     .collect { result ->
                         when (result) {
-                            is Result.Error -> processResult(errorMessage = result.message)
+                            is Result.Error -> {
+                                renderSearchState(SearchState.Content(vacanciesList, false))
+                                _paginationErrorMessage.value = result.message
+                            }
                             is Result.Success<VacancyResponse> -> {
                                 processResult(result.data)
                                 renderSearchState(SearchState.Content(vacanciesList, false))
@@ -119,6 +125,10 @@ class SearchViewModel(
                     }
             }
         }
+    }
+
+    fun onPaginationErrorShown() {
+        _paginationErrorMessage.value = null
     }
 
     fun processResult(
