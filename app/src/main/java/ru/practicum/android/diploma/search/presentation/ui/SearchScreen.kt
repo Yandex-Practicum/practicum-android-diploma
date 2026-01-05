@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -33,6 +34,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.presentation.ui.components.Loading
 import ru.practicum.android.diploma.core.presentation.ui.components.PlaceHolder
 import ru.practicum.android.diploma.core.presentation.ui.components.VacanciesList
+import ru.practicum.android.diploma.core.presentation.ui.theme.corner12
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp16
 import ru.practicum.android.diploma.core.presentation.ui.theme.dp20
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchState
@@ -50,6 +52,9 @@ fun SearchScreen(
         .collectAsState()
     val searchState by viewModel
         .searchState
+        .collectAsState()
+    val foundVacancies by viewModel
+        .foundVacancies
         .collectAsState()
     Scaffold(
         topBar = {
@@ -88,9 +93,18 @@ fun SearchScreen(
             when (searchState) {
                 is SearchState.Content -> {
                     val data = (searchState as SearchState.Content).data
+                    if (textFieldState.isShowClearIc) {
+                        SearchResultBanner(
+                            foundVacancies = foundVacancies,
+                            isEmptyResult = data.isEmpty()
+                        )
+                    }
                     if (data.isEmpty()) {
                         if (textFieldState.isShowClearIc) {
-                            PlaceHolder(R.drawable.vacancy_not_found_placeholder, R.string.favorites_list_empty)
+                            PlaceHolder(
+                                placeholderImage = R.drawable.get_items_error_placeholder,
+                                placeholderText = R.string.get_vacancies_error,
+                            )
                         }
                     } else {
                         VacanciesList(
@@ -98,7 +112,6 @@ fun SearchScreen(
                             onVacancyClick = onOpenVacancyDetails,
                             onLoadNextPage = viewModel::onLoadNextPage,
                             isLoading = (searchState as SearchState.Content).isLoading,
-                            foundVacancies = viewModel.foundVacancies.collectAsState().value
                         )
                     }
                 }
@@ -143,6 +156,37 @@ fun SearchScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SearchResultBanner(
+    foundVacancies: Int,
+    isEmptyResult: Boolean,
+) {
+    val text = if (isEmptyResult) {
+        stringResource(id = R.string.search_nothing_found)
+    } else {
+        stringResource(id = R.string.found_count_vacancies, foundVacancies)
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = dp16),
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            color = MaterialTheme.colorScheme.primary,
+            shape = RoundedCornerShape(corner12)
+        ) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            )
         }
     }
 }

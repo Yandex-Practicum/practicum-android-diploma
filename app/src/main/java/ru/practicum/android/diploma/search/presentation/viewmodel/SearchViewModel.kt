@@ -28,6 +28,7 @@ class SearchViewModel(
 
     private val _foundVacancies = MutableStateFlow(0)
     val foundVacancies = _foundVacancies.asStateFlow()
+
     private var latestSearchText: String? = null
     val vacanciesList = mutableListOf<VacancyListItemUi>()
 
@@ -92,11 +93,7 @@ class SearchViewModel(
 
     fun isFavorite(id: String): Boolean {
         val favorites = favoriteIds.value
-        // Источник истины — множество избранных id из БД.
-        // Даже если в элементе списка ещё не обновлён флаг isFavorite,
-        // доверяем favoritesIds, чтобы избежать мигания иконки на экране деталей.
         if (favorites.contains(id)) return true
-
         return vacanciesList.firstOrNull { it.id == id }?.isFavorite ?: false
     }
 
@@ -129,6 +126,9 @@ class SearchViewModel(
         errorMessage: String = ""
     ) {
         currentPage = vacancyResponse.page
+        if (errorMessage.isEmpty()) {
+            _foundVacancies.value = vacancyResponse.found
+        }
         if (vacancyResponse.vacancies.isNotEmpty()) {
             val currentFavoriteIds = favoriteIds.value
             vacanciesList.addAll(vacancyResponse.vacancies.map {
@@ -166,6 +166,7 @@ class SearchViewModel(
         vacanciesList.clear()
         renderSearchState(SearchState.Nothing)
         currentPage = 0
+        _foundVacancies.value = 0
     }
 
     private fun renderSearchState(state: SearchState) {
