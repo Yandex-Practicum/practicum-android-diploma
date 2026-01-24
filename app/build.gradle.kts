@@ -1,6 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.android.navigation.safe.args)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -17,7 +19,17 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(type = "String", name = "API_ACCESS_TOKEN", value = "\"${developProperties.apiAccessToken}\"")
+        // Токен из develop.properties (локально)
+        buildConfigField(
+            type = "String",
+            name = "API_ACCESS_TOKEN",
+            value = "\"${developProperties.apiAccessToken}\""
+        )
+
+        // User-Agent - для HH API
+        buildConfigField(type = "String", name = "HH_USER_AGENT",
+            value = "\"PracticumDiploma (MaxZlorad)\"" //maxzlorad@yandex.ru
+        )
     }
 
     buildTypes {
@@ -36,16 +48,53 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
 dependencies {
+    // AndroidX Core
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
+    implementation(libs.androidx.fragment.ktx)
 
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+
+    // Retrofit и сеть
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+
+    // Room (ksp вместо kapt)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // Glide
+    implementation(libs.glide)
+    ksp(libs.glide.compiler)
+
+    // Koin
+    implementation(libs.koin.android)
+
+    // Navigation
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+
+    // Lifecycle
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.runtime)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Gson
+    implementation(libs.gson)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
