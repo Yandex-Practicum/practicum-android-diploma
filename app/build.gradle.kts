@@ -25,11 +25,6 @@ android {
             name = "API_ACCESS_TOKEN",
             value = "\"${developProperties.apiAccessToken}\""
         )
-
-        // User-Agent - для HH API
-        buildConfigField(type = "String", name = "HH_USER_AGENT",
-            value = "\"PracticumDiploma (MaxZlorad)\"" //maxzlorad@yandex.ru
-        )
     }
 
     buildTypes {
