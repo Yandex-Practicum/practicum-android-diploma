@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.network.VacancyApi
 import java.util.concurrent.TimeUnit
 
-
 private const val CONNECT_TIMEOUT_SECONDS = 15L
 private const val READ_TIMEOUT_SECONDS = 30L
 private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.com/"
