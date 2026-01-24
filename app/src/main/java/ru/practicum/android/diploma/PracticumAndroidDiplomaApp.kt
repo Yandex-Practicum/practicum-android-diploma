@@ -3,6 +3,7 @@ package ru.practicum.android.diploma
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.practicum.android.diploma.di.dataModule
 
 class PracticumAndroidDiplomaApp : Application() {
 
@@ -13,6 +14,7 @@ class PracticumAndroidDiplomaApp : Application() {
         startKoin {
             androidContext(this@PracticumAndroidDiplomaApp)
             modules(
+                dataModule,
                 // здесь будут модули: dataModule, domainModule, viewModelModule, ..
             )
         }
