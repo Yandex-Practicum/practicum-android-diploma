@@ -1,3 +1,57 @@
 <resources>
+    <!-- Название приложения -->
     <string name="app_name">Practicum-Android-Diploma</string>
+
+    <!-- Названия для BottomNavigationView и заголовки экранов-->
+    <string name="main">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="team">Команда</string>
+
+    <string name="search_vacancies">Поиск вакансий</string>
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="vacancy">Вакансия</string>
+
+    <!-- Кнопки -->
+    <string name="filter">Фильтр</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
+
+    <!-- Команда -->
+    <string name="team_section_title">Над приложением\nработали</string>
+    <string name="team_member_koshlakov">Василий Кошлаков</string>
+    <string name="team_member_kulikov">Максим Куликов</string>
+    <string name="team_member_sharov">Андрей Шаров</string>
+
+    <!-- Фильтры -->
+    <string name="title_place_of_work">Выбор места работы</string>
+    <string name="title_industry">Выбор отрасли</string>
+    <string name="open_search_filters">Открыть фильтры поиска</string>
+    <string name="enter_query">Введите запрос</string>
+    <string name="search_results_are_empty">Ничего не найдено</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="load_list_error">Не удалось получить список вакансий</string>
+    <string name="no_vacancy">Таких вакансий нет</string>
+    <string name="experience_title">Требуемый опыт</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+    <string name="skills_title">Ключевые навыки</string>
+    <string name="contacts_title">Контакты</string>
+    <string name="error_unable_to_retr_vac_list">Не удалось получить список вакансий</string>
+    <string name="error_empty_vacancy_list">Cписок пуст</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена </string>
+    <string name="salary_not_specified">Зарплата не указана </string>
+    <string name="check_internet_connection">Проверьте подключение к интернету</string>
+    <string name="error_occurred">Произошла ошибка</string>
+    <string name="enter_Industry">Введите отрасль</string>
+    <string name="no_industries_available">Нет доступных отраслей</string>
+    <string name="industries_load_error">Ошибка загрузки отраслей</string>
+    <string name="enter_amount">Введите сумму</string>
+    <string name="do_not_show_without_salary">Не показывать без зарплаты</string>
+    <string name="no_industries">Такой отрасли нет</string>
+    <string name="place_of_work">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="salary_expected">Ожидаемая зарплата</string>
+    <string name="country">Страна</string>
+    <string name="region">Pегион</string>
+    <string name="select">Выбрать</string>
 </resources>

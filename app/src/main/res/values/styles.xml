@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomBottomNavStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/BottomNavText</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavText</item>
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:lineSpacingExtra">0dp</item>
+    </style>
+
+    <style name="TextAppearance.Medium22" parent="@android:style/TextAppearance">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.Regular16" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/label_text_normal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.Medium16" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/label_text_normal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.Regular12" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/label_text_selected</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="Tittle">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Medium22</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="CustomBottonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">?attr/bottomNavEnabled</item>
+        <item name="android:textColor">?attr/toastAndButtonTextColor</item>
+        <item name="android:textAppearance">@style/TextAppearance.Medium16</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/dp_12</item>
+    </style>
+
+    <style name="SearchTextField">
+        <item name="android:textColor">?colorPrimaryVariant</item>
+        <item name="android:textAppearance">@style/TextAppearance.Regular16</item>
+        <item name="android:textColorHint">?attr/customEditTextHintColor</item>
+        <item name="android:background">@drawable/edit_text_field</item>
+    </style>
+
+    <style name="TextAppearance.Bold32" parent="@android:style/TextAppearance">
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+    </style>
+
+    <style name="SectionTitle">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Bold32</item>
+    </style>
+
+    <style name="TeamMember">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Medium16</item>
+    </style>
+
+    <style name="VacancySectionSubtitle">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Medium16</item>
+    </style>
+
+    <style name="VacancyText">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Regular16</item>
+    </style>
+
+    <style name="FiltersUnselectedTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.Regular16</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="drawableEndCompat">@drawable/ic_arrow_forward_24</item>
+    </style>
+
+</resources>
