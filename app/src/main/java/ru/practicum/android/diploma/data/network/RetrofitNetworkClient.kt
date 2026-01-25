@@ -1,12 +1,14 @@
 package ru.practicum.android.diploma.data.network
 
 import android.content.Context
+import okio.IOException
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.IndustryRequest
 import ru.practicum.android.diploma.data.dto.IndustryResponse
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.util.NetworkCodes
 import ru.practicum.android.diploma.util.isConnected
+import java.net.SocketTimeoutException
 
 class RetrofitNetworkClient(private val context: Context, private val service: VacancyApi) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
@@ -27,6 +29,10 @@ class RetrofitNetworkClient(private val context: Context, private val service: V
             IndustryResponse(industriesList).apply {
                 resultCode = NetworkCodes.SUCCESS_CODE
             }
+        } catch (e: SocketTimeoutException) {
+            createErrorResponse(NetworkCodes.TIMEOUT_CODE)
+        } catch (e: IOException) {
+            createErrorResponse(NetworkCodes.NO_NETWORK_CODE)
         } catch (e: HttpException) {
             createErrorResponse(e.code())
         }

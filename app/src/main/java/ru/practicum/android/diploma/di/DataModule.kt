@@ -2,9 +2,13 @@ package ru.practicum.android.diploma.di
 
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.network.NetworkClient
+import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.network.VacancyApi
 import java.util.concurrent.TimeUnit
 
@@ -34,7 +38,12 @@ val dataModule = module {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(get())
+            .addConverterFactory(GsonConverterFactory.create(get()))
             .build()
             .create(VacancyApi::class.java)
+    }
+
+    single<NetworkClient> {
+        RetrofitNetworkClient(context = androidContext(), get())
     }
 }
