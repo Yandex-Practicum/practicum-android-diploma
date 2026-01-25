@@ -29,9 +29,9 @@ class RetrofitNetworkClient(private val context: Context, private val service: V
             IndustryResponse(industriesList).apply {
                 resultCode = NetworkCodes.SUCCESS_CODE
             }
-        } catch (e: SocketTimeoutException) {
+        } catch (_: SocketTimeoutException) {
             createErrorResponse(NetworkCodes.TIMEOUT_CODE)
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             createErrorResponse(NetworkCodes.NO_NETWORK_CODE)
         } catch (e: HttpException) {
             createErrorResponse(e.code())
