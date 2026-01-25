@@ -1,3 +1,18 @@
 <resources>
+    <!-- Название приложения -->
     <string name="app_name">Practicum-Android-Diploma</string>
+
+    <!-- Названия для BottomNavigationView и заголовки экранов-->
+    <string name="main">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="team">Команда</string>
+
+    <string name="search_vacancies">Поиск вакансий</string>
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="vacancy">Вакансия</string>
+
+    <!-- Кнопки -->
+    <string name="filter">Фильтр</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
 </resources>

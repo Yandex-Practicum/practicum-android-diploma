@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchFragment">
+
+    <!-- Экран поиска вакансий -->
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.practicum.android.diploma.ui.fragments.SearchFragment"
+        android:label="@string/search_vacancies"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_search_to_filter"
+            app:destination="@id/filterFragment" />
+
+        <action
+            android:id="@+id/action_search_to_vacancy_details"
+            app:destination="@id/vacancyDetailsFragment" />
+    </fragment>
+
+    <!-- Экран фильтра -->
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="ru.practicum.android.diploma.ui.fragments.FilterFragment"
+        android:label="@string/filter_settings"
+        tools:layout="@layout/fragment_filter">
+
+        <action
+            android:id="@+id/action_filter_to_search"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- Экран вакансии (детали одной вакансии)-->
+    <fragment
+        android:id="@+id/vacancyDetailsFragment"
+        android:name="ru.practicum.android.diploma.ui.fragments.VacancyFragment"
+        android:label="@string/vacancy"
+        tools:layout="@layout/fragment_vacancy">
+
+        <argument
+            android:name="vacancyId"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Экран избранного -->
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="ru.practicum.android.diploma.ui.fragments.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/action_favorites_to_vacancy_details"
+            app:destination="@id/vacancyDetailsFragment" />
+    </fragment>
+
+    <!-- Экран Команда -->
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="ru.practicum.android.diploma.ui.fragments.TeamFragment"
+        android:label="@string/team"
+        tools:layout="@layout/fragment_team" />
+
+</navigation>
