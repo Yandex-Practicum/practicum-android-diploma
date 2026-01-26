@@ -83,4 +83,4 @@ data class VacancyEntity(
     @ColumnInfo(name = "logo_url")
     val logoUrl: String,
 
-    )
+)
