@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+//import com.google.gson.Gson
+//import com.google.gson.reflect.TypeToken
 
 @Entity(tableName = "favorite_vacancies")
 data class VacancyEntity(
@@ -49,23 +49,24 @@ data class VacancyEntity(
     val schedule: String?,
 
     @ColumnInfo(name = "description")
-    val description: String?,
+    val description: String,
 
     @ColumnInfo(name = "skills")
-    val skillsJson: String?,
+    val skills: String?,
 
     @ColumnInfo(name = "url")
     val url: String,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()
-) {
+) /* {
     fun getSkillsList(): List<String> {
-        return if (!skillsJson.isNullOrEmpty()) {
+        return if (!skills.isNullOrEmpty()) {
             val type = object : TypeToken<List<String>>() {}.type
-            Gson().fromJson(skillsJson, type)
+            Gson().fromJson(skills, type)
         } else {
             emptyList()
         }
     }
 }
+*/

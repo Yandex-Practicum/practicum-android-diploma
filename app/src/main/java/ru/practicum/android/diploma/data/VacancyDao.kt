@@ -1,7 +1,11 @@
 package ru.practicum.android.diploma.data
 
-import androidx.room.*
-import ru.practicum.android.diploma.data.VacancyEntity
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -25,6 +29,6 @@ interface VacancyDao {
     @Query("DELETE FROM favorite_vacancies WHERE id = :id")
     suspend fun deleteById(id: String)
 
-    @Query("SELECT * FROM favorite_vacancies WHERE industry_id = :industryId")
-    suspend fun getByIndustry(industryId: String): List<VacancyEntity>
+   // @Query("SELECT * FROM favorite_vacancies WHERE industry_id = :industryId")
+  //  suspend fun getByIndustry(industryId: String): List<VacancyEntity>
 }
