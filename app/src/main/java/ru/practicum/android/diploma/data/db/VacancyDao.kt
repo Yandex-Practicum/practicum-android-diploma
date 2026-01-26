@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.data.db
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
-import ru.practicum.android.diploma.data.db.VacancyEntity
 
 @Dao
 interface VacancyDao {
