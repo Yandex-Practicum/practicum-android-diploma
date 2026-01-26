@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.ui.root
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -16,8 +18,13 @@ class RootActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
@@ -27,28 +34,50 @@ class RootActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
+        // Устанавливаем toolbar как ActionBar
+        setSupportActionBar(binding.toolbar)
+
         // Связываем BottomNavigationView с NavController
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        // Управление видимостью нижнего меню
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.searchFragment,
-                R.id.favoritesFragment,
-                R.id.teamFragment -> {
-                    // Показываем на основных экранах
-                    binding.bottomNavigationView.isVisible = true
+        // Управление видимостью нижнего меню и toolbar (+ начальная title)
+        fun updateUi(destinationId: Int?) {
+            // Заголовок из nav_graph.xml
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                // Заголовок из nav_graph.xml
+                val currentDestination = navController.currentDestination
+                binding.toolbar.title = currentDestination?.label ?: getString(R.string.app_name)
+
+                val isBottomNavVisible = when (destination.id) {
+                    R.id.searchFragment,
+                    R.id.favoritesFragment,
+                    R.id.teamFragment -> true
+                    else -> false
                 }
-                R.id.filterFragment,
-                R.id.vacancyDetailsFragment -> {
-                    // Скрываем на вспомогательных экранах
-                    binding.bottomNavigationView.isVisible = false
+
+                // Управление иконкой "назад"
+                if (isBottomNavVisible) {
+                    // Только текст
+                    binding.toolbar.navigationIcon = null
+                } else {
+                    // + стрелка назад
+                    binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24)
+                    binding.toolbar.setNavigationOnClickListener { navController.navigateUp() }
                 }
-                else -> {
-                    binding.bottomNavigationView.isVisible = false
-                }
+
+                // Видимость нижнего меню и разделителя
+                binding.bottomNavigationView.isVisible = isBottomNavVisible
+                binding.dividerLine.isVisible = isBottomNavVisible
             }
         }
+
+        // Слушаем переключение экранов
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            updateUi(destination.id)
+        }
+
+        // Применяем сразу для стартового экрана (после полной готовности)
+        binding.root.post { updateUi(navController.currentDestination?.id) }
     }
 
     private fun networkRequestExample(accessToken: String) {
@@ -59,5 +88,4 @@ class RootActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
-
 }
