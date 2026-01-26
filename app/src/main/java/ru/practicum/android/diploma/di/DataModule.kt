@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -57,5 +59,9 @@ val dataModule = module {
 
     single<VacancyDao> {
         get<AppDatabase>().vacancyDao()
+    }
+
+    single<SharedPreferences> {
+        androidContext().getSharedPreferences("app_pref", Context.MODE_PRIVATE)
     }
 }
