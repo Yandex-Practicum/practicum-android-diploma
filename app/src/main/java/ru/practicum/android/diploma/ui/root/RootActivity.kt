@@ -17,7 +17,7 @@ class RootActivity : AppCompatActivity() {
 
     private var _binding: ActivityRootBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,17 +40,22 @@ class RootActivity : AppCompatActivity() {
         // Устанавливаем toolbar как ActionBar
         setSupportActionBar(binding.toolbar)
 
-        // Связываем BottomNavigationView с NavController
-        binding.bottomNavigationView.setupWithNavController(navController)
+        navController?.let { nc ->
+            // Связываем BottomNavigationView с NavController
+            binding.bottomNavigationView.setupWithNavController(nc)
+            nc.addOnDestinationChangedListener { _, destination, _ ->
+                updateUi(destination)
+            }
+        }
 
         // Слушаем переключение экранов
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController?.addOnDestinationChangedListener { _, destination, _ ->
             updateUi(destination)
         }
 
         // Применяем сразу для стартового экрана (после полной готовности)
         binding.root.post {
-            navController.currentDestination?.let { updateUi(it) }
+            navController?.currentDestination?.let { updateUi(it) }
         }
     }
 
@@ -74,7 +79,7 @@ class RootActivity : AppCompatActivity() {
             // + стрелка назад
             binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24)
             binding.toolbar.setNavigationOnClickListener {
-                navController.navigateUp() }
+                navController?.navigateUp() }
         }
 
         // Видимость нижнего меню и разделителя
