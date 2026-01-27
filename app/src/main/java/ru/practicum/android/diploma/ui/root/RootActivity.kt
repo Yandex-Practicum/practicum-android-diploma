@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -17,7 +16,6 @@ class RootActivity : AppCompatActivity() {
 
     private var _binding: ActivityRootBinding? = null
     private val binding get() = _binding!!
-    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,51 +33,30 @@ class RootActivity : AppCompatActivity() {
         // Получаем NavController из NavHostFragment
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
+        val navController = navHostFragment.navController
 
-        // Устанавливаем toolbar как ActionBar
-        setSupportActionBar(binding.toolbar)
 
-        navController?.let { nc ->
-            // Связываем BottomNavigationView с NavController
-            binding.bottomNavigationView.setupWithNavController(nc)
-            nc.addOnDestinationChangedListener { _, destination, _ ->
-                updateUi(destination)
-            }
-        }
+        // Связываем BottomNavigationView с NavController
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         // Слушаем переключение экранов
-        navController?.addOnDestinationChangedListener { _, destination, _ ->
-            updateUi(destination)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            updateBottomNav(destination)
         }
 
-        // Применяем сразу для стартового экрана (после полной готовности)
+        // Применяем сразу для стартового экрана
         binding.root.post {
-            navController?.currentDestination?.let { updateUi(it) }
+            navController.currentDestination?.let { updateBottomNav(it) }
         }
     }
 
-    // Управление видимостью нижнего меню и toolbar (+ начальная title)
-    private fun updateUi(destination: NavDestination) {
-        // Заголовок из nav_graph.xml
-        binding.toolbar.title = destination.label ?: getString(R.string.app_name)
-
+    // Управление видимостью нижнего меню
+    private fun updateBottomNav(destination: NavDestination) {
         val isBottomNavVisible = when (destination.id) {
             R.id.searchFragment,
             R.id.favoritesFragment,
             R.id.teamFragment -> true
             else -> false
-        }
-
-        // Управление иконкой "назад"
-        if (isBottomNavVisible) {
-            // Только текст
-            binding.toolbar.navigationIcon = null
-        } else {
-            // + стрелка назад
-            binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24)
-            binding.toolbar.setNavigationOnClickListener {
-                navController?.navigateUp() }
         }
 
         // Видимость нижнего меню и разделителя

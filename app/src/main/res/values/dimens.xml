@@ -15,6 +15,7 @@
     <dimen name="indent_4">4dp</dimen>
     <dimen name="indent_8">8dp</dimen>
     <dimen name="indent_16">16dp</dimen>
+    <dimen name="indent_48">48dp</dimen>
     <dimen name="indent_56">56dp</dimen>
     <dimen name="indent_64">64dp</dimen>
 </resources>

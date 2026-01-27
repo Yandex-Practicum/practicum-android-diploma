@@ -3,7 +3,6 @@
     <string name="app_name">Practicum-Android-Diploma</string>
 
     <!-- Названия для BottomNavigationView и заголовки экранов-->
-    <string name="main">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
 
@@ -54,4 +53,5 @@
     <string name="country">Страна</string>
     <string name="region">Pегион</string>
     <string name="select">Выбрать</string>
+    <string name="back">Назад</string>
 </resources>

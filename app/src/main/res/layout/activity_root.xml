@@ -8,24 +8,6 @@
     android:background="?attr/colorSurface"
     tools:context=".ui.root.RootActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="@dimen/indent_0"
-        android:layout_height="@dimen/indent_64"
-        android:background="@color/white"
-        android:elevation="@dimen/indent_0"
-        android:gravity="center_vertical"
-        app:buttonGravity="center_vertical"
-        app:titleMarginStart="@dimen/indent_0"
-        app:titleTextAppearance="@style/TextAppearance.Medium22"
-        app:titleTextColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:contentInsetStart="@dimen/indent_16"
-        app:contentInsetStartWithNavigation="@dimen/indent_16"
-        app:contentInsetEnd="@dimen/indent_8" />
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -33,10 +15,10 @@
         android:layout_height="@dimen/indent_0"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/divider_line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/divider_line"

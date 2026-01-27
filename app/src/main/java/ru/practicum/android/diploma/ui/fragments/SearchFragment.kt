@@ -26,6 +26,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.includeToolbar.toolbar.contentInsetStartWithNavigation =
+            resources.getDimensionPixelSize(R.dimen.indent_16)
+        binding.includeToolbar.toolbar.title = getString(R.string.search_vacancies)
+
+        binding.includeToolbar.btnBack.visibility = View.GONE
+
         binding.buttonFilter.setOnClickListener {
             findNavController().navigate(R.id.action_search_to_filter)
         }

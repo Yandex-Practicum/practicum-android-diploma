@@ -26,8 +26,18 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.includeToolbar.btnBack.visibility = View.VISIBLE
+        binding.includeToolbar.toolbar.titleMarginStart  =
+            resources.getDimensionPixelSize(R.dimen.indent_56)
+
+        binding.includeToolbar.toolbar.title = getString(R.string.filter_settings)
+
         binding.buttonApply.setOnClickListener {
             findNavController().navigate(R.id.action_filter_to_search)
+        }
+
+        binding.includeToolbar.btnBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
