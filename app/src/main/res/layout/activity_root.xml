@@ -5,25 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".ui.root.RootActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/indent_0"
+        android:layout_height="@dimen/indent_0"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="@dimen/indent_0"
+        android:layout_height="@dimen/indent_1"
+        android:background="@color/light_gray"
+        android:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        style="@style/CustomBottomNavStyle"
+        android:layout_width="@dimen/indent_0"
+        android:layout_height="@dimen/indent_56"
+        android:background="@color/white"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

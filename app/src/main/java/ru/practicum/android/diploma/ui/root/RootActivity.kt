@@ -1,8 +1,11 @@
 package ru.practicum.android.diploma.ui.root
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
@@ -16,8 +19,13 @@ class RootActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
@@ -30,25 +38,29 @@ class RootActivity : AppCompatActivity() {
         // Связываем BottomNavigationView с NavController
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        // Управление видимостью нижнего меню
+        // Слушаем переключение экранов
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.searchFragment,
-                R.id.favoritesFragment,
-                R.id.teamFragment -> {
-                    // Показываем на основных экранах
-                    binding.bottomNavigationView.isVisible = true
-                }
-                R.id.filterFragment,
-                R.id.vacancyDetailsFragment -> {
-                    // Скрываем на вспомогательных экранах
-                    binding.bottomNavigationView.isVisible = false
-                }
-                else -> {
-                    binding.bottomNavigationView.isVisible = false
-                }
-            }
+            updateBottomNav(destination)
         }
+
+        // Применяем сразу для стартового экрана
+        binding.root.post {
+            navController.currentDestination?.let { updateBottomNav(it) }
+        }
+    }
+
+    // Управление видимостью нижнего меню
+    private fun updateBottomNav(destination: NavDestination) {
+        val isBottomNavVisible = when (destination.id) {
+            R.id.searchFragment,
+            R.id.favoritesFragment,
+            R.id.teamFragment -> true
+            else -> false
+        }
+
+        // Видимость нижнего меню и разделителя
+        binding.bottomNavigationView.isVisible = isBottomNavVisible
+        binding.dividerLine.isVisible = isBottomNavVisible
     }
 
     private fun networkRequestExample(accessToken: String) {
@@ -59,5 +71,4 @@ class RootActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
-
 }
