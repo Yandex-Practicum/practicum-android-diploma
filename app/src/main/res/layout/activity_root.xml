@@ -15,6 +15,8 @@
         android:background="@color/white"
         android:elevation="@dimen/indent_0"
         android:gravity="center_vertical"
+        app:buttonGravity="center_vertical"
+        app:titleMarginStart="@dimen/indent_0"
         app:titleTextAppearance="@style/TextAppearance.Medium22"
         app:titleTextColor="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
