@@ -35,7 +35,6 @@ class RootActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-
         // Связываем BottomNavigationView с NavController
         binding.bottomNavigationView.setupWithNavController(navController)
 

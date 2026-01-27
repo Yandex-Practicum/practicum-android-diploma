@@ -27,7 +27,7 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.includeToolbar.btnBack.visibility = View.VISIBLE
-        binding.includeToolbar.toolbar.titleMarginStart  =
+        binding.includeToolbar.toolbar.titleMarginStart =
             resources.getDimensionPixelSize(R.dimen.indent_56)
 
         binding.includeToolbar.toolbar.title = getString(R.string.filter_settings)
