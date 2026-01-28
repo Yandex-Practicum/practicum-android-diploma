@@ -48,14 +48,18 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_search_to_filter)
         }
 
+        // проверка сетевого запроса
         viewLifecycleOwner.lifecycleScope.launch {
             searchVacanciesInteractor.searchVacancies("developer").collect { resource ->
                 when (resource) {
                     is SearchVacanciesInteractor.Resource.Success -> {
-                        binding.testTextView.text = "Found ${resource.data.size} vacancies"
+                        binding.textImageCaption.visibility = View.VISIBLE
+                        binding.textImageCaption.text = "Found ${resource.data.size} vacancies"
                     }
+
                     is SearchVacanciesInteractor.Resource.Error -> {
-                        binding.testTextView.text = "Error: ${resource.errorCode}"
+                        binding.textImageCaption.visibility = View.VISIBLE
+                        binding.textImageCaption.text = "Error: ${resource.errorCode}"
                     }
                 }
             }
