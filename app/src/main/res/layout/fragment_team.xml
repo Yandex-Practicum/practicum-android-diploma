@@ -13,15 +13,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/team"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/include_toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <TextView
+        android:id="@+id/team_roster_heading"
+        style="@style/SectionTitle"
+        android:layout_width="@dimen/indent_0"
+        android:layout_height="@dimen/dp_92"
+        android:text="@string/team_section_title"
+        android:layout_marginTop="@dimen/dp_80"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline" />
+
+    <TextView
+        android:id="@+id/developer_1"
+        style="@style/TeamMember"
+        android:text="@string/team_member_koshlakov"
+        android:layout_marginTop="@dimen/dp_24"
+        app:layout_constraintTop_toBottomOf="@id/team_roster_heading"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline" />
+
+    <TextView
+        android:id="@+id/developer_2"
+        style="@style/TeamMember"
+        android:text="@string/team_member_kulikov"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constraintTop_toBottomOf="@id/developer_1"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline" />
+
+    <TextView
+        android:id="@+id/developer_3"
+        style="@style/TeamMember"
+        android:text="@string/team_member_sharov"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constraintTop_toBottomOf="@id/developer_2"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

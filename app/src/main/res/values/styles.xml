@@ -14,7 +14,7 @@
     </style>
 
     <style name="BottomNavText" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:lineSpacingExtra">0dp</item>
+        <item name="android:lineSpacingExtra">@dimen/indent_0</item>
     </style>
 
     <style name="TextAppearance.Medium22" parent="@android:style/TextAppearance">
@@ -72,6 +72,9 @@
     <style name="TeamMember">
         <item name="android:textColor">?colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Medium16</item>
+        <item name="android:layout_width">@dimen/indent_0</item>
+        <item name="android:layout_height">@dimen/dp_20</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="VacancySectionSubtitle">
