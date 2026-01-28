@@ -48,15 +48,20 @@
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_60"
         android:hint="@string/enter_query"
+        android:lines="1"
+        android:imeOptions="actionGo"
+        android:textCursorDrawable="@drawable/cursor"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/placeholder_search"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:src="@drawable/img_empty_search"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@+id/search_vacancy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
@@ -69,8 +74,9 @@
         style="@style/TextAppearance.Medium22"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
-        android:hint="@string/no_internet"
+        android:hint="@string/error_unable_to_retr_vac_list"
         android:visibility="gone"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_search"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline" />
@@ -108,7 +114,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginTop="@dimen/dp_49"
+        android:layout_marginTop="@dimen/dp_3"
         app:layout_constraintTop_toBottomOf="@id/search_vacancy"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
         app:layout_constraintEnd_toEndOf="@id/right_guideline" />
@@ -120,7 +126,7 @@
         android:layout_gravity="center"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/search_vacancy"
+        app:layout_constraintTop_toBottomOf="@+id/search_vacancy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -130,11 +136,12 @@
         android:layout_width="@dimen/dp_36"
         android:layout_height="@dimen/dp_36"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/dp_16"
+        android:layout_marginBottom="4dp"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
