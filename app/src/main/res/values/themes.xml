@@ -1,9 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black_universal</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/gray</item>
+        <item name="colorSecondaryVariant">@color/light_gray</item>
+        <!-- Отключение elevation overlay глобально -->
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="elevationOverlayColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <!-- EditText background color. -->
+        <!-- <item name="android:backgroundTint">@color/white</item> -->
+        <!-- EditText background color. -->
+        <item name="android:editTextBackground">@color/light_gray</item>
+        <item name="customEditTextBackground">@color/light_gray</item>
+        <!-- EditText hint color. -->
+        <item name="customEditTextHintColor">@color/gray</item>
+        <!-- Enabled bottomNavigationView color. -->
+        <item name="bottomNavEnabled">@color/blue</item>
+        <!-- Toast background color. -->
+        <item name="toastBackgroundColor">@color/red</item>
+        <!-- Toast background color. -->
+        <item name="toastAndButtonTextColor">@color/white_universal</item>
     </style>
 
-    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
 </resources>

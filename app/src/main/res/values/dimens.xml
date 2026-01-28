@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="item_height">60dp</dimen>
+    <dimen name="label_text_norm">22sp</dimen>
+    <dimen name="label_text_normal">16sp</dimen>
+    <dimen name="label_text_selected">12sp</dimen>
+    <dimen name="indent_0">0dp</dimen>
+    <dimen name="indent_1">1dp</dimen>
+    <dimen name="indent_4">4dp</dimen>
+    <dimen name="indent_8">8dp</dimen>
+    <dimen name="indent_16">16dp</dimen>
+    <dimen name="indent_48">48dp</dimen>
+    <dimen name="indent_56">56dp</dimen>
+    <dimen name="indent_64">64dp</dimen>
+</resources>
