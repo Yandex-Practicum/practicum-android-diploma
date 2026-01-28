@@ -49,7 +49,8 @@
         android:paddingEnd="@dimen/dp_60"
         android:hint="@string/enter_query"
         android:lines="1"
-        android:imeOptions="actionGo"
+        android:inputType="text"
+        android:imeOptions="actionDone"
         android:textCursorDrawable="@drawable/cursor"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
@@ -136,12 +137,11 @@
         android:layout_width="@dimen/dp_36"
         android:layout_height="@dimen/dp_36"
         android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="@dimen/dp_16"
         android:indeterminateTint="@color/blue"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
