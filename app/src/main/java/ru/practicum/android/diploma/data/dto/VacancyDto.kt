@@ -22,6 +22,6 @@ data class Address(val city: String, val street: String, val building: String, v
 data class Experience(val id: String, val name: String)
 data class Schedule(val id: String, val name: String)
 data class Employment(val id: String, val name: String)
-data class Contacts(val id: String, val name: String, val email: String, val phones: List<String>)
+data class Contacts(val id: String, val name: String, val email: String, val phones: List<PhoneDto>?)
 data class Employer(val id: String, val name: String, val logo: String?)
 data class FilterArea(val id: Int, val name: String, val parentId: Int?, val areas: List<FilterArea>?)
