@@ -70,11 +70,11 @@ object VacancyDtoMapper {
         }
     }
 
-
     private fun formatNumber(number: Int): String {
         return String.Companion.format(Locale.getDefault(), "%,d", number)
             .replace(',', ' ')
     }
+
     private fun getCurrencySymbol(currencyCode: String): String {
         return when (currencyCode.uppercase()) {
             "RUR", "RUB" -> "₽"

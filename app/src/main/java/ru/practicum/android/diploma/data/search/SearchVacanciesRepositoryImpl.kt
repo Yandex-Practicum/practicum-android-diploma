@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.domain.api.SearchVacanciesInteractor.Resource
 import ru.practicum.android.diploma.domain.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.data.search.VacancyDtoMapper
 
 class SearchVacanciesRepositoryImpl(private val networkClient: NetworkClient) : SearchVacanciesRepository {
     override suspend fun searchVacancies(expression: String): Flow<Resource<List<Vacancy>>> =

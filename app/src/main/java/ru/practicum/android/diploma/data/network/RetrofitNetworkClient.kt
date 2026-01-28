@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.data.dto.IndustryRequest
 import ru.practicum.android.diploma.data.dto.IndustryResponse
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyRequest
-import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.util.isConnected
 import java.net.SocketTimeoutException
 
