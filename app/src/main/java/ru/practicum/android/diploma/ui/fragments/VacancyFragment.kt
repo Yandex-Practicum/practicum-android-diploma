@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.ui.fragments
 
+import android.R.id.shareText
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,8 @@ class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
+
+    private var isLiked = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +39,35 @@ class VacancyFragment : Fragment() {
         binding.includeToolbar.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.buttonLike.setOnClickListener {
+            toggleLikeButton()
+        }
+
+        binding.buttonShare.setOnClickListener {
+            shareContent()
+        }
+    }
+
+    private fun toggleLikeButton() {
+        isLiked = !isLiked
+
+        if (isLiked) {
+            binding.buttonLike.setImageResource(R.drawable.ic_favorites_on_red_24)
+        } else {
+            binding.buttonLike.setImageResource(R.drawable.ic_favorites_off_24)
+        }
+    }
+
+    private fun shareContent() {
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, shareText)
+            type = "text/plain"
+        }
+
+        startActivity(Intent.createChooser(shareIntent, null))
     }
 
     override fun onDestroyView() {
