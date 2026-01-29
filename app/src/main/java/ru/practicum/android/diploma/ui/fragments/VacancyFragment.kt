@@ -58,7 +58,6 @@ class VacancyFragment : Fragment() {
             binding.buttonLike.setImageResource(R.drawable.ic_favorites_off_24)
         }
     }
-
     private fun shareContent() {
 
         val shareIntent = Intent().apply {
