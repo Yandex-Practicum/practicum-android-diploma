@@ -18,9 +18,7 @@ class SearchVacanciesRepositoryImpl(
 
     override fun searchVacancies(expression: String): Flow<VacancySearchResult> = flow {
         val response = networkClient.doRequest(VacancyRequest(expression))
-
         when (response.resultCode) {
-
             NetworkCodes.SUCCESS_CODE -> {
                 val vacanciesResponse = response as VacancyResponse
                 val vacancies: List<Vacancy> =
