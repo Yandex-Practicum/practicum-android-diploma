@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.navigation.safe.args)
+    id("kotlin-parcelize")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 

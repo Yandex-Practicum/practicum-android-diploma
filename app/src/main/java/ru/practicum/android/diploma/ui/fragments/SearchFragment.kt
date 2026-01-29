@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.domain.api.SearchVacanciesInteractor
 
 class SearchFragment : Fragment() {
 
@@ -17,6 +21,8 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var hasSearched = false
+
+    private val searchVacanciesInteractor: SearchVacanciesInteractor by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +46,14 @@ class SearchFragment : Fragment() {
 
         binding.buttonFilter.setOnClickListener {
             findNavController().navigate(R.id.action_search_to_filter)
+        }
+
+        // проверка сетевого запроса
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchVacanciesInteractor.searchVacancies("developer").collect { result ->
+                binding.textImageCaption.visibility = View.VISIBLE
+                binding.textImageCaption.text = "Found ${result.size} vacancies"
+            }
         }
     }
 

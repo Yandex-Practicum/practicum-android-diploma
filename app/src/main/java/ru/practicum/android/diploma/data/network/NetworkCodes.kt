@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.util
+package ru.practicum.android.diploma.data.network
 
 object NetworkCodes {
     const val NO_NETWORK_CODE = -1
