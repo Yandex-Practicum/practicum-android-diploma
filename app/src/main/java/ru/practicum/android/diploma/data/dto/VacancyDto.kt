@@ -25,3 +25,12 @@ data class Employment(val id: String, val name: String)
 data class Contacts(val id: String, val name: String, val email: String, val phones: List<PhoneDto>?)
 data class Employer(val id: String, val name: String, val logo: String?)
 data class FilterArea(val id: Int, val name: String, val parentId: Int?, val areas: List<FilterArea>?)
+data class PhoneDto(
+    val country: String?,
+    val city: String?,
+    val number: String?
+) {
+    val formatted: String
+        get() = listOfNotNull(country, city, number).joinToString(" ")
+}
+

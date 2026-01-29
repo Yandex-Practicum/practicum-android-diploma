@@ -50,18 +50,9 @@ class SearchFragment : Fragment() {
 
         // проверка сетевого запроса
         viewLifecycleOwner.lifecycleScope.launch {
-            searchVacanciesInteractor.searchVacancies("developer").collect { resource ->
-                when (resource) {
-                    is SearchVacanciesInteractor.Resource.Success -> {
-                        binding.textImageCaption.visibility = View.VISIBLE
-                        binding.textImageCaption.text = "Found ${resource.data.size} vacancies"
-                    }
-
-                    is SearchVacanciesInteractor.Resource.Error -> {
-                        binding.textImageCaption.visibility = View.VISIBLE
-                        binding.textImageCaption.text = "Error: ${resource.errorCode}"
-                    }
-                }
+            searchVacanciesInteractor.searchVacancies("developer").collect { result ->
+                binding.textImageCaption.visibility = View.VISIBLE
+                binding.textImageCaption.text = "Found ${result.size} vacancies"
             }
         }
     }

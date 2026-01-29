@@ -8,28 +8,44 @@ import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.NetworkCodes
-import ru.practicum.android.diploma.domain.api.SearchVacanciesInteractor.Resource
 import ru.practicum.android.diploma.domain.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancySearchResult
 
-class SearchVacanciesRepositoryImpl(private val networkClient: NetworkClient) : SearchVacanciesRepository {
-    override suspend fun searchVacancies(expression: String): Flow<Resource<List<Vacancy>>> =
-        flow {
-            val response = networkClient.doRequest(VacancyRequest(expression))
-            when (response.resultCode) {
-                NetworkCodes.SUCCESS_CODE -> {
-                    val vacanciesResponse = response as VacancyResponse
-                    val data = VacancyDtoMapper.mapList(vacanciesResponse.vacancies)
-                    emit(Resource.Success(data))
-                }
+class SearchVacanciesRepositoryImpl(
+    private val networkClient: NetworkClient
+) : SearchVacanciesRepository {
 
-                NetworkCodes.NO_NETWORK_CODE -> {
-                    emit(Resource.Error(NetworkCodes.NO_NETWORK_CODE))
-                }
+    override fun searchVacancies(expression: String): Flow<VacancySearchResult> = flow {
+        val response = networkClient.doRequest(VacancyRequest(expression))
 
-                else -> {
-                    emit(Resource.Error(response.resultCode))
-                }
+        when (response.resultCode) {
+
+            NetworkCodes.SUCCESS_CODE -> {
+                val vacanciesResponse = response as VacancyResponse
+                val vacancies: List<Vacancy> =
+                    VacancyDtoMapper.mapList(vacanciesResponse.vacancies)
+
+                emit(
+                    VacancySearchResult(
+                        totalFound = vacanciesResponse.found,
+                        totalPages = vacanciesResponse.pages,
+                        vacancies = vacancies,
+                        errorCode = NetworkCodes.SUCCESS_CODE
+                    )
+                )
             }
-        }.flowOn(Dispatchers.IO)
+
+            else -> {
+                emit(
+                    VacancySearchResult(
+                        totalFound = 0,
+                        totalPages = 0,
+                        vacancies = emptyList(),
+                        errorCode = response.resultCode
+                    )
+                )
+            }
+        }
+    }.flowOn(Dispatchers.IO)
 }
