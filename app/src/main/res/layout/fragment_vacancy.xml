@@ -143,6 +143,18 @@
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline" />
 
+    <ProgressBar
+        android:id="@+id/progressBar_vacancy"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/background_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="@dimen/dp_0"

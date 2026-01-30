@@ -58,8 +58,8 @@ class VacancyFragment : Fragment() {
             binding.buttonLike.setImageResource(R.drawable.ic_favorites_off_24)
         }
     }
-    private fun shareContent() {
 
+    private fun shareContent() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, shareText)
