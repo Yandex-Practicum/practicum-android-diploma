@@ -28,14 +28,14 @@
 
     <ImageButton
         android:id="@+id/button_filter"
-        android:src="@drawable/ic_filter_off_24"
-        android:background="@null"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_12"
         android:layout_marginEnd="@dimen/dp_12"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@null"
+        android:src="@drawable/ic_filter_off_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
@@ -45,12 +45,12 @@
         android:layout_height="@dimen/dp_56"
         android:layout_marginTop="@dimen/dp_72"
         android:gravity="center_vertical"
+        android:hint="@string/enter_query"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_60"
-        android:hint="@string/enter_query"
-        android:lines="1"
-        android:inputType="text"
-        android:imeOptions="actionDone"
         android:textCursorDrawable="@drawable/cursor"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
@@ -60,37 +60,49 @@
         android:id="@+id/placeholder_search"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_empty_search"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        app:layout_constraintTop_toBottomOf="@+id/search_vacancy"
+        android:src="@drawable/img_empty_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline" />
+        app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_vacancy" />
 
     <TextView
         android:id="@+id/text_image_caption"
+        style="@style/TextAppearance.Medium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.Medium22"
-        android:textColorHint="@color/black"
-        android:textColor="@color/black"
-        android:hint="@string/error_unable_to_retr_vac_list"
-        android:visibility="gone"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/placeholder_search"
+        android:hint="@string/error_unable_to_retr_vac_list"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline" />
+        app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_search" />
 
     <ImageButton
         android:id="@+id/button_search_clear"
-        android:src="@drawable/ic_search_24"
-        android:background="@null"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_8"
-        app:layout_constraintTop_toTopOf="@+id/search_vacancy"
-        app:layout_constraintEnd_toEndOf="@+id/search_vacancy" />
+        android:background="@null"
+        android:src="@drawable/ic_search_24"
+        app:layout_constraintEnd_toEndOf="@+id/search_vacancy"
+        app:layout_constraintTop_toTopOf="@+id/search_vacancy" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="41dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/search_vacancy" />
 
     <TextView
         android:id="@+id/result_search_information"
@@ -98,27 +110,17 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_27"
         android:layout_marginTop="@dimen/dp_11"
+        android:background="@drawable/rounded_corners"
+        android:gravity="center"
         android:hint="@string/no_vacancy"
-        android:textColorHint="@color/white_universal"
-        android:textColor="@color/white_universal"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
-        android:gravity="center_vertical"
-        android:background="@drawable/rounded_corners"
+        android:textColor="@color/white_universal"
+        android:textColorHint="@color/white_universal"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/search_vacancy"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginTop="@dimen/dp_3"
-        app:layout_constraintTop_toBottomOf="@id/search_vacancy"
-        app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintEnd_toEndOf="@id/right_guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/search_vacancy" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -127,10 +129,10 @@
         android:layout_gravity="center"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/search_vacancy"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_vacancy" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -139,7 +141,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/dp_16"
         android:indeterminateTint="@color/blue"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

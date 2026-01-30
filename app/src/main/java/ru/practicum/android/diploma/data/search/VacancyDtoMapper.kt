@@ -46,13 +46,13 @@ object VacancyDtoMapper {
 
                 when {
                     formattedFrom != null && formattedTo != null ->
-                        append("$formattedFrom – $formattedTo")
+                        append("От $formattedFrom до $formattedTo")
 
                     formattedFrom != null ->
-                        append("от $formattedFrom")
+                        append("От $formattedFrom")
 
                     formattedTo != null ->
-                        append("до $formattedTo")
+                        append("До $formattedTo")
 
                     else ->
                         return "Зарплата не указана"
