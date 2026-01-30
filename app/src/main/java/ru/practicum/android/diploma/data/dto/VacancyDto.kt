@@ -33,4 +33,3 @@ data class PhoneDto(
     val formatted: String
         get() = listOfNotNull(country, city, number).joinToString(" ")
 }
-
