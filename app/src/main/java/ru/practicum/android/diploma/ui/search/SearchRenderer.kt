@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.search
 import android.content.Context
 import androidx.core.view.isVisible
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 
 class SearchRenderer(
@@ -18,6 +19,7 @@ class SearchRenderer(
             is SearchState.Loading -> renderLoading()
             is SearchState.Content -> renderContent(state)
             is SearchState.Empty -> renderEmpty()
+            is SearchState.Error -> renderError(state.errorCode)
         }
     }
 
@@ -74,4 +76,27 @@ class SearchRenderer(
             context.getString(R.string.error_unable_to_retr_vac_list)
         textImageCaption.isVisible = true
     }
+
+    private fun renderError(errorCode: Int) = with(binding) {
+        hideKeyboard()
+        placeholderSearch.isVisible = true
+        textImageCaption.isVisible = true
+        recyclerView.isVisible = false
+        resultSearchInformation.isVisible = false
+        progressBar1.isVisible = false
+        progressBar2.isVisible = false
+
+        when (errorCode) {
+            NetworkCodes.NO_NETWORK_CODE -> {
+                textImageCaption.text = context.getString(R.string.no_internet)
+                placeholderSearch.setImageResource(R.drawable.img_no_internet)
+            }
+            NetworkCodes.SERVER_ERROR_CODE -> {
+                textImageCaption.text = context.getString(R.string.server_error)
+                placeholderSearch.setImageResource(R.drawable.img_server_search_error)
+            }
+            else -> renderEmpty()
+        }
+    }
+
 }

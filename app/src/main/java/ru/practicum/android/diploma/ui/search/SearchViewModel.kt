@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.domain.api.SearchVacanciesInteractor
 
 class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInteractor) : ViewModel() {
@@ -43,17 +44,17 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
         debounceJob?.cancel()
         searchJob = viewModelScope.launch {
             _searchStateLiveData.value = SearchState.Loading
-            searchVacanciesInteractor.searchVacancies(query)
-                .collect { resource ->
-                    if (resource.vacancies.isEmpty()) {
-                        _searchStateLiveData.value = SearchState.Empty
-                    } else {
-                        _searchStateLiveData.value = SearchState.Content(
-                            vacancies = resource.vacancies,
-                            totalFound = resource.totalFound
-                        )
-                    }
+            searchVacanciesInteractor.searchVacancies(query).collect { resource ->
+                _searchStateLiveData.value = when {
+                    resource.errorCode != NetworkCodes.SUCCESS_CODE ->
+                        SearchState.Error(resource.errorCode)
+                    resource.vacancies.isEmpty() -> SearchState.Empty
+                    else -> SearchState.Content(
+                        vacancies = resource.vacancies,
+                        totalFound = resource.totalFound
+                    )
                 }
+            }
         }
     }
 
