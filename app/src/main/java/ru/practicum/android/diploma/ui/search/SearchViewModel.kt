@@ -61,4 +61,3 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
-
