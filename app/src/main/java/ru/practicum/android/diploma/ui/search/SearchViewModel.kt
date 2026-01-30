@@ -9,6 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.domain.api.SearchVacanciesInteractor
+import ru.practicum.android.diploma.domain.util.ErrorType
 
 class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInteractor) : ViewModel() {
     private val _searchStateLiveData = MutableLiveData<SearchState>()
@@ -47,7 +48,7 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
             searchVacanciesInteractor.searchVacancies(query).collect { resource ->
                 _searchStateLiveData.value = when {
                     resource.errorCode != NetworkCodes.SUCCESS_CODE ->
-                        SearchState.Error(resource.errorCode)
+                        SearchState.Error(ErrorType.fromCode(resource.errorCode))
                     resource.vacancies.isEmpty() -> SearchState.Empty
                     else -> SearchState.Content(
                         vacancies = resource.vacancies,
