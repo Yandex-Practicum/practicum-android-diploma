@@ -38,7 +38,7 @@
     <!-- Экран вакансии (детали одной вакансии)-->
     <fragment
         android:id="@+id/vacancyDetailsFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.VacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancy.VacancyFragment"
         android:label="@string/vacancy"
         tools:layout="@layout/fragment_vacancy">
 

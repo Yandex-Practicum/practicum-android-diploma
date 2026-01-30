@@ -1,6 +1,5 @@
-package ru.practicum.android.diploma.ui.fragments
+package ru.practicum.android.diploma.ui.vacancy
 
-import android.R.id.shareText
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -62,7 +61,7 @@ class VacancyFragment : Fragment() {
     private fun shareContent() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, shareText)
+            putExtra(Intent.EXTRA_TEXT, android.R.id.shareText)
             type = "text/plain"
         }
 
