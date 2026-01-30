@@ -17,7 +17,10 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
     private var debounceJob: Job? = null
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText == changedText && searchStateLiveData.value is SearchState.Content) return
+        if (latestSearchText == changedText &&
+            ((searchStateLiveData.value is SearchState.Content) ||
+                (searchStateLiveData.value is SearchState.Empty))
+        ) return
 
         this.latestSearchText = changedText
         debounceJob?.cancel()

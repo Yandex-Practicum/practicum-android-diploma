@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -23,8 +22,20 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModel()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: SearchAdapter
+    private val adapter by lazy {
+        val onSearchVacancyDebounce = debounce<Vacancy>(
+            delayMillis = CLICK_DEBOUNCE_DELAY,
+            coroutineScope = lifecycleScope,
+            false
+        ) { vacancy ->
+            val action =
+                SearchFragmentDirections.actionSearchToVacancyDetails(vacancy.id)
+            findNavController().navigate(action)
+        }
 
+        SearchAdapter(onSearchVacancyDebounce)
+    }
+    private var renderer: SearchRenderer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,21 +54,17 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        val onSearchVacancyDebounce = debounce<Vacancy>(
-            delayMillis = CLICK_DEBOUNCE_DELAY,
-            coroutineScope = lifecycleScope,
-            false
-        ) { vacancy ->
-            val action = SearchFragmentDirections.actionSearchToVacancyDetails(vacancy.id)
-            findNavController().navigate(action)
-        }
-
-        adapter = SearchAdapter(onSearchVacancyDebounce)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
 
     private fun setupUI() {
+        renderer = SearchRenderer(
+            binding = binding,
+            context = requireContext(),
+            adapter = adapter,
+            hideKeyboard = ::hideKeyboard
+        )
         binding.includeToolbar.toolbar.contentInsetStartWithNavigation =
             resources.getDimensionPixelSize(R.dimen.indent_16)
         binding.includeToolbar.toolbar.title = getString(R.string.search_vacancies)
@@ -95,58 +102,7 @@ class SearchFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.searchStateLiveData.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
-    }
-
-    private fun render(state: SearchState) = with(binding) {
-        when (state) {
-            is SearchState.Initial -> {
-                textImageCaption.isVisible = false
-                resultSearchInformation.isVisible = false
-                recyclerView.isVisible = false
-                progressBar1.isVisible = false
-                progressBar2.isVisible = false
-                placeholderSearch.setImageResource(R.drawable.img_empty_search)
-                placeholderSearch.isVisible = true
-            }
-
-            is SearchState.Loading -> {
-                placeholderSearch.isVisible = false
-                textImageCaption.isVisible = false
-                resultSearchInformation.isVisible = false
-                recyclerView.isVisible = false
-                progressBar2.isVisible = false
-                progressBar1.isVisible = true
-            }
-
-            is SearchState.Content -> {
-                hideKeyboard()
-                val count = state.totalFound
-                resultSearchInformation.text = context?.resources?.getQuantityString(
-                    R.plurals.vacancies_found,
-                    count,
-                    count
-                )
-                placeholderSearch.isVisible = false
-                textImageCaption.isVisible = false
-                progressBar1.isVisible = false
-                progressBar2.isVisible = false
-                resultSearchInformation.isVisible = true
-                recyclerView.isVisible = true
-                adapter.setVacancies(state.vacancies)
-            }
-
-            is SearchState.Empty -> {
-                resultSearchInformation.isVisible = false
-                recyclerView.isVisible = false
-                progressBar1.isVisible = false
-                progressBar2.isVisible = false
-                placeholderSearch.setImageResource(R.drawable.img_nothing_found)
-                placeholderSearch.isVisible = true
-                textImageCaption.text = getString(R.string.error_unable_to_retr_vac_list)
-                textImageCaption.isVisible = true
-            }
+            renderer?.render(state)
         }
     }
 
@@ -157,6 +113,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        renderer = null
         _binding = null
     }
 
