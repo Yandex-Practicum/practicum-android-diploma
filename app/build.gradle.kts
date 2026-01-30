@@ -67,6 +67,7 @@ dependencies {
     // Room (ksp вместо kapt)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.core)
     ksp(libs.room.compiler)
 
     // Glide

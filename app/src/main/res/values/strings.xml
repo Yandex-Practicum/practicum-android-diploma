@@ -55,4 +55,7 @@
     <string name="region">Pегион</string>
     <string name="select">Выбрать</string>
     <string name="back">Назад</string>
+    <string name="duties">Обязанности</string>
+    <string name="requirements">Требования</string>
+    <string name="conditions">Условия</string>
 </resources>
