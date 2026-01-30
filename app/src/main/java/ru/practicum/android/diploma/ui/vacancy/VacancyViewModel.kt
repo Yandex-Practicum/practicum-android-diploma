@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacancyDetailsInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDetailsError
 
 class VacancyViewModel(
     private val vacancyId: String,
@@ -16,24 +18,39 @@ class VacancyViewModel(
     private val _state = MutableLiveData<VacancyState>()
     val state: LiveData<VacancyState> = _state
     private var requestJob: Job? = null
+    private var currentVacancy: Vacancy? = null
 
-    private fun load() {
+    fun load() {
         _state.value = VacancyState.Loading
         requestJob?.cancel()
+
         requestJob = viewModelScope.launch {
             val result = detailsInteractor.getVacancyDetails(vacancyId)
-            if (result.code == CODE_OK && result.data != null) {
-                _state.value = VacancyState.Content(result.data)
-            } else if (result.code == CODE_NOT_FOUND) {
-                _state.value = VacancyState.Empty
-            } else {
-                _state.value = VacancyState.Error
+
+            _state.value = when {
+                result.data != null -> {
+                    currentVacancy = result.data
+                    val skillsText = currentVacancy?.skills
+                        ?.filter { it.isNotBlank() }
+                        ?.joinToString("\n") { "•   $it" }
+
+                    VacancyState.Content(
+                        currentVacancy!!,
+                        skillsText = skillsText
+                    )
+                }
+
+                else -> {
+                    VacancyState.Error(mapError(result.code))
+                }
             }
         }
     }
 
-    companion object {
-        const val CODE_OK = 200
-        const val CODE_NOT_FOUND = 404
-    }
+    private fun mapError(code: Int?): VacancyDetailsError =
+        when (code) {
+            404 -> VacancyDetailsError.NotFound
+            in 500..599 -> VacancyDetailsError.Server
+            else -> VacancyDetailsError.Network
+        }
 }
