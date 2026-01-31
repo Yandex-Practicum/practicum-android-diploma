@@ -130,7 +130,6 @@ class VacancyFragment : Fragment() {
     }
 
     private fun handleError(error: VacancyDetailsError) {
-
         when (error) {
             is VacancyDetailsError.Network -> {
                 binding.placeholderNotFoundVacancy.setImageResource(R.drawable.img_no_internet)

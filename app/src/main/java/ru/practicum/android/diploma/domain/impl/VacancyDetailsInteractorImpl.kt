@@ -7,9 +7,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDetailsSearchResult
 class VacancyDetailsInteractorImpl(
     private val repository: VacancyDetailsRepository
 ) : VacancyDetailsInteractor {
-    override suspend fun getVacancyDetails(id: String): VacancyDetailsSearchResult =
-        repository.getVacancyDetails(id).let { result ->
-            if (result.data != null) result
-            else VacancyDetailsSearchResult(null, result.code)
-        }
+    override suspend fun getVacancyDetails(id: String): VacancyDetailsSearchResult {
+        return repository.getVacancyDetails(id)
+    }
 }

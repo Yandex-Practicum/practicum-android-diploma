@@ -41,16 +41,9 @@ class VacancyViewModel(
                 }
 
                 else -> {
-                    VacancyState.Error(mapError(result.code))
+                    VacancyState.Error(result.error ?: VacancyDetailsError.Server)
                 }
             }
         }
     }
-
-    private fun mapError(code: Int?): VacancyDetailsError =
-        when (code) {
-            404 -> VacancyDetailsError.NotFound
-            in 500..599 -> VacancyDetailsError.Server
-            else -> VacancyDetailsError.Network
-        }
 }

@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.data.search.VacancyDtoMapper
 import ru.practicum.android.diploma.domain.api.VacancyDetailsRepository
+import ru.practicum.android.diploma.domain.models.VacancyDetailsError
 import ru.practicum.android.diploma.domain.models.VacancyDetailsSearchResult
 
 class VacancyDetailsRepositoryImpl(
@@ -25,19 +26,15 @@ class VacancyDetailsRepositoryImpl(
             }
 
             NetworkCodes.NO_NETWORK_CODE -> {
-                VacancyDetailsSearchResult(null, NetworkCodes.NO_NETWORK_CODE)
+                VacancyDetailsSearchResult(null, VacancyDetailsError.Network)
             }
 
             NetworkCodes.NOT_FOUND_CODE -> {
-                VacancyDetailsSearchResult(null, NetworkCodes.NOT_FOUND_CODE)
-            }
-
-            NetworkCodes.SERVER_ERROR_CODE -> {
-                VacancyDetailsSearchResult(null, NetworkCodes.NOT_FOUND_CODE)
+                VacancyDetailsSearchResult(null, VacancyDetailsError.NotFound)
             }
 
             else -> {
-                VacancyDetailsSearchResult(null, response.resultCode)
+                VacancyDetailsSearchResult(null, VacancyDetailsError.Server)
             }
         }
     }
