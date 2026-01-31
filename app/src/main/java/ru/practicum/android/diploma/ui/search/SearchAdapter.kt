@@ -25,8 +25,14 @@ class SearchAdapter(
         fun onVacancyClick(vacancy: Vacancy)
     }
 
-    fun setVacancies(vacancies: List<Vacancy>) {
-        items = ArrayList(vacancies)
+    fun setVacancies(vacancies: List<Vacancy>, isNewSearch: Boolean = false) {
+        if (isNewSearch) {
+            items.clear()
+        }
+        val newItems = vacancies.filter { newVacancy ->
+            items.none { it.id == newVacancy.id }
+        }
+        items.addAll(newItems)
         notifyDataSetChanged()
     }
 }

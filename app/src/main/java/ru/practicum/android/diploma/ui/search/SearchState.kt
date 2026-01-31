@@ -9,4 +9,5 @@ sealed class SearchState {
     data class Content(val vacancies: List<Vacancy>, val totalFound: Int) : SearchState()
     object Empty : SearchState()
     data class Error(val errorType: ErrorType) : SearchState()
+    object LoadingPage : SearchState()
 }

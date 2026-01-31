@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -49,6 +50,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
+        setupScrollListener()
         setupUI()
         setupObservers()
     }
@@ -56,6 +58,31 @@ class SearchFragment : Fragment() {
     private fun setupAdapter() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun setupScrollListener() {
+        binding.recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+
+                override fun onScrolled(
+                    recyclerView: RecyclerView,
+                    dx: Int,
+                    dy: Int
+                ) {
+                    if (dy <= 0) return
+
+                    val layoutManager =
+                        recyclerView.layoutManager as LinearLayoutManager
+
+                    val lastVisibleItem =
+                        layoutManager.findLastVisibleItemPosition()
+
+                    if (lastVisibleItem == adapter.itemCount - 1) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        )
     }
 
     private fun setupUI() {
@@ -85,7 +112,7 @@ class SearchFragment : Fragment() {
 
         binding.searchVacancy.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.search(binding.searchVacancy.text.toString())
+                viewModel.searchIme(binding.searchVacancy.text.toString())
                 hideKeyboard()
                 true
             } else {
@@ -102,7 +129,8 @@ class SearchFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.searchStateLiveData.observe(viewLifecycleOwner) { state ->
-            renderer?.render(state)
+            val isNewSearch = viewModel.isFirstPage()
+            renderer?.render(state, isNewSearch)
         }
     }
 
