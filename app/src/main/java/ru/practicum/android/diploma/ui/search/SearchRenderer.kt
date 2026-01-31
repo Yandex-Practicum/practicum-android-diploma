@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.view.isVisible
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.domain.util.ErrorType
 
 class SearchRenderer(
     private val binding: FragmentSearchBinding,
@@ -18,6 +19,7 @@ class SearchRenderer(
             is SearchState.Loading -> renderLoading()
             is SearchState.Content -> renderContent(state)
             is SearchState.Empty -> renderEmpty()
+            is SearchState.Error -> renderError(state.errorType)
         }
     }
 
@@ -73,5 +75,27 @@ class SearchRenderer(
         textImageCaption.text =
             context.getString(R.string.error_unable_to_retr_vac_list)
         textImageCaption.isVisible = true
+    }
+
+    private fun renderError(errorType: ErrorType) = with(binding) {
+        hideKeyboard()
+        placeholderSearch.isVisible = true
+        textImageCaption.isVisible = true
+        recyclerView.isVisible = false
+        resultSearchInformation.isVisible = false
+        progressBar1.isVisible = false
+        progressBar2.isVisible = false
+
+        when (errorType) {
+            ErrorType.NO_INTERNET -> {
+                textImageCaption.text = context.getString(R.string.no_internet)
+                placeholderSearch.setImageResource(R.drawable.img_no_internet)
+            }
+            ErrorType.SERVER_ERROR -> {
+                textImageCaption.text = context.getString(R.string.server_error)
+                placeholderSearch.setImageResource(R.drawable.img_server_search_error)
+            }
+            else -> renderEmpty()
+        }
     }
 }

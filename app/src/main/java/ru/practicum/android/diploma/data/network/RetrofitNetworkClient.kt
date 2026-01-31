@@ -50,6 +50,10 @@ class RetrofitNetworkClient(private val context: Context, private val service: V
             Response().apply {
                 resultCode = e.code()
             }
+        } catch (_: SocketTimeoutException) {
+            createErrorResponse(NetworkCodes.TIMEOUT_CODE)
+        } catch (_: IOException) {
+            createErrorResponse(NetworkCodes.NO_NETWORK_CODE)
         }
     }
 
