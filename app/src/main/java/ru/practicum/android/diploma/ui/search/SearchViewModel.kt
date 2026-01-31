@@ -149,7 +149,6 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
         search(latestSearchText!!)
     }
 
-
     private fun resetPagination() {
         currentPage = PAGES_START
         totalPages = Int.MAX_VALUE
