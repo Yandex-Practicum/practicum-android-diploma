@@ -6,6 +6,8 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.IndustryRequest
 import ru.practicum.android.diploma.data.dto.IndustryResponse
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
+import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
 import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.util.isConnected
 import java.net.SocketTimeoutException
@@ -20,6 +22,7 @@ class RetrofitNetworkClient(private val context: Context, private val service: V
         return when (dto) {
             is IndustryRequest -> handleIndustriesRequest()
             is VacancyRequest -> handleVacanciesRequest(dto)
+            is VacancyDetailsRequest -> handleVacancyDetailsRequest(dto)
             else -> handleUnknownRequest()
         }
     }
@@ -51,6 +54,19 @@ class RetrofitNetworkClient(private val context: Context, private val service: V
             createErrorResponse(NetworkCodes.TIMEOUT_CODE)
         } catch (_: IOException) {
             createErrorResponse(NetworkCodes.NO_NETWORK_CODE)
+        }
+    }
+
+    private suspend fun handleVacancyDetailsRequest(dto: VacancyDetailsRequest): Response {
+        return try {
+            val response = service.getVacancyDetails(dto.id)
+            VacancyDetailsResponse(response).apply {
+                resultCode = NetworkCodes.SUCCESS_CODE
+            }
+        } catch (e: HttpException) {
+            Response().apply {
+                resultCode = e.code()
+            }
         }
     }
 

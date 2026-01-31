@@ -47,7 +47,6 @@
         app:layout_constraintTop_toTopOf="@+id/button_like"
         app:layout_constraintEnd_toStartOf="@+id/button_like" />
 
-
     <TextView
         android:id="@+id/name"
         style="@style/TextAppearance.Bold32"
@@ -86,7 +85,6 @@
         android:id="@+id/company_image"
         android:layout_width="@dimen/dp_48"
         android:layout_height="@dimen/dp_48"
-        android:background="@drawable/ic_company_placeholder_48"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
         app:layout_constraintStart_toStartOf="@+id/background_title"
@@ -94,14 +92,18 @@
 
     <TextView
         android:id="@+id/industry_name"
-        android:layout_width="@dimen/dp_0"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/TextAppearance.Medium22"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:ellipsize="end"
         android:layout_marginStart="@dimen/dp_8"
+        android:maxLines="1"
         app:layout_constraintTop_toTopOf="@+id/company_image"
         app:layout_constraintStart_toEndOf="@+id/company_image"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
         tools:text="Еда" />
 
     <TextView
@@ -111,8 +113,13 @@
         style="@style/TextAppearance.Regular16"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintTop_toBottomOf="@+id/industry_name"
-        app:layout_constraintStart_toStartOf="@+id/industry_name"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@+id/company_image"
         tools:text="Москва" />
 
     <ImageView
@@ -289,11 +296,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/skills_title_list"
+            <TextView
+                android:id="@+id/skills"
+                style="@style/TextAppearance.Medium16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="@string/duties"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
 
