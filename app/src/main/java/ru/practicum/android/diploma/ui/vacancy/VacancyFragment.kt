@@ -102,7 +102,6 @@ class VacancyFragment : Fragment() {
         binding.schedule.text = vacancy.schedule
         binding.requirements.text = vacancy.description
         binding.skills.text = skillsText
-
     }
 
     private fun showContent() {
@@ -128,8 +127,6 @@ class VacancyFragment : Fragment() {
         binding.skillsTitle.isVisible = true
         binding.skills.isVisible = true
         binding.progressBarVacancy.isVisible = false
-
-
     }
 
     private fun handleError(error: VacancyDetailsError) {
@@ -193,30 +190,6 @@ class VacancyFragment : Fragment() {
         }
 
         startActivity(Intent.createChooser(shareIntent, null))
-    }
-
-    fun extractSectionLines(
-        text: String,
-        header: String
-    ): List<String> {
-        val startIndex = text.indexOf("$header:\n")
-        if (startIndex == -1) return emptyList()
-
-        val contentStart = startIndex + header.length + 2 // ":\n"
-
-        val remainingText = text.substring(contentStart)
-
-        val nextHeaderIndex = Regex("\n[A-Z][^:\n]+:\n")
-            .find(remainingText)
-            ?.range
-            ?.first
-            ?: remainingText.length
-
-        return remainingText
-            .substring(0, nextHeaderIndex)
-            .lines()
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
     }
 
     private fun dpToPixel(dp: Float): Int {

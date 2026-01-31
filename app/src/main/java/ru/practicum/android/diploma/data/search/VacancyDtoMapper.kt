@@ -75,7 +75,6 @@ object VacancyDtoMapper {
             .replace(',', ' ')
     }
 
-
     private fun getCurrencySymbol(currencyCode: String): String {
         return when (currencyCode.uppercase()) {
             "RUR", "RUB" -> "₽"
@@ -92,4 +91,3 @@ object VacancyDtoMapper {
         }
     }
 }
-
