@@ -44,7 +44,7 @@ class RetrofitNetworkClient(private val context: Context, private val service: V
 
     private suspend fun handleVacanciesRequest(dto: VacancyRequest): Response {
         return try {
-            val response = service.searchVacancies(dto.expression)
+            val response = service.searchVacancies(dto.filters)
             response.apply { resultCode = NetworkCodes.SUCCESS_CODE }
         } catch (e: HttpException) {
             Response().apply {

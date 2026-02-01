@@ -98,8 +98,9 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingTop="41dp"
+        android:paddingBottom="@dimen/dp_36"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/progressBar2"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@id/search_vacancy" />

@@ -13,13 +13,14 @@ class SearchRenderer(
     private val hideKeyboard: () -> Unit
 ) {
 
-    fun render(state: SearchState) = with(binding) {
+    fun render(state: SearchState, isNewSearch: Boolean = false) = with(binding) {
         when (state) {
             is SearchState.Initial -> renderInitial()
             is SearchState.Loading -> renderLoading()
-            is SearchState.Content -> renderContent(state)
+            is SearchState.Content -> renderContent(state, isNewSearch)
             is SearchState.Empty -> renderEmpty()
             is SearchState.Error -> renderError(state.errorType)
+            is SearchState.LoadingPage -> renderLoadingPage()
         }
     }
 
@@ -42,24 +43,24 @@ class SearchRenderer(
         progressBar1.isVisible = true
     }
 
-    private fun renderContent(state: SearchState.Content) = with(binding) {
+    private fun renderContent(state: SearchState.Content, isNewSearch: Boolean = false) = with(binding) {
         hideKeyboard()
-
+        if (isNewSearch) {
+            recyclerView.scrollToPosition(0)
+        }
         val count = state.totalFound
         resultSearchInformation.text = context.resources.getQuantityString(
             R.plurals.vacancies_found,
             count,
             count
         )
-
         placeholderSearch.isVisible = false
         textImageCaption.isVisible = false
         progressBar1.isVisible = false
         progressBar2.isVisible = false
         resultSearchInformation.isVisible = true
         recyclerView.isVisible = true
-
-        adapter.setVacancies(state.vacancies)
+        adapter.setVacancies(state.vacancies, isNewSearch)
     }
 
     private fun renderEmpty() = with(binding) {
@@ -97,5 +98,13 @@ class SearchRenderer(
             }
             else -> renderEmpty()
         }
+    }
+    private fun renderLoadingPage() = with(binding) {
+        recyclerView.isVisible = true
+        resultSearchInformation.isVisible = true
+        progressBar1.isVisible = false
+        progressBar2.isVisible = true
+        placeholderSearch.isVisible = false
+        textImageCaption.isVisible = false
     }
 }
