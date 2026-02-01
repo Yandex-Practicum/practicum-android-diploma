@@ -30,7 +30,8 @@ object VacancyDtoMapper {
             email = dto.contacts?.email,
             phones = dto.contacts?.phones?.map { it.formatted },
             employerName = dto.employer.name,
-            logoUrl = dto.employer.logo
+            logoUrl = dto.employer.logo,
+            displayName = formatName(dto.name, dto.address?.city, dto.area.name)
         )
     }
 
@@ -68,6 +69,10 @@ object VacancyDtoMapper {
         } else {
             "Зарплата не указана"
         }
+    }
+
+    private fun formatName(name: String, city: String?, areaName: String): String {
+        return "$name, ${city ?: areaName}"
     }
 
     private fun formatNumber(number: Int): String {
