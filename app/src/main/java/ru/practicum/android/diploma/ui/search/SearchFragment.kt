@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -131,6 +132,27 @@ class SearchFragment : Fragment() {
         viewModel.searchStateLiveData.observe(viewLifecycleOwner) { state ->
             val isNewSearch = viewModel.isFirstPage()
             renderer?.render(state, isNewSearch)
+        }
+        viewModel.uiEvent.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { uiEvent ->
+                when (uiEvent) {
+                    UIEvent.ShowNoInternetToast -> {
+                        Toast.makeText(
+                            requireContext(),
+                            R.string.check_internet_connection,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    UIEvent.ShowGenericErrorToast -> {
+                        Toast.makeText(
+                            requireContext(),
+                            R.string.error_occurred,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
     }
 

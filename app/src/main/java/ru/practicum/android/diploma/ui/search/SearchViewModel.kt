@@ -13,19 +13,24 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancySearchFilter
 import ru.practicum.android.diploma.domain.models.VacancySearchResult
 import ru.practicum.android.diploma.domain.util.ErrorType
+import ru.practicum.android.diploma.util.Event
 
 class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInteractor) : ViewModel() {
     private val _searchStateLiveData = MutableLiveData<SearchState>()
     val searchStateLiveData: LiveData<SearchState> = _searchStateLiveData
+    private val _uiEvent = MutableLiveData<Event<UIEvent>>()
+    val uiEvent: LiveData<Event<UIEvent>> = _uiEvent
     private var latestSearchText: String? = null
     private var searchJob: Job? = null
     private var debounceJob: Job? = null
     private var currentPage = PAGES_START
     private var totalPages = Int.MAX_VALUE
     private var isNextPageLoading = false
+    private var isPagingError = false
+    private var hasShownPagingErrorToast = false
     private val loadedVacancies = mutableListOf<Vacancy>()
     private val loadedPages = mutableMapOf<String, MutableSet<Int>>()
-    private var totalFoundFromApi: Int = 0
+    private var totalFoundFromApi = 0
 
     fun searchDebounce(changedText: String) {
         debounceJob?.cancel()
@@ -53,6 +58,10 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
     }
 
     private fun search(query: String) {
+        if (query.isEmpty()) {
+            handleEmptyQuery()
+            return
+        }
         val isQueryChanged = latestSearchText != query
         latestSearchText = query
 
@@ -61,6 +70,7 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
             loadedPages.clear()
             _searchStateLiveData.value = SearchState.Initial
         }
+
         if (currentPage == PAGES_START) {
             _searchStateLiveData.value = SearchState.Loading
         }
@@ -68,16 +78,15 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
         val pagesForQuery = loadedPages.getOrPut(query) { mutableSetOf() }
 
         if (shouldSkipPageLoad(pagesForQuery)) {
-            _searchStateLiveData.value = if (loadedVacancies.isEmpty()) {
-                SearchState.Loading
-            } else {
-                SearchState.Content(
+            if (loadedVacancies.isNotEmpty()) {
+                _searchStateLiveData.value = SearchState.Content(
                     vacancies = loadedVacancies.toList(),
                     totalFound = totalFoundFromApi
                 )
             }
             return
         }
+
         if (searchStateLiveData.value is SearchState.Error) {
             resetPagination()
         }
@@ -86,6 +95,7 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
 
     private fun handleEmptyQuery() {
         resetPagination()
+        latestSearchText = ""
         loadedVacancies.clear()
         _searchStateLiveData.value = SearchState.Initial
     }
@@ -95,18 +105,17 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
     }
 
     private fun loadPage(query: String, pagesForQuery: MutableSet<Int>) {
-        val isQueryChanged = latestSearchText == query && currentPage == PAGES_START
         isNextPageLoading = true
         searchJob?.cancel()
         debounceJob?.cancel()
         searchJob = viewModelScope.launch {
-            setLoadingState(isQueryChanged)
+            setLoadingState(latestSearchText == query && currentPage == PAGES_START)
 
             searchVacanciesInteractor
                 .searchVacancies(VacancySearchFilter(text = query, page = currentPage))
                 .collect { result ->
-                    isNextPageLoading = false
                     handleSearchResult(result, pagesForQuery)
+                    isNextPageLoading = false
                 }
         }
     }
@@ -121,6 +130,8 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
 
     private fun handleSearchResult(result: VacancySearchResult, pagesForQuery: MutableSet<Int>) {
         if (result.errorCode == NetworkCodes.SUCCESS_CODE) {
+            isPagingError = false
+            hasShownPagingErrorToast = false
             totalPages = result.totalPages
             totalFoundFromApi = result.totalFound
             loadedVacancies.addAll(result.vacancies)
@@ -136,23 +147,50 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
                 pagesForQuery.add(currentPage)
             }
         } else {
-            _searchStateLiveData.value = SearchState.Error(ErrorType.fromCode(result.errorCode))
+            if (currentPage == PAGES_START) {
+                _searchStateLiveData.value = SearchState.Error(ErrorType.fromCode(result.errorCode))
+            } else {
+                isPagingError = true
+                if (!hasShownPagingErrorToast) {
+                    _uiEvent.value = Event(
+                        when (ErrorType.fromCode(result.errorCode)) {
+                            ErrorType.NO_INTERNET -> UIEvent.ShowNoInternetToast
+                            else -> UIEvent.ShowGenericErrorToast
+                        }
+                    )
+                    hasShownPagingErrorToast = true
+                }
+                _searchStateLiveData.value = SearchState.Content(
+                    vacancies = loadedVacancies.toList(),
+                    totalFound = totalFoundFromApi
+                )
+            }
         }
     }
 
     fun isFirstPage(): Boolean = currentPage == PAGES_START
 
     fun onLastItemReached() {
-        if (latestSearchText.isNullOrEmpty() || isNextPageLoading || currentPage >= totalPages) return
-
-        currentPage++
-        search(latestSearchText!!)
+        if (latestSearchText.isNullOrEmpty() || isNextPageLoading || currentPage == totalPages) {
+            return
+        }
+        if (isPagingError) {
+            isPagingError = false
+            search(latestSearchText!!)
+        } else {
+            if (currentPage < totalPages) {
+                currentPage++
+                search(latestSearchText!!)
+            }
+        }
     }
 
     private fun resetPagination() {
         currentPage = PAGES_START
         totalPages = Int.MAX_VALUE
         isNextPageLoading = false
+        isPagingError = false
+        hasShownPagingErrorToast = false
         loadedVacancies.clear()
     }
 
