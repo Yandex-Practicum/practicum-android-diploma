@@ -18,7 +18,6 @@ class VacancyViewModel(
     private val _state = MutableLiveData<VacancyState>()
     val state: LiveData<VacancyState> = _state
     private var requestJob: Job? = null
-    private var currentVacancy: Vacancy? = null
 
     fun load() {
         _state.value = VacancyState.Loading
@@ -29,14 +28,14 @@ class VacancyViewModel(
 
             _state.value = when {
                 result.data != null -> {
-                    currentVacancy = result.data
-                    val skillsText = currentVacancy?.skills
-                        ?.filter { it.isNotBlank() }
-                        ?.joinToString("\n") { "•   $it" }
+                    val currentVacancy = result.data
 
                     VacancyState.Content(
-                        currentVacancy!!,
-                        skillsText = skillsText
+                        vacancy = currentVacancy,
+                        salaryFormatted = currentVacancy.salaryTitle,
+                        employerAddress = getEmployerAddress(currentVacancy),
+                        skillsText = currentVacancy?.skills?.filter { it.isNotBlank() },
+                        hasContacts = hasContacts(currentVacancy)
                     )
                 }
 
@@ -45,5 +44,15 @@ class VacancyViewModel(
                 }
             }
         }
+    }
+
+    private fun hasContacts(vacancy: Vacancy): Boolean {
+        return !vacancy.contactName.isNullOrEmpty() ||
+            !vacancy.email.isNullOrEmpty() ||
+            vacancy.phones?.isNotEmpty() == true
+    }
+
+    private fun getEmployerAddress(vacancy: Vacancy): String {
+        return vacancy.fullAddress?.takeIf { it.isNotBlank() } ?: vacancy.areaName
     }
 }

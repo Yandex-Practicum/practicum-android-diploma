@@ -7,7 +7,10 @@ sealed class VacancyState {
     object Loading : VacancyState()
     data class Content(
         val vacancy: Vacancy,
-        val skillsText: String?
+        val skillsText: List<String>?,
+        val salaryFormatted: String?,
+        val employerAddress: String,
+        val hasContacts: Boolean
     ) : VacancyState()
 
     data class Error(val error: VacancyDetailsError) : VacancyState()
