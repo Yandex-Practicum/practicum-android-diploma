@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchViewHolder(private val binding: ItemVacancyBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Vacancy) {
-        binding.nameAreaName.text = item.name
+        binding.nameAreaName.text = item.displayName
         binding.industryName.text = item.employerName
         binding.salary.text = item.salaryTitle
         Glide.with(itemView)

@@ -27,5 +27,6 @@ data class Vacancy(
     val email: String?,
     val phones: List<String>?,
     val employerName: String,
-    val logoUrl: String?
+    val logoUrl: String?,
+    val displayName: String
 ) : Parcelable

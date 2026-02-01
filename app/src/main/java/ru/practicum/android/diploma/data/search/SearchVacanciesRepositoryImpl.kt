@@ -10,14 +10,19 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.NetworkCodes
 import ru.practicum.android.diploma.domain.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancySearchFilter
 import ru.practicum.android.diploma.domain.models.VacancySearchResult
 
 class SearchVacanciesRepositoryImpl(
     private val networkClient: NetworkClient
 ) : SearchVacanciesRepository {
 
-    override fun searchVacancies(expression: String): Flow<VacancySearchResult> = flow {
-        val response = networkClient.doRequest(VacancyRequest(expression))
+    override fun searchVacancies(filter: VacancySearchFilter): Flow<VacancySearchResult> = flow {
+        val queryMap = mutableMapOf<String, String>().apply {
+            put("text", filter.text ?: "")
+            put("page", filter.page.toString())
+        }
+        val response = networkClient.doRequest(VacancyRequest(queryMap))
         when (response.resultCode) {
             NetworkCodes.SUCCESS_CODE -> {
                 val vacanciesResponse = response as VacancyResponse
