@@ -128,44 +128,51 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
         }
     }
 
-    private fun handleSearchResult(result: VacancySearchResult, pagesForQuery: MutableSet<Int>) {
+    private fun handleSearchResult(
+        result: VacancySearchResult,
+        pagesForQuery: MutableSet<Int>
+    ) {
         if (result.errorCode == NetworkCodes.SUCCESS_CODE) {
-            isPagingError = false
-            hasShownPagingErrorToast = false
-            totalPages = result.totalPages
-            totalFoundFromApi = result.totalFound
-            loadedVacancies.addAll(result.vacancies)
-            _searchStateLiveData.value = if (loadedVacancies.isEmpty()) {
-                SearchState.Empty
-            } else {
-                SearchState.Content(
-                    vacancies = loadedVacancies.toList(),
-                    totalFound = totalFoundFromApi
-                )
-            }
-            if (result.vacancies.isNotEmpty()) {
-                pagesForQuery.add(currentPage)
-            }
+            handleSuccess(result, pagesForQuery)
         } else {
-            if (currentPage == PAGES_START) {
-                _searchStateLiveData.value = SearchState.Error(ErrorType.fromCode(result.errorCode))
-            } else {
-                isPagingError = true
-                if (!hasShownPagingErrorToast) {
-                    _uiEvent.value = Event(
-                        when (ErrorType.fromCode(result.errorCode)) {
-                            ErrorType.NO_INTERNET -> UIEvent.ShowNoInternetToast
-                            else -> UIEvent.ShowGenericErrorToast
-                        }
-                    )
-                    hasShownPagingErrorToast = true
-                }
-                _searchStateLiveData.value = SearchState.Content(
-                    vacancies = loadedVacancies.toList(),
-                    totalFound = totalFoundFromApi
-                )
-            }
+            handleError(result)
         }
+    }
+
+    private fun handleSuccess(result: VacancySearchResult, pagesForQuery: MutableSet<Int>) {
+        isPagingError = false
+        hasShownPagingErrorToast = false
+        totalPages = result.totalPages
+        totalFoundFromApi = result.totalFound
+        loadedVacancies.addAll(result.vacancies)
+        _searchStateLiveData.value = if (loadedVacancies.isEmpty()) {
+            SearchState.Empty
+        } else {
+            SearchState.Content(
+                vacancies = loadedVacancies.toList(),
+                totalFound = totalFoundFromApi
+            )
+        }
+        if (result.vacancies.isNotEmpty()) {
+            pagesForQuery.add(currentPage)
+        }
+    }
+
+    private fun handleError(result: VacancySearchResult) {
+        isPagingError = true
+        if (!hasShownPagingErrorToast) {
+            _uiEvent.value = Event(
+                when (ErrorType.fromCode(result.errorCode)) {
+                    ErrorType.NO_INTERNET -> UIEvent.ShowNoInternetToast
+                    else -> UIEvent.ShowGenericErrorToast
+                }
+            )
+            hasShownPagingErrorToast = true
+        }
+        _searchStateLiveData.value = SearchState.Content(
+            vacancies = loadedVacancies.toList(),
+            totalFound = totalFoundFromApi
+        )
     }
 
     fun isFirstPage(): Boolean = currentPage == PAGES_START
