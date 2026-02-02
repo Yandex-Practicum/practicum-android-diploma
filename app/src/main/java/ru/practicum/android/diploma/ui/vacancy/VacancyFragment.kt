@@ -16,7 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.models.VacancyDetailsError
 import ru.practicum.android.diploma.ui.search.SearchViewHolder.Companion.CORNER_RADIUS
 
 class VacancyFragment : Fragment() {
