@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.domain.impl
 
-import ru.practicum.android.diploma.data.db.VacancyEntity
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.FavoritesRepository
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavoritesInteractorImpl(
     private val repository: FavoritesRepository
@@ -13,7 +13,7 @@ class FavoritesInteractorImpl(
     }
 
     override suspend fun toggleFavorite(
-        vacancy: VacancyEntity,
+        vacancy: Vacancy,
         isFavorite: Boolean
     ): Boolean {
         return if (isFavorite) {

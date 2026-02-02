@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.data.vacancy.toEntity
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -50,12 +49,6 @@ class VacancyViewModel(
         }
     }
 
-    private fun hasContacts(vacancy: Vacancy): Boolean {
-        return !vacancy.contactName.isNullOrEmpty() ||
-            !vacancy.email.isNullOrEmpty() ||
-            vacancy.phones?.isNotEmpty() == true
-    }
-
     private fun getEmployerAddress(vacancy: Vacancy): String {
         return vacancy.fullAddress?.takeIf { it.isNotBlank() } ?: vacancy.areaName
     }
@@ -66,7 +59,7 @@ class VacancyViewModel(
 
         viewModelScope.launch {
             val newFavoriteState = favoritesInteractor.toggleFavorite(
-                vacancy = currentState.vacancy.toEntity(),
+                vacancy = currentState.vacancy,
                 isFavorite = currentState.isFavorite
             )
 
