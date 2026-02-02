@@ -1,10 +1,9 @@
 package ru.practicum.android.diploma.ui.vacancy
 
-
 import androidx.core.view.isVisible
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.VacancyDetailsError
-import ru.practicum.android.diploma.R
 
 fun FragmentVacancyBinding.showLoading() {
     name.isVisible = false
