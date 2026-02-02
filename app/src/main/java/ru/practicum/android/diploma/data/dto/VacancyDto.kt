@@ -18,7 +18,7 @@ data class VacancyDto(
 )
 
 data class Salary(val from: Int?, val to: Int?, val currency: String?)
-data class Address(val city: String, val street: String, val building: String, val fullAddress: String)
+data class Address(val city: String, val street: String, val building: String, val raw: String)
 data class Experience(val id: String, val name: String)
 data class Schedule(val id: String, val name: String)
 data class Employment(val id: String, val name: String)
@@ -26,10 +26,6 @@ data class Contacts(val id: String, val name: String, val email: String, val pho
 data class Employer(val id: String, val name: String, val logo: String?)
 data class FilterArea(val id: Int, val name: String, val parentId: Int?, val areas: List<FilterArea>?)
 data class PhoneDto(
-    val country: String?,
-    val city: String?,
-    val number: String?
-) {
+    val comment: String?,
     val formatted: String
-        get() = listOfNotNull(country, city, number).joinToString(" ")
-}
+)

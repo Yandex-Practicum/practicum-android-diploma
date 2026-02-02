@@ -211,7 +211,7 @@ class VacancyFragment : Fragment() {
             binding.contactName.isVisible = false
         }
 
-        vacancy.email?.let { email ->
+        vacancy.email?.takeIf { it.isNotBlank() }?.let { email ->
             binding.contactEmail.text = email
             binding.contactEmail.isVisible = true
             binding.contactEmail.setOnClickListener { openEmailClient(email) }

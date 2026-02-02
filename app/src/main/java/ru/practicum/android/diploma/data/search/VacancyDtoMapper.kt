@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.search
 
+import ru.practicum.android.diploma.data.dto.PhoneDto
 import ru.practicum.android.diploma.data.dto.Salary
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -25,10 +26,10 @@ object VacancyDtoMapper {
             city = dto.address?.city,
             street = dto.address?.street,
             building = dto.address?.building,
-            fullAddress = dto.address?.fullAddress,
+            fullAddress = dto.address?.raw,
             contactName = dto.contacts?.name,
             email = dto.contacts?.email,
-            phones = dto.contacts?.phones?.map { it.formatted },
+            phones = formatPhones(dto.contacts?.phones),
             employerName = dto.employer.name,
             logoUrl = dto.employer.logo,
             displayName = formatName(dto.name, dto.address?.city, dto.area.name)
@@ -93,6 +94,16 @@ object VacancyDtoMapper {
             "GEL" -> "₾"
             "KGT" -> "сом"
             else -> currencyCode
+        }
+    }
+
+    private fun formatPhones(phoneDtos: List<PhoneDto>?): List<String>? {
+        return phoneDtos?.map { phoneDto ->
+            if (phoneDto.comment != null && phoneDto.comment.isNotBlank()) {
+                "${phoneDto.formatted} (${phoneDto.comment})"
+            } else {
+                phoneDto.formatted
+            }
         }
     }
 }
