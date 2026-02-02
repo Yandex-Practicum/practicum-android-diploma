@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.vacancy
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyDetailsError
 import ru.practicum.android.diploma.ui.search.SearchViewHolder.Companion.CORNER_RADIUS
 
@@ -56,8 +56,13 @@ class VacancyFragment : Fragment() {
         }
 
         binding.buttonShare.setOnClickListener {
-            shareContent()
+            viewModel.state.value?.let { state ->
+                if (state is VacancyState.Content) {
+                    shareContent(state.vacancy.url)
+                }
+            }
         }
+
         viewModel.load()
         observeState()
     }
@@ -67,8 +72,9 @@ class VacancyFragment : Fragment() {
             when (state) {
                 is VacancyState.Loading -> showLoading()
                 is VacancyState.Content -> {
-                    bindDetails(state.vacancy, state.skillsText)
-                    showContent()
+                    bindDetails(state)
+                    showContent(state)
+                    setupContacts(state)
                 }
 
                 is VacancyState.Error -> {
@@ -78,10 +84,9 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun bindDetails(
-        vacancy: Vacancy,
-        skillsText: String?
-    ) {
+    private fun bindDetails(state: VacancyState.Content) {
+        val vacancy = state.vacancy
+        val skillsText = state.skillsText?.joinToString("\n") { "   •   $it" } ?: ""
         val logoUrl = vacancy.logoUrl
         if (logoUrl != null && logoUrl.isNotEmpty()) {
             Glide.with(this)
@@ -95,16 +100,19 @@ class VacancyFragment : Fragment() {
             binding.companyImage.setImageResource(R.drawable.ic_company_placeholder_48)
         }
         binding.name.text = vacancy.name
-        binding.salary.text = vacancy.salaryTitle
+        binding.salary.text = state.salaryFormatted
         binding.industryName.text = vacancy.industryName
-        binding.areaName.text = vacancy.areaName
-        binding.experienceDescription.text = vacancy.experience
-        binding.schedule.text = vacancy.schedule
+        binding.areaName.text = state.employerAddress
+        binding.experienceDescription.text = vacancy.experience ?: ""
+        binding.schedule.text = vacancy.schedule ?: ""
         binding.requirements.text = vacancy.description
-        binding.skills.text = skillsText
+
+        binding.skillsText.text = skillsText
     }
 
-    private fun showContent() {
+    private fun showContent(state: VacancyState.Content) {
+        val hasSkills = !state.skillsText.isNullOrEmpty()
+
         binding.name.isVisible = true
         binding.salary.isVisible = true
         binding.backgroundTitle.isVisible = true
@@ -124,9 +132,9 @@ class VacancyFragment : Fragment() {
         binding.requirementsList.isVisible = false
         binding.conditions.isVisible = false
         binding.conditionsList.isVisible = false
-        binding.skillsTitle.isVisible = true
-        binding.skills.isVisible = true
         binding.progressBarVacancy.isVisible = false
+        binding.skillsTitle.isVisible = hasSkills
+        binding.skillsText.isVisible = hasSkills
     }
 
     private fun handleError(error: VacancyDetailsError) {
@@ -181,14 +189,72 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun shareContent() {
+    private fun shareContent(url: String) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, android.R.id.shareText)
+            putExtra(Intent.EXTRA_TEXT, url)
             type = "text/plain"
         }
 
-        startActivity(Intent.createChooser(shareIntent, null))
+        startActivity(Intent.createChooser(shareIntent, "Поделиться"))
+    }
+
+    private fun setupContacts(state: VacancyState.Content) {
+        val vacancy = state.vacancy
+        var hasAnyContact = false
+
+        vacancy.contactName?.let { name ->
+            binding.contactName.text = name
+            binding.contactName.isVisible = true
+            hasAnyContact = true
+        } ?: run {
+            binding.contactName.isVisible = false
+        }
+
+        vacancy.email?.takeIf { it.isNotBlank() }?.let { email ->
+            binding.contactEmail.text = email
+            binding.contactEmail.isVisible = true
+            binding.contactEmail.setOnClickListener { openEmailClient(email) }
+            hasAnyContact = true
+        } ?: run {
+            binding.contactEmail.isVisible = false
+        }
+
+        val phones = vacancy.phones
+        if (!phones.isNullOrEmpty()) {
+            binding.contactPhone.text = phones.joinToString("\n")
+            binding.contactPhone.isVisible = true
+
+            phones.firstOrNull()?.let { firstPhone ->
+                val cleanPhone = firstPhone.replace(Regex("[^+\\d]"), "")
+                binding.contactPhone.setOnClickListener {
+                    openDialer(cleanPhone)
+                }
+                binding.contactPhone.setOnClickListener {
+                    openDialer(cleanPhone)
+                }
+            }
+
+            hasAnyContact = true
+        } else {
+            binding.contactPhone.isVisible = false
+        }
+
+        binding.contactsTitle.isVisible = hasAnyContact
+    }
+
+    private fun openEmailClient(email: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$email")
+        }
+        startActivity(intent)
+    }
+
+    private fun openDialer(phone: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phone")
+        }
+        startActivity(intent)
     }
 
     private fun dpToPixel(dp: Float): Int {
@@ -200,5 +266,4 @@ class VacancyFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

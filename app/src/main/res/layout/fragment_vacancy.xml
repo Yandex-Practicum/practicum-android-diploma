@@ -179,7 +179,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/experience"
                 style="@style/TextAppearance.Medium16"
@@ -297,21 +296,62 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/skills"
-                style="@style/TextAppearance.Medium16"
+                android:id="@+id/skills_text"
+                style="@style/TextAppearance.Regular16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
-                android:hint="@string/duties"
                 android:textColor="@color/black"
+                android:singleLine="false"
+                android:ellipsize="none"
+                android:visibility="visible"
+                tools:text="  •  Kotlin\n  •  Java\n  •  Android SDK" />
+
+            <TextView
+                android:id="@+id/contacts_title"
+                style="@style/TextAppearance.Medium22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textColorHint="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:hint="@string/contacts_title"
+                android:layout_marginTop="@dimen/dp_24"
+                android:paddingBottom="@dimen/dp_16"
+                android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/contact_name"
+                style="@style/TextAppearance.Regular16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:visibility="gone"
+                tools:text="Властелин Мира" />
 
+            <TextView
+                android:id="@+id/contact_email"
+                style="@style/TextAppearance.Regular16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                tools:text="sutulaya@zadolbala.com" />
+
+            <TextView
+                android:id="@+id/contact_phone"
+                style="@style/TextAppearance.Regular16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="@dimen/dp_8"
+                android:visibility="gone"
+                tools:text="+7 (890) 123-45-67" />
 
         </LinearLayout>
+
     </ScrollView>
 
 
