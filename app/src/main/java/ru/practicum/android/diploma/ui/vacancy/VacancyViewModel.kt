@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.vacancy.toEntity
+import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyDetailsError
 
 class VacancyViewModel(
     private val vacancyId: String,
-    private val detailsInteractor: VacancyDetailsInteractor
+    private val detailsInteractor: VacancyDetailsInteractor,
+    private val favoritesInteractor: FavoritesInteractor
 ) : ViewModel() {
 
     private val _state = MutableLiveData<VacancyState>()
@@ -25,6 +28,7 @@ class VacancyViewModel(
 
         requestJob = viewModelScope.launch {
             val result = detailsInteractor.getVacancyDetails(vacancyId)
+            val isFavorite = favoritesInteractor.isFavorite(vacancyId)
 
             _state.value = when {
                 result.data != null -> {
@@ -34,8 +38,8 @@ class VacancyViewModel(
                         vacancy = currentVacancy,
                         salaryFormatted = currentVacancy.salaryTitle,
                         employerAddress = getEmployerAddress(currentVacancy),
-                        skillsText = currentVacancy?.skills?.filter { it.isNotBlank() },
-                        hasContacts = hasContacts(currentVacancy)
+                        skillsText = currentVacancy.skills?.filter { it.isNotBlank() },
+                        isFavorite = isFavorite
                     )
                 }
 
@@ -54,5 +58,21 @@ class VacancyViewModel(
 
     private fun getEmployerAddress(vacancy: Vacancy): String {
         return vacancy.fullAddress?.takeIf { it.isNotBlank() } ?: vacancy.areaName
+    }
+
+    fun onFavoriteClicked() {
+        val currentState = state.value
+        if (currentState !is VacancyState.Content) return
+
+        viewModelScope.launch {
+            val newFavoriteState = favoritesInteractor.toggleFavorite(
+                vacancy = currentState.vacancy.toEntity(),
+                isFavorite = currentState.isFavorite
+            )
+
+            _state.postValue(
+                currentState.copy(isFavorite = newFavoriteState)
+            )
+        }
     }
 }

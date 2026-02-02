@@ -10,7 +10,7 @@ sealed class VacancyState {
         val skillsText: List<String>?,
         val salaryFormatted: String?,
         val employerAddress: String,
-        val hasContacts: Boolean
+        val isFavorite: Boolean
     ) : VacancyState()
 
     data class Error(val error: VacancyDetailsError) : VacancyState()

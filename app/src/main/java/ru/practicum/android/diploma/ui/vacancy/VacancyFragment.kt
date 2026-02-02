@@ -21,7 +21,6 @@ import ru.practicum.android.diploma.ui.search.SearchViewHolder.Companion.CORNER_
 class VacancyFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
-    private var isLiked = false
     private val args: VacancyFragmentArgs by navArgs()
     private val vacancyId: String by lazy { args.vacancyId }
     private val viewModel: VacancyViewModel by viewModel {
@@ -51,7 +50,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.buttonLike.setOnClickListener {
-            toggleLikeButton()
+            viewModel.onFavoriteClicked()
         }
 
         binding.buttonShare.setOnClickListener {
@@ -74,6 +73,7 @@ class VacancyFragment : Fragment() {
                     bindDetails(state)
                     binding.showContent(!state.skillsText.isNullOrEmpty())
                     setupContacts(state)
+                    binding.renderFavorite(state.isFavorite)
                 }
 
                 is VacancyState.Error -> binding.showError(state.error)
@@ -105,16 +105,6 @@ class VacancyFragment : Fragment() {
         binding.requirements.text = vacancy.description
 
         binding.skillsText.text = skillsText
-    }
-
-    private fun toggleLikeButton() {
-        isLiked = !isLiked
-
-        if (isLiked) {
-            binding.buttonLike.setImageResource(R.drawable.ic_favorites_on_red_24)
-        } else {
-            binding.buttonLike.setImageResource(R.drawable.ic_favorites_off_24)
-        }
     }
 
     private fun shareContent(url: String) {
