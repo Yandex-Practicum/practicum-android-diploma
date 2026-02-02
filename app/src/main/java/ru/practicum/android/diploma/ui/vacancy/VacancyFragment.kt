@@ -70,16 +70,14 @@ class VacancyFragment : Fragment() {
     private fun observeState() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is VacancyState.Loading -> showLoading()
+                is VacancyState.Loading -> binding.showLoading()
                 is VacancyState.Content -> {
                     bindDetails(state)
-                    showContent(state)
+                    binding.showContent(!state.skillsText.isNullOrEmpty())
                     setupContacts(state)
                 }
 
-                is VacancyState.Error -> {
-                    handleError(state.error)
-                }
+                is VacancyState.Error -> binding.showError(state.error)
             }
         }
     }
@@ -108,75 +106,6 @@ class VacancyFragment : Fragment() {
         binding.requirements.text = vacancy.description
 
         binding.skillsText.text = skillsText
-    }
-
-    private fun showContent(state: VacancyState.Content) {
-        val hasSkills = !state.skillsText.isNullOrEmpty()
-
-        binding.name.isVisible = true
-        binding.salary.isVisible = true
-        binding.backgroundTitle.isVisible = true
-        binding.companyImage.isVisible = true
-        binding.industryName.isVisible = true
-        binding.areaName.isVisible = true
-        binding.placeholderNotFoundVacancy.isVisible = false
-        binding.textImageCaptionNotFoundVacancy.isVisible = false
-        binding.scrollView.isVisible = true
-        binding.experience.isVisible = true
-        binding.experienceDescription.isVisible = true
-        binding.schedule.isVisible = true
-        binding.vacancyDescriptionTitle.isVisible = true
-        binding.duties.isVisible = true
-        binding.dutyList.isVisible = false
-        binding.requirements.isVisible = true
-        binding.requirementsList.isVisible = false
-        binding.conditions.isVisible = false
-        binding.conditionsList.isVisible = false
-        binding.progressBarVacancy.isVisible = false
-        binding.skillsTitle.isVisible = hasSkills
-        binding.skillsText.isVisible = hasSkills
-    }
-
-    private fun handleError(error: VacancyDetailsError) {
-        when (error) {
-            is VacancyDetailsError.Network -> {
-                binding.placeholderNotFoundVacancy.setImageResource(R.drawable.img_no_internet)
-                binding.textImageCaptionNotFoundVacancy.text = getString(R.string.no_internet)
-            }
-
-            is VacancyDetailsError.Server -> {
-                binding.placeholderNotFoundVacancy.setImageResource(R.drawable.img_vacancy_search_error)
-                binding.textImageCaptionNotFoundVacancy.text = getString(R.string.server_error)
-            }
-
-            is VacancyDetailsError.NotFound -> {
-                binding.placeholderNotFoundVacancy.setImageResource(R.drawable.img_vacancy_not_found)
-                binding.textImageCaptionNotFoundVacancy.text = getString(R.string.vacancy_not_found)
-            }
-        }
-        binding.name.isVisible = false
-        binding.salary.isVisible = false
-        binding.backgroundTitle.isVisible = false
-        binding.companyImage.isVisible = false
-        binding.industryName.isVisible = false
-        binding.areaName.isVisible = false
-        binding.placeholderNotFoundVacancy.isVisible = true
-        binding.textImageCaptionNotFoundVacancy.isVisible = true
-        binding.scrollView.isVisible = false
-        binding.progressBarVacancy.isVisible = false
-    }
-
-    private fun showLoading() {
-        binding.name.isVisible = false
-        binding.salary.isVisible = false
-        binding.backgroundTitle.isVisible = false
-        binding.companyImage.isVisible = false
-        binding.industryName.isVisible = false
-        binding.areaName.isVisible = false
-        binding.placeholderNotFoundVacancy.isVisible = false
-        binding.textImageCaptionNotFoundVacancy.isVisible = false
-        binding.scrollView.isVisible = false
-        binding.progressBarVacancy.isVisible = true
     }
 
     private fun toggleLikeButton() {
@@ -227,9 +156,6 @@ class VacancyFragment : Fragment() {
 
             phones.firstOrNull()?.let { firstPhone ->
                 val cleanPhone = firstPhone.replace(Regex("[^+\\d]"), "")
-                binding.contactPhone.setOnClickListener {
-                    openDialer(cleanPhone)
-                }
                 binding.contactPhone.setOnClickListener {
                     openDialer(cleanPhone)
                 }
