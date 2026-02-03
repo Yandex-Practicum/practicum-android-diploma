@@ -8,7 +8,6 @@ import java.util.Locale
 
 object VacancyDtoMapper {
     fun map(dto: VacancyDto): Vacancy {
-
         val displayName = formatName(dto.name, dto.address?.city, dto.area.name)
 
         return Vacancy(

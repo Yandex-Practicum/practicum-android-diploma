@@ -20,14 +20,17 @@ class VacancyDetailsRepositoryImpl(
     private val context: android.content.Context
 ) : VacancyDetailsRepository {
     override suspend fun getVacancyDetails(id: String): VacancyDetailsSearchResult = withContext(Dispatchers.IO) {
-        // Проверяем наличие интернета
         if (!isConnected(context)) {
-            // Нет интернета - пытаемся получить вакансию из локальной БД
-            return@withContext getVacancyFromDatabase(id)
+            getVacancyFromDatabase(id)
+        } else {
+            loadVacancyFromNetwork(id)
         }
+    }
+
+    private suspend fun loadVacancyFromNetwork(id: String): VacancyDetailsSearchResult {
         val response: Response = networkClient.doRequest(VacancyDetailsRequest(id))
 
-        when (response.resultCode) {
+        return when (response.resultCode) {
             NetworkCodes.SUCCESS_CODE -> {
                 val detailsResponce = response as VacancyDetailsResponse
                 val vacancy = VacancyDtoMapper.map(detailsResponce.vacancy)
@@ -48,23 +51,19 @@ class VacancyDetailsRepositoryImpl(
         }
     }
 
+
     private suspend fun getVacancyFromDatabase(id: String): VacancyDetailsSearchResult {
         return try {
-            // Пытаемся получить вакансию из таблицы избранных
             val vacancyEntity = vacancyDao.getVacancyById(id)
 
             if (vacancyEntity != null) {
-                // Вакансия найдена в БД - конвертируем в доменную модель
                 val vacancy = vacancyEntity.toDomain()
-                // Убираем логотип для оффлайн просмотра (ставим null)
                 val vacancyWithoutLogo = vacancy.copy(logoUrl = null)
                 VacancyDetailsSearchResult(vacancyWithoutLogo, null)
             } else {
-                // Вакансия не найдена в БД
                 VacancyDetailsSearchResult(null, VacancyDetailsError.Network)
             }
         } catch (_: Exception) {
-            // Ошибка при чтении из БД
             VacancyDetailsSearchResult(null, VacancyDetailsError.Server)
         }
     }
