@@ -10,4 +10,6 @@ interface FavoritesInteractor {
         vacancy: Vacancy,
         isFavorite: Boolean
     ): Boolean
+
+    suspend fun getAllFavorites(): List<Vacancy>
 }

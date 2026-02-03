@@ -8,6 +8,8 @@ import java.util.Locale
 
 object VacancyDtoMapper {
     fun map(dto: VacancyDto): Vacancy {
+        val displayName = formatName(dto.name, dto.address?.city, dto.area.name)
+
         return Vacancy(
             id = dto.id,
             name = dto.name,
@@ -32,7 +34,7 @@ object VacancyDtoMapper {
             phones = formatPhones(dto.contacts?.phones),
             employerName = dto.employer.name,
             logoUrl = dto.employer.logo,
-            displayName = formatName(dto.name, dto.address?.city, dto.area.name)
+            displayName = displayName
         )
     }
 
@@ -72,7 +74,7 @@ object VacancyDtoMapper {
         }
     }
 
-    private fun formatName(name: String, city: String?, areaName: String): String {
+    fun formatName(name: String, city: String?, areaName: String): String {
         return "$name, ${city ?: areaName}"
     }
 

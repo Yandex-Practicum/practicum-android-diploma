@@ -4,6 +4,8 @@ import ru.practicum.android.diploma.data.db.VacancyEntity
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 fun VacancyEntity.toDomain(): Vacancy {
+    val displayName = "${this.name}, ${this.city ?: this.areaName}"
+
     return Vacancy(
         id = id,
         name = name,
@@ -28,6 +30,6 @@ fun VacancyEntity.toDomain(): Vacancy {
         phones = phones?.split("\n"),
         employerName = employerName,
         logoUrl = logoUrl,
-        displayName = employerName
+        displayName = displayName
     )
 }
