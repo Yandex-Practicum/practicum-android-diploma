@@ -169,10 +169,7 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
             )
             hasShownPagingErrorToast = true
         }
-        _searchStateLiveData.value = SearchState.Content(
-            vacancies = loadedVacancies.toList(),
-            totalFound = totalFoundFromApi
-        )
+        _searchStateLiveData.value = SearchState.Error(ErrorType.fromCode(result.errorCode))
     }
 
     fun isFirstPage(): Boolean = currentPage == PAGES_START
