@@ -51,7 +51,6 @@
         android:lines="1"
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_60"
-        android:textCursorDrawable="@drawable/cursor"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
         app:layout_constraintTop_toTopOf="parent" />
