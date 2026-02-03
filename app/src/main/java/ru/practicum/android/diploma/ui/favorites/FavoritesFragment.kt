@@ -21,7 +21,17 @@ class FavoritesFragment : Fragment() {
 
     private val viewModel: FavoritesViewModel by viewModel()
 
-    private lateinit var adapter: SearchAdapter
+    private val adapter: SearchAdapter by lazy {
+        val onVacancyClick = debounce<ru.practicum.android.diploma.domain.models.Vacancy>(
+            delayMillis = 500L,
+            coroutineScope = lifecycleScope,
+            false
+        ) { vacancy ->
+            val action = FavoritesFragmentDirections.actionFavoritesToVacancyDetails(vacancy.id)
+            findNavController().navigate(action)
+        }
+        SearchAdapter(onVacancyClick)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,16 +59,6 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        val onVacancyClick = debounce<ru.practicum.android.diploma.domain.models.Vacancy>(
-            delayMillis = 500L,
-            coroutineScope = lifecycleScope,
-            false
-        ) { vacancy ->
-            val action = FavoritesFragmentDirections.actionFavoritesToVacancyDetails(vacancy.id)
-            findNavController().navigate(action)
-        }
-
-        adapter = SearchAdapter(onVacancyClick)
         binding.recyclerViewFavorites.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewFavorites.adapter = adapter
     }
