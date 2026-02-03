@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.search.SearchVacanciesRepositoryImpl
 import ru.practicum.android.diploma.data.vacancy.FavoritesRepositoryImpl
@@ -13,7 +14,7 @@ val repositoryModule = module {
         SearchVacanciesRepositoryImpl(get())
     }
     single<VacancyDetailsRepository> {
-        VacancyDetailsRepositoryImpl(get())
+        VacancyDetailsRepositoryImpl(get(), get(), androidContext())
     }
     factory<FavoritesRepository> {
         FavoritesRepositoryImpl(get())

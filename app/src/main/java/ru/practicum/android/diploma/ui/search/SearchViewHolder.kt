@@ -11,6 +11,11 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchViewHolder(private val binding: ItemVacancyBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Vacancy) {
+        if (!item.displayName.isNullOrEmpty()) {
+            item.displayName
+        } else {
+            "${item.name}, ${item.city ?: item.areaName}"
+        }
         binding.nameAreaName.text = item.displayName
         binding.industryName.text = item.employerName
         binding.salary.text = item.salaryTitle

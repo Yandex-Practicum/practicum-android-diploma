@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.data.vacancy
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.db.VacancyDao
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
 import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
@@ -11,11 +12,19 @@ import ru.practicum.android.diploma.data.search.VacancyDtoMapper
 import ru.practicum.android.diploma.domain.api.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.models.VacancyDetailsError
 import ru.practicum.android.diploma.domain.models.VacancyDetailsSearchResult
+import ru.practicum.android.diploma.util.isConnected
 
 class VacancyDetailsRepositoryImpl(
-    private val networkClient: NetworkClient
+    private val networkClient: NetworkClient,
+    private val vacancyDao: VacancyDao,
+    private val context: android.content.Context
 ) : VacancyDetailsRepository {
     override suspend fun getVacancyDetails(id: String): VacancyDetailsSearchResult = withContext(Dispatchers.IO) {
+        // Проверяем наличие интернета
+        if (!isConnected(context)) {
+            // Нет интернета - пытаемся получить вакансию из локальной БД
+            return@withContext getVacancyFromDatabase(id)
+        }
         val response: Response = networkClient.doRequest(VacancyDetailsRequest(id))
 
         when (response.resultCode) {
@@ -26,7 +35,7 @@ class VacancyDetailsRepositoryImpl(
             }
 
             NetworkCodes.NO_NETWORK_CODE -> {
-                VacancyDetailsSearchResult(null, VacancyDetailsError.Network)
+                getVacancyFromDatabase(id)
             }
 
             NetworkCodes.NOT_FOUND_CODE -> {
@@ -36,6 +45,27 @@ class VacancyDetailsRepositoryImpl(
             else -> {
                 VacancyDetailsSearchResult(null, VacancyDetailsError.Server)
             }
+        }
+    }
+
+    private suspend fun getVacancyFromDatabase(id: String): VacancyDetailsSearchResult {
+        return try {
+            // Пытаемся получить вакансию из таблицы избранных
+            val vacancyEntity = vacancyDao.getVacancyById(id)
+
+            if (vacancyEntity != null) {
+                // Вакансия найдена в БД - конвертируем в доменную модель
+                val vacancy = vacancyEntity.toDomain()
+                // Убираем логотип для оффлайн просмотра (ставим null)
+                val vacancyWithoutLogo = vacancy.copy(logoUrl = null)
+                VacancyDetailsSearchResult(vacancyWithoutLogo, null)
+            } else {
+                // Вакансия не найдена в БД
+                VacancyDetailsSearchResult(null, VacancyDetailsError.Network)
+            }
+        } catch (_: Exception) {
+            // Ошибка при чтении из БД
+            VacancyDetailsSearchResult(null, VacancyDetailsError.Server)
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.search.SearchAdapter
 import ru.practicum.android.diploma.util.debounce
 
@@ -22,7 +23,7 @@ class FavoritesFragment : Fragment() {
     private val viewModel: FavoritesViewModel by viewModel()
 
     private val adapter: SearchAdapter by lazy {
-        val onVacancyClick = debounce<ru.practicum.android.diploma.domain.models.Vacancy>(
+        val onVacancyClick = debounce<Vacancy>(
             delayMillis = 500L,
             coroutineScope = lifecycleScope,
             false
@@ -95,7 +96,7 @@ class FavoritesFragment : Fragment() {
         binding.recyclerViewFavorites.visibility = View.GONE
     }
 
-    private fun showContent(vacancies: List<ru.practicum.android.diploma.domain.models.Vacancy>) {
+    private fun showContent(vacancies: List<Vacancy>) {
         binding.placeholderFavorites.visibility = View.GONE
         binding.textImageCaptionFavorites.visibility = View.GONE
         binding.recyclerViewFavorites.visibility = View.VISIBLE
