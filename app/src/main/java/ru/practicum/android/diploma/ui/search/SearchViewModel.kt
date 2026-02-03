@@ -169,7 +169,14 @@ class SearchViewModel(private val searchVacanciesInteractor: SearchVacanciesInte
             )
             hasShownPagingErrorToast = true
         }
-        _searchStateLiveData.value = SearchState.Error(ErrorType.fromCode(result.errorCode))
+        if (loadedVacancies.isEmpty()) {
+            _searchStateLiveData.value = SearchState.Error(ErrorType.fromCode(result.errorCode))
+        } else {
+            _searchStateLiveData.value = SearchState.Content(
+                vacancies = loadedVacancies.toList(),
+                totalFound = totalFoundFromApi
+            )
+        }
     }
 
     fun isFirstPage(): Boolean = currentPage == PAGES_START
