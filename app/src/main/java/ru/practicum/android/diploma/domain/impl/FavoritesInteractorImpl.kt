@@ -24,4 +24,8 @@ class FavoritesInteractorImpl(
             true
         }
     }
+
+    override suspend fun getAllFavorites(): List<Vacancy> {
+        return repository.getAllFavorites()
+    }
 }
