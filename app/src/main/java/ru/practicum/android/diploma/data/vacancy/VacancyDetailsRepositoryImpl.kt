@@ -51,7 +51,6 @@ class VacancyDetailsRepositoryImpl(
         }
     }
 
-
     private suspend fun getVacancyFromDatabase(id: String): VacancyDetailsSearchResult {
         return try {
             val vacancyEntity = vacancyDao.getVacancyById(id)
