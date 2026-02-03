@@ -75,3 +75,12 @@ fun FragmentVacancyBinding.showContent(hasSkills: Boolean) {
     skillsTitle.isVisible = hasSkills
     skillsText.isVisible = hasSkills
 }
+
+fun FragmentVacancyBinding.renderFavorite(isFavorite: Boolean) {
+    val iconRes = if (isFavorite) {
+        R.drawable.ic_favorites_on_red_24
+    } else {
+        R.drawable.ic_favorites_off_24
+    }
+    buttonLike.setImageResource(iconRes)
+}
