@@ -57,6 +57,7 @@
         <item name="android:textAppearance">@style/TextAppearance.Regular16</item>
         <item name="android:textColorHint">?attr/customEditTextHintColor</item>
         <item name="android:background">@drawable/edit_text_field</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_light</item>
     </style>
 
     <style name="TextAppearance.Bold32" parent="@android:style/TextAppearance">
