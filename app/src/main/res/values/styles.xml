@@ -14,7 +14,7 @@
     </style>
 
     <style name="BottomNavText" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:lineSpacingExtra">0dp</item>
+        <item name="android:lineSpacingExtra">@dimen/indent_0</item>
     </style>
 
     <style name="TextAppearance.Medium22" parent="@android:style/TextAppearance">
@@ -57,6 +57,7 @@
         <item name="android:textAppearance">@style/TextAppearance.Regular16</item>
         <item name="android:textColorHint">?attr/customEditTextHintColor</item>
         <item name="android:background">@drawable/edit_text_field</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_light</item>
     </style>
 
     <style name="TextAppearance.Bold32" parent="@android:style/TextAppearance">
@@ -72,6 +73,9 @@
     <style name="TeamMember">
         <item name="android:textColor">?colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Medium16</item>
+        <item name="android:layout_width">@dimen/indent_0</item>
+        <item name="android:layout_height">@dimen/dp_20</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="VacancySectionSubtitle">

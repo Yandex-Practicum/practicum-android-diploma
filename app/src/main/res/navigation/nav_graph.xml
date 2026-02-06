@@ -8,7 +8,7 @@
     <!-- Экран поиска вакансий -->
     <fragment
         android:id="@+id/searchFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.SearchFragment"
+        android:name="ru.practicum.android.diploma.ui.search.SearchFragment"
         android:label="@string/search_vacancies"
         tools:layout="@layout/fragment_search">
 
@@ -24,7 +24,7 @@
     <!-- Экран фильтра -->
     <fragment
         android:id="@+id/filterFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.FilterFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.FilterFragment"
         android:label="@string/filter_settings"
         tools:layout="@layout/fragment_filter">
 
@@ -38,7 +38,7 @@
     <!-- Экран вакансии (детали одной вакансии)-->
     <fragment
         android:id="@+id/vacancyDetailsFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.VacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancy.VacancyFragment"
         android:label="@string/vacancy"
         tools:layout="@layout/fragment_vacancy">
 
@@ -50,7 +50,7 @@
     <!-- Экран избранного -->
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.FavoritesFragment"
+        android:name="ru.practicum.android.diploma.ui.favorites.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites">
 
@@ -62,7 +62,7 @@
     <!-- Экран Команда -->
     <fragment
         android:id="@+id/teamFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.TeamFragment"
+        android:name="ru.practicum.android.diploma.ui.team.TeamFragment"
         android:label="@string/team"
         tools:layout="@layout/fragment_team" />
 

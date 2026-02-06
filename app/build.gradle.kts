@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.navigation.safe.args)
+    id("kotlin-parcelize")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -66,6 +67,7 @@ dependencies {
     // Room (ksp вместо kapt)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.core)
     ksp(libs.room.compiler)
 
     // Glide

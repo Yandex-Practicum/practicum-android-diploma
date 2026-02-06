@@ -3,6 +3,7 @@
     <string name="app_name">Practicum-Android-Diploma</string>
 
     <!-- Названия для BottomNavigationView и заголовки экранов-->
+    <string name="main">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
 
@@ -29,15 +30,15 @@
     <string name="search_results_are_empty">Ничего не найдено</string>
     <string name="no_internet">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
-    <string name="load_list_error">Не удалось получить список вакансий</string>
+    <string name="load_list_error">Не удалось получить\nсписок вакансий</string>
     <string name="no_vacancy">Таких вакансий нет</string>
     <string name="experience_title">Требуемый опыт</string>
     <string name="vacancy_description_title">Описание вакансии</string>
     <string name="skills_title">Ключевые навыки</string>
     <string name="contacts_title">Контакты</string>
-    <string name="error_unable_to_retr_vac_list">Не удалось получить список вакансий</string>
+    <string name="error_unable_to_retr_vac_list">Не удалось получить\nсписок вакансий</string>
     <string name="error_empty_vacancy_list">Cписок пуст</string>
-    <string name="vacancy_not_found">Вакансия не найдена или удалена </string>
+    <string name="vacancy_not_found">Вакансия не найдена или\nудалена </string>
     <string name="salary_not_specified">Зарплата не указана </string>
     <string name="check_internet_connection">Проверьте подключение к интернету</string>
     <string name="error_occurred">Произошла ошибка</string>
@@ -54,4 +55,7 @@
     <string name="region">Pегион</string>
     <string name="select">Выбрать</string>
     <string name="back">Назад</string>
+    <string name="duties">Обязанности</string>
+    <string name="requirements">Требования</string>
+    <string name="conditions">Условия</string>
 </resources>

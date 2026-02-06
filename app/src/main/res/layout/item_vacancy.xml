@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_9"
+    android:paddingBottom="@dimen/dp_9">
+
+    <ImageView
+        android:id="@+id/company_image"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_area_name"
+        style="@style/TextAppearance.Medium22"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/company_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Андроид разработчик в курупную IT компанию, Москва" />
+
+    <TextView
+        android:id="@+id/industry_name"
+        style="@style/TextAppearance.Regular16"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/name_area_name"
+        app:layout_constraintTop_toBottomOf="@+id/name_area_name"
+        tools:text="Еда" />
+
+    <TextView
+        android:id="@+id/salary"
+        style="@style/TextAppearance.Regular16"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/industry_name"
+        app:layout_constraintTop_toBottomOf="@+id/industry_name"
+        tools:text="от 3 000 $" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

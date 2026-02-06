@@ -27,6 +27,7 @@ navigation = "2.7.6"
 lifecycle = "2.6.2"
 coroutines = "1.7.3"
 fragmentKtx = "1.6.2"
+core = "1.13.1"
 
 [libraries]
 
@@ -88,6 +89,7 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+core = { group = "androidx.core", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
