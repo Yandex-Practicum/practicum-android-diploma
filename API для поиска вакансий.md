@@ -5,9 +5,9 @@
 
 ## Документация
 
-С документацией к API для поиска вакансией можно ознакомиться по [этой ссылке](https://practicum-diploma-8bc38133faba.herokuapp.com/docs).
+С документацией к API для поиска вакансией можно ознакомиться по [этой ссылке](https://android-diploma.education-services.ru/docs).
 
 
 ## Получение токена авторизации
 
-Токен для использования API можно получить по [этой ссылке](https://practicum-diploma-8bc38133faba.herokuapp.com/login).
+Токен для использования API можно получить по [этой ссылке](https://android-diploma.education-services.ru/login).

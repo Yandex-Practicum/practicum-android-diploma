@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -27,32 +29,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
     buildFeatures {
         buildConfig = true
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
 dependencies {
-    implementation(libs.androidX.core)
-    implementation(libs.androidX.appCompat)
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
 
     // UI layer libraries
-    implementation(libs.ui.material)
-    implementation(libs.ui.constraintLayout)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
 
-    // region Unit tests
-    testImplementation(libs.unitTests.junit)
-    // endregion
-
-    // region UI tests
-    androidTestImplementation(libs.uiTests.junitExt)
-    androidTestImplementation(libs.uiTests.espressoCore)
-    // endregion
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso.core)
 }
