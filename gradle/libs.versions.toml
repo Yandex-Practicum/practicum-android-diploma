@@ -1,42 +1,49 @@
 [versions]
 
-# Build constants
 compileSdk = "36"
 java = "VERSION_17"
 material = "1.13.0"
 minSdk = "26"
-targetSdk = "33"
-
-# AndroidX
+targetSdk = "36"
 appcompat = "1.7.1"
+activity = "1.13.0"
+compiler = "5.0.5"
 constraintlayout = "2.2.1"
 coreKtx = "1.18.0"
-
-# Testing
+fragmentKtx = "1.8.9"
+koinAndroid = "3.5.6"
+navigationFragmentKtx = "2.9.7"
+kotlinxCoroutinesAndroid = "1.10.2"
+retrofit = "3.0.0"
+roomRuntime = "2.8.4"
 espressoCore = "3.5.1"
 junit4 = "4.13.2"
 junitExt = "1.1.5"
-
-# Static analysis
 detekt = "1.23.8"
 detektTwitterComposeRules = "0.0.26"
 
 [libraries]
-
-# AndroidX
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
-
-# UI
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "compiler" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
-# Testing
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
-
-# Static analysis
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektFormatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }

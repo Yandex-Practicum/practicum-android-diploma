@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -50,6 +51,28 @@ dependencies {
     // UI layer libraries
     implementation(libs.material)
     implementation(libs.constraintlayout)
+
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    implementation(libs.koin.android)
+
+    implementation(libs.androidx.fragment.ktx)
+
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    implementation(libs.androidx.activity)
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit.ext)

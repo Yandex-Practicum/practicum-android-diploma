@@ -1,6 +1,6 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-rootProject.name = "Practicum-Android-Diploma"
+rootProject.name = "Practicum-Aggregator"
 
 pluginManagement {
     repositories {
