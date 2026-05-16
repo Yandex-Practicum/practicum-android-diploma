@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.dto
 
-open class Response() {
-    var resultCode: Int = 0
-}
+data class Response<T>(
+    val data: T?,
+    var resultCode: Int = 0,
+)

@@ -1,18 +1,28 @@
 package ru.practicum.android.diploma.di
 
 import com.google.gson.Gson
+import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
+import ru.practicum.android.diploma.data.UserDataRepositoryImpl
 import ru.practicum.android.diploma.data.network.ApiService
+import ru.practicum.android.diploma.data.network.AuthInterceptor
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.domain.api.UserDataRepository
 
 val dataModule = module {
 
+    single<OkHttpClient> {
+        OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(get()))
+            .build()
+    }
+
     single<ApiService> {
         Retrofit.Builder()
-            .baseUrl("baseUrl: https://android-diploma.education-services.ru")
+            .baseUrl("https://android-diploma.education-services.ru")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
@@ -22,6 +32,10 @@ val dataModule = module {
 
     single<NetworkClient> {
         RetrofitNetworkClient(get(), get())
+    }
+
+    single<UserDataRepository> {
+        UserDataRepositoryImpl()
     }
 
 }

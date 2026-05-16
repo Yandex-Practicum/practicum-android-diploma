@@ -1,34 +1,28 @@
 package ru.practicum.android.diploma.data.network
 
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.data.dto.area.AreasResponse
-import ru.practicum.android.diploma.data.dto.industry.IndustriesResponse
-import ru.practicum.android.diploma.data.dto.vacancy.VacanciesResponse
-import ru.practicum.android.diploma.data.dto.vacancy.VacancyDetailsResponse
+import ru.practicum.android.diploma.data.dto.FilterAreaDto
+import ru.practicum.android.diploma.data.dto.FilterIndustryDto
+import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.VacanciesResponse
+import ru.practicum.android.diploma.data.dto.VacancyDetailDto
 
 interface ApiService {
     @GET("/areas")
-    suspend fun getAreas(
-        @Header("Authorization") token: String
-    ): AreasResponse
+    suspend fun getAreas(): Response<List<FilterAreaDto>>
 
     @GET("/industries")
-    suspend fun getIndustries(
-        @Header("Authorization") token: String
-    ): IndustriesResponse
+    suspend fun getIndustries(): Response<List<FilterIndustryDto>>
 
     @GET("/vacancies")
     suspend fun getVacancies(
-        @Header("Authorization") token: String,
         @QueryMap options: Map<String, String>
-    ): VacanciesResponse
+    ): Response<VacanciesResponse>
 
     @GET("/vacancies/{id}")
     suspend fun getVacancyDetails(
-        @Header("Authorization") token: String,
         @Path("id") id: String
-    ): VacancyDetailsResponse
+    ): Response<VacancyDetailDto>
 }
