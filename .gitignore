@@ -1,49 +1,109 @@
-# IntelliJ
+# =========================
+# IntelliJ / Android Studio
+# =========================
+.idea/
 *.iml
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/kotlinc.xml
-/.idea/gradle.xml
-/.idea/compiler.xml
-/.idea/misc.xml
+*.iws
+*.ipr
 
-# Gradle files
+# =========================
+# Gradle
+# =========================
 .gradle/
 build/
+**/build/
 out/
+!gradle/wrapper/gradle-wrapper.jar
 
-# Local configuration file (sdk path, etc)
+# =========================
+# Local config
+# =========================
 local.properties
 develop.properties
+*.properties.local
 
-# Gradle-profiler data
-profile-out*/
-gradle-user-home/
-*.hprof
-
-# Android Studio generated files and folders
+# =========================
+# Android generated
+# =========================
 captures/
 .externalNativeBuild/
 .cxx/
 output.json
+lint-results*.html
+lint-results*.xml
+lint-results*.sarif
 
-# Built application files
+# =========================
+# APK / AAB / build artifacts
+# =========================
 *.apk
-*.aar
 *.ap_
 *.aab
+*.aar
+*.jar
+*.war
 
-# Keystore files
+# =========================
+# Keystore / signing
+# =========================
 *.jks
 *.keystore
+*.p12
+*.pem
+*.key
+keystore.properties
+signing.properties
 
-# Google Services (e.g. APIs or Firebase)
+# =========================
+# Google / Firebase / Secrets
+# =========================
 google-services.json
+GoogleService-Info.plist
+firebase-*.json
+secrets.properties
+apikey.properties
 
-# OS specific
-.DS_Store
+# =========================
+# Kotlin / Java
+# =========================
+*.class
+*.dex
+*.kotlin_module
+
+# =========================
+# Logs / crash / profiling
+# =========================
 *.log
+*.hprof
+profile-out*/
+gradle-user-home/
+
+# =========================
+# Tests / coverage
+# =========================
+coverage/
+.ec/
+jacoco.exec
+*.exec
+
+# =========================
+# Native / CMake
+# =========================
+.cxx/
+.externalNativeBuild/
+cmake-build-*/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Misc
+# =========================
+*.tmp
+*.temp
+*.swp
+*.swo
