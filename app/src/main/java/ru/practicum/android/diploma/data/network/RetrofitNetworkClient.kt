@@ -29,7 +29,7 @@ class RetrofitNetworkClient(
                     is IndustriesRequest -> apiService.getIndustries()
                     else -> return@withContext Response(data = null, resultCode = 400)
                 }
-                Response(data = response.data, resultCode = 200)
+                Response(data = response, resultCode = 200)
             } catch (e: IOException) {
                 Response(data = null, resultCode = -1)
             } catch (e: HttpException) {
