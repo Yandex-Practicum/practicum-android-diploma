@@ -54,4 +54,11 @@ dependencies {
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+
+    //Data layer
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+
+    //DI
+    implementation(libs.koin)
 }
