@@ -57,6 +57,7 @@ dependencies {
     // UI layer libraries
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.androidx.compose.runtime)
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit.ext)
