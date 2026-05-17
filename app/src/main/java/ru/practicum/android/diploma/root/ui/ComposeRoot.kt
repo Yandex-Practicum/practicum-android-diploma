@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root
+package ru.practicum.android.diploma.root.ui
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
