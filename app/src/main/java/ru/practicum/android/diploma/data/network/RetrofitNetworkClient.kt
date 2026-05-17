@@ -23,7 +23,7 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is VacanciesRequest -> apiService.getVacancies(options = dto.toMap())
+                    is VacanciesRequest -> apiService.getVacancies(dto.toMap())
                     is VacancyDetailsRequest -> apiService.getVacancyDetails(dto.id)
                     is AreasRequest -> apiService.getAreas()
                     is IndustriesRequest -> apiService.getIndustries()
