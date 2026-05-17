@@ -45,6 +45,7 @@ composeMaterial3= "1.4.0"
 
 #Coil
 coil = "3.4.0"
+runtime = "1.11.1"
 
 
 [libraries]
@@ -106,6 +107,7 @@ androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compo
 #Coil
 coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"}
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil"}
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
