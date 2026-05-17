@@ -12,7 +12,7 @@ class AuthInterceptor(private val userDataRepository: UserDataRepository) : Inte
 
         val requestBuilder = if (token != null) {
             originalRequest.newBuilder()
-                .header("Authorization", "Bearer ${token}")
+                .header("Authorization", "Bearer $token")
         } else {
             Log.e("AuthInterceptor", "Token is null")
             originalRequest.newBuilder()

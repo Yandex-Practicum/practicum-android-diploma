@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.data.dto
 
-data class VacancyDetailDto (
+data class VacancyDetailDto(
     val id: String,
     val name: String,
-    val description: String,// (HTML),
+    val description: String, // (HTML),
     val salary: Salary?,
     val address: Address?,
     val experience: Experience?,
@@ -17,13 +17,13 @@ data class VacancyDetailDto (
     val industry: FilterIndustryDto
 )
 
-data class Salary (
+data class Salary(
     val from: Int?,
     val to: Int?,
     val currency: String?
 )
 
-data class Address (
+data class Address(
     val id: String,
     val city: String,
     val street: String,
@@ -31,28 +31,29 @@ data class Address (
     val raw: String
 )
 
-data class Experience (
+data class Experience(
     val id: String,
     val name: String
 )
 
-data class Schedule (
+data class Schedule(
     val id: String,
     val name: String
 )
 
-data class Employment (
+data class Employment(
     val id: String,
     val name: String
 )
-data class Contacts (
+
+data class Contacts(
     val id: String,
     val name: String,
     val email: String,
     val phones: Array<Phone>
 )
 
-data class Phone (
+data class Phone(
     val comment: String?,
     val formatted: String
 )

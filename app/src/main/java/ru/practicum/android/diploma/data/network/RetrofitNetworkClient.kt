@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -27,10 +28,15 @@ class RetrofitNetworkClient(
                     is VacancyDetailsRequest -> apiService.getVacancyDetails(dto.id)
                     is AreasRequest -> apiService.getAreas()
                     is IndustriesRequest -> apiService.getIndustries()
-                    else -> return@withContext Response(data = null, resultCode = 400)
+                    else -> null
                 }
-                Response(data = response, resultCode = 200)
+                if (response == null) {
+                    Response(data = null, resultCode = 400)
+                } else {
+                    Response(data = response, resultCode = 200)
+                }
             } catch (e: IOException) {
+                Log.w(TAG, "Network request failed", e)
                 Response(data = null, resultCode = -1)
             } catch (e: HttpException) {
                 Response(data = null, resultCode = e.code())
@@ -40,15 +46,17 @@ class RetrofitNetworkClient(
 
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            Context.CONNECTIVITY_SERVICE,
+        ) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
-            }
-        }
-        return false
+        return capabilities != null && (
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+            )
+    }
+
+    private companion object {
+        const val TAG = "RetrofitNetworkClient"
     }
 }
