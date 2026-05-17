@@ -62,27 +62,27 @@ dependencies {
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
 
-    //Network
+    // Network
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    //DI
+    // DI
     implementation(libs.koin)
 
-    //Coroutines
+    // Coroutines
     implementation(libs.coroutines)
 
-    //DataBase
+    // DataBase
     implementation(libs.room.runtime)
 
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
-    //coil
+    // coil
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
 
-    //compose
+    // compose
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
