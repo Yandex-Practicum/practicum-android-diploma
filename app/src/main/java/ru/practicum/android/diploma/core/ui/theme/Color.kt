@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber") // Hex color literals are the source of truth for design tokens.
 
-package ru.practicum.android.diploma.ui.theme
+package ru.practicum.android.diploma.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,10 +1,10 @@
-package ru.practicum.android.diploma.ui.root
+package ru.practicum.android.diploma.root.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import ru.practicum.android.diploma.ui.theme.AppTheme
+import ru.practicum.android.diploma.core.ui.theme.AppTheme
 
 @Composable
 fun ComposeRoot() {

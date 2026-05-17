@@ -6,9 +6,9 @@
 
 | Файл | Что внутри |
 |---|---|
-| `app/src/main/java/ru/practicum/android/diploma/ui/theme/Color.kt` | Все цвета палитры из Figma как Compose `Color` |
-| `app/src/main/java/ru/practicum/android/diploma/ui/theme/Type.kt` | Шрифт `YS Display` и `AppTypography` со слотами Material 3 |
-| `app/src/main/java/ru/practicum/android/diploma/ui/theme/Theme.kt` | `AppTheme` — обёртка `MaterialTheme` со светлой и тёмной схемами |
+| `app/src/main/java/ru/practicum/android/diploma/core/ui/theme/Color.kt` | Все цвета палитры из Figma как Compose `Color` |
+| `app/src/main/java/ru/practicum/android/diploma/core/ui/theme/Type.kt` | Шрифт `YS Display` и `AppTypography` со слотами Material 3 |
+| `app/src/main/java/ru/practicum/android/diploma/core/ui/theme/Theme.kt` | `AppTheme` — обёртка `MaterialTheme` со светлой и тёмной схемами |
 | `app/src/main/res/font/ys_display_*.ttf` | TTF-файлы шрифта YS Display (Regular / Medium / Bold) |
 | `app/src/main/res/values/themes.xml` | XML-тема `Theme.PracticumAndroidDiploma` — наследник `Theme.Material3.DayNight.NoActionBar`, без кастомизации |
 | `app/src/main/res/values-night/themes.xml` | То же для тёмной темы (`-night` qualifier) |
@@ -173,7 +173,7 @@ private fun GoodPreview() { AppTheme { MyComponent() } }
    val Orange = Color(0xFFFF6F00)
    ```
 2. (По возможности) подбери ему слот Material 3 в `lightColorScheme` / `darkColorScheme` в `Theme.kt` — например, `secondary` или `tertiary`.
-3. Используй через `MaterialTheme.colorScheme.secondary`. Если слот не подошёл по смыслу — импортируй напрямую `import ru.practicum.android.diploma.ui.theme.Orange` (но это редкий случай).
+3. Используй через `MaterialTheme.colorScheme.secondary`. Если слот не подошёл по смыслу — импортируй напрямую `import ru.practicum.android.diploma.core.ui.theme.Orange` (но это редкий случай).
 4. В XML-теме цвета не дублируем — она намеренно минимальная (см. секцию «Что добавлено в проекте»).
 
 ## Вопросы
