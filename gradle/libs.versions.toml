@@ -32,6 +32,7 @@ retrofit = "3.0.0"
 
 #DI
 koin = "4.1.1"
+firebaseCrashlyticsBuildtools = "3.0.7"
 
 [libraries]
 
@@ -51,6 +52,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 #Data
 retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 retrofit-converter = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 
 #DI
 koin = {group = "io.insert-koin", name = "koin-android", version.ref = "koin"}
