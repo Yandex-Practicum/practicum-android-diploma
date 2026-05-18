@@ -6,25 +6,24 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
-class CurrencyFormatter(val context: Context)  {
+class CurrencyFormatter(val context: Context) {
     fun format(
         from: Int?,
         to: Int?,
         currency: String?
     ): String {
-
         var currencySymbol = when (currency?.uppercase()) {
             "RUR", "RUB" -> "₽"
-            "BYR"       -> "Br"
-            "USD"       -> "$"
-            "EUR"       -> "€"
-            "KZT"       -> "₸"
-            "UAH"       -> "₴"
-            "AZN"       -> "₼"
-            "UZS"       -> "сум"
-            "GEL"       -> "₾"
-            "KGT"       -> "сом"
-            else        -> currency ?: ""
+            "BYR" -> "Br"
+            "USD" -> "$"
+            "EUR" -> "€"
+            "KZT" -> "₸"
+            "UAH" -> "₴"
+            "AZN" -> "₼"
+            "UZS" -> "сум"
+            "GEL" -> "₾"
+            "KGT" -> "сом"
+            else -> currency ?: ""
         }
 
         var result = ""

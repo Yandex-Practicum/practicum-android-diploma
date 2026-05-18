@@ -5,7 +5,6 @@ import app.cash.turbine.test
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -19,7 +18,7 @@ import ru.practicum.android.diploma.core.data.repository.ConnectivityRepositoryI
 class ConnectivityRepositoryImplTest {
     private lateinit var mockConnectivityManager: ConnectivityManager
     private lateinit var mockNetwork: Network
-    private lateinit var  networkRequestMock: NetworkRequest
+    private lateinit var networkRequestMock: NetworkRequest
     private lateinit var mockCapabilities: NetworkCapabilities
 
     private lateinit var repository: ConnectivityRepositoryImpl
@@ -67,7 +66,7 @@ class ConnectivityRepositoryImplTest {
         assert(!result) { "Expected false when capability is absent" }
     }
 
-    @Test fun `observe emits current state and updates on callbacks`()  = runTest {
+    @Test fun `observe emits current state and updates on callbacks`() = runTest {
         every { mockConnectivityManager.activeNetwork } returns mockNetwork
         every { mockConnectivityManager.getNetworkCapabilities(mockNetwork) } returns mockCapabilities
         every { mockCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns true

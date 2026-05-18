@@ -31,25 +31,27 @@ class DebounceTests {
         debounced(2)
         advanceTimeBy(DELAY_MILLIS / 2)
         debounced(3)
-        advanceTimeBy(DELAY_MILLIS+1)
+        advanceTimeBy(DELAY_MILLIS + 1)
 
         assertEquals(listOf(3), log)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @Test fun `debounce does not call callback if interval too short`() = runTest {
+    @Test
+    fun `debounce does not call callback if interval too short`() = runTest {
         val (debounced, log) = debounceWithLog<Unit>(this, DELAY_MILLIS)
 
         debounced(Unit)
-        advanceTimeBy(DELAY_MILLIS / 2)   // < delay
+        advanceTimeBy(DELAY_MILLIS / 2) // < delay
         debounced(Unit)
-        advanceTimeBy(DELAY_MILLIS / 2)   // < delay
+        advanceTimeBy(DELAY_MILLIS / 2) // < delay
 
         assertTrue(log.isEmpty())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @Test fun `debounce works with different types`() = runTest {
+    @Test
+    fun `debounce works with different types`() = runTest {
         // Int
         val (debouncedInt, logInt) = debounceWithLog<Int>(this, DELAY_MILLIS)
         debouncedInt(10)
