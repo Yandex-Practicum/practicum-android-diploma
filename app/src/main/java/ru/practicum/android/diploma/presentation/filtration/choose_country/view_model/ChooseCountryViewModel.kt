@@ -3,5 +3,4 @@ package ru.practicum.android.diploma.presentation.filtration.choose_country.view
 import androidx.lifecycle.ViewModel
 
 class ChooseCountryViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
 }

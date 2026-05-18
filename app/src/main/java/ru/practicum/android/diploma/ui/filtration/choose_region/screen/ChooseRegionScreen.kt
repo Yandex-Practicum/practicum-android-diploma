@@ -4,5 +4,5 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ChooseRegion(modifier: Modifier = Modifier) {
+fun ChooseRegionScreen(modifier: Modifier = Modifier) {
 }

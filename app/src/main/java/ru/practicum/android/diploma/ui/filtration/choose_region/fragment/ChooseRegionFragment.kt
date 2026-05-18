@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.ui.filtration.choose_region.screen.ChooseRegion
+import ru.practicum.android.diploma.ui.filtration.choose_region.screen.ChooseRegionScreen
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
 class ChooseRegionFragment : Fragment() {
@@ -19,7 +19,7 @@ class ChooseRegionFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 AppTheme {
-                    ChooseRegion(
+                    ChooseRegionScreen(
                     )
                 }
             }
