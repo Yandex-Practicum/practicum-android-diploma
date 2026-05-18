@@ -3,14 +3,12 @@ package ru.practicum.android.diploma.core.data
 import android.content.Context
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 
-
-class CurrencyFormatterTest() {
+class CurrencyFormatterTests {
     val context = mockk<Context>()
 
     private val formatter = CurrencyFormatter(context)
@@ -37,7 +35,7 @@ class CurrencyFormatterTest() {
     }
 
     @Test fun `return right currency`() {
-        data class TestData <A, B, C, D>(
+        data class TestData<A, B, C, D>(
             val from: A,
             val to: B,
             val cur: C,
@@ -56,9 +54,9 @@ class CurrencyFormatterTest() {
             TestData(1000, 2000, "kgt", "от 1 000 до 2 000 сом")
         )
 
-        testCases.forEach { (from, to, cur, expected) ->
-            val result = formatter.format(from, to, cur)
-            assertEquals(expected, result)
+        testCases.forEach { data ->
+            val result = formatter.format(data.from, data.to, data.cur)
+            assertEquals(data.expected, result)
         }
     }
 
@@ -77,7 +75,7 @@ class CurrencyFormatterTest() {
     }
 
     @Test fun `return in right format`() {
-        data class TestData <A, B, C, D>(
+        data class TestData<A, B, C, D>(
             val from: A,
             val to: B,
             val cur: C,
@@ -90,9 +88,9 @@ class CurrencyFormatterTest() {
             TestData(1000000, 2000000000, "RUR", "от 1 000 000 до 2 000 000 000 ₽"),
         )
 
-        testCases.forEach { (from, to, cur, expected) ->
-            val result = formatter.format(from, to, cur)
-            assertEquals(expected, result)
+        testCases.forEach { data ->
+            val result = formatter.format(data.from, data.to, data.cur)
+            assertEquals(data.expected, result)
         }
     }
 }

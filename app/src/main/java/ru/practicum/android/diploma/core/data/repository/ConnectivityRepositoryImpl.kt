@@ -3,10 +3,8 @@ package ru.practicum.android.diploma.core.data.repository
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onCompletion
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
 
