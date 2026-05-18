@@ -23,6 +23,7 @@ val dataModule = module {
     single<ApiService> {
         Retrofit.Builder()
             .baseUrl("https://android-diploma.education-services.ru")
+            .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)

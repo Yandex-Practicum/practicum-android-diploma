@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.dto
 data class VacancyDetailDto(
     val id: String,
     val name: String,
-    val description: String, // (HTML),
+    val description: String,
     val salary: Salary?,
     val address: Address?,
     val experience: Experience?,
@@ -12,7 +12,7 @@ data class VacancyDetailDto(
     val contacts: Contacts?,
     val employer: Employer,
     val area: FilterAreaDto,
-    val skills: Array<String>,
+    val skills: List<String>?,
     val url: String,
     val industry: FilterIndustryDto
 )
@@ -50,7 +50,7 @@ data class Contacts(
     val id: String,
     val name: String,
     val email: String,
-    val phones: Array<Phone>
+    val phones: List<Phone>
 )
 
 data class Phone(
