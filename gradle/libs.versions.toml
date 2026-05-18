@@ -32,7 +32,6 @@ retrofit = "3.0.0"
 
 #DI
 koin = "4.1.1"
-firebaseCrashlyticsBuildtools = "3.0.7"
 
 [libraries]
 
@@ -77,6 +76,5 @@ ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 [plugins]
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 
 [bundles]
