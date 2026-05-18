@@ -9,8 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.core.data.database.AppDatabase
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.NetworkClientImpl
-import ru.practicum.android.diploma.core.data.network.NetworkConnectivity
-import ru.practicum.android.diploma.core.data.network.NetworkConnectivityImpl
+import ru.practicum.android.diploma.core.util.NetworkConnectivity
+import ru.practicum.android.diploma.core.util.NetworkConnectivityImpl
 
 private const val BASE_URL = "https://android-diploma.education-services.ru/"
 private const val DBNAME = "diploma.db"
