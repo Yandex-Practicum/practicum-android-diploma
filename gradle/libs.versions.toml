@@ -12,6 +12,9 @@ appcompat = "1.7.1"
 constraintlayout = "2.2.1"
 coreKtx = "1.18.0"
 
+# Coroutines
+coroutines = "1.10.2"
+
 # Testing
 espressoCore = "3.5.1"
 junit4 = "4.13.2"
@@ -27,6 +30,9 @@ detektTwitterComposeRules = "0.0.26"
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 # UI
 material = { module = "com.google.android.material:material", version.ref = "material" }

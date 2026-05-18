@@ -51,7 +51,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
 
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
     testImplementation(libs.junit4)
+    testImplementation(libs.coroutines.test)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
 }
