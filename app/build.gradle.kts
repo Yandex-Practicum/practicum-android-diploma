@@ -55,7 +55,11 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.crashlytics.buildtools)
 
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
     testImplementation(libs.junit4)
+    testImplementation(libs.coroutines.test)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
 
