@@ -6,4 +6,3 @@ import androidx.compose.ui.Modifier
 @Composable
 fun FavoritesScreen(modifier: Modifier = Modifier) {
 }
-

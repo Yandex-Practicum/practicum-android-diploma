@@ -2,5 +2,4 @@ package ru.practicum.android.diploma.presentation.filtration.choose_region.view_
 
 import androidx.lifecycle.ViewModel
 
-class ChooseRegionViewModel : ViewModel() {
-}
+class ChooseRegionViewModel : ViewModel()
