@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/jobSearchFragment">
 
     <fragment
         android:id="@+id/jobSearchFragment"
         android:name="ru.practicum.android.diploma.ui.job_search.fragment.JobSearchFragment"
-        android:label="fragment_job_search"
-        tools:layout="@layout/fragment_job_search" >
+        android:label="fragment_job_search">
         <action
             android:id="@+id/action_jobSearchFragment_to_filtrationFragment"
             app:destination="@id/filtrationFragment" />
@@ -20,18 +18,15 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="ru.practicum.android.diploma.ui.favorites.fragment.FavoritesFragment"
-        android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        android:label="fragment_favorites" />
     <fragment
         android:id="@+id/teamFragment"
-        android:name="ru.practicum.android.diploma.ui.team.TeamFragment"
-        android:label="fragment_team"
-        tools:layout="@layout/fragment_team" />
+        android:name="ru.practicum.android.diploma.ui.team.fragment.TeamFragment"
+        android:label="fragment_team" />
     <fragment
         android:id="@+id/filtrationFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.FiltrationFragment"
-        android:label="fragment_filtration"
-        tools:layout="@layout/fragment_filtration" >
+        android:name="ru.practicum.android.diploma.ui.filtration.fragment.FiltrationFragment"
+        android:label="fragment_filtration">
         <action
             android:id="@+id/action_filtrationFragment_to_placeOfWorkFragment"
             app:destination="@id/placeOfWorkFragment" />
@@ -41,9 +36,8 @@
     </fragment>
     <fragment
         android:id="@+id/placeOfWorkFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.place_of_work.PlaceOfWorkFragment"
-        android:label="fragment_place_of_work"
-        tools:layout="@layout/fragment_place_of_work" >
+        android:name="ru.practicum.android.diploma.ui.filtration.place_of_work.fragment.PlaceOfWorkFragment"
+        android:label="fragment_place_of_work">
         <action
             android:id="@+id/action_placeOfWorkFragment_to_chooseCountryFragment"
             app:destination="@id/chooseCountryFragment" />
@@ -53,22 +47,18 @@
     </fragment>
     <fragment
         android:id="@+id/chooseCountryFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.choose_country.ChooseCountryFragment"
-        android:label="fragment_choose_country"
-        tools:layout="@layout/fragment_choose_country" />
+        android:name="ru.practicum.android.diploma.ui.filtration.choose_country.fragment.ChooseCountryFragment"
+        android:label="fragment_choose_country" />
     <fragment
         android:id="@+id/chooseRegionFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.choose_region.ChooseRegionFragment"
-        android:label="fragment_choose_region"
-        tools:layout="@layout/fragment_choose_region" />
+        android:name="ru.practicum.android.diploma.ui.filtration.choose_region.fragment.ChooseRegionFragment"
+        android:label="fragment_choose_region" />
     <fragment
         android:id="@+id/industrySelectionFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.industry_selection.IndustrySelectionFragment"
-        android:label="fragment_industry_selection"
-        tools:layout="@layout/fragment_industry_selection" />
+        android:name="ru.practicum.android.diploma.ui.filtration.industry_selection.fragment.IndustrySelectionFragment"
+        android:label="fragment_industry_selection" />
     <fragment
         android:id="@+id/vacancyFragment"
-        android:name="ru.practicum.android.diploma.ui.vacancy.VacancyFragment"
-        android:label="fragment_vacancy"
-        tools:layout="@layout/fragment_vacancy" />
+        android:name="ru.practicum.android.diploma.ui.vacancy.fragment.VacancyFragment"
+        android:label="fragment_vacancy" />
 </navigation>

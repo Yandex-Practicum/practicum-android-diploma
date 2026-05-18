@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.job_search.fragment
+package ru.practicum.android.diploma.ui.filtration.choose_country.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.ui.job_search.screen.JobSearchScreen
+import ru.practicum.android.diploma.ui.filtration.choose_country.screen.ChooseCountryScreen
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
-class JobSearchFragment : Fragment() {
+class ChooseCountryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -19,7 +19,7 @@ class JobSearchFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 AppTheme {
-                    JobSearchScreen(
+                    ChooseCountryScreen(
                     )
                 }
             }

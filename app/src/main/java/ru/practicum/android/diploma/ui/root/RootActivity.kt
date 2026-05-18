@@ -3,9 +3,7 @@ package ru.practicum.android.diploma.ui.root
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.util.applySystemBarsPadding
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,25 +39,12 @@ class RootActivity : AppCompatActivity() {
 
                 else -> bottomNavigationView.isVisible = false
             }
-
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(fragmentContainerView) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            view.setPadding(
-                0,
-                systemBars.top,
-                0,
-                if (!bottomNavigationView.isVisible) systemBars.bottom else 0
-            )
-
-            insets
-        }
+        fragmentContainerView.applySystemBarsPadding(bottomNavigationView)
     }
 
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
-
 }

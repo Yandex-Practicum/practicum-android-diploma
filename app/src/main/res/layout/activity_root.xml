@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/background"
@@ -19,6 +20,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/background"
@@ -26,8 +28,8 @@
         app:itemBackground="@android:color/transparent"
         app:itemIconTint="@color/bottom_nav_colors"
         app:itemRippleColor="@android:color/transparent"
-        app:itemTextColor="@color/bottom_nav_colors"
         app:itemTextAppearanceActive="@style/Regular12"
         app:itemTextAppearanceInactive="@style/Regular12"
+        app:itemTextColor="@color/bottom_nav_colors"
         app:menu="@menu/bottom_navigation_view" />
 </LinearLayout>
