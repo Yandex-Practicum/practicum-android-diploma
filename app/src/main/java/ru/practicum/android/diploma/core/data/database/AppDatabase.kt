@@ -11,6 +11,6 @@ import ru.practicum.android.diploma.favorites.data.dto.FavoriteVacancyEntity
         FavoriteVacancyEntity::class
     ]
 )
-abstract class AppDatabase : RoomDatabase()  {
-    abstract fun FavoriteVacancyDao() : FavoriteVacancyDao
+abstract class AppDatabase: RoomDatabase()  {
+    abstract fun FavoriteVacancyDao(): FavoriteVacancyDao
 }

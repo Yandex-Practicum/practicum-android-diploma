@@ -6,7 +6,8 @@ import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.core.di.coreModule
 
 class App: Application() {
-    override fun onCreate(){
+
+    override fun onCreate() {
         super.onCreate()
 
         startKoin {
@@ -14,4 +15,5 @@ class App: Application() {
             modules(coreModule)
         }
     }
+
 }
