@@ -37,5 +37,4 @@ val dataModule = module {
     single<UserDataRepository> {
         UserDataRepositoryImpl()
     }
-
 }

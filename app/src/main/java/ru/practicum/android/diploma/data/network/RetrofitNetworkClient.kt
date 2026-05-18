@@ -1,23 +1,21 @@
 package ru.practicum.android.diploma.data.network
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.util.NetworkConnectionChecker
 import java.io.IOException
 
 class RetrofitNetworkClient(
     private val apiService: ApiService,
-    private val context: Context
+    private val networkConnectionChecker: NetworkConnectionChecker
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response<out Any> {
-        if (!isConnected()) {
+        if (!networkConnectionChecker.isConnected()) {
             return Response(data = null, resultCode = -1)
         }
 
@@ -42,18 +40,6 @@ class RetrofitNetworkClient(
                 Response(data = null, resultCode = e.code())
             }
         }
-    }
-
-    private fun isConnected(): Boolean {
-        val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE,
-        ) as ConnectivityManager
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return capabilities != null && (
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
-            )
     }
 
     private companion object {
