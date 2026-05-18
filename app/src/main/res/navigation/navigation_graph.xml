@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/jobSearchFragment"
-        android:name="ru.practicum.android.diploma.ui.job_search.fragment.JobSearchFragment"
+        android:name="ru.practicum.android.diploma.ui.search.fragment.JobSearchFragment"
         android:label="fragment_job_search">
         <action
             android:id="@+id/action_jobSearchFragment_to_filtrationFragment"
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/placeOfWorkFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.place_of_work.fragment.PlaceOfWorkFragment"
+        android:name="ru.practicum.android.diploma.ui.filtration.workplace.fragment.PlaceOfWorkFragment"
         android:label="fragment_place_of_work">
         <action
             android:id="@+id/action_placeOfWorkFragment_to_chooseCountryFragment"
@@ -47,15 +47,15 @@
     </fragment>
     <fragment
         android:id="@+id/chooseCountryFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.choose_country.fragment.ChooseCountryFragment"
+        android:name="ru.practicum.android.diploma.ui.filtration.country.fragment.ChooseCountryFragment"
         android:label="fragment_choose_country" />
     <fragment
         android:id="@+id/chooseRegionFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.choose_region.fragment.ChooseRegionFragment"
+        android:name="ru.practicum.android.diploma.ui.filtration.region.fragment.ChooseRegionFragment"
         android:label="fragment_choose_region" />
     <fragment
         android:id="@+id/industrySelectionFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.industry_selection.fragment.IndustrySelectionFragment"
+        android:name="ru.practicum.android.diploma.ui.filtration.industry.fragment.IndustrySelectionFragment"
         android:label="fragment_industry_selection" />
     <fragment
         android:id="@+id/vacancyFragment"
