@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.serialization)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -99,4 +100,7 @@ dependencies {
 
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+
+    // serialization
+    implementation(libs.kotlinx.serialization.json)
 }

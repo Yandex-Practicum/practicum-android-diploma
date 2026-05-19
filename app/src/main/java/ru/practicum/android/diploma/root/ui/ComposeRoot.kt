@@ -1,14 +1,18 @@
 package ru.practicum.android.diploma.root.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import ru.practicum.android.diploma.core.ui.navigation.NavGraph
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 
 @Composable
 fun ComposeRoot() {
-    Text("Root")
+    val navController = rememberNavController()
+    AppTheme {
+        NavGraph(navController)
+    }
 }
 
 @Preview(name = "Light", showBackground = true)
