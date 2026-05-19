@@ -19,4 +19,3 @@ class App : Application() {
         }
     }
 }
-
