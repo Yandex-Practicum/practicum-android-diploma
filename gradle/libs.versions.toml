@@ -27,6 +27,13 @@ junitExt = "1.1.5"
 detekt = "1.23.8"
 detektTwitterComposeRules = "0.0.26"
 
+#Data
+retrofit = "3.0.0"
+
+#DI
+koin = "4.1.1"
+firebaseCrashlyticsBuildtools = "3.0.7"
+
 [libraries]
 
 # AndroidX
@@ -41,6 +48,14 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 # UI
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+
+#Data
+retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
+retrofit-converter = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
+
+#DI
+koin = {group = "io.insert-koin", name = "koin-android", version.ref = "koin"}
 
 # Testing
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }

@@ -12,6 +12,9 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
+        val apiToken = providers.gradleProperty("API_TOKEN")
+        buildConfigField("String", "API_TOKEN", "\"$apiToken\"")
+
         applicationId = "ru.practicum.android.diploma"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
@@ -52,6 +55,7 @@ dependencies {
     // UI layer libraries
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.crashlytics.buildtools)
 
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
@@ -70,4 +74,11 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.viewmodel.compose)
+
+    // Data layer
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+
+    // DI
+    implementation(libs.koin)
 }
