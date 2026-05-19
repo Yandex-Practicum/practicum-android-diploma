@@ -1,6 +1,7 @@
 [versions]
 
 # Build constants
+agp = "8.12.0"
 activityCompose = "1.10.0"
 compileSdk = "36"
 java = "VERSION_17"
@@ -9,11 +10,13 @@ material = "1.13.0"
 minSdk = "26"
 targetSdk = "33"
 kotlin = "2.3.21"
+ksp = "2.3.7"
 
 # AndroidX
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
 coreKtx = "1.18.0"
+navigation="2.9.0"
 
 # Coroutines
 coroutines = "1.10.2"
@@ -29,14 +32,20 @@ detektTwitterComposeRules = "0.0.26"
 
 #Data
 retrofit = "3.0.0"
+room="2.7.1"
 
 #DI
-koin = "4.1.1"
+koin = "4.0.2"
 firebaseCrashlyticsBuildtools = "3.0.7"
+
+#Compose
+compose-bom = "2026.04.01"
+coil = "3.1.0"
 
 [libraries]
 
 # AndroidX
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
@@ -50,12 +59,21 @@ lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
 #Data
-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
-retrofit-converter = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
 #DI
-koin = {group = "io.insert-koin", name = "koin-android", version.ref = "koin"}
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+
+#Compose
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 
 # Testing
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
@@ -71,12 +89,13 @@ staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektTest = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
-ui = { module = "androidx.compose.ui:ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 
 [plugins]
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]

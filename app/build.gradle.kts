@@ -1,10 +1,12 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("ru.practicum.android.diploma.plugins.developproperties")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+
+    id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
 android {
@@ -49,6 +51,7 @@ kotlin {
 }
 
 dependencies {
+    // Core
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
 
@@ -60,15 +63,9 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
 
-    testImplementation(libs.junit4)
-    testImplementation(libs.coroutines.test)
-    androidTestImplementation(libs.junit.ext)
-    androidTestImplementation(libs.espresso.core)
-
-    val composeBom = platform("androidx.compose:compose-bom:2026.04.01")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
-    implementation(libs.ui)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.coil)
+    implementation(libs.compose.ui)
     implementation(libs.material3)
     implementation(libs.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
@@ -79,6 +76,18 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
 
+    ksp(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+
     // DI
     implementation(libs.koin)
+
+    // Test
+    testImplementation(libs.junit4)
+    testImplementation(libs.coroutines.test)
+
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso.core)
 }
