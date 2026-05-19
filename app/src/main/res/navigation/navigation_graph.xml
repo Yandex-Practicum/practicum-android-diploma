@@ -55,7 +55,7 @@
         android:label="fragment_choose_region" />
     <fragment
         android:id="@+id/industrySelectionFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.industry.fragment.IndustrySelectionFragment"
+        android:name="ru.practicum.android.diploma.ui.filtration.industry.fragment.ChooseIndustryFragment"
         android:label="fragment_industry_selection" />
     <fragment
         android:id="@+id/vacancyFragment"
