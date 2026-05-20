@@ -9,4 +9,7 @@
     <string name="industry_screen_title">Выбор отрасли</string>
     <string name="favorites_screen_title">Избранное</string>
     <string name="team_screen_title">Команда</string>
+    <string name="search_tab">Главная</string>
+    <string name="favorites_tab">Избранное</string>
+    <string name="team_tab">Команда</string>
 </resources>
