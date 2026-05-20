@@ -9,4 +9,5 @@
     <string name="industry_screen_title">Выбор отрасли</string>
     <string name="favorites_screen_title">Избранное</string>
     <string name="team_screen_title">Команда</string>
+    <string name="salary_empty">Зарплата не указана</string>
 </resources>
