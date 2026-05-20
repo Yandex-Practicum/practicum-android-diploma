@@ -6,7 +6,6 @@ import retrofit2.Retrofit
 class NetworkClientImpl(private val retrofit: Retrofit, private val okHttpClient: OkHttpClient) : NetworkClient {
 
     override suspend fun doRequest(dtoRequest: Any) {
-        TODO("Not yet implemented")
     }
 
 }
