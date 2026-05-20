@@ -18,6 +18,9 @@ coreKtx = "1.18.0"
 espressoCore = "3.5.1"
 junit4 = "4.13.2"
 junitExt = "1.1.5"
+mockk = "1.13.10"
+coroutinesTest = "1.7.3"
+cashTurbine = "0.12.1"
 
 # Static analysis
 detekt = "1.23.8"
@@ -62,6 +65,9 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+cash-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "cashTurbine" }
 
 # Static analysis
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
