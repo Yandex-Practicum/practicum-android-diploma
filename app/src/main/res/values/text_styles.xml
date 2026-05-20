@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Regular12">
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+</resources>

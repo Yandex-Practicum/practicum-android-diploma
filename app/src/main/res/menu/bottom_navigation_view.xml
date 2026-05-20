@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/jobSearchFragment"
+        android:icon="@drawable/ic_main_24"
+        android:title="@string/main" />
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/ic_favorites_24"
+        android:title="@string/favorites" />
+    <item
+        android:id="@+id/teamFragment"
+        android:icon="@drawable/ic_team_24"
+        android:title="@string/team" />
+
+</menu>

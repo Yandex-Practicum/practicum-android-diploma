@@ -14,8 +14,6 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        val apiToken = providers.gradleProperty("API_TOKEN")
-        buildConfigField("String", "API_TOKEN", "\"$apiToken\"")
 
         applicationId = "ru.practicum.android.diploma"
         minSdk = libs.versions.minSdk.get().toInt()
@@ -54,6 +52,9 @@ dependencies {
     // Core
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     // UI layer libraries
     implementation(libs.material)
@@ -66,6 +67,16 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.coil)
     implementation(libs.compose.ui)
+
+    testImplementation(libs.junit4)
+    testImplementation(libs.coroutines.test)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso.core)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.material.v180)
+
     implementation(libs.material3)
     implementation(libs.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
