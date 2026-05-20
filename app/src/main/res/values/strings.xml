@@ -12,4 +12,5 @@
     <string name="search_tab">Главная</string>
     <string name="favorites_tab">Избранное</string>
     <string name="team_tab">Команда</string>
+    <string name="salary_empty">Зарплата не указана</string>
 </resources>
