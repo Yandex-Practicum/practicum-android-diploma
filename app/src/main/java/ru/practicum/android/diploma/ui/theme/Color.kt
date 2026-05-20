@@ -2,13 +2,21 @@ package ru.practicum.android.diploma.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Black = Color(0xFF1A1B22)
-val White = Color(0xFFFDFDFD)
-val Blue = Color(0xFF3772E7)
-val Red = Color(0xFFF56B6C)
-val Grey = Color(0xFFAEAFB4)
-val LightGrey = Color(0xFFE6E8EB)
-val Background = Color(0xFF1A1B22).copy(alpha = 0.5f)
+private const val HEX_BLACK = 0xFF1A1B22
+private const val HEX_WHITE = 0xFFFDFDFD
+private const val HEX_BLUE = 0xFF3772E7
+private const val HEX_RED = 0xFFF56B6C
+private const val HEX_GREY = 0xFFAEAFB4
+private const val HEX_LIGHT_GREY = 0xFFE6E8EB
+private const val BACKGROUND_OVERLAY_ALPHA = 0.5f
+
+val Black = Color(HEX_BLACK)
+val White = Color(HEX_WHITE)
+val Blue = Color(HEX_BLUE)
+val Red = Color(HEX_RED)
+val Grey = Color(HEX_GREY)
+val LightGrey = Color(HEX_LIGHT_GREY)
+val Background = Color(HEX_BLACK).copy(alpha = BACKGROUND_OVERLAY_ALPHA)
 
 val LightPrimary = Blue
 val LightOnPrimary = White
