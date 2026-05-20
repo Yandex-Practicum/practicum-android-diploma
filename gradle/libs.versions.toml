@@ -2,6 +2,7 @@
 agp = "8.12.3"
 kotlin = "2.2.0"
 
+
 # Build constants
 compileSdk = "36"
 java = "VERSION_17"
@@ -50,6 +51,9 @@ composeMaterial3= "1.4.0"
 coil = "3.4.0"
 runtime = "1.11.1"
 
+#Serialization
+serialization = "2.2.0"
+kotlinxSerialization = "1.7.0"
 
 [libraries]
 
@@ -115,11 +119,15 @@ coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil"}
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
+#Serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidx-room = { id = "androidx.room", version.ref = "roomVersion" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
 
 [bundles]
