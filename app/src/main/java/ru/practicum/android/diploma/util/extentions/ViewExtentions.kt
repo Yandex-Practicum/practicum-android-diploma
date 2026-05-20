@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.util
+package ru.practicum.android.diploma.util.extentions
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
