@@ -31,14 +31,14 @@ fun TopAppBar(
         title = {
             Text(
                 text = title,
-                fontStyle = MaterialTheme.typography.headlineMedium.fontStyle
+                style = MaterialTheme.typography.headlineMedium
             )
         },
         navigationIcon = {
             if (onBack != null) {
                 IconButton(onClick = { onBack() }) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_arrow_back_24px),
+                        painter = painterResource(R.drawable.ic_core_arrow_back),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onBackground
                     )
@@ -63,7 +63,7 @@ private fun TopAppBarPreview() {
                 actions = {
                     IconButton(onClick = {}) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_arrow_back_24px),
+                            painter = painterResource(id = R.drawable.ic_core_arrow_back),
                             contentDescription = null
                         )
                     }

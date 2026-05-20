@@ -6,7 +6,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,7 +34,6 @@ fun Stub(@DrawableRes iconId: Int, @StringRes descriptionId: Int? = null) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
         )
 
         descriptionId?.let {
@@ -45,7 +43,7 @@ fun Stub(@DrawableRes iconId: Int, @StringRes descriptionId: Int? = null) {
                 modifier = Modifier
                     .fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
-                fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
+                style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center
             )
         }
@@ -59,7 +57,7 @@ fun Stub(@DrawableRes iconId: Int, @StringRes descriptionId: Int? = null) {
 private fun StubPreview() {
     AppTheme {
         Column {
-            Stub(R.drawable.ic_launcher_background, R.string.app_name)
+            Stub(R.drawable.image_core_stub_not_found, R.string.search_error_not_found)
         }
     }
 }
