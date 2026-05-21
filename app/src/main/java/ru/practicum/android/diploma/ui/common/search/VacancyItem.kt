@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.common
+package ru.practicum.android.diploma.ui.common.search
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -21,18 +21,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
 import coil3.compose.AsyncImage
-
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.mocks.MocData
 import ru.practicum.android.diploma.ui.theme.AppTheme
 import ru.practicum.android.diploma.util.extentions.formatDescription
 import ru.practicum.android.diploma.util.extentions.formatSalary
 
 @Composable
-fun VacancyItem(modifier: Modifier = Modifier, vacancy: Vacancy, onClick: () -> Unit = {}) {
+fun VacancyItem(
+    modifier: Modifier = Modifier,
+    vacancy: Vacancy,
+    onClick: () -> Unit = {}
+) {
     val vacancyDescription = vacancy.formatDescription()
     val salary = vacancy.salary.formatSalary()
     val imageModifier = Modifier
@@ -93,21 +95,10 @@ fun VacancyItem(modifier: Modifier = Modifier, vacancy: Vacancy, onClick: () -> 
     }
 }
 
-private const val SALARY_FROM = 10_000
-private const val SALARY_TO = 20_000
-private val vacancyCard: Vacancy = Vacancy(
-    id = "wfwe",
-    name = "Android-разработчик",
-    company = "Еда",
-    city = "Мoсква",
-    salary = Salary(SALARY_FROM, SALARY_TO, "Р"),
-    logo = null
-)
-
 @Preview(showSystemUi = true)
 @Composable
 private fun VacancyItemPreview() {
     AppTheme {
-        VacancyItem(modifier = Modifier.fillMaxWidth(), vacancyCard)
+        VacancyItem(modifier = Modifier.fillMaxWidth(), MocData.vacancy)
     }
 }
