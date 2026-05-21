@@ -66,6 +66,38 @@
     <string name="favorites_empty">Список пуст</string>
     <string name="favorites_error">Не удалось получить список вакансий</string>
     
+    <string-array name="stub_vacancy_titles">
+        <item>Android-разработчик</item>
+        <item>Разработчик платформы данных</item>
+        <item>Java-разработчик</item>
+        <item>Разработчик на С++ в команду внутренних сервисов</item>
+        <item>Разработчик бэкенда</item>
+    </string-array>
+
+    <string-array name="stub_vacancy_cities">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Омск</item>
+        <item>Москва</item>
+        <item>Москва</item>
+    </string-array>
+
+    <string-array name="stub_vacancy_companies">
+        <item>Еда</item>
+        <item>Алиса</item>
+        <item>Маркет</item>
+        <item>Авто.ру</item>
+        <item>Разработчик бэкенда, Москва</item>
+    </string-array>
+
+    <string-array name="stub_vacancy_salaries">
+        <item>от 100 000 ₽</item>
+        <item>от 1 500 $</item>
+        <item>Зарплата не указана</item>
+        <item>от 1 000 до 1 500 €</item>
+        <item>ЗП не указана</item>
+    </string-array>
+
     <string name="team_title">Команда</string>
     <string-array name="team_members">
         <item>Павел Мичка</item>
