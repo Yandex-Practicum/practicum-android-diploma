@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.ui.search.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.common.BadgeItem
@@ -25,20 +28,26 @@ fun JobSearchScreen(modifier: Modifier = Modifier, vacancies: List<Vacancy>, onC
             .padding(vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BadgeItem(modifier = Modifier.padding(top = 4.dp, bottom = 8.dp), vacancyAmount = 295)
-        LazyColumn {
-            items(
-                items = vacancies,
-                key = { it.id }
-            ) { vacancy ->
-                VacancyItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .animateItem(),
-                    vacancy,
-                    onClick = onClick
-                )
+        Box(contentAlignment = Alignment.TopCenter) {
+            LazyColumn(contentPadding = PaddingValues(top = 38.dp)) {
+                items(
+                    items = vacancies,
+                    key = { it.id }
+                ) { vacancy ->
+                    VacancyItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .animateItem(),
+                        vacancy,
+                        onClick = onClick
+                    )
+                }
             }
+            BadgeItem(
+                modifier = Modifier
+                    .padding(top = 4.dp, bottom = 8.dp).zIndex(1f),
+                vacancyAmount = 295
+            )
         }
     }
 }
