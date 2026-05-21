@@ -92,8 +92,10 @@ private fun SearchContent(state: SearchViewState, onNavigateToVacancy: (String) 
         is SearchViewState.Data -> {
             val content = state.vacancies
             Chip(content.count())
-            Spacer(height = Dimens.padding8)
-            VacancyList(content) { vacancy ->
+            VacancyList(
+                content,
+                modifier = Modifier.padding(top = Dimens.padding8)
+            ) { vacancy ->
                 onNavigateToVacancy(vacancy.id)
             }
         }
