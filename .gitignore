@@ -15,6 +15,7 @@
 /.idea/deploymentTargetSelector.xml
 /.idea/markdown.xml
 /.idea/runConfigurations.xml
+/.idea/deviceManager.xml
 
 # Gradle files
 .gradle/

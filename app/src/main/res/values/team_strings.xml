@@ -1,0 +1,9 @@
+<resources>
+    <string name="team_title">Над приложением работали</string>
+    <string-array name="team_developers">
+        <item>Вадим Кривенок</item>
+        <item>Кира Богова</item>
+        <item>Юрий Арестов</item>
+        <item>Александр Поплавский</item>
+    </string-array>
+</resources>
