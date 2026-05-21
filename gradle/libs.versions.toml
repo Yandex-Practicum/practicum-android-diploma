@@ -2,6 +2,7 @@
 agp = "8.12.3"
 kotlin = "2.2.0"
 
+
 # Build constants
 compileSdk = "36"
 java = "VERSION_17"
@@ -18,6 +19,9 @@ coreKtx = "1.18.0"
 espressoCore = "3.5.1"
 junit4 = "4.13.2"
 junitExt = "1.1.5"
+mockk = "1.13.10"
+coroutinesTest = "1.7.3"
+cashTurbine = "0.12.1"
 
 # Static analysis
 detekt = "1.23.8"
@@ -25,6 +29,7 @@ detektTwitterComposeRules = "0.0.26"
 
 #Network
 retrofit = "3.0.0"
+okhttpLogging = "4.12.0"
 
 #DI
 koin = "4.0.2"
@@ -47,6 +52,9 @@ composeMaterial3= "1.4.0"
 coil = "3.4.0"
 runtime = "1.11.1"
 
+#Serialization
+serialization = "2.2.0"
+kotlinxSerialization = "1.7.0"
 
 [libraries]
 
@@ -62,6 +70,9 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+cash-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "cashTurbine" }
 
 # Static analysis
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
@@ -76,6 +87,7 @@ staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules
 #Network
 retrofit =  { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLogging" }
 
 #DI
 koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
@@ -109,11 +121,15 @@ coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil"}
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
+#Serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidx-room = { id = "androidx.room", version.ref = "roomVersion" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
 
 [bundles]

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.serialization)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -58,14 +59,19 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.material3)
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.cash.turbine)
 
     // Network
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp.logging.interceptor)
 
     // DI
     implementation(libs.koin)
@@ -99,4 +105,7 @@ dependencies {
 
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+
+    // serialization
+    implementation(libs.kotlinx.serialization.json)
 }

@@ -167,6 +167,7 @@ empty-blocks:
     EmptyFunctionBlock:
         active: true
         ignoreOverridden: false
+        excludes: [ '**/mock/**']
     EmptyIfBlock:
         active: true
     EmptyInitBlock:
