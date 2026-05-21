@@ -76,7 +76,6 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 #DI
 koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
-koin-androidx-viewmodel = { group = "io.insert-koin", name = "koin-androidx-viewmodel", version.ref = "koin" }
 
 #Compose
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
