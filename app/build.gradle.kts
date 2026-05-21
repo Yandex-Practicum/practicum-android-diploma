@@ -93,6 +93,7 @@ dependencies {
 
     // DI
     implementation(libs.koin)
+    implementation(libs.koin.androidx.viewmodel)
 
     // Test
     testImplementation(libs.junit4)

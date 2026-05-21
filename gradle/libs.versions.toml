@@ -41,7 +41,7 @@ retrofit = "3.0.0"
 room="2.7.1"
 
 #DI
-koin = "4.0.2"
+koin = "4.1.1"
 firebaseCrashlyticsBuildtools = "3.0.7"
 
 #Compose
@@ -76,6 +76,7 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 #DI
 koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-viewmodel = { group = "io.insert-koin", name = "koin-androidx-viewmodel", version.ref = "koin" }
 
 #Compose
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
