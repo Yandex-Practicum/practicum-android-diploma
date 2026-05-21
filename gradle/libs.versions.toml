@@ -29,6 +29,7 @@ detektTwitterComposeRules = "0.0.26"
 
 #Network
 retrofit = "3.0.0"
+okhttpLogging = "4.12.0"
 
 #DI
 koin = "4.0.2"
@@ -86,6 +87,7 @@ staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules
 #Network
 retrofit =  { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLogging" }
 
 #DI
 koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
