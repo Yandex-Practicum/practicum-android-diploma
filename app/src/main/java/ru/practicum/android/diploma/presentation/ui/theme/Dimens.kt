@@ -38,14 +38,14 @@ object Dimens {
 // Использование: salary.currency.toCurrencySymbol() → "₽", "$" и т.д.
 fun String?.toCurrencySymbol(): String = when (this) {
     "RUR", "RUB" -> "₽"
-    "BYR"        -> "Br"
-    "USD"        -> "$"
-    "EUR"        -> "€"
-    "KZT"        -> "₸"
-    "UAH"        -> "₴"
-    "AZN"        -> "₼"
-    "UZS"        -> "сум"
-    "GEL"        -> "₾"
-    "KGT"        -> "сом"
-    else         -> this.orEmpty()
+    "BYR" -> "Br"
+    "USD" -> "$"
+    "EUR" -> "€"
+    "KZT" -> "₸"
+    "UAH" -> "₴"
+    "AZN" -> "₼"
+    "UZS" -> "сум"
+    "GEL" -> "₾"
+    "KGT" -> "сом"
+    else -> this.orEmpty()
 }
