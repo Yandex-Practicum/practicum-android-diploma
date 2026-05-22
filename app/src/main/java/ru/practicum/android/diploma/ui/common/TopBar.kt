@@ -43,17 +43,12 @@ fun TopBar(
     ) {
         if(navIconVisible) {
             IconImage(R.drawable.ic_back)
+        } else {
+            Spacer(modifier = Modifier.width(16.dp))
         }
         Text(
             text = text,
-            style = TextStyle(
-                color = MaterialTheme.colorScheme.onBackground,
-                fontFamily = FontFamily(
-                    fonts = listOf(Font(R.font.ys_display_bold))
-                ),
-                fontSize = 22.sp,
-                fontWeight = FontWeight(500)
-            ),
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(start = 12.dp),
         )
         if (endFirstIconVisible || endSecondIconVisible) {

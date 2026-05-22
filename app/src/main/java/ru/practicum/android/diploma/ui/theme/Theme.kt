@@ -24,8 +24,8 @@ private val LightColors = lightColorScheme(
     surfaceVariant = LightSurfaceVariant,
     onSurfaceVariant = LightOnSurfaceVariant,
     error = LightError,
-    surfaceContainer = LightGrey, // поисковое поле
-    inverseOnSurface = Grey// текст хинта в поиске
+    surfaceContainer = LightSurfaceContainer,
+    inverseOnSurface = LightInversionOnSurface
 )
 
 private val DarkColors = darkColorScheme(
@@ -40,6 +40,6 @@ private val DarkColors = darkColorScheme(
     surfaceVariant = DarkSurfaceVariant,
     onSurfaceVariant = DarkOnSurfaceVariant,
     error = DarkError,
-    surfaceContainer = Grey, // поисковое поле
-    inverseOnSurface = White// текст хинта в поиске
+    surfaceContainer = DarkSurfaceContainer,
+    inverseOnSurface = DarkInversionOnSurface
 )

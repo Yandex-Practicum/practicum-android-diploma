@@ -20,6 +20,7 @@ appcompat = "1.7.1"
 constraintlayout = "2.2.1"
 coreKtx = "1.18.0"
 navigation="2.9.0"
+viewModel = "2.10.0"
 
 # Coroutines
 coroutines = "1.10.2"
@@ -59,6 +60,7 @@ core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+androidx-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModel" }
 
 # UI
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
