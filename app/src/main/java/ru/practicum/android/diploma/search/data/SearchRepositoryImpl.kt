@@ -11,11 +11,12 @@ import ru.practicum.android.diploma.core.data.network.ResultCode
 import ru.practicum.android.diploma.core.domain.models.SearchResult
 import ru.practicum.android.diploma.core.domain.models.Vacancy
 import ru.practicum.android.diploma.search.data.dto.SearchResponseDto
+import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import kotlin.collections.listOfNotNull
 
-class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context) {
+class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context): SearchRepository {
 
-    fun searchVacancies(
+    override fun searchVacancies(
         query: String,
         page: Int,
         perPage: Int,
