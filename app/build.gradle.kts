@@ -101,4 +101,5 @@ dependencies {
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+
 }

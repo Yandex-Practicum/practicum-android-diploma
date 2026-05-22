@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.ui.mocks.MocData
 fun VacancyList(
     modifier: Modifier = Modifier,
     vacancies: List<Vacancy>,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -41,5 +41,6 @@ fun VacancyList(
 private fun VacancyListPreview() {
     VacancyList(
         vacancies = MocData.vacancies,
+        onClick = {}
     )
 }
