@@ -7,10 +7,10 @@ class SearchInteractor(
     private val vacanciesRepository: VacanciesRepository,
 ) {
     suspend fun searchVacancies(query: String, page: Int = 0): SearchVacanciesOutcome {
-        val trimmedQuery = query.trim()
-        if (trimmedQuery.isEmpty()) {
+        val normalizedQuery = query.trim().lowercase()
+        if (normalizedQuery.isEmpty()) {
             return SearchVacanciesOutcome.Error
         }
-        return vacanciesRepository.searchVacancies(trimmedQuery, page)
+        return vacanciesRepository.searchVacancies(normalizedQuery, page)
     }
 }
