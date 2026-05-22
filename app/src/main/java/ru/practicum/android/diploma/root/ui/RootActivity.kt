@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.ui.theme.AppTheme
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +17,11 @@ class RootActivity : AppCompatActivity() {
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
 
-        setContent { ComposeRoot() }
+        setContent {
+            AppTheme {
+                ComposeRoot()
+            }
+        }
     }
 
     private fun networkRequestExample(accessToken: String) {
