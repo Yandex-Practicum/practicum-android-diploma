@@ -71,6 +71,7 @@ dependencies {
     // Network
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp.logging.interceptor)
 
     // DI
     implementation(libs.koin)
