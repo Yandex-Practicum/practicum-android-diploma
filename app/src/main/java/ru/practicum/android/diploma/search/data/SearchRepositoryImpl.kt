@@ -20,7 +20,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
         page: Int,
         perPage: Int,
         filters: Map<String, String>
-    ) : Flow<Resource<SearchResult>> = flow {
+    ): Flow<Resource<SearchResult>> = flow {
         val params = buildMap {
             put(PARAM_QUERY, query)
             put(PARAM_PAGE, page.toString())
