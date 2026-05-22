@@ -30,7 +30,7 @@ fun VacanciesContent(
                 )
                 BadgeItem(
                     modifier = Modifier
-                        .padding(top = 4.dp, bottom = 8.dp)
+                        .padding(top = 12.dp, bottom = 8.dp)
                         .zIndex(1f),
                     vacancyAmount = vacancyAmount
                 )
