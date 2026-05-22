@@ -10,4 +10,9 @@
     <string name="favorites_screen_title">Избранное</string>
     <string name="team_screen_title">Команда</string>
     <string name="salary_empty">Зарплата не указана</string>
+    <string name="no_internet_connection">Нет подключения к интернету</string>
+    <string name="server_error_please_try_again">Ошибка сервера. Попробуйте позже</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
 </resources>
