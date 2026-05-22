@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF1A1B22</color>
+    <color name="black_universal">#FF1A1B22</color>
+    <color name="white">#FFFDFDFD</color>
+    <color name="white_universal">#FFFDFDFD</color>
+    <color name="blue">#FF3772E7</color>
+    <color name="red">#FFF56B6C</color>
+    <color name="gray">#FFAEAFB4</color>
+    <color name="light_gray">#FFFDFDFD</color>
+    <color name="background_overlay">#801A1B22</color>
 </resources>

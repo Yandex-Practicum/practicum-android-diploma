@@ -1,3 +1,108 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name">Поиск вакансий</string>
+    
+    <string name="tab_main">Главная</string>
+    <string name="tab_favorites">Избранное</string>
+    <string name="tab_team">Команда</string>
+
+    <string name="search_title">Поиск вакансий</string>
+    <string name="search_hint">Введите запрос</string>
+    <string name="search_results_empty">Таких вакансий нет</string>
+    <plurals name="search_results_count">
+        <item quantity="one">Найдена %1$d вакансия</item>
+        <item quantity="few">Найдено %1$d вакансии</item>
+        <item quantity="many">Найдено %1$d вакансий</item>
+        <item quantity="other">Найдено %1$d вакансий</item>
+    </plurals>
+    <string name="search_no_results">Не удалось получить список вакансий</string>
+    <string name="search_error_no_internet">Нет интернета</string>
+    <string name="search_error_server">Ошибка сервера</string>
+
+    <string name="filter_title">Настройки фильтрации</string>
+    <string name="filter_workplace">Место работы</string>
+    <string name="filter_industry">Отрасль</string>
+    <string name="filter_salary">Ожидаемая зарплата</string>
+    <string name="filter_salary_hint">Введите сумму</string>
+    <string name="filter_hide_no_salary">Не показывать без зарплаты</string>
+    <string name="filter_apply">Применить</string>
+    <string name="filter_reset">Сбросить</string>
+    
+    <string name="filter_workplace_title">Выбор места работы</string>
+    <string name="filter_country">Страна</string>
+    <string name="filter_region">Регион</string>
+    <string name="filter_workplace_apply">Выбрать</string>
+
+    <string name="filter_country_title">Выбор страны</string>
+
+    <string name="filter_region_title">Выбор региона</string>
+    <string name="filter_region_hint">Введите регион</string>
+    <string name="filter_region_empty">Такого региона нет</string>
+    <string name="filter_region_error">Не удалось получить список</string>
+
+    <string name="filter_industry_title">Выбор отрасли</string>
+    <string name="filter_industry_hint">Введите отрасль</string>
+    <string name="filter_industry_apply">Выбрать</string>
+    
+    <string name="vacancy_title">Вакансия</string>
+    <string name="vacancy_salary_not_specified">Зарплата не указана</string>
+    <string name="vacancy_salary_from">от %1$s</string>
+    <string name="vacancy_salary_to">до %1$s</string>
+    <string name="vacancy_salary_from_to">от %1$s до %2$s</string>
+
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
+    <string name="vacancy_error_server">Ошибка сервера</string>
+    <string name="vacancy_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="vacancy_responsibilities">Обязанности</string>
+    <string name="vacancy_requirements">Требования</string>
+    <string name="vacancy_conditions">Условия</string>
+    <string name="vacancy_key_skills">Ключевые навыки</string>
+    <string name="vacancy_contacts">Контакты</string>
+    <string name="vacancy_contact_person">Контактное лицо</string>
+    <string name="vacancy_contact_email">E-mail</string>
+    <string name="vacancy_contact_phone">Телефон</string>
+
+    <string name="favorites_title">Избранное</string>
+    <string name="favorites_empty">Список пуст</string>
+    <string name="favorites_error">Не удалось получить список вакансий</string>
+    
+    <string-array name="stub_vacancy_titles">
+        <item>Android-разработчик</item>
+        <item>Разработчик платформы данных</item>
+        <item>Java-разработчик</item>
+        <item>Разработчик на С++ в команду внутренних сервисов</item>
+        <item>Разработчик бэкенда</item>
+    </string-array>
+
+    <string-array name="stub_vacancy_cities">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Омск</item>
+        <item>Москва</item>
+        <item>Москва</item>
+    </string-array>
+
+    <string-array name="stub_vacancy_companies">
+        <item>Еда</item>
+        <item>Алиса</item>
+        <item>Маркет</item>
+        <item>Авто.ру</item>
+        <item>Разработчик бэкенда, Москва</item>
+    </string-array>
+
+    <string-array name="stub_vacancy_salaries">
+        <item>от 100 000 ₽</item>
+        <item>от 1 500 $</item>
+        <item>Зарплата не указана</item>
+        <item>от 1 000 до 1 500 €</item>
+        <item>ЗП не указана</item>
+    </string-array>
+
+    <string name="team_title">Команда</string>
+    <string-array name="team_members">
+        <item>Павел Мичка</item>
+        <item>Сергей Иванов</item>
+        <item>Сергей Гнедовский</item>
+        <item>Даниил Квасников</item>
+    </string-array>
 </resources>
