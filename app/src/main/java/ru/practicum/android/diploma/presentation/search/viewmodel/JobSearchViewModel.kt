@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.impl.SearchInteractor
 import ru.practicum.android.diploma.domain.models.SearchVacanciesOutcome
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.util.SEARCH_DEBOUNCE_MS
 
@@ -27,6 +28,9 @@ class JobSearchViewModel(
 
     private val _state = MutableStateFlow<JobSearchState>(JobSearchState.Initial)
     val state: StateFlow<JobSearchState> = _state.asStateFlow()
+
+    private val _uiState = MutableStateFlow(SearchState())
+    val uiState: StateFlow<SearchState> = _uiState.asStateFlow()
 
     private var currentPage = 0
     private var maxPages = 0
@@ -124,4 +128,14 @@ class JobSearchViewModel(
         resetPagination()
         _state.value = JobSearchState.Initial
     }
+
+    data class SearchState(
+        val jobList: List<Vacancy> = emptyList(),
+        val selectedJob: Vacancy? = null,
+        val errorVisible: Boolean = false,
+        val recyclerVisible: Boolean = false,
+        val progressBarVisible: Boolean = false,
+        val errorText: String = "",
+        val errorIcon: Int = 0,
+    )
 }

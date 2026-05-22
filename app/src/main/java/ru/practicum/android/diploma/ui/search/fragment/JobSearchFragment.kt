@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.presentation.search.viewmodel.JobSearchViewModel
 import ru.practicum.android.diploma.ui.search.screen.JobSearchScreen
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
 class JobSearchFragment : Fragment() {
+
+    private val viewModel by viewModel<JobSearchViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,7 +25,10 @@ class JobSearchFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 AppTheme {
-                    JobSearchScreen()
+                    JobSearchScreen(
+                        viewModel = viewModel,
+                        onSearchTextChange = viewModel::onSearchQueryChanged,
+                    )
                 }
             }
         }

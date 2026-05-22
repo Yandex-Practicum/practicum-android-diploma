@@ -29,6 +29,8 @@ val LightOnSurface = Black
 val LightSurfaceVariant = LightGrey
 val LightOnSurfaceVariant = Grey
 val LightError = Red
+val LightSurfaceContainer = LightGrey
+val LightInversionOnSurface = Grey
 
 val DarkPrimary = Blue
 val DarkOnPrimary = White
@@ -41,3 +43,5 @@ val DarkOnSurface = White
 val DarkSurfaceVariant = LightGrey
 val DarkOnSurfaceVariant = Grey
 val DarkError = Red
+val DarkSurfaceContainer = Grey
+val DarkInversionOnSurface = White
