@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.common.BadgeItem
-import ru.practicum.android.diploma.ui.common.Loader
 import ru.practicum.android.diploma.ui.mocks.MocData
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
@@ -21,8 +20,6 @@ fun VacanciesContent(
     vacancies: List<Vacancy>,
     vacancyAmount: Int,
     onVacancyClick: () -> Unit,
-    onLoadNextPage: () -> Unit,
-    isLoading: Boolean = false
 ) {
     Column(modifier = modifier) {
         if (vacancies.isNotEmpty()) {
@@ -30,7 +27,6 @@ fun VacanciesContent(
                 VacancyList(
                     vacancies = vacancies,
                     onClick = onVacancyClick,
-                    onLoadNextPage = onLoadNextPage
                 )
                 BadgeItem(
                     modifier = Modifier
@@ -39,9 +35,6 @@ fun VacanciesContent(
                     vacancyAmount = vacancyAmount
                 )
             }
-        }
-        if (isLoading) {
-            Loader(modifier = Modifier.weight(1F))
         }
     }
 }
@@ -54,8 +47,6 @@ private fun VacanciesContentPreview() {
             vacancies = MocData.vacancies,
             vacancyAmount = MocData.VACANCY_AMOUNT,
             onVacancyClick = {},
-            onLoadNextPage = {},
-            isLoading = true
         )
     }
 }
