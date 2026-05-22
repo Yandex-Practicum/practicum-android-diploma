@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun TopBar(
@@ -35,7 +36,7 @@ fun TopBar(
         if (navIconVisible) {
             IconImage(R.drawable.ic_back)
         } else {
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(Dimens.ScreenHorizontalPadding))
         }
         Text(
             text = text,

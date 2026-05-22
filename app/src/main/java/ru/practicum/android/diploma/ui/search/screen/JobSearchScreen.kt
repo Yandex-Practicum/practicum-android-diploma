@@ -39,6 +39,7 @@ import ru.practicum.android.diploma.presentation.search.viewmodel.JobSearchViewM
 import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.theme.Blue
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun JobSearchScreen(
@@ -76,7 +77,11 @@ fun JobSearchScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, top = 8.dp, end = 16.dp)
+                    .padding(
+                        start = Dimens.ScreenHorizontalPadding,
+                        top = 8.dp,
+                        end = Dimens.ScreenHorizontalPadding,
+                    )
                     .height(56.dp)
                     .clip(fieldShape)
                     .background(MaterialTheme.colorScheme.surfaceContainer),
