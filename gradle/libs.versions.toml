@@ -41,7 +41,7 @@ retrofit = "3.0.0"
 room="2.7.1"
 
 #DI
-koin = "4.0.2"
+koin = "4.1.1"
 firebaseCrashlyticsBuildtools = "3.0.7"
 
 #Compose
