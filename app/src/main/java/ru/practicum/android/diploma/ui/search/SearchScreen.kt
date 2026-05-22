@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,11 +47,14 @@ import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.theme.AppTheme
 import ru.practicum.android.diploma.ui.theme.Blue
+import kotlin.collections.get
 
 @Composable
 fun SearchScreen(
     searchText: String = "",
     errorVisible: Boolean = false,
+    progressVisible: Boolean = false,
+    itemsListVisible: Boolean = false,
 //  viewModel: VacancySearchViewModel,
 //  onItemClick: (Vacancy) -> Unit,
 ) {
@@ -97,7 +103,7 @@ fun SearchScreen(
                 BasicTextField(
                     value = searchText,//uiState.text,
                     onValueChange = { newText ->
-                      // onSearchTextChange(newText)
+                        // onSearchTextChange(newText)
                     },
                     modifier = Modifier
                         .weight(1f)
@@ -139,12 +145,36 @@ fun SearchScreen(
                     modifier = Modifier.padding(end = 4.dp)
                 )
             }
-            ErrorChip(
-                iconId = R.drawable.no_internet_error,//uiState.errorIcon,
-                visible = errorVisible, //uiState.errorVisible,
-                textId = R.string.no_internet_error //uiState.errorText,
-            )
+            if (progressVisible)//(uiState.progressBarVisible) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(36.dp),
+                        color = Blue,
+                        strokeWidth = 3.dp,
+                    )
+                }
         }
+        if (itemsListVisible) {//(uiState.recyclerVisible) {
+            LazyColumn(
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+//                    items(uiState.resultList.size) { index ->
+//                        ItemCell(
+//                            track = uiState.resultList[index],
+//                            onClick = { onItemClick(uiState.resultList[index]) }
+//                        )
+//                    }
+            }
+        }
+        ErrorChip(
+            iconId = R.drawable.no_internet_error,//uiState.errorIcon,
+            visible = errorVisible, //uiState.errorVisible,
+            textId = R.string.no_internet_error //uiState.errorText,
+        )
     }
 }
 
@@ -153,16 +183,5 @@ fun SearchScreen(
 fun SearchScreenPreview() {
     AppTheme {
         SearchScreen()
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun SearchScreenErrorPreview() {
-    AppTheme {
-        SearchScreen(errorVisible = true)
-//      viewModel = VacancySearchViewModel(),
-//      items = emptyList<>(),
-//      onItemClick = {}
     }
 }
