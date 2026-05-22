@@ -26,10 +26,8 @@ class JobSearchFragment : Fragment() {
             setContent {
                 AppTheme {
                     JobSearchScreen(
-                        viewModel,
-                        {
-                            //TODO: onSearchTextChange
-                        },
+                        viewModel = viewModel,
+                        onSearchTextChange = viewModel::onSearchQueryChanged,
                     )
                 }
             }

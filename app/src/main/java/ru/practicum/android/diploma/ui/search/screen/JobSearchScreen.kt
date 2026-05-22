@@ -94,7 +94,7 @@ fun JobSearchScreen(
                         .focusRequester(focusRequester),
                     singleLine = true,
                     textStyle = MaterialTheme.typography.bodyMedium
-                        .copy( color = MaterialTheme.colorScheme.onBackground),
+                        .copy(color = MaterialTheme.colorScheme.onBackground),
                     cursorBrush = SolidColor(Blue),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -131,30 +131,3 @@ fun JobSearchScreen(
         }
     }
 }
-
-//private class VacanciesRepositoryMock : VacanciesRepository {
-//    override suspend fun searchVacancies(searchText: String, page: Int): SearchVacanciesOutcome {
-//        return SearchVacanciesOutcome.Empty
-//    }
-//}
-//
-//private class SearchInteractorMock : SearchInteractor(
-//    vacanciesRepository = VacanciesRepositoryMock()
-//) {
-//    override fun searchVacancies
-//}
-//
-//val vm = JobSearchViewModel(
-//
-//)
-
-//@Composable
-//@Preview(showBackground = true)
-//fun SearchScreenPreview() {
-//    AppTheme {
-//        JobSearchScreen(
-//            viewModel = JobSearchViewModel(),
-//            onSearchTextChange = {}
-//        )
-//    }
-//}
