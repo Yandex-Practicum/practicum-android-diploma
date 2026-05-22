@@ -53,9 +53,10 @@ val AppTypography = Typography(
     headlineLarge = Bold32,
     headlineMedium = Medium22,
     titleLarge = Medium22,
-    titleMedium = Medium16,
+    titleMedium = Regular16,
     bodyMedium = Regular16,
     bodySmall = Regular12,
     labelLarge = Medium16,
+    labelMedium = Regular16,
     labelSmall = Regular12,
 )

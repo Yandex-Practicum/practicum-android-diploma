@@ -1,10 +1,12 @@
 package ru.practicum.android.diploma.ui.search.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,8 +21,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,24 +33,29 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.presentation.search.viewmodel.JobSearchViewModel
+import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.TopBar
+import ru.practicum.android.diploma.ui.common.search.VacanciesContent
+import ru.practicum.android.diploma.ui.mocks.MocData
+import ru.practicum.android.diploma.ui.theme.AppTheme
 import ru.practicum.android.diploma.ui.theme.Blue
 import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun JobSearchScreen(
-    viewModel: JobSearchViewModel,
-    onSearchTextChange: (String) -> Unit
+    state: JobSearchState,
+    searchQuery: String,
+    onVacancyClick: () -> Unit,
+    onSearchTextChange: (String) -> Unit,
+    onClear: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
     val isPreview = LocalInspectionMode.current
-    val uiState by viewModel.uiState.collectAsState()
-    val searchQuery by viewModel.searchQuery.collectAsState()
     val interactionSource = remember { MutableInteractionSource() }
 
     LaunchedEffect(Unit) {
@@ -68,7 +73,8 @@ fun JobSearchScreen(
                 endFirstIconId = R.drawable.ic_filter,
                 endSecondIconVisible = false
             )
-        }
+        },
+        contentWindowInsets = WindowInsets(bottom = 0)
     ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
@@ -106,7 +112,9 @@ fun JobSearchScreen(
                         imeAction = ImeAction.Done
                     ),
                     keyboardActions = KeyboardActions(
-                        onDone = { keyboardController?.hide() }
+                        onDone = {
+                            keyboardController?.hide()
+                        }
                     ),
                     interactionSource = interactionSource,
                     decorationBox = { innerTextField ->
@@ -129,10 +137,52 @@ fun JobSearchScreen(
                     }
                 )
                 IconImage(
+                    modifier = Modifier
+                        .padding(end = 4.dp)
+                        .clickable(enabled = true, onClick = onClear),
                     resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
-                    modifier = Modifier.padding(end = 4.dp)
                 )
             }
+            Box(modifier = Modifier.weight(1F)) {
+                when (state) {
+                    is JobSearchState.Content -> VacanciesContent(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                start = Dimens.ScreenHorizontalPadding,
+                                top = 8.dp,
+                                end = Dimens.ScreenHorizontalPadding,
+                            ),
+                        vacancies = state.vacancies,
+                        vacancyAmount = state.found,
+                        onVacancyClick = onVacancyClick,
+                    )
+
+                    JobSearchState.Initial -> {}
+                    JobSearchState.Empty -> {}
+                    JobSearchState.Error -> {}
+                }
+            }
         }
+    }
+}
+
+private val jobSearchState = JobSearchState.Content(
+    found = MocData.VACANCY_AMOUNT,
+    vacancies = MocData.vacancies,
+    isLoading = true
+)
+
+@Preview
+@Composable
+private fun SearchScreenPreview() {
+    AppTheme {
+        JobSearchScreen(
+            state = jobSearchState,
+            searchQuery = "",
+            onVacancyClick = {},
+            onSearchTextChange = {},
+            onClear = {}
+        )
     }
 }
