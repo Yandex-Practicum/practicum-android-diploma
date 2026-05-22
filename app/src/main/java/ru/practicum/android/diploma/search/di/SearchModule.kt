@@ -4,6 +4,10 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.core.domain.mocks.mockList
 import ru.practicum.android.diploma.core.domain.models.Vacancy
+import ru.practicum.android.diploma.search.data.SearchRepositoryImpl
+import ru.practicum.android.diploma.search.domain.api.SearchInteractor
+import ru.practicum.android.diploma.search.domain.api.SearchRepository
+import ru.practicum.android.diploma.search.domain.impl.SearchInteractorImpl
 import ru.practicum.android.diploma.search.ui.SearchViewModel
 import ru.practicum.android.diploma.search.ui.SearchViewState
 import ru.practicum.android.diploma.search.ui.mock.SearchViewModelMock
@@ -12,5 +16,13 @@ val searchModule = module {
     viewModel<SearchViewModel> {
         // SearchViewModelImpl() //TODO temporary mock
         SearchViewModelMock(mockState = SearchViewState.Data(Vacancy.mockList()))
+    }
+
+    single<SearchRepository> {
+        SearchRepositoryImpl(get(), get())
+    }
+
+    single<SearchInteractor> {
+        SearchInteractorImpl(get())
     }
 }
