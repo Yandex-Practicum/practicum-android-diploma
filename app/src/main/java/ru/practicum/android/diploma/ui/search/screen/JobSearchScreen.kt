@@ -8,9 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
-import ru.practicum.android.diploma.ui.common.Placeholder
 import ru.practicum.android.diploma.ui.common.search.VacanciesContent
 import ru.practicum.android.diploma.ui.mocks.MocData
 import ru.practicum.android.diploma.ui.theme.AppTheme
@@ -20,7 +18,6 @@ fun JobSearchScreen(
     modifier: Modifier = Modifier,
     state: JobSearchState,
     onVacancyClick: () -> Unit,
-    onLoadNextPage: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -34,14 +31,10 @@ fun JobSearchScreen(
                     vacancies = state.vacancies,
                     vacancyAmount = state.found,
                     onVacancyClick = onVacancyClick,
-                    onLoadNextPage = onLoadNextPage,
-                    isLoading = state.isLoading
                 )
 
-                JobSearchState.Initial -> Placeholder(
-                    modifier = Modifier.fillMaxSize(),
-                    imageRes = R.drawable.ic_initial_placeholder_328
-                )
+                JobSearchState.Initial -> {}
+                else -> {}
             }
         }
     }
@@ -60,8 +53,7 @@ private fun JobSearchScreenPreview() {
         JobSearchScreen(
             modifier = Modifier.fillMaxSize(),
             state = jobSearchState,
-            onVacancyClick = { },
-            onLoadNextPage = {},
+            onVacancyClick = {},
         )
     }
 }

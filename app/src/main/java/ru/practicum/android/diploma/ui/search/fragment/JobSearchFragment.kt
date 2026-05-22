@@ -30,7 +30,7 @@ class JobSearchFragment : Fragment() {
 
             setContent {
                 AppTheme {
-                    val state = viewModel.jobSearchState.collectAsState().value
+                    val state = viewModel.state.collectAsState().value
 
                     JobSearchScreen(
                         modifier = Modifier.padding(
@@ -40,7 +40,6 @@ class JobSearchFragment : Fragment() {
                         onVacancyClick = {
                             findNavController().navigate(R.id.action_jobSearchFragment_to_vacancyFragment)
                         },
-                        onLoadNextPage = { viewModel.onLoadNextPage() },
                     )
                 }
             }
