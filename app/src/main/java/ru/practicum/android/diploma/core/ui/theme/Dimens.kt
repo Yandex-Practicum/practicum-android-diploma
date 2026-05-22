@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.core.ui.theme
 
-import androidx.annotation.Px
 import androidx.compose.ui.unit.dp
 
 object Dimens {
