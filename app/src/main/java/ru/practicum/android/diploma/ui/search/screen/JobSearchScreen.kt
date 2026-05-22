@@ -37,7 +37,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
+import ru.practicum.android.diploma.ui.common.BadgeItem
 import ru.practicum.android.diploma.ui.common.IconImage
+import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.common.search.VacanciesContent
 import ru.practicum.android.diploma.ui.mocks.MocData
@@ -158,9 +160,36 @@ fun JobSearchScreen(
                         onVacancyClick = onVacancyClick,
                     )
 
-                    JobSearchState.Initial -> {}
-                    JobSearchState.Empty -> {}
-                    JobSearchState.Error -> {}
+                    JobSearchState.Initial -> {
+                        PlaceholderLayout(R.drawable.img_search_initial_placeholder)
+                    }
+
+                    JobSearchState.Empty -> {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            BadgeItem(
+                                modifier = Modifier
+                                    .padding(
+                                        top = 12.dp
+                                    ),
+                                vacancyAmount = 0
+                            )
+                            PlaceholderLayout(
+                                R.drawable.img_nothing_found,
+                                R.string.no_vacancies_error
+                            )
+                        }
+                    }
+
+                    JobSearchState.Error -> {
+                        PlaceholderLayout(
+                            R.drawable.img_no_internet,
+                            R.string.no_internet_error
+                        )
+                    }
                 }
             }
         }

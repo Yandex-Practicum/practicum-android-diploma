@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,7 +18,7 @@ import ru.practicum.android.diploma.ui.theme.AppTheme
 
 @Composable
 fun BadgeItem(modifier: Modifier = Modifier, vacancyAmount: Int) {
-    val text =
+    val text = if (vacancyAmount > 0) {
         " ${
             pluralStringResource(
                 id = R.plurals.vacancy_found_count,
@@ -25,6 +26,10 @@ fun BadgeItem(modifier: Modifier = Modifier, vacancyAmount: Int) {
                 vacancyAmount
             )
         }"
+    } else {
+        stringResource(R.string.no_vacancies)
+    }
+
     Text(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
