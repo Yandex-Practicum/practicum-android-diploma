@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.util.extentions.applySystemBarsPadding
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +19,6 @@ class RootActivity : AppCompatActivity() {
         setContentView(R.layout.activity_root)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
@@ -40,8 +38,6 @@ class RootActivity : AppCompatActivity() {
                 else -> bottomNavigationView.isVisible = false
             }
         }
-
-        fragmentContainerView.applySystemBarsPadding(bottomNavigationView)
     }
 
     private fun networkRequestExample(accessToken: String) {

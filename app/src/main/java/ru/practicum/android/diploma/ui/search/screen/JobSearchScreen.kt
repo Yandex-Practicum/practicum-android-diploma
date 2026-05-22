@@ -1,10 +1,12 @@
 package ru.practicum.android.diploma.ui.search.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,7 +51,7 @@ fun JobSearchScreen(
     searchQuery: String,
     onVacancyClick: () -> Unit,
     onSearchTextChange: (String) -> Unit,
-    onLoadNextPage: () -> Unit
+    onClear: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
@@ -71,7 +73,8 @@ fun JobSearchScreen(
                 endFirstIconId = R.drawable.ic_filter,
                 endSecondIconVisible = false
             )
-        }
+        },
+        contentWindowInsets = WindowInsets(bottom = 0)
     ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
@@ -134,14 +137,22 @@ fun JobSearchScreen(
                     }
                 )
                 IconImage(
+                    modifier = Modifier
+                        .padding(end = 4.dp)
+                        .clickable(enabled = true, onClick = onClear),
                     resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
-                    modifier = Modifier.padding(end = 4.dp)
                 )
             }
             Box(modifier = Modifier.weight(1F)) {
                 when (state) {
                     is JobSearchState.Content -> VacanciesContent(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                start = Dimens.ScreenHorizontalPadding,
+                                top = 8.dp,
+                                end = Dimens.ScreenHorizontalPadding,
+                            ),
                         vacancies = state.vacancies,
                         vacancyAmount = state.found,
                         onVacancyClick = onVacancyClick,
@@ -171,8 +182,7 @@ private fun SearchScreenPreview() {
             searchQuery = "",
             onVacancyClick = {},
             onSearchTextChange = {},
-            onLoadNextPage = {}
+            onClear = {}
         )
     }
 }
-
