@@ -52,8 +52,7 @@ coil = "3.1.0"
 [libraries]
 
 # AndroidX
-coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
-coil-svg = { module = "io.coil-kt.coil3:coil-svg" }
+coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

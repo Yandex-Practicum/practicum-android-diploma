@@ -51,7 +51,8 @@ fun JobSearchScreen(
     searchQuery: String,
     onVacancyClick: () -> Unit,
     onSearchTextChange: (String) -> Unit,
-    onClear: () -> Unit
+    onClear: () -> Unit,
+    onLoadNextPage: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
@@ -155,7 +156,9 @@ fun JobSearchScreen(
                             ),
                         vacancies = state.vacancies,
                         vacancyAmount = state.found,
+                        isLoading = state.isLoading,
                         onVacancyClick = onVacancyClick,
+                        onLoadNextPage = onLoadNextPage
                     )
 
                     JobSearchState.Initial -> {}
@@ -182,7 +185,8 @@ private fun SearchScreenPreview() {
             searchQuery = "",
             onVacancyClick = {},
             onSearchTextChange = {},
-            onClear = {}
+            onClear = {},
+            onLoadNextPage = {}
         )
     }
 }
