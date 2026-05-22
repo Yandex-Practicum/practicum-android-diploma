@@ -15,7 +15,12 @@ import kotlin.collections.listOfNotNull
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context) {
 
-    fun searchVacancies(query: String, page: Int, perPage: Int, filters: Map<String, String>) : Flow<Resource<SearchResult>> = flow {
+    fun searchVacancies(
+        query: String,
+        page: Int,
+        perPage: Int,
+        filters: Map<String, String>
+    ) : Flow<Resource<SearchResult>> = flow {
         val params = buildMap {
             put(PARAM_QUERY, query)
             put(PARAM_PAGE, page.toString())
@@ -60,15 +65,16 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
     }
 
     private fun mapping(dto: SearchResponseDto): SearchResult {
-        val vacancies  = dto.items.map { vacancyDto ->
+        val vacancies = dto.items.map { vacancyDto ->
             Vacancy(
-                id =  vacancyDto.id,
+                id = vacancyDto.id,
                 name = listOfNotNull(vacancyDto.name, vacancyDto.city?.takeIf { it.isNotBlank() }).joinToString(","),
                 employerName = vacancyDto.company ?: "",
                 salary = buildSalaryString(
                     from = vacancyDto.salary?.from,
                     to = vacancyDto.salary?.to,
-                    currency = vacancyDto.salary?.currency),
+                    currency = vacancyDto.salary?.currency
+                ),
                 employerLogoUrl = vacancyDto.logo
             )
         }
