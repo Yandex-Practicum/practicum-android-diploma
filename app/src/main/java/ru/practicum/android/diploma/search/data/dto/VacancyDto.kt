@@ -1,9 +1,10 @@
 package ru.practicum.android.diploma.search.data.dto
 
 data class VacancyDto (
-    private val id: Int,
-    private val name: String,
-    private val employer: EmployerDto,
-    private val salary: SalaryDto?,
-    private val area: AreaDto
+    val id: String,
+    val name: String,
+    val company: String?,
+    val city: String?,
+    val salary: SalaryDto?,
+    val logo: String?
 )
