@@ -66,6 +66,8 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.coil)
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+    implementation(libs.coil.svg)
     implementation(libs.compose.ui)
     implementation(libs.androidx.viewmodel)
 

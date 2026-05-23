@@ -12,16 +12,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import coil3.network.NetworkHeaders
+import coil3.network.httpHeaders
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.mocks.MocData
@@ -40,7 +46,18 @@ fun VacancyItem(
     val imageModifier = Modifier
         .size(48.dp)
         .clip(RoundedCornerShape(12.dp))
-
+    val context = LocalContext.current
+    val imageRequest = remember(vacancy.logo) {
+        ImageRequest.Builder(context)
+            .data(vacancy.logo)
+            .crossfade(true)
+            .httpHeaders(
+                NetworkHeaders.Builder()
+                    .set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+                    .build()
+            )
+            .build()
+    }
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -54,10 +71,10 @@ fun VacancyItem(
         if (vacancy.logo != null) {
             AsyncImage(
                 modifier = imageModifier,
-                model = vacancy.logo,
+                model = imageRequest,
                 contentDescription = null,
                 placeholder = painterResource(R.drawable.ic_logo_48),
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
                 error = painterResource(R.drawable.ic_logo_48)
             )
         } else {

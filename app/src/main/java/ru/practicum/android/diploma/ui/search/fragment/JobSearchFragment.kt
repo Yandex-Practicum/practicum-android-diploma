@@ -37,7 +37,8 @@ class JobSearchFragment : Fragment() {
                         onVacancyClick = {
                             findNavController().navigate(R.id.action_jobSearchFragment_to_vacancyFragment)
                         },
-                        onClear = { viewModel.clearSearch() }
+                        onClear = { viewModel.clearSearch() },
+                        onLoadNextPage = { viewModel.loadNextPage() }
                     )
                 }
             }

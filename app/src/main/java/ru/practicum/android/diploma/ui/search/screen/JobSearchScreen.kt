@@ -33,7 +33,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
@@ -42,8 +41,6 @@ import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.common.search.VacanciesContent
-import ru.practicum.android.diploma.ui.mocks.MocData
-import ru.practicum.android.diploma.ui.theme.AppTheme
 import ru.practicum.android.diploma.ui.theme.Blue
 import ru.practicum.android.diploma.ui.theme.Dimens
 
@@ -53,7 +50,8 @@ fun JobSearchScreen(
     searchQuery: String,
     onVacancyClick: () -> Unit,
     onSearchTextChange: (String) -> Unit,
-    onClear: () -> Unit
+    onClear: () -> Unit,
+    onLoadNextPage: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
@@ -157,7 +155,9 @@ fun JobSearchScreen(
                             ),
                         vacancies = state.vacancies,
                         vacancyAmount = state.found,
+                        isLoading = state.isLoading,
                         onVacancyClick = onVacancyClick,
+                        onLoadNextPage = onLoadNextPage
                     )
 
                     JobSearchState.Initial -> {
@@ -193,25 +193,5 @@ fun JobSearchScreen(
                 }
             }
         }
-    }
-}
-
-private val jobSearchState = JobSearchState.Content(
-    found = MocData.VACANCY_AMOUNT,
-    vacancies = MocData.vacancies,
-    isLoading = true
-)
-
-@Preview
-@Composable
-private fun SearchScreenPreview() {
-    AppTheme {
-        JobSearchScreen(
-            state = jobSearchState,
-            searchQuery = "",
-            onVacancyClick = {},
-            onSearchTextChange = {},
-            onClear = {}
-        )
     }
 }
