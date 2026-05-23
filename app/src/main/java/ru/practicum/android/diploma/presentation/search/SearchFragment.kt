@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
 
             setContent {
                 AppTheme {
-                    MainScreen()
+                    SearchScreen()
                 }
             }
         }
@@ -35,7 +35,7 @@ class SearchFragment : Fragment() {
 }
 
 @Composable
-fun MainScreen() {
+fun SearchScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
