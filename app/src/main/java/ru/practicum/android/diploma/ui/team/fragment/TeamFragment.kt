@@ -20,7 +20,8 @@ class TeamFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 AppTheme {
-                    TeamScreen()
+                    // Нижняя навигация уже есть в RootActivity — не дублируем её в Compose.
+                    TeamScreen(showBottomNavigation = false)
                 }
             }
         }
