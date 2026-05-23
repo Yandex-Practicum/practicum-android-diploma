@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.screens
+package ru.practicum.android.diploma.presentation.team
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.presentation.ui.theme.AppTheme
 
-class FavoritesFragment : Fragment() {
+class TeamFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,15 +26,17 @@ class FavoritesFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 
             setContent {
-                FavoritesScreen()
+                AppTheme {
+                    TeamScreen()
+                }
             }
         }
     }
 }
 
 @Composable
-fun FavoritesScreen() {
+fun TeamScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Экран избранного")
+        Text("Экран команды")
     }
 }
