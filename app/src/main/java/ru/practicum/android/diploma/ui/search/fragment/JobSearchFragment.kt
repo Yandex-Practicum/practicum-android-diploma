@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +49,7 @@ class JobSearchFragment : Fragment() {
 
     fun showToast(message: String?) {
         requireActivity().runOnUiThread {
-            Toast.makeText(requireActivity(), message?: "Empty message", Toast.LENGTH_LONG)
+            Toast.makeText(requireActivity(), message ?: "Empty message", Toast.LENGTH_LONG)
                 .show()
         }
     }

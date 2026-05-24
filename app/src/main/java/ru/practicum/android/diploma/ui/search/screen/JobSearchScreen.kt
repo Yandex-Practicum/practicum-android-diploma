@@ -74,7 +74,8 @@ fun JobSearchScreen(
                 endFirstIconId = R.drawable.ic_filter,
                 endSecondIconVisible = false
             )
-        }, contentWindowInsets = WindowInsets(bottom = 0)
+        },
+        contentWindowInsets = WindowInsets(bottom = 0),
     ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
