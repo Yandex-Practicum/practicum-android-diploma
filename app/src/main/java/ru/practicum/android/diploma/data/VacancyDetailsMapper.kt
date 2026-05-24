@@ -25,7 +25,7 @@ fun VacancyDetailDto.toDomain(): VacancyDetail = VacancyDetail(
     description = description,
     salary = salary?.toDomain(),
     address = address?.toDomain(),
-    experience= experience?.toDomain(),
+    experience = experience?.toDomain(),
     schedule = schedule?.toDomain(),
     employment = employment?.toDomain(),
     contacts = contacts?.toDomain(),
@@ -42,7 +42,6 @@ private fun SalaryDto.toDomain(): Salary = Salary(
     currency = currency
 )
 
-
 private fun AddressDto.toDomain(): Address = Address(
     id = id,
     city = city,
@@ -51,34 +50,34 @@ private fun AddressDto.toDomain(): Address = Address(
     raw = raw
 )
 
-private fun ExperienceDto.toDomain() : Experience = Experience(
+private fun ExperienceDto.toDomain(): Experience = Experience(
     id = id,
     name = name
 )
 
-private fun ScheduleDto.toDomain() : Schedule = Schedule(
+private fun ScheduleDto.toDomain(): Schedule = Schedule(
     id = id,
     name = name
 )
 
-private fun EmploymentDto.toDomain() : Employment = Employment(
+private fun EmploymentDto.toDomain(): Employment = Employment(
     id = id,
     name = name
 )
 
-private fun ContactsDto.toDomain() : Contacts = Contacts(
-    id = id ,
+private fun ContactsDto.toDomain(): Contacts = Contacts(
+    id = id,
     name = name,
     email = email,
     phones = phones.map { it.toDomain() }
 )
 
-private fun PhoneDto.toDomain() : Phone = Phone(
+private fun PhoneDto.toDomain(): Phone = Phone(
     comment = comment,
     formatted = formatted
 )
 
-private fun EmployerDto.toDomain() : Employer = Employer(
+private fun EmployerDto.toDomain(): Employer = Employer(
     id = id,
     name = name,
     logo = logo

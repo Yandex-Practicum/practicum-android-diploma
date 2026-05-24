@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.domain.models.detail.GetVacancyDetailsRespon
 
 class VacancyDetailsRepositoryImpl(
     private val networkClient: NetworkClient,
-): VacancyDetailsRepository {
+) : VacancyDetailsRepository {
     override suspend fun getVacancyDetails(id: String): GetVacancyDetailsResponse {
         val response = networkClient.doRequest(
             VacancyDetailsRequest(id = id),
