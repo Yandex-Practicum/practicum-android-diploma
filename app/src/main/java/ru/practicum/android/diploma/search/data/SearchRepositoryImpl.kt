@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.search.data.dto.SearchResponseDto
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import kotlin.collections.listOfNotNull
 
-class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context): SearchRepository {
+class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context) : SearchRepository {
 
     override fun searchVacancies(
         query: String,

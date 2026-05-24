@@ -12,6 +12,7 @@ private fun Vacancy.Companion.mock1(): Vacancy {
     )
 }
 
+@Suppress("MaxLineLength")
 private fun Vacancy.Companion.mock2(): Vacancy {
     return Vacancy(
         id = "2",
