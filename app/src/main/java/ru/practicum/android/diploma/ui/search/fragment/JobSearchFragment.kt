@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
@@ -38,10 +39,18 @@ class JobSearchFragment : Fragment() {
                             findNavController().navigate(R.id.action_jobSearchFragment_to_vacancyFragment)
                         },
                         onClear = { viewModel.clearSearch() },
-                        onLoadNextPage = { viewModel.loadNextPage() }
+                        onLoadNextPage = { viewModel.loadNextPage() },
+                        onNetworkError = { showToast(context.getString(R.string.network_error_toast)) }
                     )
                 }
             }
+        }
+    }
+
+    fun showToast(message: String?) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(requireActivity(), message ?: "Empty message", Toast.LENGTH_LONG)
+                .show()
         }
     }
 }
