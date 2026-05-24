@@ -79,119 +79,141 @@ fun JobSearchScreen(
         Column(
             modifier = Modifier.padding(paddingValues)
         ) {
-            val fieldShape = RoundedCornerShape(8.dp)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = Dimens.ScreenHorizontalPadding,
-                        top = 8.dp,
-                        end = Dimens.ScreenHorizontalPadding,
-                    )
-                    .height(56.dp)
-                    .clip(fieldShape)
-                    .background(MaterialTheme.colorScheme.surfaceContainer),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BasicTextField(
-                    value = searchQuery,
-                    onValueChange = { newText ->
-                        onSearchTextChange(newText)
-                    },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(start = 20.dp)
-                        .focusRequester(focusRequester),
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyMedium
-                        .copy(color = MaterialTheme.colorScheme.onBackground),
-                    cursorBrush = SolidColor(Blue),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            keyboardController?.hide()
-                        }
-                    ),
-                    interactionSource = interactionSource,
-                    decorationBox = { innerTextField ->
-                        Box(
-                            Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            if (searchQuery.isEmpty()) {
-                                Text(
-                                    text = stringResource(R.string.search_input_hint),
-                                    style = MaterialTheme.typography.bodyMedium.copy(
-                                        color = MaterialTheme.colorScheme.inverseOnSurface
-                                    ),
-                                    maxLines = 1,
-                                    modifier = Modifier.align(Alignment.CenterStart),
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
-                )
-                IconImage(
-                    modifier = Modifier
-                        .padding(end = 4.dp)
-                        .clickable(enabled = true, onClick = onClear),
-                    resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
+            SearchQueryField(
+                searchQuery = searchQuery,
+                focusRequester = focusRequester,
+                interactionSource = interactionSource,
+                onSearchTextChange = onSearchTextChange,
+                onClear = onClear,
+                onKeyboardDone = { keyboardController?.hide() },
+            )
+            Box(modifier = Modifier.weight(1F)) {
+                JobSearchStateContent(
+                    state = state,
+                    onVacancyClick = onVacancyClick,
+                    onLoadNextPage = onLoadNextPage,
                 )
             }
-            Box(modifier = Modifier.weight(1F)) {
-                when (state) {
-                    is JobSearchState.Content -> VacanciesContent(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(
-                                start = Dimens.ScreenHorizontalPadding,
-                                top = 8.dp,
-                                end = Dimens.ScreenHorizontalPadding,
+        }
+    }
+}
+
+@Composable
+private fun SearchQueryField(
+    searchQuery: String,
+    focusRequester: FocusRequester,
+    interactionSource: MutableInteractionSource,
+    onSearchTextChange: (String) -> Unit,
+    onClear: () -> Unit,
+    onKeyboardDone: () -> Unit,
+) {
+    val fieldShape = RoundedCornerShape(8.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = Dimens.ScreenHorizontalPadding,
+                top = 8.dp,
+                end = Dimens.ScreenHorizontalPadding,
+            )
+            .height(56.dp)
+            .clip(fieldShape)
+            .background(MaterialTheme.colorScheme.surfaceContainer),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        BasicTextField(
+            value = searchQuery,
+            onValueChange = onSearchTextChange,
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(start = 20.dp)
+                .focusRequester(focusRequester),
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodyMedium
+                .copy(color = MaterialTheme.colorScheme.onBackground),
+            cursorBrush = SolidColor(Blue),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = { onKeyboardDone() }),
+            interactionSource = interactionSource,
+            decorationBox = { innerTextField ->
+                Box(
+                    Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (searchQuery.isEmpty()) {
+                        Text(
+                            text = stringResource(R.string.search_input_hint),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.inverseOnSurface
                             ),
-                        vacancies = state.vacancies,
-                        vacancyAmount = state.found,
-                        isLoading = state.isLoading,
-                        onVacancyClick = onVacancyClick,
-                        onLoadNextPage = onLoadNextPage
-                    )
-
-                    JobSearchState.Initial -> {
-                        PlaceholderLayout(R.drawable.img_search_initial_placeholder)
-                    }
-
-                    JobSearchState.Empty -> {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            BadgeItem(
-                                modifier = Modifier
-                                    .padding(
-                                        top = 12.dp
-                                    ),
-                                vacancyAmount = 0
-                            )
-                            PlaceholderLayout(
-                                R.drawable.img_nothing_found,
-                                R.string.no_vacancies_error
-                            )
-                        }
-                    }
-
-                    JobSearchState.Error -> {
-                        PlaceholderLayout(
-                            R.drawable.img_no_internet,
-                            R.string.no_internet_error
+                            maxLines = 1,
+                            modifier = Modifier.align(Alignment.CenterStart),
                         )
                     }
+                    innerTextField()
                 }
             }
+        )
+        IconImage(
+            modifier = Modifier
+                .padding(end = 4.dp)
+                .clickable(enabled = true, onClick = onClear),
+            resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
+        )
+    }
+}
+
+@Composable
+private fun JobSearchStateContent(
+    state: JobSearchState,
+    onVacancyClick: () -> Unit,
+    onLoadNextPage: () -> Unit,
+) {
+    when (state) {
+        is JobSearchState.Content -> VacanciesContent(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    start = Dimens.ScreenHorizontalPadding,
+                    top = 8.dp,
+                    end = Dimens.ScreenHorizontalPadding,
+                ),
+            vacancies = state.vacancies,
+            vacancyAmount = state.found,
+            isLoading = state.isLoading,
+            onVacancyClick = onVacancyClick,
+            onLoadNextPage = onLoadNextPage
+        )
+
+        JobSearchState.Initial -> {
+            PlaceholderLayout(R.drawable.img_search_initial_placeholder)
+        }
+
+        JobSearchState.Empty -> {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                BadgeItem(
+                    modifier = Modifier.padding(top = 12.dp),
+                    vacancyAmount = 0
+                )
+                PlaceholderLayout(
+                    R.drawable.img_nothing_found,
+                    R.string.no_vacancies_error
+                )
+            }
+        }
+
+        JobSearchState.Error -> {
+            PlaceholderLayout(
+                R.drawable.img_no_internet,
+                R.string.no_internet_error
+            )
         }
     }
 }

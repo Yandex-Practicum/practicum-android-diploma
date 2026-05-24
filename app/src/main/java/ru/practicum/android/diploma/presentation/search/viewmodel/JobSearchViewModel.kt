@@ -59,11 +59,8 @@ class JobSearchViewModel(
     fun loadNextPage() {
         val query = _searchQuery.value.trim()
         val content = _state.value as? JobSearchState.Content ?: return
-        if (query.isEmpty() || content.isLoading) {
-            return
-        }
         val nextPage = currentPage + 1
-        if (nextPage >= maxPages) {
+        if (!canLoadNextPage(content, query, nextPage)) {
             return
         }
         viewModelScope.launch {
@@ -79,12 +76,25 @@ class JobSearchViewModel(
                 }
                 is SearchVacanciesOutcome.Empty,
                 is SearchVacanciesOutcome.Error,
-                -> {
-                    val currentContent = _state.value as? JobSearchState.Content ?: return@launch
-                    _state.value = currentContent.copy(isLoading = false)
-                }
+                -> stopPaginationLoading()
             }
         }
+    }
+
+    private fun canLoadNextPage(
+        content: JobSearchState.Content,
+        query: String,
+        nextPage: Int,
+    ): Boolean {
+        if (query.isEmpty()) {
+            return false
+        }
+        return !content.isLoading && nextPage < maxPages
+    }
+
+    private fun stopPaginationLoading() {
+        val currentContent = _state.value as? JobSearchState.Content ?: return
+        _state.value = currentContent.copy(isLoading = false)
     }
 
     private fun performSearch(query: String, page: Int) {

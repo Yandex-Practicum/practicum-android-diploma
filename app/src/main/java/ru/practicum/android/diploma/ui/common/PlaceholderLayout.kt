@@ -17,6 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 
+private const val PLACEHOLDER_IMAGE_ASPECT_RATIO = 1.5f
+
 @Composable
 fun PlaceholderLayout(
     @DrawableRes imageRes: Int,
@@ -30,7 +32,7 @@ fun PlaceholderLayout(
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1.5f),
+                .aspectRatio(PLACEHOLDER_IMAGE_ASPECT_RATIO),
             painter = painterResource(imageRes),
             contentDescription = null
         )
@@ -45,4 +47,3 @@ fun PlaceholderLayout(
         }
     }
 }
-
