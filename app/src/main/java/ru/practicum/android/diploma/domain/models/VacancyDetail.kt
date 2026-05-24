@@ -1,8 +1,4 @@
-package ru.practicum.android.diploma.domain.models.detail
-
-import ru.practicum.android.diploma.domain.models.FilterArea
-import ru.practicum.android.diploma.domain.models.FilterIndustry
-import ru.practicum.android.diploma.domain.models.Salary
+package ru.practicum.android.diploma.domain.models
 
 data class VacancyDetail(
     val id: String,

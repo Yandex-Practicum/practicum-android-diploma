@@ -10,14 +10,14 @@ import ru.practicum.android.diploma.data.dto.SalaryDto
 import ru.practicum.android.diploma.data.dto.ScheduleDto
 import ru.practicum.android.diploma.data.dto.VacancyDetailDto
 import ru.practicum.android.diploma.domain.models.Salary
-import ru.practicum.android.diploma.domain.models.detail.Address
-import ru.practicum.android.diploma.domain.models.detail.Contacts
-import ru.practicum.android.diploma.domain.models.detail.Employer
-import ru.practicum.android.diploma.domain.models.detail.Employment
-import ru.practicum.android.diploma.domain.models.detail.Experience
-import ru.practicum.android.diploma.domain.models.detail.Phone
-import ru.practicum.android.diploma.domain.models.detail.Schedule
-import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.models.Address
+import ru.practicum.android.diploma.domain.models.Contacts
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Employment
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.Phone
+import ru.practicum.android.diploma.domain.models.Schedule
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 fun VacancyDetailDto.toDomain(): VacancyDetail = VacancyDetail(
     id = id,
