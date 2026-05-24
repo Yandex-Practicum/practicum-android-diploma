@@ -9,7 +9,7 @@ fun <T> debounce(
     delayMillis: Long,
     coroutineScope: CoroutineScope,
     useLastParam: Boolean,
-    action: (T) -> Unit
+    action: suspend (T) -> Unit,
 ): (T) -> Unit {
     var debounceJob: Job? = null
 

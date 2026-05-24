@@ -12,6 +12,8 @@ import ru.practicum.android.diploma.data.network.NetworkClientImpl
 import ru.practicum.android.diploma.data.network.NetworkConnectionChecker
 import ru.practicum.android.diploma.data.network.NetworkConnectionCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkConstants
+import ru.practicum.android.diploma.data.repositories.VacanciesRepositoryImpl
+import ru.practicum.android.diploma.domain.api.VacanciesRepository
 
 val dataModule = module {
 
@@ -28,6 +30,13 @@ val dataModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
+            .addInterceptor { chain ->
+                val request = chain.request()
+                    .newBuilder()
+                    .header(AUTHORIZATION_HEADER, "$AUTHORIZATION_BEARER_PREFIX ${BuildConfig.API_ACCESS_TOKEN}")
+                    .build()
+                chain.proceed(request)
+            }
             .build()
     }
 
@@ -50,4 +59,11 @@ val dataModule = module {
     single<NetworkClient> {
         NetworkClientImpl(connectionChecker = get())
     }
+
+    single<VacanciesRepository> {
+        VacanciesRepositoryImpl(api = get(), networkClient = get())
+    }
 }
+
+private const val AUTHORIZATION_HEADER = "Authorization"
+private const val AUTHORIZATION_BEARER_PREFIX = "Bearer"

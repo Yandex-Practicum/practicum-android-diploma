@@ -33,6 +33,17 @@ object Dimens {
     val heightImage = 223.dp
 
     val cornerRadius = 12.dp
+
+    // Search screen
+    val searchFieldHeight = 56.dp
+    val searchIllustrationBottomPadding = 72.dp
+    val searchProgressSize = 48.dp
+    val searchResultCounterTopPadding = 11.dp
+    val searchResultCounterVerticalPadding = 4.dp
+    val searchResultCounterBottomPadding = 17.dp
+    val vacancyLogoCornerRadius = 12.dp
+    val vacancyLogoBorderWidth = 1.dp
+    val vacancyLogoPadding = 6.dp
 }
 
 // Использование: salary.currency.toCurrencySymbol() → "₽", "$" и т.д.

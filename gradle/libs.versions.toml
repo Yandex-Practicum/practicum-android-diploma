@@ -10,6 +10,7 @@ targetSdk = "33"
 # AndroidX
 activityCompose = "1.13.0"
 appcompat = "1.7.1"
+coil = "2.7.0"
 composeBom = "2026.05.01"
 constraintlayout = "2.2.1"
 coreKtx = "1.18.0"
@@ -53,6 +54,7 @@ navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 
 # UI
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-ui = { module = "androidx.compose.ui:ui" }
