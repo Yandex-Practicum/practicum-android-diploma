@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.api
 
-import ru.practicum.android.diploma.domain.models.detail.GetVacancyDetailsResponse
+import ru.practicum.android.diploma.domain.models.GetVacancyDetailsResponse
 
-interface VacancyDetailsInteractor {
+interface VacancyDetailInteractor {
     suspend fun getVacancyDetails(id: String): GetVacancyDetailsResponse
 }
