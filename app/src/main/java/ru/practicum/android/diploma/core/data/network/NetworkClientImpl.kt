@@ -6,6 +6,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
 import ru.practicum.android.diploma.search.data.network.HhSearchApi
+import ru.practicum.android.diploma.vacancy.data.network.VacancyApi
 import java.io.IOException
 
 class NetworkClientImpl(
@@ -33,6 +34,14 @@ class NetworkClientImpl(
             is Request.SearchRequest -> {
                 val api = retrofit.create(HhSearchApi::class.java)
                 val response = api.searchVacancies(request.params)
+                Response().apply {
+                    resultCode = ResultCode.SUCCESS
+                    data = response
+                }
+            }
+            is Request.VacancyDetailsRequest -> {
+                val api = retrofit.create(VacancyApi::class.java)
+                val response = api.getVacancyById(request.id)
                 Response().apply {
                     resultCode = ResultCode.SUCCESS
                     data = response
