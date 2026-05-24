@@ -37,4 +37,5 @@
     <string name="team_member_3_role">Боцман</string>
     <string name="team_member_4_name">Тимофей Занин</string>
     <string name="team_member_4_role">Кок</string>
+    <string name="network_error_toast">Произошла ошибка</string>
 </resources>

@@ -51,7 +51,8 @@ fun JobSearchScreen(
     onVacancyClick: () -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
-    onLoadNextPage: () -> Unit
+    onLoadNextPage: () -> Unit,
+    onNetworkError: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
@@ -73,8 +74,7 @@ fun JobSearchScreen(
                 endFirstIconId = R.drawable.ic_filter,
                 endSecondIconVisible = false
             )
-        },
-        contentWindowInsets = WindowInsets(bottom = 0)
+        }, contentWindowInsets = WindowInsets(bottom = 0)
     ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
@@ -93,48 +93,9 @@ fun JobSearchScreen(
                     .background(MaterialTheme.colorScheme.surfaceContainer),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                BasicTextField(
-                    value = searchQuery,
-                    onValueChange = { newText ->
-                        onSearchTextChange(newText)
-                    },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(start = 20.dp)
-                        .focusRequester(focusRequester),
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyMedium
-                        .copy(color = MaterialTheme.colorScheme.onBackground),
-                    cursorBrush = SolidColor(Blue),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            keyboardController?.hide()
-                        }
-                    ),
-                    interactionSource = interactionSource,
-                    decorationBox = { innerTextField ->
-                        Box(
-                            Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            if (searchQuery.isEmpty()) {
-                                Text(
-                                    text = stringResource(R.string.search_input_hint),
-                                    style = MaterialTheme.typography.bodyMedium.copy(
-                                        color = MaterialTheme.colorScheme.inverseOnSurface
-                                    ),
-                                    maxLines = 1,
-                                    modifier = Modifier.align(Alignment.CenterStart),
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
+                TextField(
+                    searchQuery,
+                    onSearchTextChange
                 )
                 IconImage(
                     modifier = Modifier
@@ -166,32 +127,76 @@ fun JobSearchScreen(
 
                     JobSearchState.Empty -> {
                         Column(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             BadgeItem(
-                                modifier = Modifier
-                                    .padding(
+                                modifier = Modifier.padding(
                                         top = 12.dp
-                                    ),
-                                vacancyAmount = 0
+                                    ), vacancyAmount = 0
                             )
                             PlaceholderLayout(
-                                R.drawable.img_nothing_found,
-                                R.string.no_vacancies_error
+                                R.drawable.img_nothing_found, R.string.no_vacancies_error
                             )
                         }
                     }
 
                     JobSearchState.Error -> {
                         PlaceholderLayout(
-                            R.drawable.img_no_internet,
-                            R.string.no_internet_error
+                            R.drawable.img_no_internet, R.string.no_internet_error
                         )
+
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun TextField(
+    searchQuery: String,
+    onSearchTextChange: (String) -> Unit,
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+    val interactionSource = remember { MutableInteractionSource() }
+
+    return BasicTextField(
+        value = searchQuery,
+        onValueChange = { newText ->
+            onSearchTextChange(newText)
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(start = 20.dp)
+            .focusRequester(focusRequester),
+        singleLine = true,
+        textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
+        cursorBrush = SolidColor(Blue),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                keyboardController?.hide()
+            }),
+        interactionSource = interactionSource,
+        decorationBox = { innerTextField ->
+            Box(
+                Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart
+            ) {
+                if (searchQuery.isEmpty()) {
+                    Text(
+                        text = stringResource(R.string.search_input_hint),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = MaterialTheme.colorScheme.inverseOnSurface
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.align(Alignment.CenterStart),
+                    )
+                }
+                innerTextField()
+            }
+        })
 }
