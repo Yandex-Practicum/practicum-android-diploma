@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.SearchVacanciesOutcome
 
 class SearchInteractorImpl(
     private val vacanciesRepository: VacanciesRepository,
-): SearchInteractor {
+) : SearchInteractor {
     override suspend fun searchVacancies(query: String, page: Int): SearchVacanciesOutcome {
         val normalizedQuery = query.trim().lowercase()
         if (normalizedQuery.isEmpty()) {

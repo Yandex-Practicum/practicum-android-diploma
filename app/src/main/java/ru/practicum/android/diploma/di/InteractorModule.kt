@@ -10,7 +10,7 @@ val interactorModule = module {
         SearchInteractorImpl(get())
     }
 
-        single<VacancyDetailInteractorImpl> {
+    single<VacancyDetailInteractorImpl> {
         VacancyDetailInteractorImpl(get())
     }
 }

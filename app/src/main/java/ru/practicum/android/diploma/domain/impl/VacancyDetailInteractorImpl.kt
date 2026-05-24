@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.detail.GetVacancyDetailsRespon
 
 class VacancyDetailInteractorImpl(
     private val vacancyDetailsRepository: VacancyDetailsRepository,
-): VacancyDetailsInteractor {
+) : VacancyDetailsInteractor {
     override suspend fun getVacancyDetails(id: String): GetVacancyDetailsResponse {
         if (id.isEmpty()) {
             return GetVacancyDetailsResponse.Error
