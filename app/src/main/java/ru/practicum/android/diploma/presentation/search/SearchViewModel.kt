@@ -2,10 +2,14 @@ package ru.practicum.android.diploma.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.interactors.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.VacancySearchRequest
 import ru.practicum.android.diploma.util.Resource
@@ -18,21 +22,31 @@ class SearchViewModel(
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
+    private val _paginationError = MutableSharedFlow<SearchError>()
+    val paginationError: SharedFlow<SearchError> = _paginationError.asSharedFlow()
+
+    private val loadedPages = mutableSetOf<Int>()
+
     private val searchDebounce = debounce<String>(
         delayMillis = SEARCH_DEBOUNCE_MILLIS,
         coroutineScope = viewModelScope,
         useLastParam = true,
     ) { query ->
-        searchVacancies(query)
+        searchPage(query, page = VacancySearchRequest.FIRST_PAGE, isPagination = false)
     }
 
     fun onQueryChanged(query: String) {
+        loadedPages.clear()
         _uiState.update { state ->
             state.copy(
                 query = query,
                 isLoading = false,
                 found = 0,
                 vacancies = emptyList(),
+                errorType = null,
+                currentPage = VacancySearchRequest.FIRST_PAGE,
+                totalPages = 0,
+                isNextPageLoading = false,
             )
         }
 
@@ -48,22 +62,53 @@ class SearchViewModel(
         onQueryChanged(query = "")
     }
 
-    private suspend fun searchVacancies(query: String) {
-        _uiState.update { state -> state.copy(isLoading = true) }
+    fun loadNextPage() {
+        val state = _uiState.value
+        val nextPage = state.currentPage + 1
+        if (state.totalPages > 0 && nextPage > state.totalPages) return
+        if (nextPage in loadedPages) return
+        if (state.isNextPageLoading) return
+        viewModelScope.launch {
+            searchPage(state.query, page = nextPage, isPagination = true)
+        }
+    }
 
-        when (val result = vacanciesInteractor.searchVacancies(VacancySearchRequest(text = query))) {
+    private suspend fun searchPage(query: String, page: Int, isPagination: Boolean) {
+        if (isPagination) {
+            _uiState.update { it.copy(isNextPageLoading = true) }
+        } else {
+            _uiState.update { it.copy(isLoading = true, errorType = null) }
+        }
+
+        val request = VacancySearchRequest(text = query, page = page)
+        when (val result = vacanciesInteractor.searchVacancies(request)) {
             is Resource.Success -> {
+                loadedPages.add(page)
+                val data = result.data
+                val isEmpty = !isPagination && data.vacancies.isEmpty()
                 _uiState.update { state ->
                     state.copy(
                         isLoading = false,
-                        found = result.data.found,
-                        vacancies = result.data.vacancies,
+                        isNextPageLoading = false,
+                        found = data.found,
+                        currentPage = data.page,
+                        totalPages = data.pages,
+                        vacancies = if (isPagination) state.vacancies + data.vacancies
+                                    else data.vacancies,
+                        errorType = if (isEmpty) SearchError.EMPTY else null,
                     )
                 }
             }
 
             is Resource.Error -> {
-                _uiState.update { state -> state.copy(isLoading = false) }
+                val errorType = if (result.code == null) SearchError.NO_INTERNET
+                                else SearchError.SERVER_ERROR
+                if (isPagination) {
+                    _uiState.update { it.copy(isNextPageLoading = false) }
+                    _paginationError.emit(errorType)
+                } else {
+                    _uiState.update { it.copy(isLoading = false, errorType = errorType) }
+                }
             }
 
             Resource.Loading -> Unit

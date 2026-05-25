@@ -2,15 +2,21 @@ package ru.practicum.android.diploma.presentation.ui.components.vacancy
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,9 +32,12 @@ fun VacancyList(
     vacancies: List<VacancyUiModel>,
     onVacancyClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(),
+    isNextPageLoading: Boolean = false,
 ) {
     LazyColumn(
+        state = listState,
         modifier = modifier.fillMaxSize(),
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(Dimens.paddingDefault),
@@ -41,6 +50,23 @@ fun VacancyList(
                 vacancy = vacancy,
                 onClick = { onVacancyClick(vacancy.id) },
             )
+        }
+
+        if (isNextPageLoading) {
+            item(key = "pagination_loader") {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = Dimens.paddingDefault),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(Dimens.searchProgressSize),
+                        color = MaterialTheme.colorScheme.primary,
+                        strokeWidth = Dimens.paddingSmall,
+                    )
+                }
+            }
         }
     }
 }

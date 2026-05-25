@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -25,9 +26,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,15 +44,18 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.flow.SharedFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -81,6 +89,8 @@ class SearchFragment : Fragment() {
                         onQueryChanged = viewModel::onQueryChanged,
                         onClearQueryClicked = viewModel::onClearQueryClicked,
                         onVacancyClicked = ::onVacancyClicked,
+                        onLoadNextPage = viewModel::loadNextPage,
+                        paginationError = viewModel.paginationError,
                     )
                 }
             }
@@ -108,6 +118,8 @@ private fun SearchScreen(
     onQueryChanged: (String) -> Unit,
     onClearQueryClicked: () -> Unit,
     onVacancyClicked: (String) -> Unit,
+    onLoadNextPage: () -> Unit = {},
+    paginationError: SharedFlow<SearchError>? = null,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -139,8 +151,12 @@ private fun SearchScreen(
                     state = state,
                     onScroll = { focusManager.clearFocus() },
                     onVacancyClicked = onVacancyClicked,
+                    onLoadNextPage = onLoadNextPage,
+                    paginationError = paginationError,
                 )
-
+                state.errorType == SearchError.NO_INTERNET -> NoInternetPlaceholder()
+                state.errorType == SearchError.SERVER_ERROR -> ServerErrorPlaceholder()
+                state.errorType == SearchError.EMPTY -> EmptyResultsPlaceholder()
                 state.query.isBlank() -> SearchInitialPlaceholder()
             }
         }
@@ -256,6 +272,55 @@ private fun SearchInitialPlaceholder() {
 }
 
 @Composable
+private fun NoInternetPlaceholder() {
+    SearchPlaceholder(
+        imageRes = R.drawable.il_main_no_internet_328,
+        textRes = R.string.search_error_no_internet,
+    )
+}
+
+@Composable
+private fun ServerErrorPlaceholder() {
+    SearchPlaceholder(
+        imageRes = R.drawable.il_main_error_server_328,
+        textRes = R.string.search_error_server,
+    )
+}
+
+@Composable
+private fun EmptyResultsPlaceholder() {
+    SearchPlaceholder(
+        imageRes = R.drawable.il_main_no_results_328,
+        textRes = R.string.search_no_results,
+    )
+}
+
+@Composable
+private fun SearchPlaceholder(imageRes: Int, textRes: Int) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(
+                painter = painterResource(imageRes),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth,
+            )
+            Spacer(modifier = Modifier.height(Dimens.paddingDefault))
+            Text(
+                text = stringResource(textRes),
+                modifier = Modifier.padding(horizontal = Dimens.paddingExtraLarge),
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleMedium.copy(fontSize = 22.sp),
+            )
+        }
+    }
+}
+
+@Composable
 private fun SearchLoading() {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -274,7 +339,34 @@ private fun SearchResults(
     state: SearchUiState,
     onScroll: () -> Unit,
     onVacancyClicked: (String) -> Unit,
+    onLoadNextPage: () -> Unit = {},
+    paginationError: SharedFlow<SearchError>? = null,
 ) {
+    val listState = rememberLazyListState()
+
+    val reachedEnd by remember {
+        derivedStateOf {
+            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+            lastVisible != null && lastVisible >= state.vacancies.lastIndex
+        }
+    }
+
+    LaunchedEffect(reachedEnd) {
+        if (reachedEnd) onLoadNextPage()
+    }
+
+    val context = LocalContext.current
+    val resources = context.resources
+    LaunchedEffect(paginationError) {
+        paginationError?.collect { error ->
+            val message = when (error) {
+                SearchError.NO_INTERNET -> resources.getString(R.string.search_toast_no_internet)
+                else -> resources.getString(R.string.search_toast_server_error)
+            }
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     val keyboardDismissConnection = object : NestedScrollConnection {
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
             onScroll()
@@ -289,20 +381,22 @@ private fun SearchResults(
             modifier = Modifier
                 .fillMaxSize()
                 .nestedScroll(keyboardDismissConnection),
+            listState = listState,
             contentPadding = PaddingValues(
                 top = Dimens.searchResultCounterTopPadding +
                     Dimens.heightVacancyPanel +
                     Dimens.searchResultCounterBottomPadding,
                 bottom = Dimens.paddingDefault,
             ),
+            isNextPageLoading = state.isNextPageLoading,
         )
 
-        SearchResultCounter(found = state.found)
+        SearchResultCounter(text = pluralStringResource(R.plurals.search_results_count, state.found, state.found))
     }
 }
 
 @Composable
-private fun SearchResultCounter(found: Int) {
+private fun SearchResultCounter(text: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -310,7 +404,7 @@ private fun SearchResultCounter(found: Int) {
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = pluralStringResource(R.plurals.search_results_count, found, found),
+            text = text,
             modifier = Modifier
                 .clip(CircleShape)
                 .background(Blue)
