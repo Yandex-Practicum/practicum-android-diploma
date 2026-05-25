@@ -35,8 +35,12 @@ class JobSearchFragment : Fragment() {
                         state = state.value,
                         searchQuery = query.value,
                         onSearchTextChange = { viewModel.onSearchQueryChanged(it) },
-                        onVacancyClick = {
-                            findNavController().navigate(R.id.action_jobSearchFragment_to_vacancyFragment)
+                        onVacancyClick = { vacancyId ->
+                            findNavController().navigate(
+                                JobSearchFragmentDirections.actionJobSearchFragmentToVacancyFragment(
+                                    vacancyId
+                                )
+                            )
                         },
                         onClear = { viewModel.clearSearch() },
                         onLoadNextPage = { viewModel.loadNextPage() },

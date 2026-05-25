@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.ksp) apply false
+    id("androidx.navigation.safeargs.kotlin") version libs.versions.navigationFragmentKtx apply false
 
     id("convention.detekt")
 }

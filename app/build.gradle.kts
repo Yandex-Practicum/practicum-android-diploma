@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    id("androidx.navigation.safeargs.kotlin")
 
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
@@ -66,7 +67,7 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.coil)
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+    implementation(libs.coil.network.okhttp)
     implementation(libs.coil.svg)
     implementation(libs.compose.ui)
     implementation(libs.androidx.viewmodel)
