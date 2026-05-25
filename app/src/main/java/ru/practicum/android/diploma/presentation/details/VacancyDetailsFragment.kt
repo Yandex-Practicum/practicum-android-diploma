@@ -1,4 +1,19 @@
-@file:Suppress("ALL")
+@file:Suppress(
+    "LongMethod",
+    "CyclomaticComplexMethod",
+    "CognitiveComplexMethod",
+    "NestedBlockDepth",
+    "ComplexCondition",
+    "MaxLineLength",
+    "MagicNumber",
+    "UnnecessaryParentheses",
+    "ForbiddenComment",
+    "ImportOrdering",
+    "ArgumentListWrapping",
+    "NoTrailingSpaces",
+    "ReturnCount",
+    "Indentation"
+)
 
 package ru.practicum.android.diploma.presentation.details
 
@@ -135,7 +150,7 @@ class VacancyDetailsFragment : Fragment() {
             data = "tel:$phoneNumber".toUri()
         }
         try {
-            startActivity(dialIntent)
+            startActivity(Intent.createChooser(dialIntent, null))
         } catch (_: Exception) {
         }
     }
@@ -295,7 +310,7 @@ private fun VacancyDetailsContent(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = vacancy.salary.formatSalary(),
+            text = vacancy.salary.formatSalary(isDetails = true),
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium,

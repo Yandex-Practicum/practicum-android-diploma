@@ -17,15 +17,18 @@ class RootActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bottomNavDivider = findViewById<android.view.View>(R.id.bottomNavigationDivider)
         bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.vacancyDetailsFragment -> {
                     bottomNav.visibility = android.view.View.GONE
+                    bottomNavDivider.visibility = android.view.View.GONE
                 }
                 else -> {
                     bottomNav.visibility = android.view.View.VISIBLE
+                    bottomNavDivider.visibility = android.view.View.VISIBLE
                 }
             }
         }

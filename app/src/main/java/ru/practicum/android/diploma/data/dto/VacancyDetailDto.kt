@@ -16,7 +16,7 @@ data class VacancyDetailDto(
     val area: AreaDto?,
     @SerializedName("skills")
     val skills: List<String>?,
-    @SerializedName("alternate_url")
+    @SerializedName("url")
     val url: String?,
 )
 
