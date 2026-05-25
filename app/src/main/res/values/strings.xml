@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="search_screen_title">Поиск вакансий</string>
+    <string name="search_input_hint">Введите запрос</string>
+    <string name="main">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="team">Команда</string>
+    <string name="found">Найдено</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
+    <string name="no_salary">Зарплата не указана</string>
+    <string name="no_company">Компания не указана</string>
+
+    <!-- Текст для плейсхолдеров на экране поиска -->
+    <string name="no_internet_error">Нет интернета</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="no_vacancies_error">Не удалось получить \n список вакансий</string>
+    <!-- Текст для плейсхолдеров на экране поиска -->
+
+    <plurals name="vacancy_found_count">
+        <item quantity="zero">Найдено %d вакансий</item>
+        <item quantity="one">Найдена %d вакансия</item>
+        <item quantity="few">Найдено %d вакансий</item>
+        <item quantity="many">Найдено %d вакансий</item>
+        <item quantity="other">Найдено %d вакансий</item>
+    </plurals>
+
+    <string name="team_screen_headline">Над приложением\nработали</string>
+    <string name="team_footer_tagline">Бороздим океан вакансий для вас!</string>
+
+    <!-- Участники команды разработки -->
+    <string name="team_member_1_name">Инна Мелихова</string>
+    <string name="team_member_1_role">Капитан</string>
+    <string name="team_member_2_name">Мария Касаткина</string>
+    <string name="team_member_2_role">Старпом</string>
+    <string name="team_member_3_name">Денис Андрианов</string>
+    <string name="team_member_3_role">Боцман</string>
+    <string name="team_member_4_name">Тимофей Занин</string>
+    <string name="team_member_4_role">Кок</string>
 </resources>
