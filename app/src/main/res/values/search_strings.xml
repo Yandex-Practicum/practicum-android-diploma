@@ -1,0 +1,12 @@
+<resources>
+    <string name="search_placeholder">Введите запрос</string>
+    <string name="search_error_internet">Нет интернета</string>
+    <string name="search_error_not_found">Не удалось получить\nсписок вакансий</string>
+    <plurals name="search_chip_found">
+        <item quantity="zero">Таких вакансий нет</item>
+        <item quantity="one"> Найдена %d вакансия</item>
+        <item quantity="few">Найдено %d вакансии</item>
+        <item quantity="many">Найдено %d вакансий</item>
+        <item quantity="other">Найдено %d вакансий</item>
+    </plurals>
+</resources>
