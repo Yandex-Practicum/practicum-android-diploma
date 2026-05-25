@@ -107,7 +107,7 @@ fun NavGraph(navController: NavHostController) {
         }
 
         composable<Screen.Team> {
-            TeamScreen(koinViewModel())
+            TeamScreen()
         }
     }
 }
