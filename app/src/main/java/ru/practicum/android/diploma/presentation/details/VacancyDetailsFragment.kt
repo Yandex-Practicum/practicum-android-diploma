@@ -385,7 +385,7 @@ private fun VacancyDetailsContent(
             if (!contacts.name.isNullOrBlank()) {
                 Text(
                     text = stringResource(R.string.vacancy_contact_person),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
@@ -399,7 +399,7 @@ private fun VacancyDetailsContent(
             if (!contacts.email.isNullOrBlank()) {
                 Text(
                     text = stringResource(R.string.vacancy_contact_email),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
@@ -414,7 +414,7 @@ private fun VacancyDetailsContent(
             if (contacts.phones.isNotEmpty()) {
                 Text(
                     text = stringResource(R.string.vacancy_contact_phone),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 contacts.phones.forEach { phone ->
@@ -527,7 +527,7 @@ private fun ExperienceAndScheduleBlock(vacancy: VacancyDetail) {
         if (vacancy.experience != null && !vacancy.experience.name.isNullOrBlank()) {
             Text(
                 text = stringResource(R.string.vacancy_experience),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(modifier = Modifier.height(4.dp))
