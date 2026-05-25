@@ -37,6 +37,7 @@ class SearchViewModel(
         }
 
         if (query.isBlank()) {
+            searchDebounce.cancel()
             return
         }
 

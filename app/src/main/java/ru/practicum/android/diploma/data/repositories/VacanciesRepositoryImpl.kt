@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.data.repositories
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.mappers.toDomain
 import ru.practicum.android.diploma.data.mappers.toQueryMap
 import ru.practicum.android.diploma.data.network.DiplomaApi
@@ -15,10 +17,12 @@ class VacanciesRepositoryImpl(
 ) : VacanciesRepository {
 
     override suspend fun searchVacancies(request: VacancySearchRequest): Resource<VacancySearchResult> {
-        return when (val result = networkClient.safeApiCall { api.searchVacancies(request.toQueryMap()) }) {
-            is Resource.Success -> Resource.Success(result.data.toDomain())
-            is Resource.Error -> Resource.Error(message = result.message, code = result.code)
-            Resource.Loading -> Resource.Loading
+        return withContext(Dispatchers.IO) {
+            when (val result = networkClient.safeApiCall { api.searchVacancies(request.toQueryMap()) }) {
+                is Resource.Success -> Resource.Success(result.data.toDomain())
+                is Resource.Error -> Resource.Error(message = result.message, code = result.code)
+                Resource.Loading -> Resource.Loading
+            }
         }
     }
 }

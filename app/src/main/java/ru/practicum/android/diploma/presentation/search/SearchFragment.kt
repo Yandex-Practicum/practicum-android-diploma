@@ -180,12 +180,6 @@ private fun SearchField(
     onQueryChanged: (String) -> Unit,
     onClearQueryClicked: () -> Unit,
 ) {
-    val trailingIconClick = if (query.isBlank()) {
-        {}
-    } else {
-        onClearQueryClicked
-    }
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -221,14 +215,25 @@ private fun SearchField(
             },
         )
 
-        IconButton(onClick = trailingIconClick) {
-            Icon(
-                painter = painterResource(
-                    if (query.isBlank()) R.drawable.ic_search_24 else R.drawable.ic_close_24
-                ),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
+        if (query.isBlank()) {
+            Box(
+                modifier = Modifier.size(Dimens.iconSizeMedium),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_search_24),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+        } else {
+            IconButton(onClick = onClearQueryClicked) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_close_24),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
     }
 }

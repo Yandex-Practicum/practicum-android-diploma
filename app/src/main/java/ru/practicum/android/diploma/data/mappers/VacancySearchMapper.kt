@@ -3,12 +3,26 @@ package ru.practicum.android.diploma.data.mappers
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyCardDto
 import ru.practicum.android.diploma.data.dto.VacancyCardSalaryDto
+import ru.practicum.android.diploma.data.dto.VacancySearchRequestDto
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancySalary
 import ru.practicum.android.diploma.domain.models.VacancySearchRequest
 import ru.practicum.android.diploma.domain.models.VacancySearchResult
 
-fun VacancySearchRequest.toQueryMap(): Map<String, String> = buildMap {
+fun VacancySearchRequest.toQueryMap(): Map<String, String> = toDto().toQueryMap()
+
+private fun VacancySearchRequest.toDto(): VacancySearchRequestDto {
+    return VacancySearchRequestDto(
+        text = text,
+        area = area,
+        industry = industry,
+        salary = salary,
+        page = page,
+        onlyWithSalary = onlyWithSalary,
+    )
+}
+
+private fun VacancySearchRequestDto.toQueryMap(): Map<String, String> = buildMap {
     text.takeIf(String::isNotBlank)?.let { put(TEXT_QUERY_KEY, it) }
     area?.let { put(AREA_QUERY_KEY, it.toString()) }
     industry?.let { put(INDUSTRY_QUERY_KEY, it.toString()) }
