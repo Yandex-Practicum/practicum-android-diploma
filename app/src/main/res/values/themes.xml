@@ -1,8 +1,11 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/blue</item>
         <item name="colorError">@color/red</item>
         <item name="android:colorBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/gray</item>
     </style>
@@ -31,6 +34,8 @@
     </style>
 
     <style name="TextAppearance.App.Regular12" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>

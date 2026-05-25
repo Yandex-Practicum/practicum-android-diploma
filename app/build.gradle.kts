@@ -55,6 +55,7 @@ dependencies {
 
     // UI layer libraries
     implementation(platform(libs.compose.bom))
+    implementation(libs.coil.compose)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
