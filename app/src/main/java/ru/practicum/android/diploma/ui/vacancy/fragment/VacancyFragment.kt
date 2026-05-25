@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.ui.vacancy.screen.VacancyScreen
 
 class VacancyFragment : Fragment() {
     private val viewModel: VacancyViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,7 +30,7 @@ class VacancyFragment : Fragment() {
                     VacancyScreen(
                         state = state.value,
                         onLoadVacancy = { viewModel.loadVacancy() },
-                        navigateBack = { findNavController().navigateUp() }
+                        navigateBack = { findNavController().navigateUp() },
                     )
                 }
             }
