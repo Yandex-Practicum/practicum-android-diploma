@@ -1,5 +1,8 @@
 package ru.practicum.android.diploma.vacancy.ui
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.StateFlow
 
-abstract class VacancyViewModel : ViewModel()
+abstract class VacancyViewModel : ViewModel() {
+    abstract var state: StateFlow<VacancyDetailsViewState>
+}
