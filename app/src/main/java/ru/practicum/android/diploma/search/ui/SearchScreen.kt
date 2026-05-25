@@ -39,7 +39,6 @@ fun SearchScreen(
 ) {
     val state = viewModel.state.collectAsState()
     val isFiltered = viewModel.isFiltered.collectAsState()
-    val showClearButton = viewModel.showClearButton.collectAsState()
 
     AppScreen(
         R.string.search_screen_title,
@@ -52,7 +51,7 @@ fun SearchScreen(
                 query = viewModel.query.value,
                 onFocusChanged = viewModel::onFocusChanged,
                 onIconClicked = viewModel::onSearchIconClicked,
-                showClearButton = showClearButton.value,
+                showClearButton = state.value.showClearButton,
                 onQueryChanged = viewModel::onQueryChanged
             )
             SearchContent(state.value, onNavigateToVacancy)
