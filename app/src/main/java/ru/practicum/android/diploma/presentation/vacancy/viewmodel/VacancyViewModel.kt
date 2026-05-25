@@ -30,7 +30,9 @@ class VacancyViewModel(
                 GetVacancyDetailsResponse.Error -> _state.value = VacancyDetailsUiState.Error
                 GetVacancyDetailsResponse.NotFound -> _state.value = VacancyDetailsUiState.NotFound
                 GetVacancyDetailsResponse.ServerError -> _state.value = VacancyDetailsUiState.ServerError
-                is GetVacancyDetailsResponse.Success -> _state.value = VacancyDetailsUiState.Content(result.result)
+                is GetVacancyDetailsResponse.Success -> {
+                    _state.value = VacancyDetailsUiState.Content(result.result)
+                }
             }
         }
     }

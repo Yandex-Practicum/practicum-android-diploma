@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.util.extentions
 
+import java.util.Locale
+
 fun Int.formatWithSpaces(): String {
-    return "%,d".format(this).replace(",", " ")
+    return String.format(Locale.US, "%,d", this).replace(",", " ")
 }

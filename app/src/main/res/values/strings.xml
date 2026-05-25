@@ -9,6 +9,7 @@
     <string name="from">от</string>
     <string name="to">до</string>
     <string name="no_salary">Зарплата не указана</string>
+    <string name="salary_level_not_specified">Уровень зарплаты не указан</string>
     <string name="no_company">Компания не указана</string>
     <string name="back">Назад</string>
 
