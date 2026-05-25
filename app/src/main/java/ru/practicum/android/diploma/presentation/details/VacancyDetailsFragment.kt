@@ -852,7 +852,7 @@ private fun ErrorPlaceholder(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Повторить",
+                        text = stringResource(R.string.vacancy_retry),
                         color = Color.White,
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontSize = 16.sp,
