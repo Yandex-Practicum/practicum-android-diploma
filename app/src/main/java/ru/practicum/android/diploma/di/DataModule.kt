@@ -12,7 +12,9 @@ import ru.practicum.android.diploma.data.network.NetworkClientImpl
 import ru.practicum.android.diploma.data.network.NetworkConnectionChecker
 import ru.practicum.android.diploma.data.network.NetworkConnectionCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkConstants
+import ru.practicum.android.diploma.data.repositories.DetailsRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.VacanciesRepositoryImpl
+import ru.practicum.android.diploma.domain.api.DetailsRepository
 import ru.practicum.android.diploma.domain.api.VacanciesRepository
 
 val dataModule = module {
@@ -62,6 +64,10 @@ val dataModule = module {
 
     single<VacanciesRepository> {
         VacanciesRepositoryImpl(api = get(), networkClient = get())
+    }
+
+    single<DetailsRepository> {
+        DetailsRepositoryImpl(api = get(), networkClient = get())
     }
 }
 

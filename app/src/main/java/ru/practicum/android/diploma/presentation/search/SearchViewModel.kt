@@ -18,6 +18,8 @@ class SearchViewModel(
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
+    private var lastSearchQuery: String = ""
+
     private val searchDebounce = debounce<String>(
         delayMillis = SEARCH_DEBOUNCE_MILLIS,
         coroutineScope = viewModelScope,
@@ -27,17 +29,21 @@ class SearchViewModel(
     }
 
     fun onQueryChanged(query: String) {
+        val newTrimmed = query.trim()
+        val currentTrimmed = _uiState.value.query.trim()
+
         _uiState.update { state ->
             state.copy(
                 query = query,
-                isLoading = false,
-                found = 0,
-                vacancies = emptyList(),
+                isLoading = if (newTrimmed != currentTrimmed) false else state.isLoading,
+                found = if (newTrimmed != currentTrimmed) 0 else state.found,
+                vacancies = if (newTrimmed != currentTrimmed) emptyList() else state.vacancies,
             )
         }
 
         if (query.isBlank()) {
             searchDebounce.cancel()
+            lastSearchQuery = ""
             return
         }
 
@@ -49,9 +55,14 @@ class SearchViewModel(
     }
 
     private suspend fun searchVacancies(query: String) {
+        val trimmedQuery = query.trim()
+        if (trimmedQuery.isEmpty()) return
+        if (trimmedQuery == lastSearchQuery) return
+
+        lastSearchQuery = trimmedQuery
         _uiState.update { state -> state.copy(isLoading = true) }
 
-        when (val result = vacanciesInteractor.searchVacancies(VacancySearchRequest(text = query))) {
+        when (val result = vacanciesInteractor.searchVacancies(VacancySearchRequest(text = trimmedQuery))) {
             is Resource.Success -> {
                 _uiState.update { state ->
                     state.copy(

@@ -10,16 +10,24 @@ import ru.practicum.android.diploma.R
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 1. Устанавливаем XML разметку
         setContentView(R.layout.activity_root)
 
-        // 2. Инициализируем навигацию
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
-        // 3. Связываем BottomNavigationView с контроллером
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.vacancyDetailsFragment -> {
+                    bottomNav.visibility = android.view.View.GONE
+                }
+                else -> {
+                    bottomNav.visibility = android.view.View.VISIBLE
+                }
+            }
+        }
     }
 }
