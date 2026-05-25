@@ -48,7 +48,7 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 fun JobSearchScreen(
     state: JobSearchState,
     searchQuery: String,
-    onVacancyClick: () -> Unit,
+    onVacancyClick: (String) -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onLoadNextPage: () -> Unit,
@@ -171,7 +171,7 @@ private fun SearchQueryField(
 @Composable
 private fun JobSearchStateContent(
     state: JobSearchState,
-    onVacancyClick: () -> Unit,
+    onVacancyClick: (String) -> Unit,
     onLoadNextPage: () -> Unit,
 ) {
     when (state) {
@@ -242,16 +242,19 @@ fun TextField(
         textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
         cursorBrush = SolidColor(Blue),
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(
             onDone = {
                 keyboardController?.hide()
-            }),
+            }
+        ),
         interactionSource = interactionSource,
         decorationBox = { innerTextField ->
             Box(
-                Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart
+                Modifier.fillMaxSize(),
+                contentAlignment = Alignment.CenterStart
             ) {
                 if (searchQuery.isEmpty()) {
                     Text(
