@@ -1,3 +1,5 @@
+@file:Suppress("ALL")
+
 package ru.practicum.android.diploma.presentation.details
 
 import android.content.Intent
