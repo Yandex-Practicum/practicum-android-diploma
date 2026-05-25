@@ -23,7 +23,7 @@ fun VacancyList(
     modifier: Modifier = Modifier,
     vacancies: List<Vacancy>,
     isLoading: Boolean,
-    onClick: () -> Unit,
+    onClick: (String) -> Unit,
     onLoadNextPage: () -> Unit
 ) {
     val listState = rememberLazyListState()

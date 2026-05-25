@@ -10,6 +10,7 @@
     <string name="to">до</string>
     <string name="no_salary">Зарплата не указана</string>
     <string name="no_company">Компания не указана</string>
+    <string name="back">Назад</string>
 
     <!-- Текст для плейсхолдеров на экране поиска -->
     <string name="no_internet_error">Нет интернета</string>
