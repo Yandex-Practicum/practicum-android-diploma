@@ -1,13 +1,13 @@
 package ru.practicum.android.diploma.data
 
-import ru.practicum.android.diploma.data.dto.VacanciesResponse
+import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyCardDto
 import ru.practicum.android.diploma.data.dto.VacancyCardSalaryDto
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.VacanciesSearchResult
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-internal fun VacanciesResponse.toDomain(): VacanciesSearchResult = VacanciesSearchResult(
+internal fun VacanciesResponseDto.toDomain(): VacanciesSearchResult = VacanciesSearchResult(
     found = found,
     page = page,
     pages = pages,
