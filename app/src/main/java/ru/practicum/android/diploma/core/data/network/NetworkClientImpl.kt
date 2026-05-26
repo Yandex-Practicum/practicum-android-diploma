@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
+import ru.practicum.android.diploma.industry.data.network.IndustryApi
 import ru.practicum.android.diploma.search.data.network.HhSearchApi
 import java.io.IOException
 
@@ -33,6 +34,15 @@ class NetworkClientImpl(
             is Request.SearchRequest -> {
                 val api = retrofit.create(HhSearchApi::class.java)
                 val response = api.searchVacancies(request.params)
+                Response().apply {
+                    resultCode = ResultCode.SUCCESS
+                    data = response
+                }
+            }
+
+            is Request.IndustriesRequest -> {
+                val api = retrofit.create(IndustryApi::class.java)
+                val response = api.getIndustries()
                 Response().apply {
                     resultCode = ResultCode.SUCCESS
                     data = response

@@ -4,4 +4,6 @@ sealed class Request {
     data class SearchRequest(
         val params: Map<String, String>
     ) : Request()
+
+    object IndustriesRequest : Request()
 }
