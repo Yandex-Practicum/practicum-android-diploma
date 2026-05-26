@@ -1,17 +1,16 @@
 package ru.practicum.android.diploma.ui.vacancy.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -19,6 +18,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.vacancy.mapper.toContentUi
 import ru.practicum.android.diploma.presentation.vacancy.model.VacancyDetailContentUi
 import ru.practicum.android.diploma.presentation.vacancy.state.VacancyDetailsUiState
+import ru.practicum.android.diploma.ui.common.Loader
+import ru.practicum.android.diploma.ui.theme.Dimens
 import ru.practicum.android.diploma.util.extentions.SalaryFormatLabels
 
 @Composable
@@ -33,13 +34,13 @@ fun VacancyScreen(
     }
 
     when (state) {
-        VacancyDetailsUiState.Loading -> VacancyLoadingContent(modifier)
+        VacancyDetailsUiState.Loading -> VacancyLoadingContent(modifier = modifier)
         VacancyDetailsUiState.Error,
         VacancyDetailsUiState.NotFound,
         VacancyDetailsUiState.ServerError,
         -> VacancyErrorContent(
-            message = stringResource(R.string.no_vacancies_error),
             modifier = modifier,
+            message = stringResource(R.string.no_vacancies_error),
         )
         is VacancyDetailsUiState.Content -> {
             val salaryLabels = SalaryFormatLabels(
@@ -51,8 +52,8 @@ fun VacancyScreen(
                 state.details.toContentUi(salaryLabels)
             }
             VacancyDetailContent(
-                contentUi = contentUi,
                 modifier = modifier,
+                contentUi = contentUi,
             )
         }
     }
@@ -60,14 +61,14 @@ fun VacancyScreen(
 
 @Composable
 private fun VacancyDetailContent(
-    contentUi: VacancyDetailContentUi,
     modifier: Modifier = Modifier,
+    contentUi: VacancyDetailContentUi,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+            .padding(Dimens.ScreenHorizontalPadding),
     ) {
         Text(
             text = contentUi.title,
@@ -93,23 +94,20 @@ private fun VacancyDetailContent(
 
 @Composable
 private fun VacancyLoadingContent(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        CircularProgressIndicator(modifier = Modifier.padding(top = 48.dp))
+    Box(modifier = modifier.fillMaxSize()) {
+        Loader(modifier = Modifier.fillMaxSize())
     }
 }
 
 @Composable
 private fun VacancyErrorContent(
-    message: String,
     modifier: Modifier = Modifier,
+    message: String,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(Dimens.ScreenHorizontalPadding),
     ) {
         Text(
             text = message,
