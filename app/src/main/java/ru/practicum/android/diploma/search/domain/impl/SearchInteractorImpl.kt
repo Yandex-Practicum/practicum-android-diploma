@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.core.domain.models.SearchResult
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 
-class SearchInteractorImpl(private val repository: SearchRepository): SearchInteractor {
+class SearchInteractorImpl(private val repository: SearchRepository) : SearchInteractor {
     override fun searchVacancies(
         query: String,
         page: Int,

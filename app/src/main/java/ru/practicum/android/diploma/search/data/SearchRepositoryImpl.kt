@@ -6,15 +6,14 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request
-import ru.practicum.android.diploma.core.domain.Resource
 import ru.practicum.android.diploma.core.data.network.ResultCode
+import ru.practicum.android.diploma.core.domain.Resource
 import ru.practicum.android.diploma.core.domain.models.SearchResult
 import ru.practicum.android.diploma.core.domain.models.Vacancy
 import ru.practicum.android.diploma.search.data.dto.SearchResponseDto
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
-import kotlin.collections.listOfNotNull
 
-class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context): SearchRepository {
+class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context) : SearchRepository {
 
     override fun searchVacancies(
         query: String,
