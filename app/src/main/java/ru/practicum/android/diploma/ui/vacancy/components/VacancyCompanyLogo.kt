@@ -10,16 +10,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.network.NetworkHeaders
 import coil3.network.httpHeaders
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import ru.practicum.android.diploma.R
-
-private val LOGO_SIZE = 48.dp
-private val LOGO_CORNER_RADIUS = 12.dp
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun VacancyCompanyLogo(
@@ -27,8 +24,8 @@ fun VacancyCompanyLogo(
     modifier: Modifier = Modifier,
 ) {
     val imageModifier = modifier
-        .size(LOGO_SIZE)
-        .clip(RoundedCornerShape(LOGO_CORNER_RADIUS))
+        .size(Dimens.VacancyCompanyLogoSize)
+        .clip(RoundedCornerShape(Dimens.VacancyCardCornerRadius))
     val context = LocalContext.current
     val imageRequest = remember(logoUrl) {
         ImageRequest.Builder(context)

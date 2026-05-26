@@ -10,9 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.vacancy.model.VacancyDescriptionElement
+import ru.practicum.android.diploma.ui.theme.Dimens
 import ru.practicum.android.diploma.util.extentions.toVacancyDescriptionElements
 
 @Composable
@@ -31,7 +31,7 @@ fun VacancyDescriptionBody(
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancyBlockSpacing),
     ) {
         elements.forEach { element ->
             when (element) {

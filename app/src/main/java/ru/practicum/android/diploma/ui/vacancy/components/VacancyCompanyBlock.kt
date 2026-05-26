@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun VacancyCompanyBlock(
@@ -27,15 +27,15 @@ fun VacancyCompanyBlock(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(Dimens.VacancyCardCornerRadius))
             .background(MaterialTheme.colorScheme.surfaceContainer)
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+            .padding(Dimens.ScreenHorizontalPadding),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.VacancyCompanyRowSpacing),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         VacancyCompanyLogo(logoUrl = logoUrl)
         Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(Dimens.VacancyTextSpacing),
         ) {
             Text(
                 text = companyName.ifBlank { stringResource(R.string.no_company) },
