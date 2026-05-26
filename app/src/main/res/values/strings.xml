@@ -40,4 +40,15 @@
     <string name="team_member_4_name">Тимофей Занин</string>
     <string name="team_member_4_role">Кок</string>
     <string name="network_error_toast">Произошла ошибка</string>
+
+    <!-- Экран деталей вакансии -->
+    <string name="vacancy_screen_title">Вакансия</string>
+    <string name="vacancy_required_experience">Требуемый опыт</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+    <string name="vacancy_key_skills_title">Ключевые навыки</string>
+    <string name="vacancy_contacts_title">Контакты</string>
+    <string name="vacancy_not_found_error">Вакансия не найдена</string>
+    <string name="vacancy_server_error">Не удалось получить\nвакансию</string>
+    <string name="share">Поделиться</string>
+    <string name="add_to_favorites">Добавить в избранное</string>
 </resources>
