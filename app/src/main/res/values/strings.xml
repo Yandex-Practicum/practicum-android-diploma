@@ -51,6 +51,7 @@
 
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
     <string name="vacancy_error_server">Ошибка сервера</string>
+    <string name="vacancy_retry">Повторить</string>
     <string name="vacancy_experience">Требуемый опыт</string>
     <string name="vacancy_description">Описание вакансии</string>
     <string name="vacancy_responsibilities">Обязанности</string>
