@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request
 import ru.practicum.android.diploma.core.data.network.Resource
@@ -70,11 +71,12 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
                 id = vacancyDto.id,
                 name = listOfNotNull(vacancyDto.name, vacancyDto.city?.takeIf { it.isNotBlank() }).joinToString(","),
                 employerName = vacancyDto.company ?: "",
-                salary = buildSalaryString(
-                    from = vacancyDto.salary?.from,
-                    to = vacancyDto.salary?.to,
-                    currency = vacancyDto.salary?.currency
-                ),
+                salary = CurrencyFormatter(context)
+                    .format(
+                        from = vacancyDto.salary?.from,
+                        to = vacancyDto.salary?.to,
+                        currency = vacancyDto.salary?.currency
+                    ),
                 employerLogoUrl = vacancyDto.logo
             )
         }
@@ -85,17 +87,6 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
             page = dto.page,
             pages = dto.pages
         )
-    }
-
-    private fun buildSalaryString(from: Int?, to: Int?, currency: String?): String {
-        val fromStr = context.getString(R.string.from)
-        val toStr = context.getString(R.string.to)
-        return when {
-            from != null && to != null -> "$fromStr $from $toStr $to ${currency ?: ""}".trim()
-            from != null -> "$fromStr $from ${currency ?: ""}".trim()
-            to != null -> "$toStr $to ${currency ?: ""}".trim()
-            else -> context.getString(R.string.salary_empty)
-        }
     }
 
     companion object {
