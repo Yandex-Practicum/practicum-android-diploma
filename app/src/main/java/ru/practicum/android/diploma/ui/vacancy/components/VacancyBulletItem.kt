@@ -8,9 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
-
-private val BULLET_TEXT_GAP = 4.dp
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun VacancyBulletItem(
@@ -46,7 +44,7 @@ private fun VacancyBulletRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 8.dp),
+            .padding(start = Dimens.VacancyBulletStartPadding),
     ) {
         Text(
             text = "•",
@@ -56,7 +54,7 @@ private fun VacancyBulletRow(
         Text(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = BULLET_TEXT_GAP),
+                .padding(start = Dimens.VacancyBulletTextGap),
             text = text,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,

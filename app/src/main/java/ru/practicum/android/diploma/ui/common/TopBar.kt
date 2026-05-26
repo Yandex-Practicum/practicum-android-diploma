@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.theme.Dimens
 
@@ -39,7 +38,7 @@ fun TopBar(
         modifier = Modifier
             .fillMaxWidth()
             .windowInsetsPadding(WindowInsets.statusBars)
-            .height(64.dp),
+            .height(Dimens.TopBarHeight),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (navIconVisible) {
@@ -55,7 +54,7 @@ fun TopBar(
             text = text,
             style = MaterialTheme.typography.titleLarge
                 .copy(color = MaterialTheme.colorScheme.onBackground),
-            modifier = Modifier.padding(start = 12.dp),
+            modifier = Modifier.padding(start = Dimens.TopBarTitleStartPadding),
         )
         if (endFirstIconVisible || endSecondIconVisible) {
             Spacer(modifier = Modifier.weight(1f))
@@ -86,8 +85,8 @@ fun IconImage(
 ) {
     Box(
         modifier = modifier
-            .height(48.dp)
-            .width(48.dp)
+            .height(Dimens.TopBarIconSize)
+            .width(Dimens.TopBarIconSize)
             .then(
                 if (onClick != null) {
                     Modifier.clickable(onClick = onClick)

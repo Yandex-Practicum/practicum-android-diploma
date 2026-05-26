@@ -9,11 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.vacancy.model.VacancyDetailContentUi
 import ru.practicum.android.diploma.presentation.vacancy.model.VacancyPhoneUi
 import ru.practicum.android.diploma.ui.theme.Blue
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun VacancyContactsBlock(
@@ -28,7 +28,7 @@ fun VacancyContactsBlock(
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancyBlockSpacing),
     ) {
         Text(
             text = stringResource(R.string.vacancy_contacts_title),
@@ -65,7 +65,7 @@ private fun VacancyPhoneItem(
     onPhoneClick: (String) -> Unit,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancyTextSpacing),
     ) {
         Text(
             modifier = Modifier.clickable { onPhoneClick(phone.formatted) },

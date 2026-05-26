@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.vacancy.model.VacancyDetailContentUi
 import ru.practicum.android.diploma.ui.theme.Dimens
@@ -29,8 +28,8 @@ fun VacancyDetailsContent(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = Dimens.ScreenHorizontalPadding)
-            .padding(bottom = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+            .padding(bottom = Dimens.ScreenContentBottomPadding),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancySectionSpacing),
     ) {
         VacancyDetailsHeader(
             title = content.title,
@@ -63,7 +62,7 @@ private fun VacancyDetailsHeader(
     salaryText: String,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancyBlockSpacing),
     ) {
         Text(
             text = title,
@@ -88,11 +87,11 @@ private fun VacancyExperienceBlock(
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancyBlockSpacing),
     ) {
         if (!experience.isNullOrBlank()) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(Dimens.VacancyTextSpacing),
             ) {
                 Text(
                     text = stringResource(R.string.vacancy_required_experience),
@@ -121,7 +120,7 @@ private fun VacancyDescriptionBlock(
     descriptionHtml: String,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(Dimens.VacancyBlockSpacing),
     ) {
         Text(
             text = stringResource(R.string.vacancy_description_title),

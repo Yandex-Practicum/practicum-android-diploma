@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.ui.team.component.TeamBottomNavigation
 import ru.practicum.android.diploma.ui.team.component.TeamHeader
 import ru.practicum.android.diploma.ui.team.component.TeamInfoCard
@@ -67,7 +66,7 @@ fun TeamScreenContent(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = Dimens.ScreenHorizontalPadding),
-        contentPadding = PaddingValues(bottom = 24.dp),
+        contentPadding = PaddingValues(bottom = Dimens.ScreenContentBottomPadding),
     ) {
         item(key = "header") {
             TeamHeader()
@@ -77,13 +76,16 @@ fun TeamScreenContent(
             key = { it.name },
         ) { member ->
             TeamMemberCard(
-                modifier = Modifier.padding(bottom = 12.dp),
+                modifier = Modifier.padding(bottom = Dimens.TeamMemberCardSpacing),
                 member = member,
             )
         }
         item(key = "footer_tagline") {
             TeamInfoCard(
-                modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
+                modifier = Modifier.padding(
+                    top = Dimens.TeamFooterTopPadding,
+                    bottom = Dimens.TeamFooterBottomPadding,
+                ),
             )
         }
     }
