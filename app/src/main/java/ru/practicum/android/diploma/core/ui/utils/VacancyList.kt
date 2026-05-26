@@ -4,8 +4,8 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import ru.practicum.android.diploma.core.domain.mocks.mockList
 import ru.practicum.android.diploma.core.domain.models.Vacancy
+import ru.practicum.android.diploma.core.ui.preview.mockList
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 
 // Используется в поиске и в избранных

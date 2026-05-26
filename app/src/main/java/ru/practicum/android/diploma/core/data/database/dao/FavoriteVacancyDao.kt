@@ -7,5 +7,5 @@ import ru.practicum.android.diploma.favorites.data.dto.FavoriteVacancyEntity
 @Dao
 interface FavoriteVacancyDao {
     @Query("SELECT * FROM favorite_vacancy ORDER BY id DESC")
-    suspend fun getFavoriteVacancy(): List<FavoriteVacancyEntity>
+    suspend fun getFavoriteVacancies(): List<FavoriteVacancyEntity>
 }

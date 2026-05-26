@@ -13,14 +13,14 @@ class SearchViewModelImpl : SearchViewModel() {
     override var isFiltered: StateFlow<Boolean> = _isFiltered.asStateFlow()
 
     override fun onQueryChanged(query: String) {
-        TODO("Not yet implemented")
+        // no-op: реализация в Epic 1
     }
 
     override fun onFocusChanged(isFocused: Boolean) {
-        TODO("Not yet implemented")
+        // no-op: реализация в Epic 1
     }
 
     override fun onSearchIconClicked() {
-        TODO("Not yet implemented")
+        // no-op: реализация в Epic 1
     }
 }
