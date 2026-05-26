@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.core.data.network
+package ru.practicum.android.diploma.core.domain
 
 sealed class Resource<out T> {
     data class Success<T>(
@@ -6,7 +6,6 @@ sealed class Resource<out T> {
     ) : Resource<T>()
 
     data class Error(
-        val message: String,
         val code: Int? = null,
     ) : Resource<Nothing>()
 
