@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.ui.team.model.TeamMember
 import ru.practicum.android.diploma.ui.team.theme.TeamColors
 import ru.practicum.android.diploma.ui.team.theme.TeamTypography
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun TeamMemberCard(
@@ -50,7 +51,7 @@ fun TeamMemberCard(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = Dimens.ScreenHorizontalPadding),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {

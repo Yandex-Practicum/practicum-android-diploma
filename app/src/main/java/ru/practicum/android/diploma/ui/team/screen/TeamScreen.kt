@@ -25,11 +25,12 @@ import ru.practicum.android.diploma.ui.team.model.TeamMember
 import ru.practicum.android.diploma.ui.team.rememberTeamMembers
 import ru.practicum.android.diploma.ui.team.theme.TeamColors
 import ru.practicum.android.diploma.ui.theme.AppTheme
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun TeamScreen(
-    showBottomNavigation: Boolean = true,
     modifier: Modifier = Modifier,
+    showBottomNavigation: Boolean = true,
 ) {
     val members = rememberTeamMembers()
     var selectedTab by remember { mutableStateOf(TeamBottomTab.Team) }
@@ -65,7 +66,7 @@ fun TeamScreenContent(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = Dimens.ScreenHorizontalPadding),
         contentPadding = PaddingValues(bottom = 24.dp),
     ) {
         item(key = "header") {
