@@ -72,6 +72,7 @@ private fun Salary.toDb(): SalaryEmbedded = SalaryEmbedded(
     to = to,
     currency = currency
 )
+
 private fun SalaryEmbedded.fromDb(): Salary = Salary(
     from = from,
     to = to,
@@ -85,11 +86,12 @@ private fun Address.toDb(): AddressEmbedded = AddressEmbedded(
     building = building,
     raw = raw
 )
+
 private fun AddressEmbedded.fromDb(): Address = Address(
     id = id,
     city = city,
-    street = street?:"",
-    building = building?:"",
+    street = street ?: "",
+    building = building ?: "",
     raw = raw
 )
 
@@ -107,6 +109,7 @@ private fun Schedule.toDb(): ScheduleEmbedded = ScheduleEmbedded(
     id = id,
     name = name
 )
+
 private fun ScheduleEmbedded.fromDb(): Schedule = Schedule(
     id = id,
     name = name
@@ -116,6 +119,7 @@ private fun Employment.toDb(): EmploymentEmbedded = EmploymentEmbedded(
     id = id,
     name = name
 )
+
 private fun EmploymentEmbedded.fromDb(): Employment = Employment(
     id = id,
     name = name
@@ -127,20 +131,22 @@ private fun Contacts.toDb(): ContactsEmbedded = ContactsEmbedded(
     email = email,
     phones = phones.map { it.toDb() }
 )
+
 private fun ContactsEmbedded.fromDb(): Contacts = Contacts(
     id = id,
     name = name,
-    email = email?:"",
-    phones = phones?.map { it.fromDb() }?:listOf()
+    email = email ?: "",
+    phones = phones?.map { it.fromDb() } ?: listOf()
 )
 
 private fun Phone.toDb(): PhoneEmbedded = PhoneEmbedded(
     comment = comment,
     formatted = formatted
 )
+
 private fun PhoneEmbedded.fromDb(): Phone = Phone(
     comment = comment,
-    formatted = formatted?:""
+    formatted = formatted ?: ""
 )
 
 private fun Employer.toDb(): EmployerEmbedded = EmployerEmbedded(
@@ -152,14 +158,16 @@ private fun Employer.toDb(): EmployerEmbedded = EmployerEmbedded(
 private fun EmployerEmbedded.fromDb(): Employer = Employer(
     id = id,
     name = name,
-    logo = logo?:""
+    logo = logo ?: ""
 )
+
 private fun FilterArea.toDb(): FilterAreaEmbedded = FilterAreaEmbedded(
     id = id,
     name = name,
     parentId = parentId,
     areas = areas.map { it.toDb() }
 )
+
 private fun FilterAreaEmbedded.fromDb(): FilterArea = FilterArea(
     id = id,
     name = name,
@@ -176,6 +184,3 @@ private fun FilterIndustryEmbedded.fromDb(): FilterIndustry = FilterIndustry(
     id = id,
     name = name
 )
-
-
-
