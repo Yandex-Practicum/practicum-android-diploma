@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.interactors.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.VacancySearchRequest
@@ -28,6 +29,7 @@ class SearchViewModel(
 
     private val loadedPages = mutableSetOf<Int>()
     private var lastSearchQuery: String = ""
+    private var paginationJob: Job? = null
 
     private val searchDebounce = debounce<String>(
         delayMillis = SEARCH_DEBOUNCE_MILLIS,
@@ -38,6 +40,8 @@ class SearchViewModel(
     }
 
     fun onQueryChanged(query: String) {
+        paginationJob?.cancel()
+        paginationJob = null
         loadedPages.clear()
         _uiState.update { state ->
             state.copy(
@@ -72,7 +76,7 @@ class SearchViewModel(
             && nextPage !in loadedPages
             && (state.totalPages == 0 || nextPage <= state.totalPages)
         if (!canLoad) return
-        viewModelScope.launch {
+        paginationJob = viewModelScope.launch {
             searchPage(state.query, page = nextPage, isPagination = true)
         }
     }
