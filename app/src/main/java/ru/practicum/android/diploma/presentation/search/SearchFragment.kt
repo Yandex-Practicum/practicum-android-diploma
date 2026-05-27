@@ -346,7 +346,7 @@ private fun SearchResults(
 ) {
     val listState = rememberLazyListState()
 
-    val reachedEnd by remember {
+    val reachedEnd by remember(listState, state.vacancies.size) {
         derivedStateOf {
             val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
             lastVisible != null && lastVisible >= state.vacancies.lastIndex
