@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.vacancy.screen
 
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -48,7 +47,6 @@ fun VacancyScreen(
                 onFavoriteClick = onFavoriteClick,
             )
         },
-        contentWindowInsets = WindowInsets(bottom = 0),
     ) { paddingValues ->
         VacancyDetailsBody(
             modifier = Modifier
