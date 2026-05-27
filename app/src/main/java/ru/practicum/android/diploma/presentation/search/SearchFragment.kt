@@ -100,7 +100,7 @@ class SearchFragment : Fragment() {
 
     private fun onVacancyClicked(vacancyId: String) {
         val bundle = Bundle().apply {
-            putString("vacancyId", vacancyId)
+            putString(VACANCY_ID_KEY, vacancyId)
         }
         findNavController().navigate(
             R.id.vacancyDetailsFragment,
@@ -109,8 +109,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        const val VACANCY_CLICK_REQUEST_KEY = "vacancy_click_request"
-        const val VACANCY_ID_KEY = "vacancy_id"
+        const val VACANCY_ID_KEY = "vacancyId"
     }
 }
 
