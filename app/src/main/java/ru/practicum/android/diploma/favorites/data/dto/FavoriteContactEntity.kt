@@ -43,8 +43,6 @@ class FavoritePhoneEntity(
     val vacancyId: String,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val country: String?,
-    val city: String?,
     val number: String?,
     val comment: String?
 )

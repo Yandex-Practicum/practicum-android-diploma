@@ -71,8 +71,6 @@ class FavoritesRepositoryImpl(val dao: FavoriteVacancyDao) : FavoritesRepository
         return model.map {
             FavoritePhoneEntity(
                 vacancyId = id,
-                country = null,
-                city = null,
                 number = it.number,
                 comment = it.comment
             )
