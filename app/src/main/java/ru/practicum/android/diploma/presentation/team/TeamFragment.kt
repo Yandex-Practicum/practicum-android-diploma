@@ -96,7 +96,10 @@ fun TeamContent(
                 text = name,
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                ),
             )
             if (index < members.lastIndex) {
                 Spacer(modifier = Modifier.height(Dimens.paddingDefault))
