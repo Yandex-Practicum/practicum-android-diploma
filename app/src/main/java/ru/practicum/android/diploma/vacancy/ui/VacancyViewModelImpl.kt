@@ -1,15 +1,13 @@
 package ru.practicum.android.diploma.vacancy.ui
 
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.vacancy.domain.api.VacancyInteractor
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import ru.practicum.android.diploma.vacancy.ui.mock.VacancyDetailsPreview
 
-class VacancyViewModelImpl(val id: String, val interactor: VacancyInteractor) : VacancyViewModel() {
-    init {
-        // TODO удалить после реализации VacancyViewModelImpl
-        // пример обращения к interactor
-        viewModelScope.launch {
-            print(interactor.getById("0001db2d-1366-379d-98ce-6f965bbc7816"))
-        }
-    }
+class VacancyViewModelImpl(val id: String) : VacancyViewModel() {
+    private val _state = MutableStateFlow<VacancyDetailsViewState>(
+        VacancyDetailsViewState.Data(VacancyDetailsPreview.full)
+    )
+    override var state: StateFlow<VacancyDetailsViewState> = _state.asStateFlow()
 }
