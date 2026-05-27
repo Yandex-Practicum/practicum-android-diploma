@@ -131,7 +131,7 @@ private fun ContactsEmbedded.fromDb(): Contacts = Contacts(
     id = id,
     name = name,
     email = email?:"",
-    phones = phones.map { it.fromDb() }
+    phones = phones?.map { it.fromDb() }?:listOf()
 )
 
 private fun Phone.toDb(): PhoneEmbedded = PhoneEmbedded(
@@ -140,7 +140,7 @@ private fun Phone.toDb(): PhoneEmbedded = PhoneEmbedded(
 )
 private fun PhoneEmbedded.fromDb(): Phone = Phone(
     comment = comment,
-    formatted = formatted
+    formatted = formatted?:""
 )
 
 private fun Employer.toDb(): EmployerEmbedded = EmployerEmbedded(
