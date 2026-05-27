@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import android.content.res.Configuration
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.ui.team.component.TeamBottomNavigation
@@ -102,6 +103,26 @@ private fun TeamScreenPreview() {
 @Preview(showBackground = true, widthDp = 360, heightDp = 800)
 @Composable
 private fun TeamScreenContentPreview() {
+    AppTheme {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(TeamColors.screenBackgroundBrush),
+        ) {
+            TeamScreenContent(members = rememberTeamMembers())
+        }
+    }
+}
+
+@Preview(
+    name = "Team dark",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 800,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+private fun TeamScreenContentDarkPreview() {
     AppTheme {
         Box(
             modifier = Modifier
