@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.vacancy.data
 
 import android.content.Context
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request

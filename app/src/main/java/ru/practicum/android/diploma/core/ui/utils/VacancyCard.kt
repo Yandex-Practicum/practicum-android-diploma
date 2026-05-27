@@ -27,8 +27,8 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.preview.mockList
 import ru.practicum.android.diploma.core.domain.models.Vacancy
+import ru.practicum.android.diploma.core.ui.preview.mockList
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.LightGray
