@@ -28,7 +28,6 @@ class SearchViewModel(
     val paginationError: SharedFlow<SearchError> = _paginationError.asSharedFlow()
 
     private val loadedPages = mutableSetOf<Int>()
-    private var lastSearchQuery: String = ""
     private var paginationJob: Job? = null
 
     private val searchDebounce = debounce<String>(
@@ -58,7 +57,6 @@ class SearchViewModel(
 
         if (query.isBlank()) {
             searchDebounce.cancel()
-            lastSearchQuery = ""
             return
         }
 
