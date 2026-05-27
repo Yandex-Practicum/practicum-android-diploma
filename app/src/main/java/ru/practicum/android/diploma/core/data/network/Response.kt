@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.core.data.network
 
 open class Response {
     var resultCode: Int = ResultCode.UNDEFINED
+    var data: Any? = null
 }
 
 object ResultCode {
