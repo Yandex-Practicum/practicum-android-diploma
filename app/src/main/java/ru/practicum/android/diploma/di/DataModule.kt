@@ -43,7 +43,7 @@ val dataModule = module {
         UserDataRepositoryImpl()
     }
 
-    single {
+    single<AppDatabase> {
         Room.databaseBuilder(
             androidContext(),
             AppDatabase::class.java,
