@@ -1,11 +1,14 @@
 package ru.practicum.android.diploma.di
 
+import androidx.room.Room
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.db.AppDatabase
+import ru.practicum.android.diploma.data.db.dao.VacancyDao
 import ru.practicum.android.diploma.data.network.DiplomaApi
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.NetworkClientImpl
@@ -69,7 +72,20 @@ val dataModule = module {
     single<DetailsRepository> {
         DetailsRepositoryImpl(api = get(), networkClient = get())
     }
+
+    single<AppDatabase> {
+        Room.databaseBuilder(
+            get(),
+            AppDatabase::class.java,
+            DATABASE_NAME
+        ).build()
+    }
+
+    single<VacancyDao> {
+        get<AppDatabase>().vacancyDao()
+    }
 }
 
 private const val AUTHORIZATION_HEADER = "Authorization"
 private const val AUTHORIZATION_BEARER_PREFIX = "Bearer"
+private const val DATABASE_NAME = "vacancies_database.db"
