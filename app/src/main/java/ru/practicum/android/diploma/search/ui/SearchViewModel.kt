@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 abstract class SearchViewModel : ViewModel() {
     abstract var state: StateFlow<SearchViewState>
     var query = mutableStateOf("")
-    abstract var showClearButton: StateFlow<Boolean>
     abstract var isFiltered: StateFlow<Boolean>
 
     abstract fun onQueryChanged(query: String)
