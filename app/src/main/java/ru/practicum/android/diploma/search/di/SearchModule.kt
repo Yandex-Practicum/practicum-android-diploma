@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.search.ui.mock.SearchViewModelMock
 val searchModule = module {
     viewModel<SearchViewModel> {
         // SearchViewModelImpl() //TODO temporary mock
-        //пока не реализуем логику SearchViewModelImpl
+        // пока не реализуем логику SearchViewModelImpl
         SearchViewModelMock(mockState = SearchViewState.Data(Vacancy.mockList()))
     }
 
