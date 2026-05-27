@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
@@ -99,6 +100,7 @@ fun IconImage(
         Image(
             painter = painterResource(id = resId),
             contentDescription = contentDescription,
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
         )
     }
 }
