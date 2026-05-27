@@ -3,20 +3,19 @@ package ru.practicum.android.diploma.search.data
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request
-import ru.practicum.android.diploma.core.data.network.Resource
 import ru.practicum.android.diploma.core.data.network.ResultCode
+import ru.practicum.android.diploma.core.domain.Resource
 import ru.practicum.android.diploma.core.domain.models.SearchResult
 import ru.practicum.android.diploma.core.domain.models.Vacancy
 import ru.practicum.android.diploma.search.data.dto.SearchResponseDto
-import kotlin.collections.listOfNotNull
+import ru.practicum.android.diploma.search.domain.api.SearchRepository
 
-class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context) {
+class SearchRepositoryImpl(private val networkClient: NetworkClient, private val context: Context) : SearchRepository {
 
-    fun searchVacancies(
+    override fun searchVacancies(
         query: String,
         page: Int,
         perPage: Int,
@@ -44,21 +43,8 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
                 val searchResult = mapping(dto)
                 emit(Resource.Success(searchResult))
             }
-            ResultCode.NO_INTERNET -> {
-                emit(Resource.Error(
-                    message = context.getString(R.string.no_internet_connection),
-                    code = response.resultCode
-                ))
-            }
-            ResultCode.SERVER_ERROR -> {
-                emit(Resource.Error(
-                    message = context.getString(R.string.server_error_please_try_again),
-                    code = response.resultCode
-                ))
-            }
             else -> {
                 emit(Resource.Error(
-                    message = context.getString(R.string.unknown_error),
                     code = response.resultCode
                 ))
             }
