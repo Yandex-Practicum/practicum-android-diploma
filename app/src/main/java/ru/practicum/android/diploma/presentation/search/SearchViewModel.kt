@@ -115,7 +115,7 @@ class SearchViewModel(
                 currentPage = data.page,
                 totalPages = data.pages,
                 vacancies = if (isPagination) {
-                    state.vacancies + data.vacancies
+                    (state.vacancies + data.vacancies).distinctBy { it.id }
                 } else {
                     data.vacancies
                 },
