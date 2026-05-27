@@ -47,13 +47,26 @@ class TeamFragment : Fragment() {
 
 @Composable
 fun TeamScreen() {
+    TeamContent(
+        title = stringResource(R.string.team_title),
+        membersLabel = stringResource(R.string.team_members_label),
+        members = stringArrayResource(R.array.team_members).toList(),
+    )
+}
+
+@Composable
+fun TeamContent(
+    title: String,
+    membersLabel: String,
+    members: List<String>,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(Dimens.paddingDefault, Dimens.paddingTopLarge),
     ) {
         Text(
-            text = stringResource(R.string.team_title),
+            text = title,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = Dimens.paddingMedium),
@@ -67,7 +80,7 @@ fun TeamScreen() {
         Spacer(modifier = Modifier.height(Dimens.paddingDefault))
 
         Text(
-            text = stringResource(R.string.team_members_label),
+            text = membersLabel,
             modifier = Modifier.fillMaxWidth(),
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineLarge.copy(
@@ -78,7 +91,6 @@ fun TeamScreen() {
 
         Spacer(modifier = Modifier.height(Dimens.paddingTopLarge))
 
-        val members = stringArrayResource(R.array.team_members)
         members.forEachIndexed { index, name ->
             Text(
                 text = name,
@@ -102,6 +114,15 @@ fun TeamScreen() {
 @Composable
 private fun TeamScreenPreview() {
     AppTheme {
-        TeamScreen()
+        TeamContent(
+            title = "Команда",
+            membersLabel = "Над приложением работали",
+            members = listOf(
+                "Павел Мичка",
+                "Сергей Иванов",
+                "Сергей Гнедовский",
+                "Даниил Квасников",
+            ),
+        )
     }
 }
