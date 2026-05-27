@@ -10,32 +10,32 @@ class Converter {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromString(value: List<String>?): String? {
-        return gson.toJson(value)
+    fun fromStringList(value: List<String>?): String? {
+        return value?.let(gson::toJson)
     }
 
     @TypeConverter
-    fun toString(value: String?): List<String>? {
-        return gson.fromJson(value, object : TypeToken<List<String>>() {}.type)
+    fun toStringList(value: String?): List<String>? {
+        return value?.let { gson.fromJson(it, object : TypeToken<List<String>>() {}.type) }
     }
 
     @TypeConverter
     fun fromPhonesList(value: List<PhoneEmbedded>?): String? {
-        return gson.toJson(value)
+        return value?.let(gson::toJson)
     }
 
     @TypeConverter
     fun toPhonesList(value: String?): List<PhoneEmbedded>? {
-        return gson.fromJson(value, object : TypeToken<List<PhoneEmbedded>>() {}.type)
+        return value?.let { gson.fromJson(it, object : TypeToken<List<PhoneEmbedded>>() {}.type) }
     }
 
     @TypeConverter
     fun fromFilterArea(value: List<FilterAreaEmbedded>?): String? {
-        return gson.toJson(value)
+        return value?.let(gson::toJson)
     }
 
     @TypeConverter
     fun toFilterArea(value: String?): List<FilterAreaEmbedded>? {
-        return gson.fromJson(value, object : TypeToken<List<FilterAreaEmbedded>>() {}.type)
+        return value?.let { gson.fromJson(it, object : TypeToken<List<FilterAreaEmbedded>>() {}.type) }
     }
 }
