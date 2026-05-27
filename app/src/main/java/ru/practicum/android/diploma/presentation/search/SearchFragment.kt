@@ -56,6 +56,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.flow.SharedFlow
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -98,11 +99,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun onVacancyClicked(vacancyId: String) {
-        parentFragmentManager.setFragmentResult(
-            VACANCY_CLICK_REQUEST_KEY,
-            Bundle().apply {
-                putString(VACANCY_ID_KEY, vacancyId)
-            },
+        val bundle = Bundle().apply {
+            putString("vacancyId", vacancyId)
+        }
+        findNavController().navigate(
+            R.id.vacancyDetailsFragment,
+            bundle
         )
     }
 

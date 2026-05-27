@@ -6,9 +6,10 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
-fun VacancySalary?.formatSalary(): String {
+fun VacancySalary?.formatSalary(isDetails: Boolean = false): String {
+    val fallback = if (isDetails) "Уровень зарплаты не указан" else SALARY_NOT_SPECIFIED
     if (this == null) {
-        return SALARY_NOT_SPECIFIED
+        return fallback
     }
 
     val fromText = from?.formatAmountWithCurrency(currency)
@@ -18,7 +19,7 @@ fun VacancySalary?.formatSalary(): String {
         fromText != null && toText != null -> "от $fromText до $toText"
         fromText != null -> "от $fromText"
         toText != null -> "до $toText"
-        else -> SALARY_NOT_SPECIFIED
+        else -> fallback
     }
 }
 
