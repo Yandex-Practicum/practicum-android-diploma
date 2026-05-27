@@ -26,6 +26,7 @@ class FavoritesViewModelImpl(val interactor: FavoritesInteractor) : FavoritesVie
                     "",
                     "",
                     "",
+                    "",
                     emptyList(),
                     Contacts("", "", emptyList()),
                     ""
