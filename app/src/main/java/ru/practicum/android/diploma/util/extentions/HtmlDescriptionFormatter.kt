@@ -39,12 +39,12 @@ fun String.toVacancyDescriptionElements(sectionTitleToStrip: String): List<Vacan
 
     val preparedHtml = stripLeadingDescriptionSectionHtml(sectionTitleToStrip)
     val tokens = tokenizeDescriptionHtml(preparedHtml)
-    if (tokens.isEmpty()) {
-        return listOf(VacancyDescriptionElement.Paragraph(htmlFragmentToAnnotatedString(preparedHtml)))
+    val elements = if (tokens.isEmpty()) {
+        listOf(VacancyDescriptionElement.Paragraph(htmlFragmentToAnnotatedString(preparedHtml)))
+    } else {
+        tokens.toDescriptionElements()
     }
-
-    return tokens.toDescriptionElements()
-        .dropLeadingSectionTitleElement(sectionTitleToStrip)
+    return elements.dropLeadingSectionTitleElement(sectionTitleToStrip)
 }
 
 private sealed interface DescriptionToken {
@@ -77,30 +77,49 @@ private fun tokenizeDescriptionHtml(html: String): List<DescriptionToken> {
     var searchStart = 0
 
     while (searchStart < html.length) {
-        val match = BLOCK_TAG_PATTERN.find(html, searchStart) ?: break
-        val tag = match.groupValues[1].lowercase()
-        val contentStart = match.range.last + 1
-        val closeTag = "</$tag>"
-        val closeIndex = html.indexOf(closeTag, contentStart, ignoreCase = true)
-        if (closeIndex == -1) {
-            searchStart = match.range.last + 1
-            continue
+        val nextStart = appendNextDescriptionToken(html, searchStart, tokens)
+        if (nextStart == null) {
+            break
         }
-
-        val innerHtml = html.substring(contentStart, closeIndex)
-        when (tag) {
-            "p" -> tokens.add(DescriptionToken.Paragraph(innerHtml))
-            "ul", "ol" -> {
-                LIST_ITEM_PATTERN.findAll(innerHtml).forEach { listItem ->
-                    tokens.add(DescriptionToken.ListItem(listItem.groupValues[1]))
-                }
-            }
-            "li" -> tokens.add(DescriptionToken.ListItem(innerHtml))
-        }
-        searchStart = closeIndex + closeTag.length
+        searchStart = nextStart
     }
 
     return tokens
+}
+
+private fun appendNextDescriptionToken(
+    html: String,
+    searchStart: Int,
+    tokens: MutableList<DescriptionToken>,
+): Int? {
+    val match = BLOCK_TAG_PATTERN.find(html, searchStart) ?: return null
+    val tag = match.groupValues[1].lowercase()
+    val contentStart = match.range.last + 1
+    val closeTag = "</$tag>"
+    val closeIndex = html.indexOf(closeTag, contentStart, ignoreCase = true)
+    return when {
+        closeIndex == -1 -> match.range.last + 1
+        else -> {
+            appendDescriptionTokenContent(tag, html.substring(contentStart, closeIndex), tokens)
+            closeIndex + closeTag.length
+        }
+    }
+}
+
+private fun appendDescriptionTokenContent(
+    tag: String,
+    innerHtml: String,
+    tokens: MutableList<DescriptionToken>,
+) {
+    when (tag) {
+        "p" -> tokens.add(DescriptionToken.Paragraph(innerHtml))
+        "ul", "ol" -> {
+            LIST_ITEM_PATTERN.findAll(innerHtml).forEach { listItem ->
+                tokens.add(DescriptionToken.ListItem(listItem.groupValues[1]))
+            }
+        }
+        "li" -> tokens.add(DescriptionToken.ListItem(innerHtml))
+    }
 }
 
 private fun List<DescriptionToken>.toDescriptionElements(): List<VacancyDescriptionElement> {
@@ -108,42 +127,60 @@ private fun List<DescriptionToken>.toDescriptionElements(): List<VacancyDescript
     var afterSubHeader = false
 
     forEach { token ->
-        when (token) {
+        afterSubHeader = when (token) {
             is DescriptionToken.Paragraph -> {
-                if (token.html.isStrongOnlyParagraph()) {
-                    afterSubHeader = true
-                    elements.add(
-                        VacancyDescriptionElement.SubHeader(
-                            text = token.html.extractStrongText().formatHtmlDescription(),
-                        ),
-                    )
-                } else if (afterSubHeader) {
-                    elements.add(
-                        VacancyDescriptionElement.Bullet(
-                            text = htmlFragmentToAnnotatedString(token.html),
-                        ),
-                    )
-                } else {
-                    afterSubHeader = false
-                    elements.add(
-                        VacancyDescriptionElement.Paragraph(
-                            text = htmlFragmentToAnnotatedString(token.html),
-                        ),
-                    )
-                }
+                elements.addParagraphToken(token, afterSubHeader)
             }
             is DescriptionToken.ListItem -> {
-                afterSubHeader = true
-                elements.add(
-                    VacancyDescriptionElement.Bullet(
-                        text = htmlFragmentToAnnotatedString(token.html),
-                    ),
-                )
+                elements.addListItemToken(token)
+                true
             }
         }
     }
 
     return elements.filter { it.isNotBlank() }
+}
+
+private fun MutableList<VacancyDescriptionElement>.addParagraphToken(
+    token: DescriptionToken.Paragraph,
+    afterSubHeader: Boolean,
+): Boolean {
+    return when {
+        token.html.isStrongOnlyParagraph() -> {
+            add(
+                VacancyDescriptionElement.SubHeader(
+                    text = token.html.extractStrongText().formatHtmlDescription(),
+                ),
+            )
+            true
+        }
+        afterSubHeader -> {
+            add(
+                VacancyDescriptionElement.Bullet(
+                    text = htmlFragmentToAnnotatedString(token.html),
+                ),
+            )
+            true
+        }
+        else -> {
+            add(
+                VacancyDescriptionElement.Paragraph(
+                    text = htmlFragmentToAnnotatedString(token.html),
+                ),
+            )
+            false
+        }
+    }
+}
+
+private fun MutableList<VacancyDescriptionElement>.addListItemToken(
+    token: DescriptionToken.ListItem,
+) {
+    add(
+        VacancyDescriptionElement.Bullet(
+            text = htmlFragmentToAnnotatedString(token.html),
+        ),
+    )
 }
 
 private fun String.isStrongOnlyParagraph(): Boolean {
@@ -189,23 +226,31 @@ private fun List<VacancyDescriptionElement>.dropLeadingSectionTitleElement(
     sectionTitle: String,
 ): List<VacancyDescriptionElement> {
     val first = firstOrNull() ?: return this
-    if (first is VacancyDescriptionElement.SubHeader &&
-        first.text.equals(sectionTitle, ignoreCase = true)
-    ) {
-        return drop(1)
-    }
-    if (first is VacancyDescriptionElement.Paragraph &&
-        first.text.text.startsWith(sectionTitle, ignoreCase = true)
-    ) {
-        val trimmedText = first.text.text
-            .removePrefix(sectionTitle)
-            .trimStart('\n', ' ', '\t')
-        if (trimmedText.isBlank()) {
-            return drop(1)
+    return when {
+        first is VacancyDescriptionElement.SubHeader &&
+            first.text.equals(sectionTitle, ignoreCase = true) -> drop(1)
+
+        first is VacancyDescriptionElement.Paragraph &&
+            first.text.text.startsWith(sectionTitle, ignoreCase = true) -> {
+            trimLeadingSectionParagraph(first, sectionTitle)
         }
-        return listOf(VacancyDescriptionElement.Paragraph(AnnotatedString(trimmedText))) + drop(1)
+
+        else -> this
     }
-    return this
+}
+
+private fun List<VacancyDescriptionElement>.trimLeadingSectionParagraph(
+    first: VacancyDescriptionElement.Paragraph,
+    sectionTitle: String,
+): List<VacancyDescriptionElement> {
+    val trimmedText = first.text.text
+        .removePrefix(sectionTitle)
+        .trimStart('\n', ' ', '\t')
+    return if (trimmedText.isBlank()) {
+        drop(1)
+    } else {
+        listOf(VacancyDescriptionElement.Paragraph(AnnotatedString(trimmedText))) + drop(1)
+    }
 }
 
 private fun AnnotatedString.trimLeadingBlankLines(): AnnotatedString {
@@ -219,22 +264,22 @@ private fun AnnotatedString.trimLeadingBlankLines(): AnnotatedString {
 }
 
 private fun AnnotatedString.dropLeadingChars(count: Int): AnnotatedString {
-    if (count <= 0) {
-        return this
-    }
-    if (count >= text.length) {
-        return AnnotatedString("")
-    }
-    val newText = text.substring(count)
-    return buildAnnotatedString {
-        append(newText)
-        spanStyles.forEach { range ->
-            if (range.end > count) {
-                addStyle(
-                    range.item,
-                    (range.start - count).coerceAtLeast(0),
-                    range.end - count,
-                )
+    return when {
+        count <= 0 -> this
+        count >= text.length -> AnnotatedString("")
+        else -> {
+            val newText = text.substring(count)
+            buildAnnotatedString {
+                append(newText)
+                spanStyles.forEach { range ->
+                    if (range.end > count) {
+                        addStyle(
+                            range.item,
+                            (range.start - count).coerceAtLeast(0),
+                            range.end - count,
+                        )
+                    }
+                }
             }
         }
     }
