@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui
 
-import kotlinx.coroutines.flow.StateFlow
 import ru.practicum.android.diploma.core.domain.models.Vacancies
 
 sealed class SearchViewError {
