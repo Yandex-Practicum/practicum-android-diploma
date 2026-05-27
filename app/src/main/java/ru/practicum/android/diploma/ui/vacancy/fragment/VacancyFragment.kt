@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.domain.models.VacancyAction
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.VacancyViewModel
 import ru.practicum.android.diploma.ui.theme.AppTheme
 import ru.practicum.android.diploma.ui.vacancy.screen.VacancyScreen
@@ -20,7 +21,7 @@ class VacancyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -29,8 +30,20 @@ class VacancyFragment : Fragment() {
                     val state = viewModel.state.collectAsStateWithLifecycle()
                     VacancyScreen(
                         state = state.value,
-                        onLoadVacancy = { viewModel.loadVacancy() },
-                        navigateBack = { findNavController().navigateUp() },
+                        onLoadVacancy = viewModel::loadVacancy,
+                        onBackClick = { findNavController().navigateUp() },
+                        onShareClick = { url ->
+                            viewModel.onAction(VacancyAction.ShareVacancy(url))
+                        },
+                        onFavoriteClick = {
+                            viewModel.onAction(VacancyAction.LikeVacancy)
+                        },
+                        onEmailClick = { email ->
+                            viewModel.onAction(VacancyAction.EmailClick(email))
+                        },
+                        onPhoneClick = { phone ->
+                            viewModel.onAction(VacancyAction.PhoneNumberClick(phone))
+                        },
                     )
                 }
             }
