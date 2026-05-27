@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import androidx.room.Room
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -43,7 +44,12 @@ val dataModule = module {
     }
 
     single {
-        AppDatabase.buildDatabase(androidContext())
+        Room.databaseBuilder(
+            androidContext(),
+            AppDatabase::class.java,
+            "database.db"
+        ).fallbackToDestructiveMigration(false)
+            .build()
     }
 
     single<FavoriteVacancyDao> {
