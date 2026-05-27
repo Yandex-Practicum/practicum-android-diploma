@@ -158,7 +158,10 @@ private fun SearchScreen(
                 )
                 state.errorType == SearchError.NO_INTERNET -> NoInternetPlaceholder()
                 state.errorType == SearchError.SERVER_ERROR -> ServerErrorPlaceholder()
-                state.errorType == SearchError.EMPTY -> EmptyResultsPlaceholder()
+                state.errorType == SearchError.EMPTY -> Column(Modifier.fillMaxSize()) {
+                    SearchResultCounter(text = stringResource(R.string.search_results_empty))
+                    EmptyResultsPlaceholder(modifier = Modifier.weight(1f).fillMaxWidth())
+                }
                 state.query.isBlank() -> SearchInitialPlaceholder()
             }
         }
@@ -290,17 +293,18 @@ private fun ServerErrorPlaceholder() {
 }
 
 @Composable
-private fun EmptyResultsPlaceholder() {
+private fun EmptyResultsPlaceholder(modifier: Modifier = Modifier.fillMaxSize()) {
     SearchPlaceholder(
         imageRes = R.drawable.il_main_no_results_328,
         textRes = R.string.search_no_results,
+        modifier = modifier,
     )
 }
 
 @Composable
-private fun SearchPlaceholder(imageRes: Int, textRes: Int) {
+private fun SearchPlaceholder(imageRes: Int, textRes: Int, modifier: Modifier = Modifier.fillMaxSize()) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
