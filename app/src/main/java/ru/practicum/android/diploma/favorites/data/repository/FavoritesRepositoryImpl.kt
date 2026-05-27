@@ -18,9 +18,11 @@ import kotlin.String
 class FavoritesRepositoryImpl(val dao: FavoriteVacancyDao) : FavoritesRepository {
     override suspend fun add(details: VacancyDetails) {
         dao.insert(mappingEntity(details))
-        dao.insertContact(mappingContact(details.contacts, details.id))
-        dao.insertPhones(mappingPhones(details.contacts.phones, details.id))
         dao.insertSkills(mappingKeySkills(details.keySkills, details.id))
+        details.contacts?.let { contacts ->
+            dao.insertContact(mappingContact(contacts, details.id))
+            dao.insertPhones(mappingPhones(contacts.phones, details.id))
+        }
     }
 
     override suspend fun remove(id: String) {
@@ -69,8 +71,8 @@ class FavoritesRepositoryImpl(val dao: FavoriteVacancyDao) : FavoritesRepository
         return model.map {
             FavoritePhoneEntity(
                 vacancyId = id,
-                country = it.country,
-                city = it.city,
+                country = null,
+                city = null,
                 number = it.number,
                 comment = it.comment
             )
@@ -81,7 +83,7 @@ class FavoritesRepositoryImpl(val dao: FavoriteVacancyDao) : FavoritesRepository
             id = model.id,
             name = model.name,
             employerName = model.employerName,
-            employerLogoUrl = model.employerLogoUrl,
+            employerLogoUrl = model.employerLogoUrl.orEmpty(),
             city = model.city,
             address = model.address,
             salary = model.salary,
@@ -111,25 +113,21 @@ class FavoritesRepositoryImpl(val dao: FavoriteVacancyDao) : FavoritesRepository
             employerLogoUrl = model.vacancy.employerLogoUrl,
             city = model.vacancy.city,
             address = model.vacancy.address,
+            areaName = null,
             salary = model.vacancy.salary,
             experience = model.vacancy.experience,
             schedule = model.vacancy.schedule,
             employment = model.vacancy.employment,
             description = model.vacancy.description,
             alternateUrl = model.vacancy.alternateUrl,
-            keySkills = model.keySkills.map {
-                it.name
-            },
+            keySkills = model.keySkills.map { it.name },
             contacts = Contacts(
                 name = model.contacts.name,
                 email = model.contacts.email,
-                phones = model.phones.map {
-                    Phone(
-                        country = it.country,
-                        city = it.city,
-                        number = it.number,
-                        comment = it.comment
-                    )
+                phones = model.phones.mapNotNull { entity ->
+                    entity.number?.takeIf { it.isNotBlank() }?.let { number ->
+                        Phone(number = number, comment = entity.comment)
+                    }
                 }
             )
         )

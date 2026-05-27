@@ -57,17 +57,15 @@ class VacancyDetailsRepositoryImpl(
             employment = dto.employment?.name,
             description = dto.description,
             keySkills = dto.skills,
+            areaName = null,
             contacts = Contacts(
-                dto.contacts?.name,
-                dto.contacts?.email,
-                dto.contacts?.phones?.map {
-                    Phone(
-                        it.country,
-                        it.city,
-                        it.number,
-                        it.comment
-                    )
-                } as List<Phone>
+                name = dto.contacts?.name,
+                email = dto.contacts?.email,
+                phones = dto.contacts?.phones.orEmpty().mapNotNull { phone ->
+                    phone.number?.takeIf { it.isNotBlank() }?.let { number ->
+                        Phone(number = number, comment = phone.comment)
+                    }
+                }
             ),
             alternateUrl = dto.url,
         )
