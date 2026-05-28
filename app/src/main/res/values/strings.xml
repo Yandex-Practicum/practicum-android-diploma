@@ -17,6 +17,8 @@
     <string name="search_no_results">Не удалось получить список вакансий</string>
     <string name="search_error_no_internet">Нет интернета</string>
     <string name="search_error_server">Ошибка сервера</string>
+    <string name="search_toast_no_internet">Проверьте подключение к интернету</string>
+    <string name="search_toast_server_error">Произошла ошибка</string>
 
     <string name="filter_title">Настройки фильтрации</string>
     <string name="filter_workplace">Место работы</string>
@@ -100,6 +102,7 @@
     </string-array>
 
     <string name="team_title">Команда</string>
+    <string name="team_members_label">Над приложением работали</string>
     <string-array name="team_members">
         <item>Павел Мичка</item>
         <item>Сергей Иванов</item>
