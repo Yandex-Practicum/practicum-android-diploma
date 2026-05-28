@@ -8,11 +8,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.interactors.DetailsInteractor
+import ru.practicum.android.diploma.domain.interactors.FavoritesInteractor
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 import ru.practicum.android.diploma.util.Resource
 
 class VacancyDetailsViewModel(
     private val detailsInteractor: DetailsInteractor,
-    savedStateHandle: SavedStateHandle
+    private val favoritesInteractor: FavoritesInteractor,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val vacancyId: String = savedStateHandle[EXTRA_VACANCY_ID] ?: ""
@@ -20,7 +23,13 @@ class VacancyDetailsViewModel(
     private val _uiState = MutableStateFlow<VacancyDetailsUiState>(VacancyDetailsUiState.Loading)
     val uiState: StateFlow<VacancyDetailsUiState> = _uiState.asStateFlow()
 
+    private val _isFavorite = MutableStateFlow(false)
+    val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
+
+    private var currentVacancy: VacancyDetail? = null
+
     init {
+        observeFavoriteState()
         loadVacancyDetails()
     }
 
@@ -33,10 +42,20 @@ class VacancyDetailsViewModel(
         _uiState.value = VacancyDetailsUiState.Loading
 
         viewModelScope.launch {
+            val favoriteVacancy = favoritesInteractor.getFavoriteById(vacancyId)
+
+            if (favoriteVacancy != null) {
+                currentVacancy = favoriteVacancy
+                _uiState.value = VacancyDetailsUiState.Success(favoriteVacancy)
+                return@launch
+            }
+
             when (val result = detailsInteractor.getVacancyDetails(vacancyId)) {
                 is Resource.Success -> {
+                    currentVacancy = result.data
                     _uiState.value = VacancyDetailsUiState.Success(result.data)
                 }
+
                 is Resource.Error -> {
                     val errorType = when {
                         result.code == CODE_NOT_FOUND -> VacancyDetailsUiState.ErrorType.NOT_FOUND
@@ -45,9 +64,32 @@ class VacancyDetailsViewModel(
                     }
                     _uiState.value = VacancyDetailsUiState.Error(errorType)
                 }
+
                 Resource.Loading -> {
                     _uiState.value = VacancyDetailsUiState.Loading
                 }
+            }
+        }
+    }
+
+    fun onFavoriteClicked() {
+        val vacancy = currentVacancy ?: return
+
+        viewModelScope.launch {
+            if (_isFavorite.value) {
+                favoritesInteractor.removeFromFavorites(vacancy.id)
+            } else {
+                favoritesInteractor.addToFavorites(vacancy)
+            }
+        }
+    }
+
+    private fun observeFavoriteState() {
+        if (vacancyId.isBlank()) return
+
+        viewModelScope.launch {
+            favoritesInteractor.isFavorite(vacancyId).collect {
+                _isFavorite.value = it
             }
         }
     }

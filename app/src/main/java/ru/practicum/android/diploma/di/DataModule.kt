@@ -19,6 +19,8 @@ import ru.practicum.android.diploma.data.repositories.DetailsRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.domain.api.DetailsRepository
 import ru.practicum.android.diploma.domain.api.VacanciesRepository
+import ru.practicum.android.diploma.data.repositories.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.domain.api.FavoritesRepository
 
 val dataModule = module {
 
@@ -77,12 +79,16 @@ val dataModule = module {
         Room.databaseBuilder(
             get(),
             AppDatabase::class.java,
-            DATABASE_NAME
+            DATABASE_NAME,
         ).build()
     }
 
     single<VacancyDao> {
         get<AppDatabase>().vacancyDao()
+    }
+
+    single<FavoritesRepository> {
+        FavoritesRepositoryImpl(vacancyDao = get())
     }
 }
 
