@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
-import ru.practicum.android.diploma.data.VacancyDbInteractorImpl
+import ru.practicum.android.diploma.domain.impl.VacancyDbInteractorImpl
 import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.api.VacancyActionInteractor
 import ru.practicum.android.diploma.domain.api.VacancyDbInteractor
@@ -23,6 +23,6 @@ val interactorModule = module {
         VacancyActionInteractorImpl()
     }
     single<VacancyDbInteractor> {
-        VacancyDbInteractorImpl()
+        VacancyDbInteractorImpl(get())
     }
 }
