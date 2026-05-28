@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cdfd4ec674fe94ea823133e956150b18",
+    "identityHash": "38c675295bd8f25b04f04d5dc8dcf872",
     "entities": [
       {
         "tableName": "favorite_vacancy",
@@ -196,7 +196,7 @@
       },
       {
         "tableName": "favorite_phone",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancyId` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `number` TEXT, `comment` TEXT, FOREIGN KEY(`vacancyId`) REFERENCES `favorite_vacancy`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancyId` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `country` TEXT, `city` TEXT, `number` TEXT, `comment` TEXT, FOREIGN KEY(`vacancyId`) REFERENCES `favorite_vacancy`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "vacancyId",
@@ -209,6 +209,16 @@
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "number",
@@ -255,7 +265,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cdfd4ec674fe94ea823133e956150b18')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '38c675295bd8f25b04f04d5dc8dcf872')"
     ]
   }
 }
