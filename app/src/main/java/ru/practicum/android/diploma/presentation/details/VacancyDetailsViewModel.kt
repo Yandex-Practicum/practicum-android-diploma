@@ -49,7 +49,6 @@ class VacancyDetailsViewModel(
                 _uiState.value = VacancyDetailsUiState.Success(favoriteVacancy)
             } else {
                 when (val result = detailsInteractor.getVacancyDetails(vacancyId)) {
-
                     is Resource.Success -> {
                         currentVacancy = result.data
                         _uiState.value = VacancyDetailsUiState.Success(result.data)

@@ -32,7 +32,6 @@ fun EmptyState(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-
         Image(
             painter = painterResource(id = imageRes),
             contentDescription = null,
