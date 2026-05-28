@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.search.ui.components
 
 import android.content.res.Configuration
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,6 +34,7 @@ import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.BlackUniversal
 import ru.practicum.android.diploma.core.ui.theme.Blue
 import ru.practicum.android.diploma.core.ui.theme.Dimens
+import ru.practicum.android.diploma.core.ui.utils.TextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,84 +45,31 @@ fun SearchBar(
     showClearButton: Boolean,
     onIconClicked: () -> Unit
 ) {
-    Column {
-        BasicTextField( // can set custom contentPadding only in BasicTextField
-            value = query,
-            onValueChange = onQueryChanged,
-            cursorBrush = SolidColor(Blue),
+    TextField(
+        query = query,
+        onQueryChanged = onQueryChanged,
+        onFocusChanged = onFocusChanged,
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(all = Dimens.padding16)
-                .onFocusChanged { focusState ->
-                    onFocusChanged(focusState.isFocused)
-                },
-            decorationBox = @Composable { innerTextField ->
-                TextFieldDefaults.DecorationBox(
-                    value = query,
-                    visualTransformation = VisualTransformation.None,
-                    innerTextField = innerTextField,
-                    placeholder = { Text(text = stringResource(id = R.string.search_placeholder)) },
-                    label = null,
-                    trailingIcon =
-                    {
-                        IconButton(
-                            onClick = onIconClicked,
-
-                        ) {
-                            Icon(
-                                painter = painterResource(
-                                    id = if (showClearButton) {
-                                        R.drawable.ic_search_close
-                                    } else {
-                                        R.drawable.ic_search_lens
-                                    }
-                                ),
-                                contentDescription = null,
-                                tint = BlackUniversal,
-                                modifier = Modifier.size(Dimens.icon24)
-                            )
-                        }
-
-                    },
-                    prefix = null,
-                    suffix = null,
-                    supportingText = null,
-                    shape = RoundedCornerShape(Dimens.radius12),
-                    singleLine = true,
-                    enabled = true,
-                    isError = false,
-                    interactionSource = remember { MutableInteractionSource() },
-                    contentPadding = PaddingValues(horizontal = Dimens.padding16, vertical = Dimens.padding16),
-                    colors = searchbarColors(MaterialTheme.colorScheme)
-                )
-            },
+                .padding(horizontal = Dimens.padding16, vertical = Dimens.padding8),
+        trailingIconId = if (showClearButton) {
+            R.drawable.ic_search_close
+        } else {
+            R.drawable.ic_search_lens
+        },
+        onIconClick = onIconClicked,
+        contentPaddings = PaddingValues(
+                start = Dimens.padding16,
+                top = Dimens.padding16,
+                end = Dimens.padding16,
+                bottom = Dimens.padding16
         )
-
-    }
-}
-
-@Composable
-private fun searchbarColors(colorScheme: ColorScheme): TextFieldColors {
-    return TextFieldDefaults.colors(
-        focusedTextColor = BlackUniversal,
-        unfocusedTextColor = BlackUniversal,
-        focusedContainerColor = MaterialTheme.colorScheme.outline,
-        unfocusedContainerColor = MaterialTheme.colorScheme.outline,
-        cursorColor = Blue,
-        focusedIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor = Color.Transparent,
-        focusedLeadingIconColor = BlackUniversal,
-        unfocusedLeadingIconColor = BlackUniversal,
-        focusedTrailingIconColor = BlackUniversal,
-        unfocusedTrailingIconColor = BlackUniversal,
-        focusedPlaceholderColor = colorScheme.onSurfaceVariant,
-        unfocusedPlaceholderColor = colorScheme.onSurfaceVariant,
     )
 }
+
+@Preview(name = "Light", showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 @Composable
-fun SearchScreenPreview() {
+private fun SearchScreenPreview() {
     AppTheme {
         Column {
             SearchBar(

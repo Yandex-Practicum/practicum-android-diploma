@@ -6,8 +6,8 @@ import ru.practicum.android.diploma.core.data.network.Resource
 import ru.practicum.android.diploma.core.data.network.ResultCode
 import ru.practicum.android.diploma.industry.data.dto.IndustriesDto
 import ru.practicum.android.diploma.industry.domain.api.IndustriesRepository
-import ru.practicum.android.diploma.industry.domain.models.Industries
-import ru.practicum.android.diploma.industry.domain.models.Industry
+import ru.practicum.android.diploma.core.domain.models.Industries
+import ru.practicum.android.diploma.core.domain.models.Industry
 
 class IndustriesRepositoryImpl(private val networkClient: NetworkClient) : IndustriesRepository {
     private var _items: Industries? = null

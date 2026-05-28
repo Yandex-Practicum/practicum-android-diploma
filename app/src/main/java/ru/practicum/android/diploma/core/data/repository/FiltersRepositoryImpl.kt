@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.core.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.core.content.edit
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -10,8 +9,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.practicum.android.diploma.core.data.FiltersDto
+import ru.practicum.android.diploma.core.domain.models.Filters
 import ru.practicum.android.diploma.core.domain.repository.FiltersRepository
-import ru.practicum.android.diploma.industry.domain.models.Industry
+import ru.practicum.android.diploma.core.ui.navigation.Screen
+import ru.practicum.android.diploma.core.domain.models.Industry
 
 class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
     private var filtersDto: FiltersDto get() {
@@ -34,10 +35,16 @@ class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
     private var filtersPreferences: SharedPreferences
         get() = context.getSharedPreferences(FILTERS_PREFERENCES_KEY, Context.MODE_PRIVATE)
         set(value) {}
-    private var _filters = MutableStateFlow(emptyMap<String, String>())
-    override val filters: Flow<Map<String, String>> = _filters.asStateFlow()
+    private var _filters = MutableStateFlow(Filters())
+    override val filters: Flow<Filters> = _filters.asStateFlow()
     init {
         updateFilters()
+    }
+    override fun applyArea(area: Screen.Area?) {
+        if (filtersDto.area != area?.id) {
+            filtersDto = filtersDto.copy(industry = industry?.id)
+            updateFilters()
+        }
     }
     override fun applyIndustry(industry: Industry?) {
         if (filtersDto.industry != industry?.id) {
@@ -53,20 +60,25 @@ class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
         }
     }
 
-    private fun updateFilters() {
-        var tempFilters = mutableMapOf<String, String>()
-        filtersDto.industry?.let {
-            tempFilters[INDUSTRY_MAP_KEY] = it
-        }
+    override fun applyToggleSalary(toggle: Boolean) {
+        filtersDto = filtersDto.copy(onlyWithSalary = !filtersDto.onlyWithSalary)
+        updateFilters()
+    }
 
-        filtersDto.salary?.let {
-            tempFilters[SALARY_MAP_KEY] = it.toString()
-        }
-        // TODO удалить после подключения фильтров к странице поиска
-        // пример формирования map фильтров
-        Log.d("Filters", "Применены фильтры")
-        Log.d("Filters", tempFilters.toString())
-        _filters.value = tempFilters
+    private fun updateFilters() {
+//        var tempFilters = mutableMapOf<String, String>()
+//        filtersDto.industry?.let {
+//            tempFilters[INDUSTRY_MAP_KEY] = it
+//        }
+//
+//        filtersDto.salary?.let {
+//            tempFilters[SALARY_MAP_KEY] = it.toString()
+//        }
+
+        _filters.value = Filters(
+            industry = filtersDto.industry,
+            salary = if (filtersDto.salary != null) filtersDto.salary.toString() else null
+        )
     }
 
     companion object {
