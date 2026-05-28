@@ -6,7 +6,7 @@
         android:title="@string/tab_main" />
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/ic_favorites_off_24"
+        android:icon="@drawable/ic_favorites_selector"
         android:title="@string/tab_favorites"/>
     <item
         android:id="@+id/teamFragment"

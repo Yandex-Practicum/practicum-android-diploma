@@ -167,7 +167,6 @@ private fun VacancyDetailsScreen(
     onRetryClicked: () -> Unit,
     onFavoriteClicked: () -> Unit,
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()

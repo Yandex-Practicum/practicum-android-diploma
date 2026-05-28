@@ -47,26 +47,26 @@ class VacancyDetailsViewModel(
             if (favoriteVacancy != null) {
                 currentVacancy = favoriteVacancy
                 _uiState.value = VacancyDetailsUiState.Success(favoriteVacancy)
-                return@launch
-            }
+            } else {
+                when (val result = detailsInteractor.getVacancyDetails(vacancyId)) {
 
-            when (val result = detailsInteractor.getVacancyDetails(vacancyId)) {
-                is Resource.Success -> {
-                    currentVacancy = result.data
-                    _uiState.value = VacancyDetailsUiState.Success(result.data)
-                }
-
-                is Resource.Error -> {
-                    val errorType = when {
-                        result.code == CODE_NOT_FOUND -> VacancyDetailsUiState.ErrorType.NOT_FOUND
-                        result.message == NO_INTERNET_MESSAGE -> VacancyDetailsUiState.ErrorType.NO_INTERNET
-                        else -> VacancyDetailsUiState.ErrorType.SERVER_ERROR
+                    is Resource.Success -> {
+                        currentVacancy = result.data
+                        _uiState.value = VacancyDetailsUiState.Success(result.data)
                     }
-                    _uiState.value = VacancyDetailsUiState.Error(errorType)
-                }
 
-                Resource.Loading -> {
-                    _uiState.value = VacancyDetailsUiState.Loading
+                    is Resource.Error -> {
+                        val errorType = when {
+                            result.code == CODE_NOT_FOUND -> VacancyDetailsUiState.ErrorType.NOT_FOUND
+                            result.message == NO_INTERNET_MESSAGE -> VacancyDetailsUiState.ErrorType.NO_INTERNET
+                            else -> VacancyDetailsUiState.ErrorType.SERVER_ERROR
+                        }
+                        _uiState.value = VacancyDetailsUiState.Error(errorType)
+                    }
+
+                    Resource.Loading -> {
+                        _uiState.value = VacancyDetailsUiState.Loading
+                    }
                 }
             }
         }

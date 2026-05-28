@@ -1,13 +1,12 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
-
 import ru.practicum.android.diploma.domain.interactors.DetailsInteractor
-import ru.practicum.android.diploma.domain.interactors.VacanciesInteractor
 import ru.practicum.android.diploma.domain.interactors.FavoritesInteractor
+import ru.practicum.android.diploma.domain.interactors.VacanciesInteractor
 import ru.practicum.android.diploma.domain.interactors.impl.DetailsInteractorImpl
-import ru.practicum.android.diploma.domain.interactors.impl.VacanciesInteractorImpl
 import ru.practicum.android.diploma.domain.interactors.impl.FavoritesInteractorImpl
+import ru.practicum.android.diploma.domain.interactors.impl.VacanciesInteractorImpl
 
 val domainModule = module {
 

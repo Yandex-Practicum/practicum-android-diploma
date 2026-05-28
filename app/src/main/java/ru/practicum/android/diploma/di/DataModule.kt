@@ -16,11 +16,11 @@ import ru.practicum.android.diploma.data.network.NetworkConnectionChecker
 import ru.practicum.android.diploma.data.network.NetworkConnectionCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkConstants
 import ru.practicum.android.diploma.data.repositories.DetailsRepositoryImpl
+import ru.practicum.android.diploma.data.repositories.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.domain.api.DetailsRepository
-import ru.practicum.android.diploma.domain.api.VacanciesRepository
-import ru.practicum.android.diploma.data.repositories.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.domain.api.FavoritesRepository
+import ru.practicum.android.diploma.domain.api.VacanciesRepository
 
 val dataModule = module {
 

@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.data.mappers
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyAddress
@@ -13,6 +15,9 @@ import ru.practicum.android.diploma.domain.models.VacancySalary
 import ru.practicum.android.diploma.domain.models.VacancySchedule
 
 private const val LIST_SEPARATOR = "|"
+
+private val gson = Gson()
+private val phoneListType = object : TypeToken<List<VacancyPhone>>() {}.type
 
 fun VacancyDetail.toEntity(): VacancyEntity {
     return VacancyEntity(
@@ -42,9 +47,7 @@ fun VacancyDetail.toEntity(): VacancyEntity {
         employerName = employer?.name,
         employerLogo = employer?.logo,
         skills = skills.joinToString(LIST_SEPARATOR),
-        phones = contacts?.phones
-            ?.joinToString(LIST_SEPARATOR) { it.formatted }
-            .orEmpty(),
+        phones = contacts?.phones.orEmpty().toJson(),
     )
 }
 
@@ -65,44 +68,63 @@ fun VacancyEntity.toVacancyDetail(): VacancyDetail {
         name = name,
         description = description,
         salary = toSalary(),
-        address = VacancyAddress(
-            city = addressCity,
-            street = addressStreet,
-            building = addressBuilding,
-            raw = addressRaw,
-        ),
-        experience = VacancyExperience(
-            id = experienceId,
-            name = experienceName,
-        ),
-        schedule = VacancySchedule(
-            id = scheduleId,
-            name = scheduleName,
-        ),
-        employment = VacancyEmployment(
-            id = employmentId,
-            name = employmentName,
-        ),
-        contacts = VacancyContacts(
-            name = contactName,
-            email = contactEmail,
-            phones = phones.toListFromString().map {
-                VacancyPhone(
-                    comment = null,
-                    formatted = it,
-                )
-            },
-        ),
-        employer = employerName?.let {
-            VacancyEmployer(
-                name = it,
-                logo = employerLogo,
-            )
-        },
+        address = toAddress(),
+        experience = toExperience(),
+        schedule = toSchedule(),
+        employment = toEmployment(),
+        contacts = toContacts(),
+        employer = toEmployer(),
         areaName = areaName,
         skills = skills.toListFromString(),
         url = url,
     )
+}
+
+private fun VacancyEntity.toAddress(): VacancyAddress {
+    return VacancyAddress(
+        city = addressCity,
+        street = addressStreet,
+        building = addressBuilding,
+        raw = addressRaw,
+    )
+}
+
+private fun VacancyEntity.toExperience(): VacancyExperience {
+    return VacancyExperience(
+        id = experienceId,
+        name = experienceName,
+    )
+}
+
+private fun VacancyEntity.toSchedule(): VacancySchedule {
+    return VacancySchedule(
+        id = scheduleId,
+        name = scheduleName,
+    )
+}
+
+private fun VacancyEntity.toEmployment(): VacancyEmployment {
+    return VacancyEmployment(
+        id = employmentId,
+        name = employmentName,
+    )
+}
+
+private fun VacancyEntity.toContacts(): VacancyContacts {
+    return VacancyContacts(
+        name = contactName,
+        email = contactEmail,
+        phones = phones.toPhones(),
+    )
+}
+
+private fun VacancyEntity.toEmployer(): VacancyEmployer? {
+    return employerName?.let {
+        VacancyEmployer(
+            name = it,
+            logo = employerLogo,
+        )
+    }
 }
 
 private fun VacancyEntity.toSalary(): VacancySalary? {
@@ -114,6 +136,18 @@ private fun VacancyEntity.toSalary(): VacancySalary? {
             to = salaryTo,
             currency = salaryCurrency,
         )
+    }
+}
+
+private fun List<VacancyPhone>.toJson(): String {
+    return gson.toJson(this)
+}
+
+private fun String.toPhones(): List<VacancyPhone> {
+    return if (isBlank()) {
+        emptyList()
+    } else {
+        gson.fromJson(this, phoneListType)
     }
 }
 
