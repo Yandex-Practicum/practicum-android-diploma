@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.data.network.VacancyDetailsRequest
 import ru.practicum.android.diploma.domain.api.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.models.GetVacancyDetailsResponse
 import ru.practicum.android.diploma.domain.models.VacancyDetail
-import kotlin.collections.map
 
 class VacancyDetailsRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -39,14 +38,13 @@ class VacancyDetailsRepositoryImpl(
         }
     }
 
-    override fun getVacancies(): Flow<List<VacancyDetail>> = flow {
+    override fun getFavoriteVacancies(): Flow<List<VacancyDetail>> = flow {
         val vacancies = vacancyDao.observeFVacancies()
         emit(convertFromFavoriteVacanciesEntity(vacancies))
     }
 
-    override fun getVacancyById(id: String): Flow<VacancyDetail> = flow {
-        val trackEntity = vacancyDao.observeVacancyIsFavorite(id)
-        trackEntity.let { dbConverter.map(it)}
+    override fun getFavoriteVacancyById(id: String): Flow<VacancyDetail> = vacancyDao.observeVacancy(id).map {
+        dbConverter.map(it)
     }
 
     override suspend fun addVacancyToFavorites(vacancyDetail: VacancyDetail) {

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.api.VacancyDetailInteractor
 import ru.practicum.android.diploma.domain.api.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.models.GetVacancyDetailsResponse
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 class VacancyDetailInteractorImpl(
     private val vacancyDetailsRepository: VacancyDetailsRepository,
@@ -16,11 +16,19 @@ class VacancyDetailInteractorImpl(
         return vacancyDetailsRepository.getVacancyDetails(id)
     }
 
-    override fun getVacancyFromFavorites(id: String): Flow<Vacancy?> {
-        return vacancyDetailsRepository.getVacancyFromFavorites(id)
+    override fun getFavoriteVacancies(): Flow<List<VacancyDetail>> {
+        return vacancyDetailsRepository.getFavoriteVacancies()
     }
 
-    override suspend fun saveVacancyToFavorites(vacancy: Vacancy) {
-        vacancyDetailsRepository.saveVacancyToFavorites(vacancy)
+    override fun getFavoriteVacancyById(id: String): Flow<VacancyDetail> {
+        return vacancyDetailsRepository.getFavoriteVacancyById(id)
+    }
+
+    override suspend fun addVacancyToFavorites(vacancyDetail: VacancyDetail) {
+        return vacancyDetailsRepository.addVacancyToFavorites(vacancyDetail)
+    }
+
+    override suspend fun deleteVacancyFromFavorites(id: String) {
+        return vacancyDetailsRepository.deleteVacancyFromFavorites(id)
     }
 }

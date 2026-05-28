@@ -8,9 +8,9 @@ interface VacancyDetailsRepository {
 
     suspend fun getVacancyDetails(id: String): GetVacancyDetailsResponse
 
-    fun getVacancies(): Flow<List<VacancyDetail>>
+    fun getFavoriteVacancies(): Flow<List<VacancyDetail>>
 
-    fun getVacancyById(id: String): Flow<VacancyDetail>
+    fun getFavoriteVacancyById(id: String): Flow<VacancyDetail>
 
     suspend fun addVacancyToFavorites(vacancyDetail: VacancyDetail)
 
