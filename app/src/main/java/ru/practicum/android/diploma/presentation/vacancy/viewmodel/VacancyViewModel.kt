@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacancyActionInteractor
+import ru.practicum.android.diploma.domain.api.VacancyDbInteractor
 import ru.practicum.android.diploma.domain.api.VacancyDetailInteractor
 import ru.practicum.android.diploma.domain.models.GetVacancyDetailsResponse
 import ru.practicum.android.diploma.domain.models.VacancyAction
@@ -18,6 +20,7 @@ class VacancyViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val vacancyDetailInteractor: VacancyDetailInteractor,
     private val vacancyActionInteractor: VacancyActionInteractor,
+    private val vacancyDbInteractor: VacancyDbInteractor
 ) : ViewModel() {
     private val vacancyId = VacancyFragmentArgs.fromSavedStateHandle(savedStateHandle).vacancyId
     private val _state = MutableStateFlow<VacancyDetailsUiState>(VacancyDetailsUiState.Loading)
@@ -31,13 +34,35 @@ class VacancyViewModel(
                 GetVacancyDetailsResponse.NotFound -> _state.value = VacancyDetailsUiState.NotFound
                 GetVacancyDetailsResponse.ServerError -> _state.value = VacancyDetailsUiState.ServerError
                 is GetVacancyDetailsResponse.Success -> {
-                    _state.value = VacancyDetailsUiState.Content(result.result)
+                    val isFavorite = vacancyDbInteractor.checkVacancyIsFavorite(vacancyId)
+                    _state.value = VacancyDetailsUiState.Content(result.result.copy(isFavorite = isFavorite))
                 }
             }
         }
     }
 
+
     fun onAction(action: VacancyAction) {
         viewModelScope.launch { vacancyActionInteractor.handleAction(action) }
     }
+
+    fun toggleFavoriteClick() {
+        val currentState = _state.value
+        if (currentState !is VacancyDetailsUiState.Content) {
+            return
+        }
+        viewModelScope.launch {
+            val vacancy = currentState.details
+            if (vacancy.isFavorite) {
+                vacancyDbInteractor.deleteVacancyFromFavorites(vacancyId)
+            } else {
+                vacancyDbInteractor.addVacancyToFavorites(vacancy)
+            }
+
+            _state.update {
+                VacancyDetailsUiState.Content(vacancy.copy(isFavorite = !vacancy.isFavorite))
+            }
+        }
+    }
 }
+

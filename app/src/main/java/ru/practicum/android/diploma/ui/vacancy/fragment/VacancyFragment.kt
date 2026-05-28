@@ -36,7 +36,7 @@ class VacancyFragment : Fragment() {
                             viewModel.onAction(VacancyAction.ShareVacancy(url))
                         },
                         onFavoriteClick = {
-                            viewModel.onAction(VacancyAction.LikeVacancy)
+                            viewModel.toggleFavoriteClick()
                         },
                         onEmailClick = { email ->
                             viewModel.onAction(VacancyAction.EmailClick(email))
