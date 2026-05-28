@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.industry.domain.api
 
-import ru.practicum.android.diploma.core.data.network.Resource
+import ru.practicum.android.diploma.core.domain.Resource
 import ru.practicum.android.diploma.industry.domain.models.Industries
 
 interface IndustriesRepository {
