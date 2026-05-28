@@ -12,8 +12,7 @@ import ru.practicum.android.diploma.vacancy.domain.models.VacancyDetails
 
 class FavoritesViewModelImpl(val interactor: FavoritesInteractor) : FavoritesViewModel() {
     private val _state = MutableStateFlow<FavoritesViewState>(FavoritesViewState.Empty)
-
-    override val state: StateFlow<FavoritesViewState> = _state.asStateFlow()
+    override var state: StateFlow<FavoritesViewState> = _state.asStateFlow()
     init {
         // TODO
         // удалить после реализации FavoritesViewModelImpl

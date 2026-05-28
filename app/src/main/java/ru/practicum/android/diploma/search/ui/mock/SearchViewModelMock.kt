@@ -7,10 +7,27 @@ import ru.practicum.android.diploma.search.ui.SearchScreenState
 import ru.practicum.android.diploma.search.ui.SearchViewModel
 
 class SearchViewModelMock(
-    mockState: SearchScreenState,
-    initialQuery: String = "",
-    initialIsFiltered: Boolean = false
-) : SearchViewModel {
+    mockState: SearchViewState,
+    query: String = "",
+    isFiltered: Boolean = false
+) : SearchViewModel() {
+    private val _state = MutableStateFlow<SearchViewState>(SearchViewState.Default)
+    override var state: StateFlow<SearchViewState> = _state.asStateFlow()
+    private val _isFiltered = MutableStateFlow<Boolean>(false)
+    override var isFiltered: StateFlow<Boolean> = _isFiltered.asStateFlow()
+    init {
+        _state.value = mockState
+        this.query.value = query
+        _isFiltered.value = isFiltered
+    }
+
+    override fun onQueryChanged(query: String) {
+        //
+    }
+
+    override fun onFocusChanged(isFocused: Boolean) {
+        //
+    }
 
     private val _state = MutableStateFlow<SearchScreenState>(mockState)
     override val state: StateFlow<SearchScreenState> = _state.asStateFlow()
