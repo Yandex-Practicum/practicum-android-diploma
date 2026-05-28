@@ -41,8 +41,8 @@ data class SalaryEmbedded(
 data class AddressEmbedded(
     val id: String,
     val city: String,
-    val street: String,
-    val building: String,
+    val street: String?,
+    val building: String?,
     val raw: String
 )
 
@@ -64,19 +64,19 @@ data class EmploymentEmbedded(
 data class ContactsEmbedded(
     val id: String,
     val name: String,
-    val email: String,
-    val phones: List<PhoneEmbedded>
+    val email: String?,
+    val phones: List<PhoneEmbedded>?
 )
 
 data class PhoneEmbedded(
     val comment: String?,
-    val formatted: String
+    val formatted: String?
 )
 
 data class EmployerEmbedded(
     val id: String,
     val name: String,
-    val logo: String
+    val logo: String?
 )
 
 data class FilterIndustryEmbedded(
