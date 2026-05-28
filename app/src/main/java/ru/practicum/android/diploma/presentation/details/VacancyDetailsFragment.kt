@@ -48,10 +48,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -108,14 +105,17 @@ class VacancyDetailsFragment : Fragment() {
             setContent {
                 AppTheme {
                     val state by viewModel.uiState.collectAsState()
+                    val isFavorite by viewModel.isFavorite.collectAsState()
 
                     VacancyDetailsScreen(
                         state = state,
+                        isFavorite = isFavorite,
                         onBackClicked = { findNavController().popBackStack() },
                         onShareClicked = ::shareVacancy,
                         onEmailClicked = ::sendEmail,
                         onPhoneClicked = ::dialPhone,
-                        onRetryClicked = { viewModel.loadVacancyDetails() }
+                        onRetryClicked = { viewModel.loadVacancyDetails() },
+                        onFavoriteClicked = viewModel::onFavoriteClicked,
                     )
                 }
             }
@@ -159,14 +159,14 @@ class VacancyDetailsFragment : Fragment() {
 @Composable
 private fun VacancyDetailsScreen(
     state: VacancyDetailsUiState,
+    isFavorite: Boolean,
     onBackClicked: () -> Unit,
     onShareClicked: (String) -> Unit,
     onEmailClicked: (String) -> Unit,
     onPhoneClicked: (String) -> Unit,
     onRetryClicked: () -> Unit,
+    onFavoriteClicked: () -> Unit,
 ) {
-    var isFavorite by rememberSaveable { mutableStateOf(false) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -180,10 +180,7 @@ private fun VacancyDetailsScreen(
                     onShareClicked(state.vacancy.url)
                 }
             },
-            onFavoriteClicked = {
-                isFavorite = !isFavorite
-                // TODO: реализовать сохранение/удаление из избранного в БД через ViewModel/Interactor
-            },
+            onFavoriteClicked = onFavoriteClicked,
             showActions = state is VacancyDetailsUiState.Success
         )
 
@@ -899,10 +896,12 @@ private fun DetailsSuccessPreview() {
                     url = "https://android-diploma.education-services.ru/vacancies/0001db2d-1366-379d-98ce-6f965bbc7816"
                 )
             ),
+            isFavorite = false,
             onBackClicked = {},
             onShareClicked = {},
             onEmailClicked = {},
             onPhoneClicked = {},
+            onFavoriteClicked = {},
             onRetryClicked = {}
         )
     }
@@ -919,10 +918,12 @@ private fun DetailsLoadingPreview() {
     AppTheme {
         VacancyDetailsScreen(
             state = VacancyDetailsUiState.Loading,
+            isFavorite = false,
             onBackClicked = {},
             onShareClicked = {},
             onEmailClicked = {},
             onPhoneClicked = {},
+            onFavoriteClicked = {},
             onRetryClicked = {}
         )
     }
@@ -939,10 +940,12 @@ private fun DetailsErrorNoInternetPreview() {
     AppTheme {
         VacancyDetailsScreen(
             state = VacancyDetailsUiState.Error(VacancyDetailsUiState.ErrorType.NO_INTERNET),
+            isFavorite = false,
             onBackClicked = {},
             onShareClicked = {},
             onEmailClicked = {},
             onPhoneClicked = {},
+            onFavoriteClicked = {},
             onRetryClicked = {}
         )
     }
