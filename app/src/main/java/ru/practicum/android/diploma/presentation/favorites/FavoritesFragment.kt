@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
@@ -34,8 +36,6 @@ import ru.practicum.android.diploma.presentation.ui.components.vacancy.VacancyUi
 import ru.practicum.android.diploma.presentation.ui.components.vacancy.formatSalary
 import ru.practicum.android.diploma.presentation.ui.theme.AppTheme
 
-private const val SALARY_NOT_SPECIFIED = "Уровень зарплаты не указан"
-
 class FavoritesFragment : Fragment() {
 
     private val viewModel by viewModel<FavoritesViewModel>()
@@ -51,7 +51,6 @@ class FavoritesFragment : Fragment() {
             setContent {
                 AppTheme {
                     val state by viewModel.state.collectAsState()
-
                     FavoritesScreen(
                         state = state,
                         onVacancyClicked = ::onVacancyClicked,
@@ -80,9 +79,7 @@ fun FavoritesScreen(
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
-        topBar = {
-            FavoritesTopBar()
-        },
+        topBar = { FavoritesTopBar() },
     ) { padding ->
         when (state) {
             FavoritesUiState.Empty -> {
@@ -102,16 +99,18 @@ fun FavoritesScreen(
             }
 
             is FavoritesUiState.Content -> {
-                VacancyList(
-                    vacancies = state.vacancies.map(Vacancy::toUiModel),
-                    onVacancyClick = onVacancyClicked,
-                    contentPadding = PaddingValues(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = padding.calculateTopPadding() + 32.dp,
-                        bottom = padding.calculateBottomPadding(),
-                    ),
-                )
+                Box(modifier = Modifier.padding(padding)) {
+                    VacancyList(
+                        vacancies = state.vacancies.map(Vacancy::toUiModel),
+                        onVacancyClick = onVacancyClicked,
+                        contentPadding = PaddingValues(
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 32.dp,
+                            bottom = 16.dp,
+                        ),
+                    )
+                }
             }
         }
     }
@@ -119,9 +118,9 @@ fun FavoritesScreen(
 
 @Composable
 private fun FavoritesTopBar() {
-    Text(
-        text = stringResource(R.string.favorites_title),
+    Box(
         modifier = Modifier
+            .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
             .statusBarsPadding()
             .padding(
@@ -129,13 +128,17 @@ private fun FavoritesTopBar() {
                 top = 16.dp,
                 bottom = 12.dp,
             ),
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleLarge.copy(
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Medium,
-            lineHeight = 26.sp,
-        ),
-    )
+    ) {
+        Text(
+            text = stringResource(R.string.favorites_title),
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Medium,
+                lineHeight = 26.sp,
+            ),
+        )
+    }
 }
 
 private fun Vacancy.toUiModel(): VacancyUiModel {
@@ -146,7 +149,7 @@ private fun Vacancy.toUiModel(): VacancyUiModel {
             ?.let { "$name, $it" }
             ?: name,
         company = company,
-        salary = salary?.formatSalary() ?: SALARY_NOT_SPECIFIED,
+        salary = salary.formatSalary(isDetails = true),
         logo = logo,
     )
 }
