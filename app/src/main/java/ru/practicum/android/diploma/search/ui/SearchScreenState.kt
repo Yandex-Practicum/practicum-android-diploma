@@ -2,6 +2,11 @@ package ru.practicum.android.diploma.search.ui
 
 import ru.practicum.android.diploma.core.domain.models.Vacancy
 
+enum class SearchError {
+    INTERNET,
+    NOT_FOUND
+}
+
 sealed interface SearchScreenState {
     object Initial : SearchScreenState
 
@@ -11,4 +16,6 @@ sealed interface SearchScreenState {
         val vacancies: List<Vacancy>,
         val totalFound: Int
     ) : SearchScreenState
+
+    data class Error(val error: SearchError) : SearchScreenState
 }

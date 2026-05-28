@@ -101,6 +101,24 @@ private fun SearchContent(state: SearchScreenState, onNavigateToVacancy: (String
                 onNavigateToVacancy(vacancy.id)
             }
         }
+        is SearchScreenState.Error -> {
+            when (state.error) {
+                SearchError.INTERNET -> {
+                    Stub(
+                        R.drawable.image_core_stub_no_internet,
+                        R.string.search_error_internet
+                    )
+                }
+                SearchError.NOT_FOUND -> {
+                    Chip(count = 0)
+                    Spacer(height = Dimens.padding8)
+                    Stub(
+                        R.drawable.image_core_stub_not_found,
+                        R.string.search_error_not_found
+                    )
+                }
+            }
+        }
     }
 }
 

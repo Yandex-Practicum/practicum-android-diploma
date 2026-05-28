@@ -53,9 +53,7 @@ class SearchViewModelImpl(
                             )
                         }
                         is Resource.Error -> {
-                            android.util.Log.e("SearchVM", "Network Error")
-
-                            _state.value = SearchScreenState.Initial
+                            _state.value = SearchScreenState.Error(SearchError.INTERNET)
                         }
                         is Resource.Loading -> {
                             _state.value = SearchScreenState.Loading
@@ -76,6 +74,9 @@ class SearchViewModelImpl(
     }
 
     override fun onSearchIconClicked() {
+        if (_query.value.isNotEmpty()) {
+            onQueryChanged("")
+        }
     }
 
     companion object {
