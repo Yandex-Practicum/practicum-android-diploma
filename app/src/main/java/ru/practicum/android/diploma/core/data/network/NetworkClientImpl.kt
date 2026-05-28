@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
 import ru.practicum.android.diploma.industry.data.network.IndustryApi
 import ru.practicum.android.diploma.search.data.network.HhSearchApi
+import ru.practicum.android.diploma.vacancy.data.network.VacancyApi
 import java.io.IOException
 
 class NetworkClientImpl(
@@ -39,7 +40,14 @@ class NetworkClientImpl(
                     data = response
                 }
             }
-
+            is Request.VacancyDetailsRequest -> {
+                val api = retrofit.create(VacancyApi::class.java)
+                val response = api.getVacancyById(request.id)
+                Response().apply {
+                    resultCode = ResultCode.SUCCESS
+                    data = response
+                }
+            }
             is Request.IndustriesRequest -> {
                 val api = retrofit.create(IndustryApi::class.java)
                 val response = api.getIndustries()

@@ -5,5 +5,9 @@ sealed class Request {
         val params: Map<String, String>
     ) : Request()
 
+    data class VacancyDetailsRequest(
+        val id: String
+    ) : Request()
+
     object IndustriesRequest : Request()
 }

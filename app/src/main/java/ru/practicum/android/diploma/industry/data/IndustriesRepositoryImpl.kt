@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.industry.data
 
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request
-import ru.practicum.android.diploma.core.data.network.Resource
 import ru.practicum.android.diploma.core.data.network.ResultCode
+import ru.practicum.android.diploma.core.domain.Resource
 import ru.practicum.android.diploma.industry.data.dto.IndustriesDto
 import ru.practicum.android.diploma.industry.domain.api.IndustriesRepository
 import ru.practicum.android.diploma.core.domain.models.Industries
@@ -26,7 +26,6 @@ class IndustriesRepositoryImpl(private val networkClient: NetworkClient) : Indus
 
                 else -> {
                     Resource.Error(
-                        message = "", // TODO ждем правки по ПР 48
                         code = response.resultCode
                     )
                 }

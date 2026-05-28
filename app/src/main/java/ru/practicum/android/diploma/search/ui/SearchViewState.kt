@@ -6,9 +6,9 @@ sealed class SearchViewError {
     object Internet : SearchViewError()
     object NotFound : SearchViewError()
 }
-sealed class SearchViewState {
-    object Default : SearchViewState()
-    object Loading : SearchViewState()
-    class Data(val vacancies: Vacancies) : SearchViewState()
-    class Error(val error: SearchViewError) : SearchViewState()
+sealed class SearchViewState(var showClearButton: Boolean) {
+    object Default : SearchViewState(false)
+    object Loading : SearchViewState(true)
+    class Data(val vacancies: Vacancies) : SearchViewState(true)
+    class Error(val error: SearchViewError) : SearchViewState(true)
 }

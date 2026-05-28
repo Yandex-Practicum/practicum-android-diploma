@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.core.data.database.AppDatabase
+import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.AuthInterceptor
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.NetworkClientImpl
@@ -51,6 +52,10 @@ val coreModule = module {
 
     single<ConnectivityRepository> {
         ConnectivityRepositoryImpl(get())
+    }
+
+    single<CurrencyFormatter> {
+        CurrencyFormatter(get())
     }
 
     single<NetworkClient> {
