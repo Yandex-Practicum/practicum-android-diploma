@@ -41,7 +41,6 @@ class VacancyViewModel(
         }
     }
 
-
     fun onAction(action: VacancyAction) {
         viewModelScope.launch { vacancyActionInteractor.handleAction(action) }
     }
@@ -65,4 +64,3 @@ class VacancyViewModel(
         }
     }
 }
-
