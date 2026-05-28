@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.favorites.data.dto.FavoritePhoneEntity
 import ru.practicum.android.diploma.favorites.data.dto.FavoriteVacancyEntity
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         FavoriteVacancyEntity::class,
         FavoriteKeySkillEntity::class,
