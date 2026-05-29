@@ -22,5 +22,5 @@ interface FavoriteVacancyDao {
     fun observeFavoriteVacancy(id: String): Flow<FavoriteVacancyEntity>
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_vacancies_table WHERE id = :id)")
-    fun checkVacancyIsFavorite(id: String): Boolean
+    suspend fun checkVacancyIsFavorite(id: String): Boolean
 }
