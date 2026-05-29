@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.search.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -9,10 +11,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -23,9 +29,10 @@ import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.WhiteUniversal
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
 import ru.practicum.android.diploma.core.ui.utils.LoadingContent
-import ru.practicum.android.diploma.core.ui.utils.Spacer
 import ru.practicum.android.diploma.core.ui.utils.Stub
 import ru.practicum.android.diploma.core.ui.utils.VacancyList
+import ru.practicum.android.diploma.search.ui.components.EmptyResultPlaceholder
+import ru.practicum.android.diploma.search.ui.components.ErrorPlaceholder
 import ru.practicum.android.diploma.search.ui.components.SearchBar
 
 @Composable
@@ -37,12 +44,17 @@ fun SearchScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val isFiltered by viewModel.isFiltered.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.toastMessage.collect { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     AppScreen(
         title = R.string.search_screen_title,
-        actions = {
-            SearchFilterIcon(isFiltered, onNavigateToFilter)
-        }
+        actions = { SearchFilterIcon(isFiltered, onNavigateToFilter) }
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             SearchBar(
@@ -52,7 +64,8 @@ fun SearchScreen(
                 showClearButton = query.isNotEmpty(),
                 onQueryChanged = viewModel::onQueryChanged
             )
-            SearchContent(state, onNavigateToVacancy)
+
+            SearchContent(state, viewModel::onLastItemReached, onNavigateToVacancy)
         }
     }
 }
@@ -79,40 +92,49 @@ private fun SearchFilterIcon(isFiltered: Boolean, onNavigateToFilter: () -> Unit
     }
 }
 @Composable
-private fun SearchContent(state: SearchScreenState, onNavigateToVacancy: (String) -> Unit) {
+private fun SearchContent(
+    state: SearchScreenState,
+    onLastItemReached: () -> Unit,
+    onNavigateToVacancy: (String) -> Unit
+) {
+    val listState = rememberLazyListState()
+
+    val isReachedBottom by remember {
+        derivedStateOf {
+            val layoutInfo = listState.layoutInfo
+            val totalItems = layoutInfo.totalItemsCount
+            val lastVisibleItemIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            totalItems > 0 && lastVisibleItemIndex >= totalItems - 1
+        }
+    }
+
+    LaunchedEffect(isReachedBottom) {
+        if (isReachedBottom) {
+            onLastItemReached()
+        }
+    }
+
     when (state) {
-        is SearchScreenState.Initial -> {
-            Stub(R.drawable.image_search_stub_default)
-        }
-        is SearchScreenState.Loading -> {
-            LoadingContent()
-        }
+        is SearchScreenState.Initial -> Stub(R.drawable.image_search_stub_default)
+        is SearchScreenState.Loading -> LoadingContent()
+
         is SearchScreenState.Content -> {
             Chip(count = state.totalFound)
             VacancyList(
-                state.vacancies,
+                vacancies = state.vacancies,
+                listState = listState,
+                isNextPageLoading = state.isNextPageLoading,
                 modifier = Modifier.padding(top = Dimens.padding8)
             ) { vacancy ->
                 onNavigateToVacancy(vacancy.id)
             }
         }
-        is SearchScreenState.Error -> {
-            when (state.error) {
-                SearchError.INTERNET -> {
-                    Stub(
-                        R.drawable.image_core_stub_no_internet,
-                        R.string.search_error_internet
-                    )
-                }
-                SearchError.NOT_FOUND -> {
-                    Chip(count = 0)
-                    Spacer(height = Dimens.padding8)
-                    Stub(
-                        R.drawable.image_core_stub_not_found,
-                        R.string.search_error_not_found
-                    )
-                }
-            }
+
+        is SearchScreenState.NoInternet -> ErrorPlaceholder(isInternetError = true)
+        is SearchScreenState.ServerError -> ErrorPlaceholder(isInternetError = false)
+        is SearchScreenState.EmptyResults -> {
+            Chip(count = 0)
+            EmptyResultPlaceholder()
         }
     }
 }

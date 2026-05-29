@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.NetworkClientImpl
 import ru.practicum.android.diploma.core.data.repository.ConnectivityRepositoryImpl
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
+import ru.practicum.android.diploma.core.util.NetworkConnectivity
 
 private const val BASE_URL = "https://android-diploma.education-services.ru/"
 private const val DB_NAME = "diploma.db"
@@ -62,5 +63,9 @@ val coreModule = module {
 
     single<AppDatabase> {
         Room.databaseBuilder(get(), AppDatabase::class.java, DB_NAME).build()
+    }
+
+    single {
+        NetworkConnectivity(get())
     }
 }

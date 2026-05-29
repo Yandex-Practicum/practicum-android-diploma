@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.search.ui.SearchViewModelImpl
 val searchModule = module {
 
     viewModel {
-        SearchViewModelImpl(get())
+        SearchViewModelImpl(get(), get())
     }
 
     single<SearchRepository> {

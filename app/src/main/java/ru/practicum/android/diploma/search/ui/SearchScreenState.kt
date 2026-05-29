@@ -14,8 +14,11 @@ sealed interface SearchScreenState {
 
     data class Content(
         val vacancies: List<Vacancy>,
-        val totalFound: Int
+        val totalFound: Int,
+        val isNextPageLoading: Boolean
     ) : SearchScreenState
 
-    data class Error(val error: SearchError) : SearchScreenState
+    object NoInternet : SearchScreenState
+    object ServerError : SearchScreenState
+    object EmptyResults : SearchScreenState
 }
