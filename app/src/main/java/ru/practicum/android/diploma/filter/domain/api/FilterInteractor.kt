@@ -7,7 +7,9 @@ interface FilterInteractor {
     fun filters(): Flow<Filters>
     fun resetIndustry()
     fun resetArea()
-
-    fun changeSalary(value: String)
+    fun changeSalary(value: String?)
     fun toggleSalary()
+    fun apply()
+    fun resetTemp()
+    fun reset()
 }

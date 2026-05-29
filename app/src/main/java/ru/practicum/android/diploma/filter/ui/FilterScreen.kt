@@ -2,8 +2,9 @@ package ru.practicum.android.diploma.filter.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,13 +17,13 @@ import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Blue
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
+import ru.practicum.android.diploma.core.ui.utils.Button
+import ru.practicum.android.diploma.core.ui.utils.ButtonType
 import ru.practicum.android.diploma.core.ui.utils.ListItem
 import ru.practicum.android.diploma.core.ui.utils.Spacer
 import ru.practicum.android.diploma.filter.ui.components.CancellableFilterListItem
 import ru.practicum.android.diploma.filter.ui.components.SalaryTextField
 import ru.practicum.android.diploma.filter.ui.mock.FilterPreviewProvider
-import ru.practicum.android.diploma.search.ui.SearchViewModel
-import ru.practicum.android.diploma.search.ui.mock.SearchPreviewProvider
 
 @Composable
 fun FilterScreen(
@@ -32,33 +33,54 @@ fun FilterScreen(
     onBack: () -> Unit
 ) {
     val state = viewModel.state.collectAsState()
-    AppScreen(R.string.filter_screen_title, onBack) {
-        Column(modifier = Modifier.padding(Dimens.padding16)) {
+    AppScreen(R.string.filter_screen_title, {
+        viewModel.cancel()
+        onBack()
+    }) {
+        Column(modifier = Modifier.padding(bottom = Dimens.padding24)) {
             CancellableFilterListItem(
                 label = stringResource(R.string.filter_area_label),
-                value = state.value.area,
+                value = state.value.area?.name,
                 onReset = viewModel::onResetArea,
                 onNavigate = onNavigateToArea
             )
 
             CancellableFilterListItem(
                 label = stringResource( R.string.filter_industry_label),
-                value = state.value.industry,
+                value = state.value.industry?.name,
                 onReset = viewModel::onResetIndustry,
                 onNavigate = onNavigateToIndustry
             )
 
-            Spacer(height = Dimens.padding24)
-            SalaryTextField(state.value.salary ?: "",
+            SalaryTextField(
+                state.value.salary ?: "",
+                modifier = Modifier.padding(
+                    horizontal = Dimens.padding16,
+                    vertical = Dimens.padding24),
                 viewModel::onQueryChanged,
-                viewModel::onFocusChanged
+                viewModel::onResetSalary
             )
-            Spacer(height = Dimens.padding24)
 
             ListItem(
                 title = stringResource( R.string.filter_salary_checkbox),
                 icon = if (state.value.onlyWithSalary) R.drawable.ic_core_check_box_on else R.drawable.ic_core_check_box_off,
-                iconTint = Blue
+                iconTint = Blue,
+                onClickIcon = viewModel::onToggleSalary
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Button(text = stringResource(R.string.filter_apply),
+                modifier = Modifier.padding(horizontal = Dimens.padding16),
+                onClick = {
+                    viewModel.apply()
+                    onBack()
+                }
+            )
+            Button(text = stringResource(R.string.filter_reset),
+                type = ButtonType.TERTIARY,
+                modifier = Modifier.padding(horizontal = Dimens.padding16),
+                 onClick = {
+                     viewModel.reset()
+                }
             )
 
         }

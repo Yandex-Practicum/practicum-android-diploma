@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 
 class FilterInteractorImpl(val repository: FiltersRepository): FilterInteractor {
     override fun filters(): Flow<Filters> = flow {
-        repository.filters.collect {
+        repository.tempFilters.collect {
             emit(it)
         }
     }
@@ -21,10 +21,21 @@ class FilterInteractorImpl(val repository: FiltersRepository): FilterInteractor 
         repository.applyIndustry(null)
     }
 
-    override fun changeSalary(value: String) {
-
+    override fun changeSalary(value: String?) {
+        repository.applySalary(value)
     }
     override fun toggleSalary(){
+        repository.applyToggleSalary()
+    }
 
+    override fun apply() {
+        repository.applyTempFilters()
+    }
+
+    override fun resetTemp() {
+        repository.resetTempFilters()
+    }
+    override fun reset() {
+        repository.resetFilters()
     }
 }

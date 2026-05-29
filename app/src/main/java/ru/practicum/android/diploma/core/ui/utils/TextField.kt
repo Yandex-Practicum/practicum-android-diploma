@@ -63,6 +63,7 @@ fun TextField(
     ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
+    val isFocused = remember{false}
     Row(modifier = modifier
         .clip(RoundedCornerShape(Dimens.radius12))
         .background(MaterialTheme.colorScheme.outline),
@@ -78,7 +79,7 @@ fun TextField(
             label?.let {
                 Text(
                     text = label,
-                    color = if (query.isEmpty())  Color.Gray else Blue,
+                    color = if (query.isEmpty())  Color.Gray else (if (isFocused) Blue else BlackUniversal),
                     style = MaterialTheme.typography.labelSmall
                 )
             }
@@ -119,7 +120,9 @@ fun TextField(
 
         trailingIconId?.let {
             IconButton(
-                onClick = { onIconClick?.invoke() },
+                onClick = {
+                    onIconClick?.invoke()
+               },
 
                 ) {
                 Icon(

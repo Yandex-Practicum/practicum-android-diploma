@@ -21,15 +21,16 @@ import ru.practicum.android.diploma.search.ui.components.SearchBar
 @Composable
 fun SalaryTextField(
     query: String,
+    modifier: Modifier = Modifier,
     onQueryChanged: (String) -> Unit,
-    onFocusChanged: (Boolean) -> Unit,
     onIconClick: (() -> Unit)? = null,
 ) {
     TextField(
         query = query,
         label = stringResource(R.string.filter_salary_label),
+        modifier = modifier,
         onQueryChanged = onQueryChanged,
-        onFocusChanged = onFocusChanged,
+        onFocusChanged = {  },
         trailingIconId = if (query.isEmpty()) {
             null
         } else {
@@ -55,7 +56,6 @@ private fun SalaryTextFieldPreview() {
             SalaryTextField(
                 query = "124",
                 onQueryChanged = {},
-                onFocusChanged = {},
                 onIconClick = { }
             )
             Spacer(height = Dimens.padding16)
@@ -63,7 +63,6 @@ private fun SalaryTextFieldPreview() {
             SalaryTextField(
                 query = "",
                 onQueryChanged = {},
-                onFocusChanged = {},
                 onIconClick = {}
             )
         }

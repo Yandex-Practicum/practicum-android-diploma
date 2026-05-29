@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.core.domain.models
 
-data class Industry(
+data class Area(
     val id: String,
     val name: String
 ) {
     companion object
 }
 
-typealias Industries = List<Industry>
+typealias Areas = List<Area>

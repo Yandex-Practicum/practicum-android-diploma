@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.core.data
 
 data class FiltersDto(
     val area: FilterDto? = null,
-    val industry: String? = null,
+    val industry: FilterDto? = null,
     val salary: Int? = null,
     val onlyWithSalary: Boolean = false
 )
