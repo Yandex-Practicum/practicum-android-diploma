@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.Dimens
+import ru.practicum.android.diploma.core.ui.utils.HtmlBlock
 import ru.practicum.android.diploma.core.ui.utils.HtmlText
 import ru.practicum.android.diploma.core.ui.utils.parseHtmlBlocks
 
@@ -22,7 +23,9 @@ fun VacancyDescription(
     modifier: Modifier = Modifier
 ) {
     if (description.isBlank()) return
-    val blocks = remember(description) { parseHtmlBlocks(description) }
+    val blocks = remember(description) {
+        parseHtmlBlocks(description).let { if (it.firstOrNull() is HtmlBlock.Heading) it.drop(1) else it }
+    }
     if (blocks.isEmpty()) return
 
     Column(modifier = modifier.fillMaxWidth().padding(horizontal = Dimens.padding16)) {
