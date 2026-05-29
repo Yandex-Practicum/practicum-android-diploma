@@ -1,12 +1,10 @@
 package ru.practicum.android.diploma.core.ui.utils
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.text.Layout
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,13 +27,14 @@ import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.Gray
 
 @Composable
-fun ListItem(title: String,
-             @DrawableRes icon: Int,
-             iconTint: Color = MaterialTheme.colorScheme.onBackground,
-             label: String? = null,
-             isActive: Boolean = true,
-             onClickItem: (()->Unit)? = null,
-             onClickIcon: (()->Unit)? = null
+fun ListItem(
+    title: String,
+    @DrawableRes icon: Int,
+    iconTint: Color = MaterialTheme.colorScheme.onBackground,
+    label: String? = null,
+    isActive: Boolean = true,
+    onClickItem: (() -> Unit)? = null,
+    onClickIcon: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
@@ -45,27 +44,34 @@ fun ListItem(title: String,
                 top = Dimens.padding6,
                 bottom = Dimens.padding6,
                 start = Dimens.padding16,
-                end = Dimens.padding4)
+                end = Dimens.padding4
+            )
             .then(
-            if (onClickItem != null) Modifier.clickable { onClickItem() } else Modifier
+                if (onClickItem != null) Modifier.clickable { onClickItem() } else Modifier
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(horizontalAlignment = Alignment.Start,
-            modifier = Modifier.weight(1f)) {
+        Column(
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.weight(1f)
+        ) {
             label?.let {
-                Text(text = label,
+                Text(
+                    text = label,
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onBackground,
-                    maxLines = 1 )
+                    maxLines = 1
+                )
             }
-            Text(text = title,
+            Text(
+                text = title,
                 style = MaterialTheme.typography.bodyMedium,
                 color = if (isActive) MaterialTheme.colorScheme.onBackground else Gray,
                 maxLines = 1
             )
         }
-        IconButton(onClick = { onClickIcon?.invoke() },
+        IconButton(
+            onClick = { onClickIcon?.invoke() },
             Modifier
                 .size(Dimens.icon48)
 
@@ -79,6 +85,7 @@ fun ListItem(title: String,
     }
 }
 
+@Suppress("MagicNumber")
 @Preview(name = "Light", showBackground = true)
 @Preview(name = "Dark", uiMode = UI_MODE_NIGHT_YES, showBackground = true)
 @Composable

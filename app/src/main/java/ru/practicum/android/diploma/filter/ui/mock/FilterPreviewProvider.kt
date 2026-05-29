@@ -1,21 +1,20 @@
 package ru.practicum.android.diploma.filter.ui.mock
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import ru.practicum.android.diploma.core.domain.mocks.mockList
-import ru.practicum.android.diploma.core.domain.models.Vacancy
-import ru.practicum.android.diploma.filter.ui.FilterScreenState
+import ru.practicum.android.diploma.core.domain.models.Area
+import ru.practicum.android.diploma.core.domain.models.Filters
+import ru.practicum.android.diploma.core.domain.models.Industry
+import ru.practicum.android.diploma.core.ui.preview.mock1
 import ru.practicum.android.diploma.filter.ui.FilterViewModel
-import ru.practicum.android.diploma.search.ui.SearchViewError
-import ru.practicum.android.diploma.search.ui.SearchViewModel
-import ru.practicum.android.diploma.search.ui.SearchViewState
 
 class FilterPreviewProvider : PreviewParameterProvider<FilterViewModel> {
     override val values = sequenceOf(
-        FilterViewModelMock(FilterScreenState()),
-            FilterViewModelMock(FilterScreenState(industry = "IT")),
-        FilterViewModelMock(FilterScreenState(industry = "IT", area = "Москва")),
-        FilterViewModelMock(FilterScreenState(industry = "IT", area = "Москва", salary = "500"))
-        ,
-        FilterViewModelMock(FilterScreenState(industry = "IT", area = "Москва", salary = "500", onlyWithSalary = true))
+        FilterViewModelMock(Filters()),
+        FilterViewModelMock(Filters(industry = Industry.mock1())),
+        FilterViewModelMock(Filters(industry = Industry.mock1(), area = Area.mock1())),
+        FilterViewModelMock(Filters(industry = Industry.mock1(), area = Area.mock1(), salary = "500")),
+        FilterViewModelMock(
+            Filters(industry = Industry.mock1(), area = Area.mock1(), salary = "500", onlyWithSalary = true)
+        )
     )
 }

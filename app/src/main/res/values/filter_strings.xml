@@ -3,4 +3,6 @@
     <string name="filter_salary_checkbox">Не показывать без зарплаты</string>
     <string name="filter_area_label">Место работы</string>
     <string name="filter_industry_label">Отрасль</string>
+    <string name="filter_apply">Применить</string>
+    <string name="filter_reset">Сбросить</string>
 </resources>

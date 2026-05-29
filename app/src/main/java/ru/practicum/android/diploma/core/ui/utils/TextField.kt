@@ -1,17 +1,13 @@
 package ru.practicum.android.diploma.core.ui.utils
 
-import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -44,7 +40,6 @@ import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.BlackUniversal
 import ru.practicum.android.diploma.core.ui.theme.Blue
 import ru.practicum.android.diploma.core.ui.theme.Dimens
-import ru.practicum.android.diploma.search.ui.components.SearchBar
 
 @Composable
 fun TextField(
@@ -63,65 +58,69 @@ fun TextField(
     ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
-    Row(modifier = modifier
-        .clip(RoundedCornerShape(Dimens.radius12))
-        .background(MaterialTheme.colorScheme.outline),
+    val isFocused = remember { false }
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(Dimens.radius12))
+            .background(MaterialTheme.colorScheme.outline),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(modifier = Modifier
-            .weight(1f)
-            .defaultMinSize(minHeight = 40.dp)
-            .wrapContentHeight()
-            .padding(contentPaddings),
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .defaultMinSize(minHeight = 40.dp)
+                .wrapContentHeight()
+                .padding(contentPaddings),
 
         ) {
             label?.let {
                 Text(
                     text = label,
-                    color = if (query.isEmpty())  Color.Gray else Blue,
+                    color = if (query.isEmpty()) Color.Gray else if (isFocused) Blue else BlackUniversal,
                     style = MaterialTheme.typography.labelSmall
                 )
             }
-                BasicTextField(
-                    // can set custom contentPadding only in BasicTextField
-                    value = query,
-                    onValueChange = onQueryChanged,
-                    cursorBrush = SolidColor(Blue),
-                    modifier = Modifier
-                        .wrapContentHeight()
-                        .onFocusChanged { focusState ->
-                            onFocusChanged(focusState.isFocused)
-                        },
-                    keyboardOptions = keyboardOptions,
-                    decorationBox = @Composable { innerTextField ->
-//
-                        TextFieldDefaults.DecorationBox(
-                            value = query,
-                            visualTransformation = VisualTransformation.None,
-                            innerTextField = innerTextField,
-
-                            placeholder = { Text(text = stringResource(id = R.string.search_placeholder)) },
-                            prefix = null,
-                            suffix = null,
-                            supportingText = null,
-                            //shape = RoundedCornerShape(Dimens.radius12),
-                            singleLine = true,
-                            enabled = true,
-                            isError = false,
-                            interactionSource = remember { MutableInteractionSource() },
-                            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
-                            colors = textFieldColors(MaterialTheme.colorScheme)
-                        )
+            BasicTextField(
+                // can set custom contentPadding only in BasicTextField
+                value = query,
+                onValueChange = onQueryChanged,
+                cursorBrush = SolidColor(Blue),
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .onFocusChanged { focusState ->
+                        onFocusChanged(focusState.isFocused)
                     },
-                )
-            }
+                keyboardOptions = keyboardOptions,
+                decorationBox = @Composable { innerTextField ->
+//
+                    TextFieldDefaults.DecorationBox(
+                        value = query,
+                        visualTransformation = VisualTransformation.None,
+                        innerTextField = innerTextField,
 
+                        placeholder = { Text(text = stringResource(id = R.string.search_placeholder)) },
+                        prefix = null,
+                        suffix = null,
+                        supportingText = null,
+                        // shape = RoundedCornerShape(Dimens.radius12),
+                        singleLine = true,
+                        enabled = true,
+                        isError = false,
+                        interactionSource = remember { MutableInteractionSource() },
+                        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
+                        colors = textFieldColors(MaterialTheme.colorScheme)
+                    )
+                },
+            )
+        }
 
         trailingIconId?.let {
             IconButton(
-                onClick = { onIconClick?.invoke() },
+                onClick = {
+                    onIconClick?.invoke()
+                },
 
-                ) {
+            ) {
                 Icon(
                     painter = painterResource(trailingIconId),
                     contentDescription = null,
