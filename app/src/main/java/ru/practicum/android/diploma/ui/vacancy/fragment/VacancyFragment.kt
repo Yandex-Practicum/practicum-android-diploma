@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyAction
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.VacancyViewModel
 import ru.practicum.android.diploma.ui.theme.AppTheme
@@ -33,16 +34,31 @@ class VacancyFragment : Fragment() {
                         onLoadVacancy = viewModel::loadVacancy,
                         onBackClick = { findNavController().navigateUp() },
                         onShareClick = { url ->
-                            viewModel.onAction(VacancyAction.ShareVacancy(url))
+                            viewModel.onAction(
+                                VacancyAction.ShareVacancy(
+                                    url,
+                                    getString(R.string.share_link)
+                                )
+                            )
                         },
                         onFavoriteClick = {
                             viewModel.toggleFavoriteClick()
                         },
                         onEmailClick = { email ->
-                            viewModel.onAction(VacancyAction.EmailClick(email))
+                            viewModel.onAction(
+                                VacancyAction.EmailClick(
+                                    email,
+                                    getString(R.string.send_email)
+                                )
+                            )
                         },
                         onPhoneClick = { phone ->
-                            viewModel.onAction(VacancyAction.PhoneNumberClick(phone))
+                            viewModel.onAction(
+                                VacancyAction.PhoneNumberClick(
+                                    phone,
+                                    getString(R.string.make_call)
+                                )
+                            )
                         },
                     )
                 }
