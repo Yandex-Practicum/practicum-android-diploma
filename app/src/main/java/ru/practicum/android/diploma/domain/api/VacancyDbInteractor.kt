@@ -5,7 +5,8 @@ import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 interface VacancyDbInteractor {
 
-    fun getFavoriteVacancies(): Flow<List<VacancyDetail>>
+    fun observeFavoriteVacancyById(id: String): Flow<VacancyDetail>
+    fun observeFavoriteVacancies(): Flow<List<VacancyDetail>>
     suspend fun addVacancyToFavorites(vacancy: VacancyDetail)
     suspend fun deleteVacancyFromFavorites(vacancyId: String)
     suspend fun checkVacancyIsFavorite(vacancyId: String): Boolean

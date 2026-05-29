@@ -16,10 +16,10 @@ interface FavoriteVacancyDao {
     suspend fun deleteVacancy(id: String): Int
 
     @Query("SELECT * FROM favorite_vacancies_table")
-    suspend fun observeFVacancies(): List<FavoriteVacancyEntity>
+    fun observeFavoriteVacancies(): Flow<List<FavoriteVacancyEntity>>
 
     @Query("SELECT * FROM favorite_vacancies_table WHERE id = :id")
-    fun observeVacancy(id: String): Flow<FavoriteVacancyEntity>
+    fun observeFavoriteVacancy(id: String): Flow<FavoriteVacancyEntity>
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_vacancies_table WHERE id = :id)")
     fun checkVacancyIsFavorite(id: String): Boolean

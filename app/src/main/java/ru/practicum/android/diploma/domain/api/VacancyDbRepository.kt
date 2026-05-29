@@ -4,7 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 interface VacancyDbRepository {
-    fun getFavoriteVacancies(): Flow<List<VacancyDetail>>
+
+    fun observeFavoriteVacancyById(id: String): Flow<VacancyDetail>
+
+    fun observeFavoriteVacancies(): Flow<List<VacancyDetail>>
 
     suspend fun addVacancyToFavorites(vacancy: VacancyDetail)
 

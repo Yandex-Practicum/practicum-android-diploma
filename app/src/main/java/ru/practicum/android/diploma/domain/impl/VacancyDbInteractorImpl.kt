@@ -9,8 +9,13 @@ class VacancyDbInteractorImpl(
     private val repository: VacancyDbRepository
 ) : VacancyDbInteractor {
 
-    override fun getFavoriteVacancies(): Flow<List<VacancyDetail>> {
-        return repository.getFavoriteVacancies()
+
+    override fun observeFavoriteVacancyById(id: String): Flow<VacancyDetail> {
+        return repository.observeFavoriteVacancyById(id)
+    }
+
+    override fun observeFavoriteVacancies(): Flow<List<VacancyDetail>> {
+        return repository.observeFavoriteVacancies()
     }
 
     override suspend fun addVacancyToFavorites(vacancy: VacancyDetail) {
