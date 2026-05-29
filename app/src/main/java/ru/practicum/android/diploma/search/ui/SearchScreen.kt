@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,15 +9,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.compose.viewmodel.koinViewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Blue
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.WhiteUniversal
@@ -28,10 +27,6 @@ import ru.practicum.android.diploma.core.ui.utils.Spacer
 import ru.practicum.android.diploma.core.ui.utils.Stub
 import ru.practicum.android.diploma.core.ui.utils.VacancyList
 import ru.practicum.android.diploma.search.ui.components.SearchBar
-import ru.practicum.android.diploma.search.ui.mock.SearchPreviewProvider
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SearchScreen(
@@ -144,17 +139,4 @@ private fun Chip(count: Int) {
     }
 }
 
-@Preview(name = "Light", showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
-@Composable
-private fun SearchScreenPreview(
-    @PreviewParameter(SearchPreviewProvider::class) model: SearchViewModel
-) {
-    AppTheme {
-        SearchScreen(
-            model,
-            onNavigateToFilter = {},
-            onNavigateToVacancy = {}
-        )
-    }
-}
+
