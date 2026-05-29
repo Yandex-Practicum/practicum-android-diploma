@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.impl
+package ru.practicum.android.diploma.data
 
 import android.content.Context
 import android.content.Intent
