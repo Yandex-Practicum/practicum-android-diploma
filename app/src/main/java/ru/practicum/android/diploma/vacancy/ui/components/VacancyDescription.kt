@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.core.text.HtmlCompat
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 
@@ -19,6 +21,9 @@ fun VacancyDescription(
     modifier: Modifier = Modifier
 ) {
     if (description.isBlank()) return
+    val formatted = remember(description) {
+        HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT).toString().trim()
+    }
     Column(modifier = modifier.fillMaxWidth().padding(horizontal = Dimens.padding16)) {
         Text(
             text = stringResource(R.string.vacancy_description_title),
@@ -27,7 +32,7 @@ fun VacancyDescription(
         )
         Spacer(Modifier.height(Dimens.padding8))
         Text(
-            text = description,
+            text = formatted,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
