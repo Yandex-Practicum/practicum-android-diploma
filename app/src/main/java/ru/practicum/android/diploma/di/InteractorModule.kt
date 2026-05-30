@@ -20,7 +20,7 @@ val interactorModule = module {
     }
 
     single<VacancyActionInteractor> {
-        VacancyActionInteractorImpl()
+        VacancyActionInteractorImpl(get())
     }
     single<VacancyDbInteractor> {
         VacancyDbInteractorImpl(get())
