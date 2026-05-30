@@ -25,7 +25,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
-import ru.practicum.android.diploma.vacancy.domain.models.VacancyDetails
+import ru.practicum.android.diploma.core.ui.utils.LoadingContent
+import ru.practicum.android.diploma.core.ui.utils.Stub
 import ru.practicum.android.diploma.vacancy.ui.components.VacancyContacts
 import ru.practicum.android.diploma.vacancy.ui.components.VacancyDescription
 import ru.practicum.android.diploma.vacancy.ui.components.VacancyEmployment
@@ -37,19 +38,32 @@ import ru.practicum.android.diploma.vacancy.ui.mock.VacancyDetailsPreviewProvide
 @Composable
 fun VacancyScreen(viewModel: VacancyViewModel, onBack: () -> Unit) {
     val state by viewModel.state.collectAsState()
-    val data = state as? VacancyDetailsViewState.Data
+    val content = state as? VacancyState.Content
 
     AppScreen(
         title = R.string.vacancy_screen_title,
         onBack = onBack,
         actions = {
-            data?.let { ShareAction(it.details.alternateUrl) }
+            content?.let {
+                ShareAction(it.details.alternateUrl)
+                FavoriteAction(
+                    isFavorite = it.isFavorite,
+                    onClick = viewModel::onFavoriteClicked,
+                )
+            }
         }
     ) {
         when (val current = state) {
-            is VacancyDetailsViewState.Data -> VacancyContent(current.details)
-            VacancyDetailsViewState.Loading -> Unit
-            VacancyDetailsViewState.Error -> Unit
+            VacancyState.Loading -> LoadingContent()
+            is VacancyState.Content -> VacancyContent(current)
+            VacancyState.NoInternet -> Stub(
+                iconId = R.drawable.image_core_stub_no_internet,
+                descriptionId = R.string.vacancy_error_no_internet,
+            )
+            VacancyState.Error -> Stub(
+                iconId = R.drawable.image_core_stub_not_found,
+                descriptionId = R.string.vacancy_error_server,
+            )
         }
     }
 }
@@ -76,7 +90,21 @@ private fun ShareAction(alternateUrl: String?) {
 }
 
 @Composable
-private fun VacancyContent(details: VacancyDetails) {
+private fun FavoriteAction(isFavorite: Boolean, onClick: () -> Unit) {
+    val iconRes = if (isFavorite) R.drawable.ic_vacancy_favorite_on else R.drawable.ic_vacancy_favorite_off
+    val descriptionRes = if (isFavorite) R.string.vacancy_favorite_remove else R.string.vacancy_favorite_add
+    IconButton(onClick = onClick) {
+        Icon(
+            painter = painterResource(iconRes),
+            contentDescription = stringResource(descriptionRes),
+            tint = MaterialTheme.colorScheme.onBackground,
+        )
+    }
+}
+
+@Composable
+private fun VacancyContent(content: VacancyState.Content) {
+    val details = content.details
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -87,7 +115,7 @@ private fun VacancyContent(details: VacancyDetails) {
             name = details.name,
             salary = details.salary,
             employerName = details.employerName,
-            employerLogoUrl = details.employerLogoUrl,
+            employerLogoUrl = if (content.fromCache) null else details.employerLogoUrl,
             employerLocation = details.address ?: details.city ?: details.areaName
         )
         Spacer(Modifier.height(Dimens.padding24))

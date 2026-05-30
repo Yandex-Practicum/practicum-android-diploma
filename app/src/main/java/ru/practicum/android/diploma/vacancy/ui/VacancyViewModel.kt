@@ -4,5 +4,6 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.StateFlow
 
 abstract class VacancyViewModel : ViewModel() {
-    abstract var state: StateFlow<VacancyDetailsViewState>
+    abstract val state: StateFlow<VacancyState>
+    abstract fun onFavoriteClicked()
 }

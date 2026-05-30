@@ -63,7 +63,9 @@ val coreModule = module {
     }
 
     single<AppDatabase> {
-        Room.databaseBuilder(get(), AppDatabase::class.java, DB_NAME).build()
+        Room.databaseBuilder(get(), AppDatabase::class.java, DB_NAME)
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
     }
 
     single<FiltersRepository> {
