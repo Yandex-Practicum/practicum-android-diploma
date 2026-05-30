@@ -51,4 +51,8 @@
     <string name="vacancy_server_error">Не удалось получить\nвакансию</string>
     <string name="share">Поделиться</string>
     <string name="add_to_favorites">Добавить в избранное</string>
+
+    <!-- Экран избранных вакансий-->
+    <string name="favorite_vacancies_title">Избранное</string>
+    <string name="no_favorite_vacancies">Список пуст</string>
 </resources>
