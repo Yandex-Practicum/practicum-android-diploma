@@ -8,8 +8,6 @@ import ru.practicum.android.diploma.domain.models.VacancyDetail
 class VacancyDbInteractorImpl(
     private val repository: VacancyDbRepository
 ) : VacancyDbInteractor {
-
-
     override fun observeFavoriteVacancyById(id: String): Flow<VacancyDetail> {
         return repository.observeFavoriteVacancyById(id)
     }

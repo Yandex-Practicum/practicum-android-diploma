@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data
 
 import ru.practicum.android.diploma.data.dto.VacancyDetailDto
-import ru.practicum.android.diploma.data.network.VacancyDetailsRequest
+import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
 import ru.practicum.android.diploma.domain.api.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.models.GetVacancyDetailsResponse
 
