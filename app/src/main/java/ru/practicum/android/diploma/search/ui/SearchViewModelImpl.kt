@@ -6,12 +6,12 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.Resource
+import ru.practicum.android.diploma.core.domain.models.Filters
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -25,39 +25,62 @@ class SearchViewModelImpl(
     override val query: StateFlow<String> = _query.asStateFlow()
     private val _isFiltered = MutableStateFlow<Boolean>(false)
     override var isFiltered: StateFlow<Boolean> = _isFiltered.asStateFlow()
+
+    private data class SearchRequest(val query: String, val filters: Filters, val page: Int)
+
     init {
         viewModelScope.launch {
-            _query
-                .debounce(SEARCH_DEBOUNCE_DELAY)
-                .filter { it.isNotEmpty() }
-                .distinctUntilChanged()
-                .flatMapLatest { currentQuery ->
-                    _state.value = SearchScreenState.Loading
-                    searchInteractor.searchVacancies(
-                        query = currentQuery,
-                        page = 0,
-                        perPage = 20,
-                        filters = emptyMap()
-                    )
+            combine<String, Filters, SearchRequest?>(
+                _query
+                    .debounce(SEARCH_DEBOUNCE_DELAY)
+                    .distinctUntilChanged(),
+                searchInteractor.filters
+            ) { query, filters ->
+                _isFiltered.value = filters.salary != null ||
+                    filters.area != null ||
+                    filters.industry != null ||
+                    filters.onlyWithSalary
+
+                if (query.isEmpty() && !_isFiltered.value) {
+                    _state.value = SearchScreenState.Default
+                    null
+                } else {
+                    SearchRequest(query, filters, 0)
                 }
-                .collect { resource ->
-                    when (resource) {
-                        is Resource.Success -> {
-                            _state.value = SearchScreenState.Content(
-                                vacancies = resource.data.items,
-                                totalFound = resource.data.found
-                            )
-                        }
-                        is Resource.Error -> {
-                            _state.value = SearchScreenState.Error(SearchError.INTERNET)
-                        }
-                        is Resource.Loading -> {
-                            _state.value = SearchScreenState.Loading
-                        }
+            }
+                .collect { request ->
+                    request?.let {
+                        searchInteractor.searchVacancies(
+                            request.query,
+                            request.page,
+                            20,
+                            request.filters
+                        )
+                            .collect { resource ->
+                                when (resource) {
+                                    is Resource.Success -> {
+                                        _state.value = SearchScreenState.Content(
+                                            vacancies = resource.data.items,
+                                            totalFound = resource.data.found
+                                        )
+                                    }
+
+                                    is Resource.Error -> {
+                                        _state.value = SearchScreenState.Error(SearchError.INTERNET)
+                                    }
+
+                                    is Resource.Loading -> {
+                                        _state.value = SearchScreenState.Loading
+                                    }
+                                }
+                            }
                     }
+
                 }
+
         }
     }
+
     override fun onQueryChanged(query: String) {
         _query.value = query
         if (query.isEmpty()) {

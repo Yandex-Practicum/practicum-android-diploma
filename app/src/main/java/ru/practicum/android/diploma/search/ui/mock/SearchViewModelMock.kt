@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.search.ui.mock
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import ru.practicum.android.diploma.search.ui.SearchViewModel
 import ru.practicum.android.diploma.search.ui.SearchScreenState
+import ru.practicum.android.diploma.search.ui.SearchViewModel
 
 class SearchViewModelMock(
     mockState: SearchScreenState,

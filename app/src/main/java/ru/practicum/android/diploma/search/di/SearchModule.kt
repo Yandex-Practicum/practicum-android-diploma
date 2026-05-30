@@ -19,6 +19,6 @@ val searchModule = module {
     }
 
     single<SearchInteractor> {
-        SearchInteractorImpl(get())
+        SearchInteractorImpl(get(), get())
     }
 }

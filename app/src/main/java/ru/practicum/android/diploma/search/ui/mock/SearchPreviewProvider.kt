@@ -4,8 +4,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import ru.practicum.android.diploma.core.domain.models.Vacancy
 import ru.practicum.android.diploma.core.ui.preview.mockList
 import ru.practicum.android.diploma.search.ui.SearchError
-import ru.practicum.android.diploma.search.ui.SearchViewModel
 import ru.practicum.android.diploma.search.ui.SearchScreenState
+import ru.practicum.android.diploma.search.ui.SearchViewModel
 
 class SearchPreviewProvider : PreviewParameterProvider<SearchViewModel> {
     override val values = sequenceOf(

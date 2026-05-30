@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.StateFlow
 
