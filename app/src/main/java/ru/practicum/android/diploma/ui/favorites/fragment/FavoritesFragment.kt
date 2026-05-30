@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.presentation.favorites.viewmodel.FavoritesViewModel
 import ru.practicum.android.diploma.ui.favorites.screen.FavoritesScreen
@@ -28,7 +29,12 @@ class FavoritesFragment : Fragment() {
                     val state = viewModel.state.collectAsStateWithLifecycle()
                     FavoritesScreen(
                         state = state.value,
-                        onVacancyClick = {},
+                        onVacancyClick = { vacancyId ->
+                            findNavController().navigate(
+                                FavoritesFragmentDirections
+                                    .actionFavoritesFragmentToVacancyFragment(vacancyId)
+                            )
+                        }
                     )
                 }
             }

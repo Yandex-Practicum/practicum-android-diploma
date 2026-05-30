@@ -54,4 +54,8 @@
     <string name="send_email">Написать на почту</string>
     <string name="make_call">Позвонить</string>
     <string name="share_link">Поделиться ссылкой</string>
+
+    <!-- Экран избранных вакансий-->
+    <string name="favorite_vacancies_title">Избранное</string>
+    <string name="no_favorite_vacancies">Список пуст</string>
 </resources>
