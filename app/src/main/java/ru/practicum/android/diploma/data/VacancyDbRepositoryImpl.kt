@@ -23,7 +23,6 @@ class VacancyDbRepositoryImpl(
             .map { entities -> entities.map { it.toVacancyDetail() } }
             .distinctUntilChanged()
 
-
     override suspend fun addVacancyToFavorites(vacancy: VacancyDetail) {
         dao.addVacancy(vacancy.toDb())
     }
