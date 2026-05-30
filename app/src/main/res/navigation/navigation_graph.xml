@@ -18,7 +18,11 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="ru.practicum.android.diploma.ui.favorites.fragment.FavoritesFragment"
-        android:label="fragment_favorites" />
+        android:label="fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.ui.team.fragment.TeamFragment"
