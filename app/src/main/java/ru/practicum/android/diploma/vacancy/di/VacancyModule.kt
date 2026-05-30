@@ -22,6 +22,10 @@ val vacancyModule = module {
         VacancyInteractorImpl(get())
     }
     viewModel<VacancyViewModel> { params ->
-        VacancyViewModelImpl(params.get())
+        VacancyViewModelImpl(
+            id = params.get(),
+            vacancyInteractor = get(),
+            favoritesInteractor = get(),
+        )
     }
 }
