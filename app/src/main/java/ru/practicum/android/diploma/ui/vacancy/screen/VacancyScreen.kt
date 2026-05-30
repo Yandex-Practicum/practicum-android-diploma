@@ -32,6 +32,7 @@ fun VacancyScreen(
     }
 
     val isContent = state is VacancyDetailsUiState.Content
+    val isFavorite = if (isContent) state.details.isFavorite else false
 
     Scaffold(
         modifier = modifier,
@@ -45,6 +46,7 @@ fun VacancyScreen(
                     }
                 },
                 onFavoriteClick = onFavoriteClick,
+                isFavorite
             )
         },
     ) { paddingValues ->
@@ -65,6 +67,7 @@ private fun VacancyDetailsTopBar(
     onBackClick: () -> Unit,
     onShareClick: () -> Unit,
     onFavoriteClick: () -> Unit,
+    isFavorite: Boolean
 ) {
     TopBar(
         text = stringResource(R.string.vacancy_screen_title),
@@ -74,6 +77,7 @@ private fun VacancyDetailsTopBar(
         onEndFirstIconClick = onShareClick,
         endSecondIconVisible = showActions,
         onEndSecondIconClick = onFavoriteClick,
+        endSecondIconId = if (isFavorite) R.drawable.ic_like_red else R.drawable.ic_like_empty
     )
 }
 
@@ -91,16 +95,19 @@ private fun VacancyDetailsBody(
             imageRes = R.drawable.img_no_internet,
             messageRes = R.string.no_internet_error,
         )
+
         VacancyDetailsUiState.NotFound -> VacancyDetailsError(
             modifier = modifier,
             imageRes = R.drawable.img_nothing_found,
             messageRes = R.string.vacancy_not_found_error,
         )
+
         VacancyDetailsUiState.ServerError -> VacancyDetailsError(
             modifier = modifier,
             imageRes = R.drawable.img_no_internet,
             messageRes = R.string.vacancy_server_error,
         )
+
         is VacancyDetailsUiState.Content -> {
             val contentUi = state.details.toContentUi(salaryFormatLabels())
             VacancyDetailsContent(

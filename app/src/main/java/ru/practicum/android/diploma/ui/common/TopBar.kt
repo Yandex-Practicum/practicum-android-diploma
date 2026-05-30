@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -72,6 +73,7 @@ fun TopBar(
                 resId = endSecondIconId,
                 contentDescription = stringResource(R.string.add_to_favorites),
                 onClick = onEndSecondIconClick,
+                color = if (endSecondIconId == R.drawable.ic_like_red) MaterialTheme.colorScheme.error else null
             )
         }
     }
@@ -83,6 +85,7 @@ fun IconImage(
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
     onClick: (() -> Unit)? = null,
+    color: Color? = null
 ) {
     Box(
         modifier = modifier
@@ -100,7 +103,7 @@ fun IconImage(
         Image(
             painter = painterResource(id = resId),
             contentDescription = contentDescription,
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+            colorFilter = ColorFilter.tint(color ?: MaterialTheme.colorScheme.onBackground),
         )
     }
 }
