@@ -17,6 +17,7 @@ class SearchViewModelMock(
     errorCode: SearchError? = null
 ) : SearchViewModel() {
     private val _state = MutableStateFlow<SearchScreenState>(SearchScreenState.Initial)
+
     override var state: StateFlow<SearchScreenState> = _state.asStateFlow()
 
     private val _query = MutableStateFlow("")
