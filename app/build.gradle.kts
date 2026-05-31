@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.coil.svg)
     implementation(libs.compose.ui)
     implementation(libs.androidx.viewmodel)
+    implementation(libs.androidx.ui.test.junit4)
 
     testImplementation(libs.junit4)
     testImplementation(libs.coroutines.test)
@@ -105,4 +106,6 @@ dependencies {
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.kaspresso)
+    androidTestImplementation(libs.kaspresso.compose.support)
 }
