@@ -113,7 +113,6 @@ private fun SearchQueryField(
     val fieldShape = RoundedCornerShape(8.dp)
     Row(
         modifier = Modifier
-            .testTag(SearchScreenTestTags.TextField)
             .fillMaxWidth()
             .padding(
                 start = Dimens.ScreenHorizontalPadding,
@@ -130,6 +129,7 @@ private fun SearchQueryField(
             onValueChange = onSearchTextChange,
             modifier = Modifier
                 .weight(1f)
+                .testTag(SearchScreenTestTags.TextField)
                 .fillMaxHeight()
                 .padding(start = 20.dp)
                 .focusRequester(focusRequester),

@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.common
 
-import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import org.junit.Rule
 import ru.practicum.android.diploma.ui.root.RootActivity

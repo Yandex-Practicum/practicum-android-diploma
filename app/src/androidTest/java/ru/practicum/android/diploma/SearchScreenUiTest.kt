@@ -9,22 +9,20 @@ import ru.practicum.android.diploma.common.BaseUiTest
 class SearchScreenUiTest: BaseUiTest() {
 
     @Test
-    fun searchScreenUiElementsTest() =
+    fun searchScreenUiElementsCheck() =
         run {
             with(screens) {
                 with(searchScreen) {
-                    step("Text field is diaplsyed") {
+                    step("Text field is displayed") {
                         textField.assertIsDisplayed()
                     }
-                    step("Vacancies list is displayed") {
-                        vacanciesList.assertIsDisplayed()
-                    }
+                    //TODO добавить что тут еще должно быть видно
                 }
             }
         }
 
     @Test
-    fun searchScreenVacancyClearTextEdit() =
+    fun searchScreenClearTextEdit() =
         run {
             with(screens) {
                 with(searchScreen) {

@@ -26,10 +26,10 @@ viewModel = "2.10.0"
 coroutines = "1.10.2"
 
 # Testing
-espressoCore = "3.5.1"
+espressoCore = "3.6.1"
 kaspresso = "1.5.5"
 junit4 = "4.13.2"
-junitExt = "1.1.5"
+junitExt = "1.2.1"
 
 # Static analysis
 detekt = "1.23.8"
@@ -49,7 +49,6 @@ firebaseCrashlyticsBuildtools = "3.0.7"
 #Compose
 compose-bom = "2026.04.01"
 coil = "3.1.0"
-uiTestJunit4 = "1.11.2"
 
 [libraries]
 
@@ -114,7 +113,7 @@ lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-view
 ui = { module = "androidx.compose.ui:ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "uiTestJunit4" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
