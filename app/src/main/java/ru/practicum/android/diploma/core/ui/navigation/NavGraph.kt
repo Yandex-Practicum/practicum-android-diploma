@@ -22,6 +22,7 @@ fun NavGraph(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.Search) {
         composable<Screen.Search> {
             SearchScreen(
+                koinViewModel(),
                 onNavigateToFilter = {
                     navController.navigate(Screen.Filter)
                 },

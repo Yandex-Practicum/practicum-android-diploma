@@ -1,16 +1,16 @@
 package ru.practicum.android.diploma.search.ui
 
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
-interface SearchViewModel {
-    val state: StateFlow<SearchScreenState>
-    val query: StateFlow<String>
-    val isFiltered: StateFlow<Boolean>
-    val toastMessage: SharedFlow<String>
+abstract class SearchViewModel : ViewModel() {
+    abstract var state: StateFlow<SearchScreenState>
+    abstract val query: StateFlow<String>
+    abstract var isFiltered: StateFlow<Boolean>
+    abstract val errorCode: SharedFlow<SearchError?>
 
-    fun onQueryChanged(newText: String)
-    fun onFocusChanged(hasFocus: Boolean)
-    fun onSearchIconClicked()
-    fun onLastItemReached()
+    abstract fun onQueryChanged(newText: String)
+    abstract fun onSearchIconClicked()
+    abstract fun onLastItemReached()
 }

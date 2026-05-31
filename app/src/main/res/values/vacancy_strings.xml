@@ -7,4 +7,8 @@
     <string name="vacancy_contact_email">E-mail</string>
     <string name="vacancy_contact_phones">Телефон</string>
     <string name="vacancy_share_description">Поделиться вакансией</string>
+    <string name="vacancy_favorite_add">Добавить в избранное</string>
+    <string name="vacancy_favorite_remove">Удалить из избранного</string>
+    <string name="vacancy_error_no_internet">Нет интернета</string>
+    <string name="vacancy_error_server">Ошибка сервера.\nПопробуйте позже</string>
 </resources>
