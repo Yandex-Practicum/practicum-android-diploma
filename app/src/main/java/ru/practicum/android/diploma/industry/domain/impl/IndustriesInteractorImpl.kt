@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.industry.domain.impl
 
 import ru.practicum.android.diploma.core.domain.Resource
+import ru.practicum.android.diploma.core.domain.models.Industry
 import ru.practicum.android.diploma.core.domain.repository.FiltersRepository
 import ru.practicum.android.diploma.industry.domain.api.IndustriesInteractor
 import ru.practicum.android.diploma.industry.domain.api.IndustriesRepository
-import ru.practicum.android.diploma.industry.domain.models.Industry
 
 class IndustriesInteractorImpl(
     val industriesRepository: IndustriesRepository,

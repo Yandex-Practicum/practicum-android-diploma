@@ -14,7 +14,7 @@ fun AreaScreen(
     onNavigateToCountry: () -> Unit,
     onBack: () -> Unit
 ) {
-    AppScreen(R.string.filter_screen_title, onBack) {
+    AppScreen(R.string.area_screen_title, onBack) {
         Column {
             Button(
                 onClick = onNavigateToRegion,

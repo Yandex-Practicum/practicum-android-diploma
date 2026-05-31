@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.industry.ui
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.core.domain.models.Industry
 import ru.practicum.android.diploma.industry.domain.api.IndustriesInteractor
-import ru.practicum.android.diploma.industry.domain.models.Industry
 
 class IndustryViewModelImpl(interactor: IndustriesInteractor) : IndustryViewModel() {
     init {

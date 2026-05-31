@@ -1,69 +1,67 @@
-package ru.practicum.android.diploma.search.ui.components
+package ru.practicum.android.diploma.filter.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Dimens
+import ru.practicum.android.diploma.core.ui.utils.Spacer
 import ru.practicum.android.diploma.core.ui.utils.TextField
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(
+fun SalaryTextField(
     query: String,
+    modifier: Modifier = Modifier,
     onQueryChanged: (String) -> Unit,
-    onFocusChanged: (Boolean) -> Unit,
-    showClearButton: Boolean,
-    onIconClicked: () -> Unit
+    onIconClick: (() -> Unit)? = null,
 ) {
     TextField(
         query = query,
+        label = stringResource(R.string.filter_salary_label),
+        modifier = modifier,
         onQueryChanged = onQueryChanged,
-        onFocusChanged = onFocusChanged,
-        modifier = Modifier
-            .padding(horizontal = Dimens.padding16, vertical = Dimens.padding8),
-        trailingIconId = if (showClearButton) {
-            R.drawable.ic_search_close
+        onFocusChanged = { },
+        trailingIconId = if (query.isEmpty()) {
+            null
         } else {
-            R.drawable.ic_search_lens
+            R.drawable.ic_core_close
         },
-        onIconClick = onIconClicked,
+        onIconClick = onIconClick,
         contentPaddings = PaddingValues(
             start = Dimens.padding16,
-            top = Dimens.padding16,
+            top = Dimens.padding8,
             end = Dimens.padding16,
-            bottom = Dimens.padding16
-        )
+            bottom = Dimens.padding8
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
     )
 }
 
 @Preview(name = "Light", showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 @Composable
-private fun SearchScreenPreview() {
+private fun SalaryTextFieldPreview() {
     AppTheme {
-        Column {
-            SearchBar(
+        Column(modifier = Modifier.padding(Dimens.padding16)) {
+            SalaryTextField(
                 query = "124",
                 onQueryChanged = {},
-                onFocusChanged = {},
-                showClearButton = true,
-                onIconClicked = { }
+                onIconClick = { }
             )
+            Spacer(height = Dimens.padding16)
 
-            SearchBar(
+            SalaryTextField(
                 query = "",
                 onQueryChanged = {},
-                onFocusChanged = {},
-                showClearButton = false,
-                onIconClicked = {}
+                onIconClick = {}
             )
         }
     }
