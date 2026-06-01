@@ -39,6 +39,7 @@ fun SecondaryButton(
             text = text,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelLarge
         )
     }
 }
