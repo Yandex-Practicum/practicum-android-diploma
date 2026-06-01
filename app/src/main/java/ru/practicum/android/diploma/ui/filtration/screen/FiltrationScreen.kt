@@ -121,7 +121,7 @@ private fun FiltrationBottomBar(
             .navigationBarsPadding()
             .padding(bottom = Dimens.ScreenContentBottomPadding),
     ) {
-       PrimaryButton(
+        PrimaryButton(
             text = stringResource(R.string.apply_button_text),
             onClick = onApplyClick,
         )
@@ -189,10 +189,10 @@ fun SalaryTextEdit(
 ) {
     val fieldShape = RoundedCornerShape(8.dp)
     val isFocused by interactionSource.collectIsFocusedAsState()
-    val labelColor = if ( isFocused) {
+    val labelColor = if (isFocused) {
         MaterialTheme.colorScheme.primary
     } else {
-        if( searchQuery.isEmpty()) {
+        if (searchQuery.isEmpty()) {
             MaterialTheme.colorScheme.inverseOnSurface
         } else {
             MaterialTheme.colorScheme.secondaryFixed
@@ -251,22 +251,22 @@ fun SalaryTextEdit(
                             ),
                             color = labelColor,
                         )
-                            if (searchQuery.isEmpty()) {
-                                Text(
-                                    text = stringResource(R.string.input_amount_hint),
-                                    style = MaterialTheme.typography.bodyMedium.copy(
-                                        color = MaterialTheme.colorScheme.inverseOnSurface,
-                                        lineHeight = 19.sp,
-                                        platformStyle = PlatformTextStyle(includeFontPadding = false),
-                                        lineHeightStyle = LineHeightStyle(
-                                            alignment = LineHeightStyle.Alignment.Top,
-                                            trim = LineHeightStyle.Trim.Both,
-                                        ),
+                        if (searchQuery.isEmpty()) {
+                            Text(
+                                text = stringResource(R.string.input_amount_hint),
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = MaterialTheme.colorScheme.inverseOnSurface,
+                                    lineHeight = 19.sp,
+                                    platformStyle = PlatformTextStyle(includeFontPadding = false),
+                                    lineHeightStyle = LineHeightStyle(
+                                        alignment = LineHeightStyle.Alignment.Top,
+                                        trim = LineHeightStyle.Trim.Both,
                                     ),
-                                    maxLines = 1,
-                                )
-                            }
-                            innerTextField()
+                                ),
+                                maxLines = 1,
+                            )
+                        }
+                        innerTextField()
                     }
                 }
             }
@@ -289,7 +289,8 @@ fun CellComponent(
     modifier: Modifier = Modifier,
     trailingIconId: Int? = null,
     onIconClick: () -> Unit = {},
- ) {
+) {
+    val hasValue = lowerText.isNotEmpty()
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -302,16 +303,24 @@ fun CellComponent(
         ) {
             Text(
                 text = upperText,
-                style = if (lowerText.isNotEmpty()) MaterialTheme.typography.labelSmall else MaterialTheme.typography.labelMedium,
-                color = if (lowerText.isNotEmpty()) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onSurfaceVariant
-             )
-            if (lowerText.isNotEmpty()) {
-            Text(
-                text = lowerText,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onBackground
+                style = if (hasValue) {
+                    MaterialTheme.typography.labelSmall
+                } else {
+                    MaterialTheme.typography.labelMedium
+                },
+                color = if (hasValue) {
+                    MaterialTheme.colorScheme.onBackground
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
             )
-                }
+            if (hasValue) {
+                Text(
+                    text = lowerText,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
         }
         IconImage(
             modifier = Modifier
@@ -319,7 +328,11 @@ fun CellComponent(
                 .testTag(SearchScreenTestTags.ClearButton)
                 .padding(end = 4.dp)
                 .clickable(enabled = true, onClick = onIconClick),
-            resId = trailingIconId ?: if (lowerText.isEmpty()) R.drawable.ic_arrow_right else R.drawable.ic_cross,
+            resId = trailingIconId ?: if (lowerText.isEmpty()) {
+                R.drawable.ic_arrow_right
+            } else {
+                R.drawable.ic_cross
+            },
             color = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -340,4 +353,3 @@ fun PreviewFiltrationScreen() {
         {},
     )
 }
-
