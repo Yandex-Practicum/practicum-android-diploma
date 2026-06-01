@@ -49,8 +49,6 @@ fun TopBar(
                 contentDescription = stringResource(R.string.back),
                 onClick = onNavClick,
             )
-        } else {
-            Spacer(modifier = Modifier.width(Dimens.ScreenHorizontalPadding))
         }
         Text(
             text = text,
