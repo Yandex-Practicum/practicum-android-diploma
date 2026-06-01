@@ -4,7 +4,7 @@ import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import ru.practicum.android.diploma.ui.SearchScreen
 
 class ScreenProvider(
-    semanticProvider : SemanticsNodeInteractionsProvider
+    semanticProvider: SemanticsNodeInteractionsProvider
 ) {
     val searchScreen = SearchScreen(semanticProvider)
 }

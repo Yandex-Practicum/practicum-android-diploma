@@ -9,19 +9,18 @@ import io.github.kakaocup.compose.node.builder.NodeMatcher
 import io.github.kakaocup.compose.node.core.BaseNode
 import io.github.kakaocup.compose.node.element.KNode
 
-    fun BaseNode<*>.nodeWithTag(
-        semanticsProvider: SemanticsNodeInteractionsProvider,
-        testTag: String,
-        useUnmergedTree: Boolean = true,
-    ) = KNode(
-        semanticsProvider = semanticsProvider,
-        nodeMatcher = NodeMatcher(
-            matcher = hasTestTag(testTag),
-            useUnmergedTree = useUnmergedTree,
-        ),
-        parentNode = this,
-    )
-
+fun BaseNode<*>.nodeWithTag(
+    semanticsProvider: SemanticsNodeInteractionsProvider,
+    testTag: String,
+    useUnmergedTree: Boolean = true,
+) = KNode(
+    semanticsProvider = semanticsProvider,
+    nodeMatcher = NodeMatcher(
+        matcher = hasTestTag(testTag),
+        useUnmergedTree = useUnmergedTree,
+    ),
+    parentNode = this,
+)
 
 @Suppress("SwallowedException", "ForEachOnRange")
 fun KNode.scrollDownTo(

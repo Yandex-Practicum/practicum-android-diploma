@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import ru.practicum.android.diploma.common.BaseUiTest
 
 @RunWith(AndroidJUnit4::class)
-class SearchScreenUiTest: BaseUiTest() {
+class SearchScreenUiTest : BaseUiTest() {
 
     @Test
     fun searchScreenUiElementsCheck() =
@@ -16,7 +16,7 @@ class SearchScreenUiTest: BaseUiTest() {
                     step("Text field is displayed") {
                         textField.assertIsDisplayed()
                     }
-                    //TODO добавить что тут еще должно быть видно
+                    // добавить что тут еще должно быть видно
                 }
             }
         }
