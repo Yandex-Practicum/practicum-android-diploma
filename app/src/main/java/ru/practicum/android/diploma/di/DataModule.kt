@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -14,6 +15,7 @@ import ru.practicum.android.diploma.data.db.dao.FavoriteVacancyDao
 import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.AuthInterceptor
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.data.storage.FiltrationStorage
 import ru.practicum.android.diploma.domain.api.UserDataRepository
 
 val dataModule = module {
@@ -54,5 +56,15 @@ val dataModule = module {
 
     single<FavoriteVacancyDao> {
         get<AppDatabase>().favoriteVacancyDao()
+    }
+
+    single {
+        FiltrationStorage(
+            sharedPreferences = androidContext().getSharedPreferences(
+                FiltrationStorage.PREFS_NAME,
+                Context.MODE_PRIVATE,
+            ),
+            gson = get(),
+        )
     }
 }
