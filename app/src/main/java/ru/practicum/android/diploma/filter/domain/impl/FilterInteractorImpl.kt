@@ -18,7 +18,7 @@ class FilterInteractorImpl(val repository: FiltersRepository) : FilterInteractor
     }
 
     override fun resetArea() {
-        repository.applyIndustry(null)
+        repository.applyArea(null)
     }
 
     override fun changeSalary(value: String?) {

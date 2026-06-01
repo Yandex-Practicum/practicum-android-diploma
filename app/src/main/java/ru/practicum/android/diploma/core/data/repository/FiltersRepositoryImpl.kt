@@ -63,7 +63,7 @@ class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
     override fun applyTempFilters() {
         val area = _tempFilters.value.area
         val industry = _tempFilters.value.industry
-        val intSalary = _tempFilters.value.salary?.trim()?.toInt()
+        val intSalary = _tempFilters.value.salary?.trim()?.toIntOrNull()
         val onlyWithSalary = _tempFilters.value.onlyWithSalary
 
         var dto = filtersDto
