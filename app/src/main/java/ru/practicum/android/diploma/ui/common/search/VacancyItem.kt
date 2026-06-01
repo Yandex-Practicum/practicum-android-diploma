@@ -39,7 +39,7 @@ import ru.practicum.android.diploma.util.extentions.formatSalary
 fun VacancyItem(
     modifier: Modifier = Modifier,
     vacancy: Vacancy,
-    onClick: () -> Unit = {}
+    onClick: (String) -> Unit
 ) {
     val vacancyDescription = vacancy.formatDescription()
     val salary = vacancy.salary.formatSalary()
@@ -62,7 +62,7 @@ fun VacancyItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable(
-                onClick = onClick
+                onClick = { onClick(vacancy.id) }
             )
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.Top,
@@ -116,6 +116,10 @@ fun VacancyItem(
 @Composable
 private fun VacancyItemPreview() {
     AppTheme {
-        VacancyItem(modifier = Modifier.fillMaxWidth(), MocData.vacancy)
+        VacancyItem(
+            modifier = Modifier.fillMaxWidth(),
+            MocData.vacancy,
+            onClick = {}
+        )
     }
 }

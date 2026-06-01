@@ -5,7 +5,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
+import ru.practicum.android.diploma.data.dto.AreasRequest
+import ru.practicum.android.diploma.data.dto.IndustriesRequest
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.VacanciesRequest
+import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
+import ru.practicum.android.diploma.data.dto.toMap
 import ru.practicum.android.diploma.util.NetworkConnectionChecker
 import java.io.IOException
 

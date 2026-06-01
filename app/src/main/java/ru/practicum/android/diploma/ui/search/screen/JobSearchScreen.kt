@@ -20,15 +20,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -48,21 +44,14 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 fun JobSearchScreen(
     state: JobSearchState,
     searchQuery: String,
-    onVacancyClick: () -> Unit,
+    onVacancyClick: (String) -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
-    onLoadNextPage: () -> Unit
+    onLoadNextPage: () -> Unit,
+    onNetworkError: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val focusRequester = remember { FocusRequester() }
-    val isPreview = LocalInspectionMode.current
     val interactionSource = remember { MutableInteractionSource() }
-
-    LaunchedEffect(Unit) {
-        if (!isPreview) {
-            focusRequester.requestFocus()
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -74,14 +63,13 @@ fun JobSearchScreen(
                 endSecondIconVisible = false
             )
         },
-        contentWindowInsets = WindowInsets(bottom = 0)
+        contentWindowInsets = WindowInsets(bottom = 0),
     ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
         ) {
             SearchQueryField(
                 searchQuery = searchQuery,
-                focusRequester = focusRequester,
                 interactionSource = interactionSource,
                 onSearchTextChange = onSearchTextChange,
                 onClear = onClear,
@@ -101,7 +89,6 @@ fun JobSearchScreen(
 @Composable
 private fun SearchQueryField(
     searchQuery: String,
-    focusRequester: FocusRequester,
     interactionSource: MutableInteractionSource,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
@@ -127,11 +114,10 @@ private fun SearchQueryField(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .padding(start = 20.dp)
-                .focusRequester(focusRequester),
+                .padding(start = 20.dp),
             singleLine = true,
             textStyle = MaterialTheme.typography.bodyMedium
-                .copy(color = MaterialTheme.colorScheme.onBackground),
+                .copy(color = MaterialTheme.colorScheme.secondaryFixed),
             cursorBrush = SolidColor(Blue),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -170,7 +156,7 @@ private fun SearchQueryField(
 @Composable
 private fun JobSearchStateContent(
     state: JobSearchState,
-    onVacancyClick: () -> Unit,
+    onVacancyClick: (String) -> Unit,
     onLoadNextPage: () -> Unit,
 ) {
     when (state) {

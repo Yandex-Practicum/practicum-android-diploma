@@ -25,7 +25,8 @@ private val LightColors = lightColorScheme(
     onSurfaceVariant = LightOnSurfaceVariant,
     error = LightError,
     surfaceContainer = LightSurfaceContainer,
-    inverseOnSurface = LightInversionOnSurface
+    inverseOnSurface = LightInversionOnSurface,
+    secondaryFixed = LightSecondaryFixed
 )
 
 private val DarkColors = darkColorScheme(
@@ -41,5 +42,6 @@ private val DarkColors = darkColorScheme(
     onSurfaceVariant = DarkOnSurfaceVariant,
     error = DarkError,
     surfaceContainer = DarkSurfaceContainer,
-    inverseOnSurface = DarkInversionOnSurface
+    inverseOnSurface = DarkInversionOnSurface,
+    secondaryFixed = DarkSecondaryFixed
 )

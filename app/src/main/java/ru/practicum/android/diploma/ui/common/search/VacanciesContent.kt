@@ -22,7 +22,7 @@ fun VacanciesContent(
     vacancies: List<Vacancy>,
     vacancyAmount: Int,
     isLoading: Boolean,
-    onVacancyClick: () -> Unit,
+    onVacancyClick: (String) -> Unit,
     onLoadNextPage: () -> Unit
 ) {
     Column(modifier = modifier) {
@@ -43,7 +43,11 @@ fun VacanciesContent(
             }
         }
         if (isLoading && vacancies.isEmpty()) {
-            Loader(modifier.weight(1F).imePadding())
+            Loader(
+                modifier
+                    .weight(1F)
+                    .imePadding()
+            )
         }
     }
 
