@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.ui.components
+package ru.practicum.android.diploma.core.ui.utils
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
-import ru.practicum.android.diploma.core.ui.utils.ListItem
 
 @Composable
 fun CancellableFilterListItem(

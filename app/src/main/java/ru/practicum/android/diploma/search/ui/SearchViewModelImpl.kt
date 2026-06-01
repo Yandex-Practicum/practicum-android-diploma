@@ -62,7 +62,8 @@ class SearchViewModelImpl(
                 this@SearchViewModelImpl.filters.value = filters
 
                 _isFiltered.value = filters.salary != null ||
-                    filters.area != null ||
+                    filters.country != null ||
+                    filters.region != null ||
                     filters.industry != null ||
                     filters.onlyWithSalary
 

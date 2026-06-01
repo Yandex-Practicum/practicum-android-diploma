@@ -10,4 +10,5 @@ sealed class Request {
     ) : Request()
 
     object IndustriesRequest : Request()
+    object AreasRequest : Request()
 }
