@@ -58,4 +58,9 @@
     <!-- Экран избранных вакансий-->
     <string name="favorite_vacancies_title">Избранное</string>
     <string name="no_favorite_vacancies">Список пуст</string>
+    <string name="filter_settings_title">Настройки фильтрации</string>
+    <string name="filter_settings_country_title">Место работы</string>
+    <string name="specialization_title">Отрасль</string>
+    <string name="input_amount_hint">Введите сумму</string>
+    <string name="filter_settings_salary_title">Ожидаемая зарплата</string>
 </resources>
