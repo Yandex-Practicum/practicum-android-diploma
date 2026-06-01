@@ -10,5 +10,6 @@ sealed interface FiltrationAction {
     data object ResetClicked : FiltrationAction
     data object IndustryClicked : FiltrationAction
     data object BackClicked : FiltrationAction
+    data object CloseScreen : FiltrationAction
     data class IndustryChanged(val industry: FilterIndustry) : FiltrationAction
 }

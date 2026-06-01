@@ -11,19 +11,18 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.FiltrationRepository
+import ru.practicum.android.diploma.domain.api.FiltrationInteractor
 import ru.practicum.android.diploma.domain.models.FilterIndustry
 import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.presentation.filtration.action.FiltrationAction
 import ru.practicum.android.diploma.presentation.filtration.effect.FiltrationEffect
 import ru.practicum.android.diploma.presentation.filtration.state.FiltrationUIState
 
-class FiltrationViewModel(private val filtrationRepository: FiltrationRepository) : ViewModel() {
+class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor) : ViewModel() {
     private val initialState = FiltrationUIState(
         salary = null,
         onlyWithSalary = false,
-        industryId = null,
-        industryName = null,
+        industry = null
     )
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<FiltrationUIState> = _state.asStateFlow()
@@ -33,13 +32,16 @@ class FiltrationViewModel(private val filtrationRepository: FiltrationRepository
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val filters = filtrationRepository.getFilter()
+            val filters = filtrationInteractor.getFilter()
             _state.update {
                 FiltrationUIState(
                     salary = filters.salary,
                     onlyWithSalary = filters.hideWithoutSalary,
-                    industryId = filters.industryId,
-                    industryName = filters.industryName,
+                    industry = if (filters.industryId != null) {
+                        FilterIndustry(id = filters.industryId, name = filters.industryName ?: "")
+                    } else {
+                        null
+                    }
                 )
             }
         }
@@ -55,22 +57,27 @@ class FiltrationViewModel(private val filtrationRepository: FiltrationRepository
             FiltrationAction.BackClicked -> navigateBack()
             FiltrationAction.IndustryClicked -> navigateIndustry()
             is FiltrationAction.IndustryChanged -> applyIndustry(action.industry)
+            is FiltrationAction.CloseScreen -> saveFilters()
         }
     }
 
     private fun applyFilters() {
+        saveFilters()
+        _effects.tryEmit(
+            FiltrationEffect.NavigateBack
+        )
+    }
+
+    private fun saveFilters() {
         val filters = _state.value
         viewModelScope.launch(Dispatchers.IO) {
-            filtrationRepository.saveFilter(
+            filtrationInteractor.saveFilter(
                 filterParameters = FilterParameters(
                     salary = filters.salary,
-                    hideWithoutSalary = filters.onlyWithSalary ?: false,
-                    industryId = filters.industryId,
-                    industryName = filters.industryName
+                    hideWithoutSalary = filters.onlyWithSalary,
+                    industryId = filters.industry?.id,
+                    industryName = filters.industry?.name
                 ),
-            )
-            _effects.emit(
-                FiltrationEffect.NavigateBack
             )
         }
     }
@@ -81,7 +88,7 @@ class FiltrationViewModel(private val filtrationRepository: FiltrationRepository
 
     private fun resetFilters() {
         viewModelScope.launch(Dispatchers.IO) {
-            filtrationRepository.clearFilter()
+            filtrationInteractor.clearFilter()
             _state.value = initialState
         }
     }
@@ -91,7 +98,7 @@ class FiltrationViewModel(private val filtrationRepository: FiltrationRepository
     }
 
     private fun applyIndustry(industry: FilterIndustry) {
-        _state.update { it.copy(industryId = industry.id, industryName = industry.name) }
+        _state.update { it.copy(industry = industry) }
     }
 
     private fun clearSalary() {
