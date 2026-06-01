@@ -53,7 +53,7 @@ class SearchViewModelImpl(
                         searchInteractor.searchVacancies(
                             request.query,
                             request.page,
-                            20,
+                            PER_PAGE,
                             request.filters
                         )
                             .collect { resource ->
@@ -96,5 +96,6 @@ class SearchViewModelImpl(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 300L
+        private const val PER_PAGE = 20
     }
 }

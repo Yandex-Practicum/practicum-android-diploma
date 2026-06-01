@@ -24,18 +24,17 @@ class IndustryViewModelImpl(
         getIndustries(_query.value)
     }
 
-    private fun getIndustries(query: String){
+    private fun getIndustries(query: String) {
         viewModelScope.launch {
             interactor.getIndustries(query).collect { resource ->
-                when (resource){
+                when (resource) {
                     is Resource.Success -> {
                         _state.value = IndustryScreenState.Content(
-                            industries =  resource.data
+                            industries = resource.data
                         )
                         _stList.value = resource.data
                     }
                     is Resource.Error -> {
-
                     }
                     is Resource.Loading -> {
                         _state.value = IndustryScreenState.Loading
@@ -45,7 +44,7 @@ class IndustryViewModelImpl(
         }
     }
 
-    override fun applyFilter(industry: Industry){
+    override fun applyFilter(industry: Industry) {
         interactor.applyFilter(industry)
     }
 
@@ -60,8 +59,7 @@ class IndustryViewModelImpl(
 
         if (query.isEmpty()) {
             _state.value = IndustryScreenState.Content(_stList.value)
-        }
-        else {
+        } else {
             val filterList = _stList.value.filter { industry ->
                 industry.name.contains(query, ignoreCase = true)
             }

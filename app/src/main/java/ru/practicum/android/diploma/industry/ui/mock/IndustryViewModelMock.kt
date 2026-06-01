@@ -18,7 +18,7 @@ class IndustryViewModelMock(
     override var state: StateFlow<IndustryScreenState> = _state.asStateFlow()
 
     init {
-        when(mockState) {
+        when (mockState) {
             is IndustryScreenState.Content -> { filter(mockQuery, mockState.industries) }
             is IndustryScreenState.Default -> { }
             is IndustryScreenState.Error -> { }
@@ -39,8 +39,7 @@ class IndustryViewModelMock(
                 industry.name.contains(query, ignoreCase = true)
             }
             _state.value = IndustryScreenState.Content(filterList)
-        }
-        else {
+        } else {
             _state.value = IndustryScreenState.Content(industries)
         }
         _state.value.showClearButton = !query.isEmpty()

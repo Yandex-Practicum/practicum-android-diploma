@@ -15,9 +15,8 @@ class IndustriesRepositoryImpl(private val networkClient: NetworkClient) : Indus
     private var _items: Industries? = null
     override suspend fun getIndustries(query: String): Flow<Resource<Industries>> = flow {
         if (_items != null) {
-            emit( Resource.Success(filter(_items!!, query)))
+            emit(Resource.Success(filter(_items!!, query)))
         } else {
-
             emit(Resource.Loading)
 
             val response = networkClient.doRequest(Request.IndustriesRequest)

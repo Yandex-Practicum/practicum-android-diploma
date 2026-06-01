@@ -9,12 +9,12 @@ import ru.practicum.android.diploma.industry.ui.IndustryViewModel
 
 class IndustryPreviewProvider : PreviewParameterProvider<IndustryViewModel> {
     override val values = sequenceOf(
-        IndustryViewModelMock("",IndustryScreenState.Default),
-        IndustryViewModelMock("",IndustryScreenState.Error(IndustryError.NOT_FOUND)),
-        IndustryViewModelMock("",IndustryScreenState.Content(
+        IndustryViewModelMock("", IndustryScreenState.Default),
+        IndustryViewModelMock("", IndustryScreenState.Error(IndustryError.NOT_FOUND)),
+        IndustryViewModelMock("", IndustryScreenState.Content(
             industries = Industry.mock2()
         )),
-        IndustryViewModelMock("Авиационная, вертолетная и ",IndustryScreenState.Content(
+        IndustryViewModelMock("Авиационная, вертолетная и ", IndustryScreenState.Content(
             industries = Industry.mock2()
         ))
     )

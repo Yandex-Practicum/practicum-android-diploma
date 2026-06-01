@@ -29,7 +29,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.models.Industry
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
-import ru.practicum.android.diploma.core.ui.theme.Blue
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
 import ru.practicum.android.diploma.core.ui.utils.Button
@@ -48,7 +47,7 @@ fun IndustryScreen(
     var currentIndustry by remember { mutableStateOf<Industry?>(null) }
 
     AppScreen(R.string.industry_screen_title, onBack) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally){
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             SearchBar(
                 query = query,
                 onFocusChanged = {},
@@ -57,13 +56,12 @@ fun IndustryScreen(
                 onQueryChanged = viewModel::onQueryChanged,
                 placeholderStringResource = R.string.search_placeholder_industry
             )
-            Box(Modifier.weight(1f))
-            {
+            Box(Modifier.weight(1f)) {
                 IndustryContent(state, industryId, { industry ->
                     currentIndustry = industry
                 })
             }
-            if(currentIndustry != null) {
+            if (currentIndustry != null) {
                 Button(
                     text = stringResource(R.string.choose),
                     modifier = Modifier
@@ -71,7 +69,7 @@ fun IndustryScreen(
                         .padding(bottom = Dimens.padding24),
                     onClick = {
                         val industry = currentIndustry
-                        if(industry != null) {
+                        if (industry != null) {
                             viewModel.applyFilter(industry)
                             onBack()
                         }
@@ -83,11 +81,11 @@ fun IndustryScreen(
 }
 
 @Composable
-private fun IndustryContent(state: IndustryScreenState, industryId: String?, onIndustrySelected: (Industry) -> Unit){
+private fun IndustryContent(state: IndustryScreenState, industryId: String?, onIndustrySelected: (Industry) -> Unit) {
     var selectedIndustryId by remember { mutableStateOf<String?>(industryId) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    when(state) {
+    when (state) {
         is IndustryScreenState.Default -> {}
         is IndustryScreenState.Content -> {
             val content = state.industries
@@ -109,7 +107,12 @@ private fun IndustryContent(state: IndustryScreenState, industryId: String?, onI
 }
 
 @Composable
-private fun IndustryList(modifier: Modifier = Modifier, industries: List<Industry>, selectedIndustryId: String?, onIndustrySelected: (Industry) -> Unit) {
+private fun IndustryList(
+    modifier: Modifier = Modifier,
+    industries: List<Industry>,
+    selectedIndustryId: String?,
+    onIndustrySelected: (Industry) -> Unit
+) {
     LazyColumn(modifier = modifier) {
         items(
             count = industries.count(),
@@ -139,7 +142,7 @@ private fun IndustryList(modifier: Modifier = Modifier, industries: List<Industr
                     modifier = Modifier
                         .size(Dimens.icon48),
                     contentAlignment = Alignment.Center
-                ){
+                ) {
                     RadioButton(
                         selected = isSelected,
                         onClick = { onIndustrySelected(industry) },
@@ -158,10 +161,8 @@ private fun IndustryList(modifier: Modifier = Modifier, industries: List<Industr
 @Composable
 private fun IndustryScreenPreview(
     @PreviewParameter(IndustryPreviewProvider::class) model: IndustryViewModel
-){
-    AppTheme{
-        IndustryScreen(
-            model, "7",{}
-        )
+) {
+    AppTheme {
+        IndustryScreen(model, "7", {})
     }
 }
