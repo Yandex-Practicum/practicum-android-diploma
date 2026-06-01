@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.core.domain.models.Vacancy
 
 private fun Vacancy.Companion.mock1(): Vacancy {
     return Vacancy(
-        id = "1",
+        id = "0001db2d-1366-379d-98ce-6f965bbc7816",
         name = "Android-разработчик, Москва",
         employerName = "Еда",
         employerLogoUrl = "",
