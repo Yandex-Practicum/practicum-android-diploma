@@ -30,6 +30,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -66,6 +67,7 @@ fun JobSearchScreen(
     }
 
     Scaffold(
+        modifier = Modifier.testTag(SearchScreenTestTags.Container),
         topBar = {
             TopBar(
                 text = stringResource(R.string.search_screen_title),
@@ -127,6 +129,7 @@ private fun SearchQueryField(
             onValueChange = onSearchTextChange,
             modifier = Modifier
                 .weight(1f)
+                .testTag(SearchScreenTestTags.TextField)
                 .fillMaxHeight()
                 .padding(start = 20.dp)
                 .focusRequester(focusRequester),
@@ -161,6 +164,7 @@ private fun SearchQueryField(
         )
         IconImage(
             modifier = Modifier
+                .testTag(SearchScreenTestTags.ClearButton)
                 .padding(end = 4.dp)
                 .clickable(enabled = true, onClick = onClear),
             resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
@@ -217,4 +221,11 @@ private fun JobSearchStateContent(
             )
         }
     }
+}
+
+data object SearchScreenTestTags {
+    const val Container = "SearchScreen"
+    const val TextField = "${Container}_TextField"
+    const val ClearButton = "${Container}_ClearButton"
+    const val VacanciesList = "${Container}_VacanciesList"
 }

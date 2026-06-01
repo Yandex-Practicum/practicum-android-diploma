@@ -26,9 +26,10 @@ viewModel = "2.10.0"
 coroutines = "1.10.2"
 
 # Testing
-espressoCore = "3.5.1"
+espressoCore = "3.6.1"
+kaspresso = "1.5.5"
 junit4 = "4.13.2"
-junitExt = "1.1.5"
+junitExt = "1.2.1"
 
 # Static analysis
 detekt = "1.23.8"
@@ -88,6 +89,8 @@ compose-coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" 
 
 # Testing
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+kaspresso = { module = "com.kaspersky.android-components:kaspresso", version.ref = "kaspresso"}
+kaspresso-compose-support = { module = "com.kaspersky.android-components:kaspresso-compose-support", version.ref = "kaspresso" }
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
 
@@ -110,6 +113,7 @@ lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-view
 ui = { module = "androidx.compose.ui:ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

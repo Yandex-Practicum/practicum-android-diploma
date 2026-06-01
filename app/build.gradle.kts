@@ -74,8 +74,6 @@ dependencies {
 
     testImplementation(libs.junit4)
     testImplementation(libs.coroutines.test)
-    androidTestImplementation(libs.junit.ext)
-    androidTestImplementation(libs.espresso.core)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.fragment.ktx)
@@ -103,6 +101,9 @@ dependencies {
     testImplementation(libs.coroutines.test)
 
     androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.kaspresso)
+    androidTestImplementation(libs.kaspresso.compose.support)
 }
