@@ -49,7 +49,8 @@ fun JobSearchScreen(
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onLoadNextPage: () -> Unit,
-    onNetworkError: () -> Unit
+    onNetworkError: () -> Unit,
+    onNavigationTap: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -62,7 +63,8 @@ fun JobSearchScreen(
                 navIconVisible = false,
                 endFirstIconVisible = true,
                 endFirstIconId = R.drawable.ic_filter,
-                endSecondIconVisible = false
+                endSecondIconVisible = false,
+                onEndFirstIconClick = onNavigationTap
             )
         },
         contentWindowInsets = WindowInsets(bottom = 0),

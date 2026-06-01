@@ -76,14 +76,13 @@ fun FiltrationScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             CellComponent(
+                modifier = Modifier.padding(top = 16.dp),
                 upperText = stringResource(R.string.filter_settings_country_title),
-                lowerText = country,
-                trailingIconId = R.drawable.ic_arrow_right
+                lowerText = country
             )
             CellComponent(
                 upperText = stringResource(R.string.specialization_title),
-                lowerText = specialization,
-                trailingIconId = R.drawable.ic_arrow_right
+                lowerText = specialization
             )
            SalaryTextEdit(
                searchQuery = expectedSalary,
@@ -204,14 +203,13 @@ fun SalaryTextEdit(
                     contentAlignment = Alignment.CenterStart
                 ) {
                     Column(
-                        modifier = Modifier.padding(start = 16.dp),
+                        modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(0.dp),
                     ) {
                         Text(
-                            modifier = Modifier.padding(top = 8.dp),
                             text = stringResource(R.string.filter_settings_salary_title),
                             style = MaterialTheme.typography.bodySmall.copy(
-                                lineHeight = 12.sp,
+                                lineHeight = 16.sp,
                                 platformStyle = PlatformTextStyle(includeFontPadding = false),
                                 lineHeightStyle = LineHeightStyle(
                                     alignment = LineHeightStyle.Alignment.Top,
@@ -220,13 +218,12 @@ fun SalaryTextEdit(
                             ),
                             color = labelColor,
                         )
-                        Box(contentAlignment = Alignment.CenterStart) {
                             if (searchQuery.isEmpty()) {
                                 Text(
                                     text = stringResource(R.string.input_amount_hint),
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         color = MaterialTheme.colorScheme.inverseOnSurface,
-                                        lineHeight = 16.sp,
+                                        lineHeight = 19.sp,
                                         platformStyle = PlatformTextStyle(includeFontPadding = false),
                                         lineHeightStyle = LineHeightStyle(
                                             alignment = LineHeightStyle.Alignment.Top,
@@ -237,7 +234,6 @@ fun SalaryTextEdit(
                                 )
                             }
                             innerTextField()
-                        }
                     }
                 }
             }
@@ -257,8 +253,8 @@ fun SalaryTextEdit(
 fun CellComponent(
     upperText: String,
     lowerText: String,
-    trailingIconId: Int,
     modifier: Modifier = Modifier,
+    trailingIconId: Int? = null,
     onIconClick: () -> Unit = {},
  ) {
     Row(
@@ -273,14 +269,16 @@ fun CellComponent(
         ) {
             Text(
                 text = upperText,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onBackground
+                style = if (lowerText.isNotEmpty()) MaterialTheme.typography.labelSmall else MaterialTheme.typography.labelMedium,
+                color = if (lowerText.isNotEmpty()) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onSurfaceVariant
              )
+            if (lowerText.isNotEmpty()) {
             Text(
                 text = lowerText,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
+                }
         }
         IconImage(
             modifier = Modifier
@@ -288,7 +286,7 @@ fun CellComponent(
                 .testTag(SearchScreenTestTags.ClearButton)
                 .padding(end = 4.dp)
                 .clickable(enabled = true, onClick = onIconClick),
-            resId = if (lowerText.isEmpty()) trailingIconId else R.drawable.ic_cross,
+            resId = trailingIconId ?: if (lowerText.isEmpty()) R.drawable.ic_arrow_right else R.drawable.ic_cross,
             color = MaterialTheme.colorScheme.onBackground
         )
     }

@@ -44,7 +44,14 @@ class JobSearchFragment : Fragment() {
                         },
                         onClear = { viewModel.clearSearch() },
                         onLoadNextPage = { viewModel.loadNextPage() },
-                        onNetworkError = { showToast(context.getString(R.string.network_error_toast)) }
+                        onNetworkError = { showToast(context.getString(R.string.network_error_toast)) },
+                        onNavigationTap = {
+                            findNavController().navigate(
+                                JobSearchFragmentDirections.actionJobSearchFragmentToFiltrationFragment(
+
+                                )
+                            )
+                        }
                     )
                 }
             }

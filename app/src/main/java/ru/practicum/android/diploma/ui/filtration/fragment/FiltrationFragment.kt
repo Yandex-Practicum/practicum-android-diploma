@@ -21,7 +21,7 @@ class FiltrationFragment : Fragment() {
             setContent {
                 AppTheme {
                     FiltrationScreen(
-                        specialization = "Разработчик",
+                        specialization = "",
                         expectedSalary = "100000",
                         country = "Россия",
                         dontShowWithoutSalaryChecked = true,
