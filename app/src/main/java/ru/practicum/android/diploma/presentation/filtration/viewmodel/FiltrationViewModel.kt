@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.presentation.filtration.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -8,23 +10,40 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.FiltrationRepository
 import ru.practicum.android.diploma.domain.models.FilterIndustry
+import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.presentation.filtration.action.FiltrationAction
-import ru.practicum.android.diploma.presentation.filtration.effect.Filters
 import ru.practicum.android.diploma.presentation.filtration.effect.FiltrationEffect
 import ru.practicum.android.diploma.presentation.filtration.state.FiltrationUIState
 
-class FiltrationViewModel : ViewModel() {
+class FiltrationViewModel(private val filtrationRepository: FiltrationRepository) : ViewModel() {
     private val initialState = FiltrationUIState(
         salary = null,
         onlyWithSalary = false,
-        industry = null
+        industryId = null,
+        industryName = null,
     )
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<FiltrationUIState> = _state.asStateFlow()
 
     private val _effects = MutableSharedFlow<FiltrationEffect>()
     val effect: SharedFlow<FiltrationEffect> = _effects.asSharedFlow()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            val filters = filtrationRepository.getFilter()
+            _state.update {
+                FiltrationUIState(
+                    salary = filters.salary,
+                    onlyWithSalary = filters.hideWithoutSalary,
+                    industryId = filters.industryId,
+                    industryName = filters.industryName,
+                )
+            }
+        }
+    }
 
     fun onAction(action: FiltrationAction) {
         when (action) {
@@ -41,15 +60,19 @@ class FiltrationViewModel : ViewModel() {
 
     private fun applyFilters() {
         val filters = _state.value
-        _effects.tryEmit(
-            FiltrationEffect.NavigateBack(
-                Filters(
+        viewModelScope.launch(Dispatchers.IO) {
+            filtrationRepository.saveFilter(
+                filterParameters = FilterParameters(
                     salary = filters.salary,
-                    onlyWithSalary = filters.onlyWithSalary,
-                    industry = filters.industry,
-                )
+                    hideWithoutSalary = filters.onlyWithSalary ?: false,
+                    industryId = filters.industryId,
+                    industryName = filters.industryName
+                ),
             )
-        )
+            _effects.emit(
+                FiltrationEffect.NavigateBack
+            )
+        }
     }
 
     private fun applySalaryChecked(checked: Boolean) {
@@ -57,7 +80,10 @@ class FiltrationViewModel : ViewModel() {
     }
 
     private fun resetFilters() {
-        _state.value = initialState
+        viewModelScope.launch(Dispatchers.IO) {
+            filtrationRepository.clearFilter()
+            _state.value = initialState
+        }
     }
 
     private fun applySalary(salary: Int) {
@@ -65,7 +91,7 @@ class FiltrationViewModel : ViewModel() {
     }
 
     private fun applyIndustry(industry: FilterIndustry) {
-        _state.update { it.copy(industry = industry) }
+        _state.update { it.copy(industryId = industry.id, industryName = industry.name) }
     }
 
     private fun clearSalary() {
@@ -74,13 +100,7 @@ class FiltrationViewModel : ViewModel() {
 
     private fun navigateBack() {
         _effects.tryEmit(
-            FiltrationEffect.NavigateBack(
-                Filters(
-                    salary = null,
-                    onlyWithSalary = false,
-                    industry = null
-                )
-            )
+            FiltrationEffect.NavigateBack
         )
     }
 
