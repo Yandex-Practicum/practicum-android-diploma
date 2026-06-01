@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.presentation.vacancy.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,18 +26,37 @@ class VacancyViewModel(
     private val vacancyId = VacancyFragmentArgs.fromSavedStateHandle(savedStateHandle).vacancyId
     private val _state = MutableStateFlow<VacancyDetailsUiState>(VacancyDetailsUiState.Loading)
     val state: StateFlow<VacancyDetailsUiState> = _state.asStateFlow()
+    private var observeFavoriteJob: Job? = null
 
     fun loadVacancy() {
+        observeFavoriteJob?.cancel()
         viewModelScope.launch {
             _state.value = VacancyDetailsUiState.Loading
-            when (val result = vacancyDetailInteractor.getVacancyDetails(vacancyId)) {
-                GetVacancyDetailsResponse.Error -> _state.value = VacancyDetailsUiState.Error
-                GetVacancyDetailsResponse.NotFound -> _state.value = VacancyDetailsUiState.NotFound
-                GetVacancyDetailsResponse.ServerError -> _state.value = VacancyDetailsUiState.ServerError
-                is GetVacancyDetailsResponse.Success -> {
-                    val isFavorite = vacancyDbInteractor.checkVacancyIsFavorite(vacancyId)
-                    _state.value = VacancyDetailsUiState.Content(result.result.copy(isFavorite = isFavorite))
-                }
+            val isFavorite = vacancyDbInteractor.checkVacancyIsFavorite(vacancyId)
+            if (isFavorite) {
+                observeFavoriteVacancy()
+            } else {
+                loadVacancyFromNetwork()
+            }
+        }
+    }
+
+    private fun observeFavoriteVacancy() {
+        observeFavoriteJob?.cancel()
+        observeFavoriteJob = viewModelScope.launch {
+            vacancyDbInteractor.observeFavoriteVacancyById(vacancyId).collect { vacancy ->
+                _state.value = VacancyDetailsUiState.Content(vacancy.copy(isFavorite = true))
+            }
+        }
+    }
+
+    private suspend fun loadVacancyFromNetwork() {
+        when (val result = vacancyDetailInteractor.getVacancyDetails(vacancyId)) {
+            GetVacancyDetailsResponse.Error -> _state.value = VacancyDetailsUiState.Error
+            GetVacancyDetailsResponse.NotFound -> _state.value = VacancyDetailsUiState.NotFound
+            GetVacancyDetailsResponse.ServerError -> _state.value = VacancyDetailsUiState.ServerError
+            is GetVacancyDetailsResponse.Success -> {
+                _state.value = VacancyDetailsUiState.Content(result.result)
             }
         }
     }
@@ -54,13 +74,19 @@ class VacancyViewModel(
             val vacancy = currentState.details
             if (vacancy.isFavorite) {
                 vacancyDbInteractor.deleteVacancyFromFavorites(vacancyId)
+                observeFavoriteJob?.cancel()
+                _state.update {
+                    VacancyDetailsUiState.Content(vacancy.copy(isFavorite = false))
+                }
             } else {
                 vacancyDbInteractor.addVacancyToFavorites(vacancy)
-            }
-
-            _state.update {
-                VacancyDetailsUiState.Content(vacancy.copy(isFavorite = !vacancy.isFavorite))
+                observeFavoriteVacancy()
             }
         }
+    }
+
+    override fun onCleared() {
+        observeFavoriteJob?.cancel()
+        super.onCleared()
     }
 }
