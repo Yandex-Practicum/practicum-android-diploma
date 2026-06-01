@@ -20,7 +20,15 @@ class FiltrationFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 AppTheme {
-                    FiltrationScreen()
+                    FiltrationScreen(
+                        specialization = "Разработчик",
+                        expectedSalary = "100000",
+                        country = "Россия",
+                        dontShowWithoutSalaryChecked = true,
+                        onCheckedChange = {},
+                        onSearchTextChange = {},
+                        onClear = {}
+                    )
                 }
             }
         }

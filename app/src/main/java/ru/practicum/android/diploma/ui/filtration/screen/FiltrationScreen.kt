@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +14,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,10 +34,13 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.TopBar
@@ -44,15 +50,18 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun FiltrationScreen(
-    modifier: Modifier = Modifier,
-    country: String = "Россия",
-    onCheckedChange: (Boolean) -> Unit = {}
+    country: String,
+    specialization: String,
+    expectedSalary: String,
+    dontShowWithoutSalaryChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    onSearchTextChange: (String) -> Unit,
+    onClear: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
 
     Scaffold(
-        modifier = modifier,
         topBar = {
             TopBar(
                 text = stringResource(R.string.filter_settings_title),
@@ -73,31 +82,67 @@ fun FiltrationScreen(
             )
             CellComponent(
                 upperText = stringResource(R.string.specialization_title),
-                lowerText = country,
+                lowerText = specialization,
                 trailingIconId = R.drawable.ic_arrow_right
             )
            SalaryTextEdit(
-               searchQuery = "",
+               searchQuery = expectedSalary,
                interactionSource = interactionSource,
-               onSearchTextChange = {},
-               onClear = {},
+               onSearchTextChange = onSearchTextChange,
+               onClear = onClear,
                onKeyboardDone = { keyboardController?.hide() }
            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.filter_settings_country_title),
-                    style = MaterialTheme.typography.headlineMedium
+            DontShowWithoutSalary(
+                dontShowWithoutSalaryChecked,
+                onCheckedChange
+            )
+        }
+    }
+}
+
+@Composable
+fun DontShowWithoutSalary(
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .height(60.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
+        Text(
+            modifier = Modifier.weight(1f)
+                .align(Alignment.CenterVertically),
+            text = stringResource(R.string.do_not_show_without_salary_title),
+            style = MaterialTheme.typography.titleMedium
+        )
+        Box(
+            modifier = Modifier
+                .height(Dimens.TopBarIconSize)
+                .width(Dimens.TopBarIconSize)
+                .align(Alignment.CenterVertically),
+            contentAlignment = Alignment.Center,
+        ) {
+            Checkbox(
+                enabled = true,
+                checked = isChecked,
+                onCheckedChange = onCheckedChange,
+                colors = CheckboxColors(
+                    checkedCheckmarkColor = MaterialTheme.colorScheme.background,
+                    uncheckedCheckmarkColor = MaterialTheme.colorScheme.background,
+                    checkedBoxColor = MaterialTheme.colorScheme.background,
+                    uncheckedBoxColor = MaterialTheme.colorScheme.primary,
+                    disabledCheckedBoxColor = MaterialTheme.colorScheme.primary,
+                    disabledUncheckedBoxColor = MaterialTheme.colorScheme.primary,
+                    disabledIndeterminateBoxColor = MaterialTheme.colorScheme.primary,
+                    checkedBorderColor = MaterialTheme.colorScheme.primary,
+                    uncheckedBorderColor = MaterialTheme.colorScheme.primary,
+                    disabledBorderColor = MaterialTheme.colorScheme.primary,
+                    disabledUncheckedBorderColor = MaterialTheme.colorScheme.primary,
+                    disabledIndeterminateBorderColor = MaterialTheme.colorScheme.primary
                 )
-                Checkbox(
-                    enabled = true,
-                    checked = true,
-                    onCheckedChange = onCheckedChange
-                )
-            }
+            )
         }
     }
 }
@@ -127,8 +172,9 @@ fun SalaryTextEdit(
             .fillMaxWidth()
             .padding(
                 start = Dimens.ScreenHorizontalPadding,
-                top = 8.dp,
+                top = 24.dp,
                 end = Dimens.ScreenHorizontalPadding,
+                bottom = 24.dp
             )
             .height(56.dp)
             .clip(fieldShape)
@@ -141,8 +187,7 @@ fun SalaryTextEdit(
             modifier = Modifier
                 .weight(1f)
                 .testTag(SearchScreenTestTags.TextField)
-                .fillMaxHeight()
-                .padding(start = 20.dp),
+                .fillMaxHeight(),
             singleLine = true,
             textStyle = MaterialTheme.typography.bodyMedium
                 .copy(color = MaterialTheme.colorScheme.secondaryFixed),
@@ -159,23 +204,40 @@ fun SalaryTextEdit(
                     contentAlignment = Alignment.CenterStart
                 ) {
                     Column(
-                        modifier = Modifier.padding(start = 16.dp, top = 8.dp)
+                        modifier = Modifier.padding(start = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(0.dp),
                     ) {
                         Text(
+                            modifier = Modifier.padding(top = 8.dp),
                             text = stringResource(R.string.filter_settings_salary_title),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = labelColor
-                         )
-                        if (searchQuery.isEmpty()) {
-                            Text(
-                                text = stringResource(R.string.input_amount_hint),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.inverseOnSurface
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                lineHeight = 12.sp,
+                                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                                lineHeightStyle = LineHeightStyle(
+                                    alignment = LineHeightStyle.Alignment.Top,
+                                    trim = LineHeightStyle.Trim.Both,
                                 ),
-                                maxLines = 1,
-                             )
+                            ),
+                            color = labelColor,
+                        )
+                        Box(contentAlignment = Alignment.CenterStart) {
+                            if (searchQuery.isEmpty()) {
+                                Text(
+                                    text = stringResource(R.string.input_amount_hint),
+                                    style = MaterialTheme.typography.bodyMedium.copy(
+                                        color = MaterialTheme.colorScheme.inverseOnSurface,
+                                        lineHeight = 16.sp,
+                                        platformStyle = PlatformTextStyle(includeFontPadding = false),
+                                        lineHeightStyle = LineHeightStyle(
+                                            alignment = LineHeightStyle.Alignment.Top,
+                                            trim = LineHeightStyle.Trim.Both,
+                                        ),
+                                    ),
+                                    maxLines = 1,
+                                )
+                            }
+                            innerTextField()
                         }
-                        innerTextField()
                     }
                 }
             }
@@ -201,8 +263,7 @@ fun CellComponent(
  ) {
     Row(
         modifier = modifier
-             .fillMaxWidth()
-             .padding(horizontal = 16.dp)
+            .fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
@@ -212,11 +273,13 @@ fun CellComponent(
         ) {
             Text(
                 text = upperText,
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onBackground
              )
             Text(
                 text = lowerText,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
         IconImage(
@@ -234,6 +297,14 @@ fun CellComponent(
 @Composable
 @Preview
 fun PreviewFiltrationScreen() {
-    FiltrationScreen()
+    FiltrationScreen(
+        country = "Россия",
+        specialization = "Разработчик",
+        expectedSalary = "100000",
+        true,
+        {},
+        {},
+        {}
+    )
 }
 
