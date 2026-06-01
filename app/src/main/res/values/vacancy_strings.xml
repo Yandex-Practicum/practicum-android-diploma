@@ -1,0 +1,14 @@
+<resources>
+    <string name="vacancy_required_experience">Требуемый опыт</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+    <string name="vacancy_key_skills">Ключевые навыки</string>
+    <string name="vacancy_contacts">Контакты</string>
+    <string name="vacancy_contact_name">Контактное лицо</string>
+    <string name="vacancy_contact_email">E-mail</string>
+    <string name="vacancy_contact_phones">Телефон</string>
+    <string name="vacancy_share_description">Поделиться вакансией</string>
+    <string name="vacancy_favorite_add">Добавить в избранное</string>
+    <string name="vacancy_favorite_remove">Удалить из избранного</string>
+    <string name="vacancy_error_no_internet">Нет интернета</string>
+    <string name="vacancy_error_server">Ошибка сервера.\nПопробуйте позже</string>
+</resources>

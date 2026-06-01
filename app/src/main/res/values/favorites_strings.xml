@@ -1,0 +1,4 @@
+<resources>
+    <string name="favorites_empty">Список пуст</string>
+    <string name="favorites_error_not_found">Не удалось получить\nсписок вакансий</string>
+</resources>

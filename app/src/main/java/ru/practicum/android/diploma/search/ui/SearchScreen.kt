@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Blue
@@ -37,25 +38,25 @@ fun SearchScreen(
     onNavigateToFilter: () -> Unit,
     onNavigateToVacancy: (id: String) -> Unit
 ) {
-    val state = viewModel.state.collectAsState()
-    val isFiltered = viewModel.isFiltered.collectAsState()
-    val showClearButton = viewModel.showClearButton.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val isFiltered by viewModel.isFiltered.collectAsStateWithLifecycle()
+    val query by viewModel.query.collectAsStateWithLifecycle()
 
     AppScreen(
         R.string.search_screen_title,
         actions = {
-            SearchFilterIcon(isFiltered.value, onNavigateToFilter)
+            SearchFilterIcon(isFiltered, onNavigateToFilter)
         }
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             SearchBar(
-                query = viewModel.query.value,
-                onFocusChanged = viewModel::onFocusChanged,
+                query = query,
+                onFocusChanged = {},
                 onIconClicked = viewModel::onSearchIconClicked,
-                showClearButton = showClearButton.value,
+                showClearButton = state.showClearButton,
                 onQueryChanged = viewModel::onQueryChanged
             )
-            SearchContent(state.value, onNavigateToVacancy)
+            SearchContent(state, onNavigateToVacancy)
         }
     }
 }
@@ -82,31 +83,33 @@ private fun SearchFilterIcon(isFiltered: Boolean, onNavigateToFilter: () -> Unit
     }
 }
 @Composable
-private fun SearchContent(state: SearchViewState, onNavigateToVacancy: (String) -> Unit) {
+private fun SearchContent(state: SearchScreenState, onNavigateToVacancy: (String) -> Unit) {
     when (state) {
-        is SearchViewState.Default -> {
+        is SearchScreenState.Default -> {
             Stub(R.drawable.image_search_stub_default)
         }
-        is SearchViewState.Loading -> LoadingContent()
+        is SearchScreenState.Loading -> LoadingContent()
 
-        is SearchViewState.Data -> {
+        is SearchScreenState.Content -> {
             val content = state.vacancies
             Chip(content.count())
-            Spacer(height = Dimens.padding8)
-            VacancyList(content) { vacancy ->
+            VacancyList(
+                content,
+                modifier = Modifier.padding(top = Dimens.padding8)
+            ) { vacancy ->
                 onNavigateToVacancy(vacancy.id)
             }
         }
-        is SearchViewState.Error -> {
+        is SearchScreenState.Error -> {
             val error = state.error
             when (error) {
-                SearchViewError.Internet -> {
+                SearchError.INTERNET -> {
                     Stub(
                         R.drawable.image_core_stub_no_internet,
                         R.string.search_error_internet
                     )
                 }
-                SearchViewError.NotFound -> {
+                SearchError.NOT_FOUND -> {
                     Chip(0)
                     Spacer(height = Dimens.padding8)
                     Stub(

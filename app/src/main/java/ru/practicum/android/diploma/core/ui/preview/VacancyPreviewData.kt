@@ -12,6 +12,7 @@ private fun Vacancy.Companion.mock1(): Vacancy {
     )
 }
 
+@Suppress("MaxLineLength")
 private const val MOCK2_LOGO_URL =
     "https://avatars.mds.yandex.net/get-lpc/9736426/85897289-cea3-43c3-9179-e7f9602b4552/width_480x2_q80"
 
