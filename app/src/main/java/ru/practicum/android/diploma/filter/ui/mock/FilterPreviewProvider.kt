@@ -11,10 +11,16 @@ class FilterPreviewProvider : PreviewParameterProvider<FilterViewModel> {
     override val values = sequenceOf(
         FilterViewModelMock(Filters()),
         FilterViewModelMock(Filters(industry = Industry.mock1())),
-        FilterViewModelMock(Filters(industry = Industry.mock1(), area = Area.mock1())),
-        FilterViewModelMock(Filters(industry = Industry.mock1(), area = Area.mock1(), salary = "500")),
+        FilterViewModelMock(Filters(industry = Industry.mock1(), country = Area.mock1())),
+        FilterViewModelMock(Filters(industry = Industry.mock1(), region = Area.mock1(), salary = "500")),
         FilterViewModelMock(
-            Filters(industry = Industry.mock1(), area = Area.mock1(), salary = "500", onlyWithSalary = true)
+            Filters(
+                industry = Industry.mock1(),
+                country = Area.mock1(),
+                region = Area.mock1(),
+                salary = "500",
+                onlyWithSalary = true
+            )
         )
     )
 }

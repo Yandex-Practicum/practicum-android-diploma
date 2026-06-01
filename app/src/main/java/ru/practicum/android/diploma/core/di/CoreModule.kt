@@ -14,8 +14,10 @@ import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.AuthInterceptor
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.NetworkClientImpl
+import ru.practicum.android.diploma.core.data.repository.AreaRepositoryImpl
 import ru.practicum.android.diploma.core.data.repository.ConnectivityRepositoryImpl
 import ru.practicum.android.diploma.core.data.repository.FiltersRepositoryImpl
+import ru.practicum.android.diploma.core.domain.repository.AreaRepository
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
 import ru.practicum.android.diploma.core.domain.repository.FiltersRepository
 
@@ -70,5 +72,9 @@ val coreModule = module {
 
     single<FiltersRepository> {
         FiltersRepositoryImpl(get())
+    }
+
+    single<AreaRepository> {
+        AreaRepositoryImpl(get())
     }
 }

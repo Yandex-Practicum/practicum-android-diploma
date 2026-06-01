@@ -14,7 +14,8 @@ interface FiltersRepository {
     // выбор индурстрии,
     // выбор региона
     val tempFilters: Flow<Filters>
-    fun applyArea(area: Area?)
+    fun applyCountry(country: Area?)
+    fun applyRegion(country: Area?)
     fun applyIndustry(industry: Industry?)
     fun applySalary(salary: String?)
 

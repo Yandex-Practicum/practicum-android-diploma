@@ -17,9 +17,9 @@ import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
 import ru.practicum.android.diploma.core.ui.utils.Button
 import ru.practicum.android.diploma.core.ui.utils.ButtonType
+import ru.practicum.android.diploma.core.ui.utils.CancellableFilterListItem
 import ru.practicum.android.diploma.core.ui.utils.ListItem
 import ru.practicum.android.diploma.core.ui.utils.Spacer
-import ru.practicum.android.diploma.filter.ui.components.CancellableFilterListItem
 import ru.practicum.android.diploma.filter.ui.components.SalaryTextField
 import ru.practicum.android.diploma.filter.ui.mock.FilterPreviewProvider
 
@@ -38,7 +38,7 @@ fun FilterScreen(
         Column(modifier = Modifier.padding(bottom = Dimens.padding24)) {
             CancellableFilterListItem(
                 label = stringResource(R.string.filter_area_label),
-                value = state.value.area?.name,
+                value = state.value.region?.name ?: state.value.country?.name,
                 onReset = viewModel::onResetArea,
                 onNavigate = onNavigateToArea
             )
