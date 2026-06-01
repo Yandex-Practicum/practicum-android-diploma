@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search.screen
 
+import android.graphics.Color.BLACK
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -168,6 +169,7 @@ private fun SearchQueryField(
                 .padding(end = 4.dp)
                 .clickable(enabled = true, onClick = onClear),
             resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
+            color = MaterialTheme.colorScheme.secondaryFixed
         )
     }
 }
