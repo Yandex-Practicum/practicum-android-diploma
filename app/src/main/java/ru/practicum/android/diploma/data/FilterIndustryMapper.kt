@@ -5,5 +5,9 @@ import ru.practicum.android.diploma.domain.models.FilterIndustry
 
 fun FilterIndustryDto.toDomain(): FilterIndustry = FilterIndustry(
     id = id,
-    name = name
+    name = name,
 )
+
+fun List<FilterIndustryDto>.toDomain(): List<FilterIndustry> = map { industryDto ->
+    industryDto.toDomain()
+}
