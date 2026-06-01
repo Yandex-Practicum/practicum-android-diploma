@@ -56,6 +56,14 @@ class NetworkClientImpl(
                     data = response
                 }
             }
+            is Request.AreasRequest -> {
+                val api = retrofit.create(AreasApi::class.java)
+                val response = api.getAreas()
+                Response().apply {
+                    resultCode = ResultCode.SUCCESS
+                    data = response
+                }
+            }
         }
     }
 }

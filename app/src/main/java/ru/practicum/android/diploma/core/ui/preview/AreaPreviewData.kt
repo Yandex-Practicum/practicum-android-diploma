@@ -8,3 +8,10 @@ fun Area.Companion.mock1(): Area {
         name = "Москва",
     )
 }
+
+fun Area.Companion.mock2(): Area {
+    return Area(
+        id = "1",
+        name = "Ростовская область",
+    )
+}

@@ -40,12 +40,17 @@ class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
     override val filters: Flow<Filters> = _filters.asStateFlow()
     private val _tempFilters = MutableStateFlow(Filters())
     override val tempFilters: Flow<Filters> = _tempFilters.asStateFlow()
+
     init {
         initFilters()
     }
 
-    override fun applyArea(area: Area?) {
-        _tempFilters.value = _tempFilters.value.copy(area = area)
+    override fun applyCountry(country: Area?) {
+        _tempFilters.value = _tempFilters.value.copy(country = country)
+    }
+
+    override fun applyRegion(region: Area?) {
+        _tempFilters.value = _tempFilters.value.copy(region = region)
     }
 
     override fun applyIndustry(industry: Industry?) {
@@ -61,17 +66,25 @@ class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
     }
 
     override fun applyTempFilters() {
-        val area = _tempFilters.value.area
+        val country = _tempFilters.value.country
+        val region = _tempFilters.value.region
         val industry = _tempFilters.value.industry
         val intSalary = _tempFilters.value.salary?.trim()?.toIntOrNull()
         val onlyWithSalary = _tempFilters.value.onlyWithSalary
 
         var dto = filtersDto
-        if (area != null) {
-            dto = dto.copy(area = FilterDto(id = area.id, name = area.name))
+        if (country != null) {
+            dto = dto.copy(country = FilterDto(id = country.id, name = country.name))
         } else {
-            dto = dto.copy(area = null)
+            dto = dto.copy(country = null)
         }
+
+        if (region != null) {
+            dto = dto.copy(region = FilterDto(id = region.id, name = region.name))
+        } else {
+            dto = dto.copy(region = null)
+        }
+
         if (industry != null) {
             dto = dto.copy(industry = FilterDto(id = industry.id, name = industry.name))
         } else {
@@ -92,7 +105,8 @@ class FiltersRepositoryImpl(val context: Context) : FiltersRepository {
     private fun initFilters() {
         var dto = filtersDto
         _filters.value = Filters(
-            area = if (dto.area != null) Area(dto.area.id, dto.area.name) else null,
+            country = if (dto.country != null) Area(dto.country.id, dto.country.name) else null,
+            region = if (dto.region != null) Area(dto.region.id, dto.region.name) else null,
             industry = if (dto.industry != null) Industry(dto.industry.id, dto.industry.name) else null,
             salary = if (dto.salary != null) dto.salary.toString() else null,
             onlyWithSalary = dto.onlyWithSalary
