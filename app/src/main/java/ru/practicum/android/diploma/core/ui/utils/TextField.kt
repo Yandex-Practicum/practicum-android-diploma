@@ -56,7 +56,8 @@ fun TextField(
         end = Dimens.padding16,
         bottom = Dimens.padding8
     ),
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    placeholderStringResource: Int? = null
 ) {
     val isFocused = remember { false }
     Row(
@@ -93,12 +94,13 @@ fun TextField(
                 keyboardOptions = keyboardOptions,
                 decorationBox = @Composable { innerTextField ->
 //
+                    val searchPlaceholder = placeholderStringResource ?: R.string.search_placeholder
                     TextFieldDefaults.DecorationBox(
                         value = query,
                         visualTransformation = VisualTransformation.None,
                         innerTextField = innerTextField,
 
-                        placeholder = { Text(text = stringResource(id = R.string.search_placeholder)) },
+                        placeholder = { Text(text = stringResource(id = searchPlaceholder)) },
                         prefix = null,
                         suffix = null,
                         supportingText = null,

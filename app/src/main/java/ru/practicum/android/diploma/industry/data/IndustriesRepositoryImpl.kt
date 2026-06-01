@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.industry.data
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request
 import ru.practicum.android.diploma.core.data.network.ResultCode
@@ -11,23 +13,26 @@ import ru.practicum.android.diploma.industry.domain.api.IndustriesRepository
 
 class IndustriesRepositoryImpl(private val networkClient: NetworkClient) : IndustriesRepository {
     private var _items: Industries? = null
-    override suspend fun getIndustries(query: String): Resource<Industries> {
+    override suspend fun getIndustries(query: String): Flow<Resource<Industries>> = flow {
         if (_items != null) {
-            return Resource.Success(filter(_items!!, query))
+            emit( Resource.Success(filter(_items!!, query)))
         } else {
+
+            emit(Resource.Loading)
+
             val response = networkClient.doRequest(Request.IndustriesRequest)
 
-            return when (response.resultCode) {
+            when (response.resultCode) {
                 ResultCode.SUCCESS -> {
                     val dto = response.data as IndustriesDto
                     _items = mapping(dto)
-                    Resource.Success(filter(_items!!, query))
+                    emit(Resource.Success(filter(_items!!, query)))
                 }
 
                 else -> {
-                    Resource.Error(
+                    emit(Resource.Error(
                         code = response.resultCode
-                    )
+                    ))
                 }
             }
         }
