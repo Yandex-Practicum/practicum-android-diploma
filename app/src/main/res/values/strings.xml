@@ -64,4 +64,6 @@
     <string name="input_amount_hint">Введите сумму</string>
     <string name="filter_settings_salary_title">Ожидаемая зарплата</string>
     <string name="do_not_show_without_salary_title">Не показывать без зарплаты</string>
+    <string name="cancel_button_text">Сбросить</string>
+    <string name="apply_button_text">Применить</string>
 </resources>

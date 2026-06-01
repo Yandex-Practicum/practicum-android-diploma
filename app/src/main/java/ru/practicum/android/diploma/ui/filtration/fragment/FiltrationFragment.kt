@@ -27,7 +27,9 @@ class FiltrationFragment : Fragment() {
                         dontShowWithoutSalaryChecked = true,
                         onCheckedChange = {},
                         onSearchTextChange = {},
-                        onClear = {}
+                        onClear = {},
+                        onApplyClick = {},
+                        onCancelClick = {},
                     )
                 }
             }

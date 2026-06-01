@@ -3,13 +3,16 @@ package ru.practicum.android.diploma.ui.root
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.util.extentions.applySystemBarsPadding
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +21,8 @@ class RootActivity : AppCompatActivity() {
         setContentView(R.layout.activity_root)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val fragmentContainer = findViewById<FragmentContainerView>(R.id.fragment_container_view)
+        fragmentContainer.applySystemBarsPadding(bottomNavigationView)
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
@@ -36,6 +41,7 @@ class RootActivity : AppCompatActivity() {
 
                 else -> bottomNavigationView.isVisible = false
             }
+            ViewCompat.requestApplyInsets(fragmentContainer)
         }
     }
 

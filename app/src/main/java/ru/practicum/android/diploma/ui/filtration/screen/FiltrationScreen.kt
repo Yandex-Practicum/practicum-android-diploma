@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.common.IconImage
+import ru.practicum.android.diploma.ui.common.PrimaryButton
+import ru.practicum.android.diploma.ui.common.SecondaryButton
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.search.screen.SearchScreenTestTags
 import ru.practicum.android.diploma.ui.theme.Blue
@@ -57,6 +59,8 @@ fun FiltrationScreen(
     onCheckedChange: (Boolean) -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
+    onApplyClick: () -> Unit,
+    onCancelClick: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -70,10 +74,17 @@ fun FiltrationScreen(
                 endSecondIconVisible = false
             )
         },
-        contentWindowInsets = WindowInsets(bottom = 0),
+        bottomBar = {
+            FiltrationBottomBar(
+                onApplyClick = onApplyClick,
+                onCancelClick = onCancelClick,
+            )
+        },
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
             CellComponent(
                 modifier = Modifier.padding(top = 16.dp),
@@ -84,18 +95,40 @@ fun FiltrationScreen(
                 upperText = stringResource(R.string.specialization_title),
                 lowerText = specialization
             )
-           SalaryTextEdit(
-               searchQuery = expectedSalary,
-               interactionSource = interactionSource,
-               onSearchTextChange = onSearchTextChange,
-               onClear = onClear,
-               onKeyboardDone = { keyboardController?.hide() }
-           )
+            SalaryTextEdit(
+                searchQuery = expectedSalary,
+                interactionSource = interactionSource,
+                onSearchTextChange = onSearchTextChange,
+                onClear = onClear,
+                onKeyboardDone = { keyboardController?.hide() }
+            )
             DontShowWithoutSalary(
                 dontShowWithoutSalaryChecked,
                 onCheckedChange
             )
         }
+    }
+}
+
+@Composable
+private fun FiltrationBottomBar(
+    onApplyClick: () -> Unit,
+    onCancelClick: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .padding(bottom = Dimens.ScreenContentBottomPadding),
+    ) {
+       PrimaryButton(
+            text = stringResource(R.string.apply_button_text),
+            onClick = onApplyClick,
+        )
+        SecondaryButton(
+            text = stringResource(R.string.cancel_button_text),
+            onClick = onCancelClick,
+        )
     }
 }
 
@@ -302,7 +335,9 @@ fun PreviewFiltrationScreen() {
         true,
         {},
         {},
-        {}
+        {},
+        {},
+        {},
     )
 }
 
