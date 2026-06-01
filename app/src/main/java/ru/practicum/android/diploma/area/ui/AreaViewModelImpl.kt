@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.area.domain.api.AreaInteractor
+import ru.practicum.android.diploma.core.domain.models.Area
 
 class AreaViewModelImpl(val interactor: AreaInteractor) : AreaViewModel() {
     private val _state = MutableStateFlow<AreaScreenState>(AreaScreenState())
@@ -13,18 +14,28 @@ class AreaViewModelImpl(val interactor: AreaInteractor) : AreaViewModel() {
     init {
         viewModelScope.launch {
             interactor.country.collect {
-                _state.value = _state.value.copy(country = it?.name)
+                _state.value = _state.value.copy(country = it)
             }
             interactor.region.collect {
-                _state.value = _state.value.copy(region = it?.name)
+                _state.value = _state.value.copy(region = it)
             }
         }
     }
     override fun resetCountry() {
-        interactor.resetCountry()
+        _state.value = _state.value.copy(country = null)
     }
 
     override fun resetRegion() {
-        interactor.resetRegion()
+        _state.value = _state.value.copy(region = null)
+    }
+
+    override fun apply() {
+        interactor.applyArea(_state.value.country, _state.value.region)
+    }
+
+    override fun onBack(country: Area?) {
+        country?.let {
+            _state.value = _state.value.copy(country = country)
+        }
     }
 }

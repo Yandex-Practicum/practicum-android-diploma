@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.practicum.android.diploma.area.ui.AreaScreenState
 import ru.practicum.android.diploma.area.ui.AreaViewModel
+import ru.practicum.android.diploma.core.domain.models.Area
 
 class AreaViewModelMock(
     mockState: AreaScreenState,
@@ -19,5 +20,7 @@ class AreaViewModelMock(
     override fun resetCountry() {}
 
     override fun resetRegion() {}
+    override fun apply() {}
+    override fun onBack(country: Area?) {}
 
 }

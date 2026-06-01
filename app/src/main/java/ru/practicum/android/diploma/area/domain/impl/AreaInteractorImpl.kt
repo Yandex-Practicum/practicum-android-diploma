@@ -19,11 +19,11 @@ class AreaInteractorImpl(val repository: FiltersRepository) : AreaInteractor {
         }
     }
 
-    override fun resetCountry() {
-        repository.applyCountry(null)
-    }
-
-    override fun resetRegion() {
-        repository.applyRegion(null)
+    override fun applyArea(
+        country: Area?,
+        region: Area?
+    ) {
+        repository.applyCountry(country)
+        repository.applyRegion(region)
     }
 }

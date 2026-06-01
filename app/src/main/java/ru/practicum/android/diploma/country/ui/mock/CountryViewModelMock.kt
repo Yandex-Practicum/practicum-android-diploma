@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.country.ui.mock
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import ru.practicum.android.diploma.core.domain.models.Area
 import ru.practicum.android.diploma.country.ui.CountryScreenState
 import ru.practicum.android.diploma.country.ui.CountryViewModel
 
@@ -16,6 +15,5 @@ class CountryViewModelMock(
     init {
         _state.value = mockState
     }
-    override fun selectCountry(country: Area) {}
 
 }

@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.data.network.ResultCode
 import ru.practicum.android.diploma.core.domain.Resource
-import ru.practicum.android.diploma.core.domain.models.Area
 import ru.practicum.android.diploma.country.domain.api.CountryInteractor
 
 class CountryViewModelImpl(
@@ -40,8 +39,4 @@ class CountryViewModelImpl(
             }
         }
     }
-    override fun selectCountry(country: Area) {
-        interactor.selectCountry(country)
-    }
-
 }

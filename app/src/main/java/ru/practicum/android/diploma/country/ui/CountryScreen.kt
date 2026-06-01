@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.domain.models.Area
 import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
@@ -20,10 +21,10 @@ import ru.practicum.android.diploma.core.ui.utils.Stub
 import ru.practicum.android.diploma.country.ui.mock.CountryPreviewProvider
 
 @Composable
-fun CountryScreen(viewModel: CountryViewModel, onBack: () -> Unit) {
+fun CountryScreen(viewModel: CountryViewModel, onBack: (country: Area?) -> Unit) {
     val state by viewModel.state.collectAsState()
 
-    AppScreen(R.string.country_screen_title, onBack) {
+    AppScreen(R.string.country_screen_title, { onBack(null) }) {
         when (state) {
             is CountryScreenState.Loading -> LoadingContent()
             is CountryScreenState.Content -> {
@@ -33,8 +34,7 @@ fun CountryScreen(viewModel: CountryViewModel, onBack: () -> Unit) {
                             title = country.name,
                             icon = R.drawable.ic_core_arrow_forward,
                             onClickItem = {
-                                viewModel.selectCountry(country)
-                                onBack()
+                                onBack(country)
                             }
                         )
                     }

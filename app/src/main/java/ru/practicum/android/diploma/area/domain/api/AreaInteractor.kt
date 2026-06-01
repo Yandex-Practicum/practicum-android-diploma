@@ -6,6 +6,5 @@ import ru.practicum.android.diploma.core.domain.models.Area
 interface AreaInteractor {
     var country: Flow<Area?>
     var region: Flow<Area?>
-    fun resetCountry()
-    fun resetRegion()
+    fun applyArea(country: Area?, region: Area?)
 }

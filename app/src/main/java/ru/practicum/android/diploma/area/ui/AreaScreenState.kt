@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.area.ui
 
+import ru.practicum.android.diploma.core.domain.models.Area
+
 data class AreaScreenState(
-    val country: String? = null,
-    val region: String? = null
+    val country: Area? = null,
+    val region: Area? = null
 )
