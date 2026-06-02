@@ -33,7 +33,6 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.presentation.filtration.action.FiltrationAction
 import ru.practicum.android.diploma.ui.common.CheckBox
 import ru.practicum.android.diploma.ui.common.FilterItem
 import ru.practicum.android.diploma.ui.common.PrimaryButton
@@ -50,6 +49,7 @@ fun FiltrationScreen(
     industry: String,
     salary: String,
     dontShowWithoutSalaryChecked: Boolean,
+    showButtons: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
@@ -59,7 +59,7 @@ fun FiltrationScreen(
     onIndustryClick: () -> Unit,
     onAreaClick: () -> Unit,
     onIndustryClear: () -> Unit,
-    onAreaClear: () -> Unit
+    onAreaClear: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -71,14 +71,16 @@ fun FiltrationScreen(
                 navIconVisible = true,
                 endFirstIconVisible = false,
                 endSecondIconVisible = false,
-                onNavClick = onNavClick
+                onNavClick = onNavClick,
             )
         },
         bottomBar = {
-            FiltrationBottomBar(
-                onApplyClick = onApplyClick,
-                onCancelClick = onCancelClick,
-            )
+            if (showButtons) {
+                FiltrationBottomBar(
+                    onApplyClick = onApplyClick,
+                    onCancelClick = onCancelClick,
+                )
+            }
         },
     ) { paddingValues ->
         Column(
@@ -91,24 +93,24 @@ fun FiltrationScreen(
                 title = stringResource(R.string.filter_settings_country_title),
                 value = country.takeIf { it.isNotEmpty() },
                 onItemClick = onAreaClick,
-                onCrossClick = onAreaClear
+                onCrossClick = onAreaClear,
             )
             FilterItem(
                 title = stringResource(R.string.specialization_title),
                 value = industry.takeIf { it.isNotEmpty() },
                 onItemClick = onIndustryClick,
-                onCrossClick = onIndustryClear
+                onCrossClick = onIndustryClear,
             )
             SalaryTextEdit(
                 searchQuery = salary,
                 interactionSource = interactionSource,
                 onSearchTextChange = onSearchTextChange,
                 onClear = onClear,
-                onKeyboardDone = { keyboardController?.hide() }
+                onKeyboardDone = { keyboardController?.hide() },
             )
             DontShowWithoutSalary(
                 dontShowWithoutSalaryChecked,
-                onCheckedChange
+                onCheckedChange,
             )
         }
     }
