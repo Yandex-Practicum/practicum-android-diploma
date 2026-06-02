@@ -27,7 +27,7 @@ import ru.practicum.android.diploma.filter.ui.mock.FilterPreviewProvider
 fun FilterScreen(
     viewModel: FilterViewModel,
     onNavigateToArea: () -> Unit,
-    onNavigateToIndustry: () -> Unit,
+    onNavigateToIndustry: (String?) -> Unit,
     onBack: () -> Unit
 ) {
     val state = viewModel.state.collectAsState()
@@ -47,7 +47,7 @@ fun FilterScreen(
                 label = stringResource(R.string.filter_industry_label),
                 value = state.value.industry?.name,
                 onReset = viewModel::onResetIndustry,
-                onNavigate = onNavigateToIndustry
+                onNavigate = { onNavigateToIndustry(state.value.industry?.id) }
             )
 
             SalaryTextField(
@@ -57,7 +57,7 @@ fun FilterScreen(
                     vertical = Dimens.padding24
                 ),
                 viewModel::onQueryChanged,
-                viewModel::onResetSalary
+                viewModel::onResetSalary,
             )
 
             ListItem(

@@ -38,8 +38,8 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToArea = {
                     navController.navigate(Screen.Area)
                 },
-                onNavigateToIndustry = {
-                    navController.navigate(Screen.Industry)
+                onNavigateToIndustry = { industryId ->
+                    navController.navigate(Screen.Industry(industryId))
                 },
                 onBack = {
                     navController.popBackStack()
@@ -91,9 +91,11 @@ fun NavGraph(navController: NavHostController) {
             )
         }
 
-        composable<Screen.Industry> {
+        composable<Screen.Industry> { backStackEntry ->
+            val industryId = backStackEntry.arguments?.getString("industryId")
             IndustryScreen(
                 koinViewModel(),
+                industryId = industryId,
                 onBack = {
                     navController.popBackStack()
                 }

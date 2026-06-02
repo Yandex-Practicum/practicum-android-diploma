@@ -41,7 +41,8 @@ fun SalaryTextField(
             end = Dimens.padding16,
             bottom = Dimens.padding8
         ),
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+        R.string.search_placeholder_sum
     )
 }
 

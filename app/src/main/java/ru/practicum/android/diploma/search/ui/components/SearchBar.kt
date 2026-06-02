@@ -21,7 +21,8 @@ fun SearchBar(
     onQueryChanged: (String) -> Unit,
     onFocusChanged: (Boolean) -> Unit,
     showClearButton: Boolean,
-    onIconClicked: () -> Unit
+    onIconClicked: () -> Unit,
+    placeholderStringResource: Int? = null
 ) {
     TextField(
         query = query,
@@ -40,7 +41,8 @@ fun SearchBar(
             top = Dimens.padding16,
             end = Dimens.padding16,
             bottom = Dimens.padding16
-        )
+        ),
+        placeholderStringResource = placeholderStringResource
     )
 }
 
