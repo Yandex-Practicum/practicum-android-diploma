@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.search.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,9 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,22 +20,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.ui.common.BadgeItem
-import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
+import ru.practicum.android.diploma.ui.common.TextEdit
 import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.common.search.VacanciesContent
-import ru.practicum.android.diploma.ui.theme.Blue
 import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
@@ -113,7 +105,7 @@ private fun SearchQueryField(
             .background(MaterialTheme.colorScheme.surfaceContainer),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        BasicTextField(
+        TextEdit(
             value = searchQuery,
             onValueChange = onSearchTextChange,
             modifier = Modifier
@@ -121,16 +113,8 @@ private fun SearchQueryField(
                 .testTag(SearchScreenTestTags.TextField)
                 .fillMaxHeight()
                 .padding(start = 20.dp),
-            singleLine = true,
-            textStyle = MaterialTheme.typography.bodyMedium
-                .copy(color = MaterialTheme.colorScheme.secondaryFixed),
-            cursorBrush = SolidColor(Blue),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(onDone = { onKeyboardDone() }),
             interactionSource = interactionSource,
+            onKeyboardDone = onKeyboardDone,
             decorationBox = { innerTextField ->
                 Box(
                     Modifier.fillMaxSize(),
@@ -148,7 +132,7 @@ private fun SearchQueryField(
                     }
                     innerTextField()
                 }
-            }
+            },
         )
         TextEditTrailingIcon(
             if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,

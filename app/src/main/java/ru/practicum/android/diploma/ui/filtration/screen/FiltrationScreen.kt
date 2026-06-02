@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.filtration.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -16,11 +15,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,26 +24,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.common.CheckBox
 import ru.practicum.android.diploma.ui.common.FilterItem
-import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.PrimaryButton
 import ru.practicum.android.diploma.ui.common.SecondaryButton
+import ru.practicum.android.diploma.ui.common.TextEdit
 import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.search.screen.SearchScreenTestTags
-import ru.practicum.android.diploma.ui.theme.Blue
 import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
@@ -158,24 +150,9 @@ fun DontShowWithoutSalary(
                 .align(Alignment.CenterVertically),
             contentAlignment = Alignment.Center,
         ) {
-            Checkbox(
-                enabled = true,
-                checked = isChecked,
-                onCheckedChange = onCheckedChange,
-                colors = CheckboxColors(
-                    checkedCheckmarkColor = MaterialTheme.colorScheme.background,
-                    uncheckedCheckmarkColor = MaterialTheme.colorScheme.background,
-                    checkedBoxColor = MaterialTheme.colorScheme.background,
-                    uncheckedBoxColor = MaterialTheme.colorScheme.primary,
-                    disabledCheckedBoxColor = MaterialTheme.colorScheme.primary,
-                    disabledUncheckedBoxColor = MaterialTheme.colorScheme.primary,
-                    disabledIndeterminateBoxColor = MaterialTheme.colorScheme.primary,
-                    checkedBorderColor = MaterialTheme.colorScheme.primary,
-                    uncheckedBorderColor = MaterialTheme.colorScheme.primary,
-                    disabledBorderColor = MaterialTheme.colorScheme.primary,
-                    disabledUncheckedBorderColor = MaterialTheme.colorScheme.primary,
-                    disabledIndeterminateBorderColor = MaterialTheme.colorScheme.primary
-                )
+            CheckBox(
+                isChecked,
+                onCheckedChange
             )
         }
     }
@@ -215,23 +192,15 @@ fun SalaryTextEdit(
             .background(MaterialTheme.colorScheme.surfaceContainer),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        BasicTextField(
+        TextEdit(
             value = searchQuery,
             onValueChange = onSearchTextChange,
             modifier = Modifier
                 .weight(1f)
                 .testTag(SearchScreenTestTags.TextField)
                 .fillMaxHeight(),
-            singleLine = true,
-            textStyle = MaterialTheme.typography.bodyMedium
-                .copy(color = MaterialTheme.colorScheme.secondaryFixed),
-            cursorBrush = SolidColor(Blue),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(onDone = { onKeyboardDone() }),
             interactionSource = interactionSource,
+            onKeyboardDone = onKeyboardDone,
             decorationBox = { innerTextField ->
                 Box(
                     Modifier.fillMaxSize(),
@@ -241,43 +210,55 @@ fun SalaryTextEdit(
                         modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(0.dp),
                     ) {
-                        Text(
-                            text = stringResource(R.string.filter_settings_salary_title),
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                lineHeight = 16.sp,
-                                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                                lineHeightStyle = LineHeightStyle(
-                                    alignment = LineHeightStyle.Alignment.Top,
-                                    trim = LineHeightStyle.Trim.Both,
-                                ),
-                            ),
-                            color = labelColor,
-                        )
+                        SalaryTextEditTitle(labelColor)
                         if (searchQuery.isEmpty()) {
-                            Text(
-                                text = stringResource(R.string.input_amount_hint),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.inverseOnSurface,
-                                    lineHeight = 19.sp,
-                                    platformStyle = PlatformTextStyle(includeFontPadding = false),
-                                    lineHeightStyle = LineHeightStyle(
-                                        alignment = LineHeightStyle.Alignment.Top,
-                                        trim = LineHeightStyle.Trim.Both,
-                                    ),
-                                ),
-                                maxLines = 1,
-                            )
+                            SalaryTextEditPlaceholder()
                         }
                         innerTextField()
                     }
                 }
-            }
+            },
         )
         TextEditTrailingIcon(
             R.drawable.ic_cross,
             onClear
         )
     }
+}
+
+@Composable
+fun SalaryTextEditTitle(
+    color: Color
+) {
+    Text(
+        text = stringResource(R.string.filter_settings_salary_title),
+        style = MaterialTheme.typography.bodySmall.copy(
+            lineHeight = 16.sp,
+            platformStyle = PlatformTextStyle(includeFontPadding = false),
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Top,
+                trim = LineHeightStyle.Trim.Both,
+            ),
+        ),
+        color = color,
+    )
+}
+
+@Composable
+fun SalaryTextEditPlaceholder() {
+    Text(
+        text = stringResource(R.string.input_amount_hint),
+        style = MaterialTheme.typography.bodyMedium.copy(
+            color = MaterialTheme.colorScheme.inverseOnSurface,
+            lineHeight = 19.sp,
+            platformStyle = PlatformTextStyle(includeFontPadding = false),
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Top,
+                trim = LineHeightStyle.Trim.Both,
+            ),
+        ),
+        maxLines = 1,
+    )
 }
 
 @Composable
