@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,6 +34,7 @@ import ru.practicum.android.diploma.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
 import ru.practicum.android.diploma.ui.common.Loader
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
+import ru.practicum.android.diploma.ui.common.PrimaryButton
 import ru.practicum.android.diploma.ui.common.TextEdit
 import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
 import ru.practicum.android.diploma.ui.common.TopBar
@@ -44,11 +46,12 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 fun ChooseIndustryScreen(
     state: IndustryUiState,
     searchQuery: String,
+    showButton: Boolean,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onItemClick: () -> Unit,
+    onChooseButtonClick: () -> Unit,
     onNavClick: () -> Unit,
-
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -62,7 +65,14 @@ fun ChooseIndustryScreen(
                 endSecondIconVisible = false,
                 onNavClick = onNavClick,
             )
-        }
+        },
+        bottomBar = {
+            if (showButton) {
+                IndustryBottomBar(
+                    onButtonClick = onChooseButtonClick,
+                )
+            }
+        },
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -83,6 +93,23 @@ fun ChooseIndustryScreen(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun IndustryBottomBar(
+    onButtonClick: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .padding(bottom = Dimens.ScreenContentBottomPadding),
+    ) {
+        PrimaryButton(
+            text = stringResource(R.string.choose_button_text),
+            onClick = onButtonClick
+        )
     }
 }
 

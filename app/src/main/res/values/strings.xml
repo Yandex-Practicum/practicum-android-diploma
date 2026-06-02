@@ -82,6 +82,7 @@
     <string name="industry_choice_title">Выбор отрасли</string>
     <string name="region_search_placeholder_text">Введите отрасль</string>
     <string name="industry_server_error">Не удалось получить\nсписок</string>
+    <string name="choose_button_text">Выбрать</string>
 
     <!-- Экран выбора региона -->
     <string name="choose_region_title">Выбор региона</string>

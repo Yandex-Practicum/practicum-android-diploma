@@ -24,10 +24,12 @@ class ChooseIndustryFragment : Fragment() {
                     ChooseIndustryScreen(
                         state = IndustryUiState.Error,
                         searchQuery = "",
+                        showButton = false,
                         onSearchTextChange = {},
                         onClear = {},
                         onItemClick = {},
-                        onNavClick = {}
+                        onChooseButtonClick = {},
+                        onNavClick = {},
                     )
                 }
             }
