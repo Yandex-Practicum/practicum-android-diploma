@@ -9,4 +9,6 @@
         <item quantity="many">Найдено %d вакансий</item>
         <item quantity="other">Найдено %d вакансий</item>
     </plurals>
+    <string name="search_toast_error_internet">Проверьте подключение\n к интернету</string>
+    <string name="search_toast_error">Произошла ошибка</string>
 </resources>

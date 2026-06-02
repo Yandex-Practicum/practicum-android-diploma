@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.Request
 import ru.practicum.android.diploma.core.data.network.ResultCode
 import ru.practicum.android.diploma.core.domain.Resource
+import ru.practicum.android.diploma.core.domain.models.Filters
 import ru.practicum.android.diploma.core.domain.models.SearchResult
 import ru.practicum.android.diploma.core.domain.models.Vacancy
 import ru.practicum.android.diploma.search.data.dto.SearchResponseDto
@@ -19,14 +20,14 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
         query: String,
         page: Int,
         perPage: Int,
-        filters: Map<String, String>
+        filters: Filters
     ): Flow<Resource<SearchResult>> = flow {
         val params = buildMap {
             put(PARAM_QUERY, query)
             put(PARAM_PAGE, page.toString())
             put(PARAM_PER_PAGE, perPage.toString())
 
-            filters.forEach { (key, value) ->
+            mapFilters(filters).forEach { (key, value) ->
                 if (value.isNotBlank()) {
                     put(key, value)
                 }
@@ -73,6 +74,25 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
             page = dto.page,
             pages = dto.pages
         )
+    }
+
+    private fun mapFilters(filters: Filters): Map<String, String> {
+        var result = mutableMapOf<String, String>()
+
+        (filters.country ?: filters.region)?.let {
+            result["area"] = it.id // Внимание! Api принимает только значение 1, задала вопрос наставнику в чате
+        }
+
+        filters.industry?.let {
+            result["industry"] = it.id
+        }
+        filters.salary?.let {
+            result["salary"] = it
+        }
+        if (filters.onlyWithSalary) {
+            result["only_with_salary"] = "true"
+        }
+        return result
     }
 
     companion object {

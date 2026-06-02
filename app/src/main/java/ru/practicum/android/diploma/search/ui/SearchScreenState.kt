@@ -1,24 +1,19 @@
 package ru.practicum.android.diploma.search.ui
 
-import ru.practicum.android.diploma.core.domain.models.Vacancy
+import ru.practicum.android.diploma.core.domain.models.Vacancies
 
 enum class SearchError {
-    INTERNET,
-    NOT_FOUND
+    NO_INTERNET,
+    SERVER_ERROR,
+    EMPTY_RESULTS
 }
-
-sealed interface SearchScreenState {
-    object Initial : SearchScreenState
-
-    object Loading : SearchScreenState
-
-    data class Content(
-        val vacancies: List<Vacancy>,
+sealed class SearchScreenState(var showClearButton: Boolean) {
+    object Initial : SearchScreenState(false)
+    object Loading : SearchScreenState(true)
+    class Content(
+        val vacancies: Vacancies,
         val totalFound: Int,
         val isNextPageLoading: Boolean
-    ) : SearchScreenState
-
-    object NoInternet : SearchScreenState
-    object ServerError : SearchScreenState
-    object EmptyResults : SearchScreenState
+    ) : SearchScreenState(true)
+    class Error(val error: SearchError) : SearchScreenState(true)
 }

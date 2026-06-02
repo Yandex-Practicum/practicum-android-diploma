@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.ui
 
+import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -21,23 +22,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.koin.compose.viewmodel.koinViewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.ui.theme.AppTheme
 import ru.practicum.android.diploma.core.ui.theme.Blue
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.WhiteUniversal
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
 import ru.practicum.android.diploma.core.ui.utils.LoadingContent
+import ru.practicum.android.diploma.core.ui.utils.Spacer
 import ru.practicum.android.diploma.core.ui.utils.Stub
 import ru.practicum.android.diploma.core.ui.utils.VacancyList
-import ru.practicum.android.diploma.search.ui.components.EmptyResultPlaceholder
-import ru.practicum.android.diploma.search.ui.components.ErrorPlaceholder
 import ru.practicum.android.diploma.search.ui.components.SearchBar
+import ru.practicum.android.diploma.search.ui.mock.SearchPreviewProvider
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = koinViewModel<SearchViewModelImpl>(),
+    viewModel: SearchViewModel,
     onNavigateToFilter: () -> Unit,
     onNavigateToVacancy: (id: String) -> Unit
 ) {
@@ -47,24 +50,31 @@ fun SearchScreen(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.toastMessage.collect { message ->
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        viewModel.errorCode.collect { code ->
+            Toast.makeText(
+                context,
+                if (code == SearchError.NO_INTERNET) {
+                    R.string.search_toast_error_internet
+                } else {
+                    R.string.search_toast_error
+                },
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     AppScreen(
-        title = R.string.search_screen_title,
+        R.string.search_screen_title,
         actions = { SearchFilterIcon(isFiltered, onNavigateToFilter) }
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             SearchBar(
                 query = query,
-                onFocusChanged = viewModel::onFocusChanged,
+                onFocusChanged = {},
                 onIconClicked = viewModel::onSearchIconClicked,
                 showClearButton = query.isNotEmpty(),
                 onQueryChanged = viewModel::onQueryChanged
             )
-
             SearchContent(state, viewModel::onLastItemReached, onNavigateToVacancy)
         }
     }
@@ -114,8 +124,16 @@ private fun SearchContent(
         }
     }
 
+    LaunchedEffect(state) {
+        if (state is SearchScreenState.Loading) {
+            listState.scrollToItem(0)
+        }
+    }
+
     when (state) {
-        is SearchScreenState.Initial -> Stub(R.drawable.image_search_stub_default)
+        is SearchScreenState.Initial -> {
+            Stub(R.drawable.image_search_stub_default)
+        }
         is SearchScreenState.Loading -> LoadingContent()
 
         is SearchScreenState.Content -> {
@@ -129,12 +147,30 @@ private fun SearchContent(
                 onNavigateToVacancy(vacancy.id)
             }
         }
-
-        is SearchScreenState.NoInternet -> ErrorPlaceholder(isInternetError = true)
-        is SearchScreenState.ServerError -> ErrorPlaceholder(isInternetError = false)
-        is SearchScreenState.EmptyResults -> {
-            Chip(count = 0)
-            EmptyResultPlaceholder()
+        is SearchScreenState.Error -> {
+            val error = state.error
+            when (error) {
+                SearchError.NO_INTERNET -> {
+                    Stub(
+                        R.drawable.image_core_stub_no_server_1,
+                        R.string.search_error_internet
+                    )
+                }
+                SearchError.SERVER_ERROR -> {
+                    Stub(
+                        R.drawable.image_core_stub_no_internet,
+                        R.string.search_error_server
+                    )
+                }
+                SearchError.EMPTY_RESULTS -> {
+                    Chip(0)
+                    Spacer(height = Dimens.padding8)
+                    Stub(
+                        R.drawable.image_core_stub_not_found,
+                        R.string.search_error_not_found
+                    )
+                }
+            }
         }
     }
 }
@@ -158,5 +194,20 @@ private fun Chip(count: Int) {
             modifier = Modifier.padding(horizontal = Dimens.padding12, vertical = Dimens.padding4)
         )
 
+    }
+}
+
+@Preview(name = "Light", showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Composable
+private fun SearchScreenPreview(
+    @PreviewParameter(SearchPreviewProvider::class) model: SearchViewModel
+) {
+    AppTheme {
+        SearchScreen(
+            model,
+            onNavigateToFilter = {},
+            onNavigateToVacancy = {}
+        )
     }
 }
