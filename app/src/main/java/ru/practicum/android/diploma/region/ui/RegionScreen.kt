@@ -42,12 +42,12 @@ fun RegionScreen(
                 onIconClicked = viewModel::onSearchIconClicked,
                 placeholderStringResource = R.string.region_search_placeholder
             )
-            when (state) {
+            when (val currentState = state) {
                 is RegionScreenState.Loading -> LoadingContent()
 
                 is RegionScreenState.Content -> {
                     LazyColumn(modifier = Modifier.padding(top = Dimens.padding8)) {
-                        items((state as RegionScreenState.Content).regions, key = { it.region.id }) { item ->
+                        items(currentState.regions, key = { it.region.id }) { item ->
                             ListItem(
                                 title = item.region.name,
                                 icon = R.drawable.ic_core_arrow_forward,
@@ -63,7 +63,7 @@ fun RegionScreen(
                 )
 
                 is RegionScreenState.Error -> {
-                    val error = (state as RegionScreenState.Error).error
+                    val error = currentState.error
                     Stub(
                         if (error == RegionError.NO_INTERNET) {
                             R.drawable.image_core_stub_no_internet
