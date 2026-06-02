@@ -34,14 +34,30 @@ fun AreaScreen(
     onBack: () -> Unit
 ) {
     val state = viewModel.state.collectAsState()
-    val result by currentEntry?.savedStateHandle
+    val countryResult by currentEntry?.savedStateHandle
         ?.getStateFlow<Area?>("country", null)
         ?.collectAsStateWithLifecycle() ?: remember { mutableStateOf(null) }
+    val regionResult by currentEntry?.savedStateHandle
+        ?.getStateFlow<Area?>("region", null)
+        ?.collectAsStateWithLifecycle() ?: remember { mutableStateOf(null) }
+    val regionCountryResult by currentEntry?.savedStateHandle
+        ?.getStateFlow<Area?>("region_country", null)
+        ?.collectAsStateWithLifecycle() ?: remember { mutableStateOf(null) }
 
-    LaunchedEffect(result) {
-        result?.let { data ->
-            viewModel.onBack(country = data)
+    LaunchedEffect(countryResult) {
+        countryResult?.let { data ->
+            viewModel.onCountrySelected(country = data)
             currentEntry?.savedStateHandle?.remove<Area?>("country")
+        }
+    }
+
+    LaunchedEffect(regionResult, regionCountryResult) {
+        val region = regionResult
+        val regionCountry = regionCountryResult
+        if (region != null && regionCountry != null) {
+            viewModel.onRegionSelected(region = region, regionCountry = regionCountry)
+            currentEntry?.savedStateHandle?.remove<Area?>("region")
+            currentEntry?.savedStateHandle?.remove<Area?>("region_country")
         }
     }
 

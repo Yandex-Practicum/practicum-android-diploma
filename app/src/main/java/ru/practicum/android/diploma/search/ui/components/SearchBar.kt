@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.search.ui.components
 
 import android.content.res.Configuration
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -21,7 +22,8 @@ fun SearchBar(
     onQueryChanged: (String) -> Unit,
     onFocusChanged: (Boolean) -> Unit,
     showClearButton: Boolean,
-    onIconClicked: () -> Unit
+    onIconClicked: () -> Unit,
+    @StringRes placeholderStringResource: Int? = null
 ) {
     TextField(
         query = query,
@@ -40,7 +42,8 @@ fun SearchBar(
             top = Dimens.padding16,
             end = Dimens.padding16,
             bottom = Dimens.padding16
-        )
+        ),
+        placeholderStringResource = placeholderStringResource
     )
 }
 

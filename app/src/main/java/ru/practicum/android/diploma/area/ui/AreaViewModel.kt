@@ -11,5 +11,6 @@ abstract class AreaViewModel : ViewModel() {
     abstract fun resetRegion()
     abstract fun apply()
 
-    abstract fun onBack(country: Area?)
+    abstract fun onCountrySelected(country: Area)
+    abstract fun onRegionSelected(region: Area, regionCountry: Area)
 }

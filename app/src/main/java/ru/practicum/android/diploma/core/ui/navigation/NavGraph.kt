@@ -85,6 +85,11 @@ fun NavGraph(navController: NavHostController) {
         composable<Screen.Region> {
             RegionScreen(
                 koinViewModel(),
+                onSelect = { region, country ->
+                    navController.previousBackStackEntry?.savedStateHandle?.set("region", region)
+                    navController.previousBackStackEntry?.savedStateHandle?.set("region_country", country)
+                    navController.popBackStack()
+                },
                 onBack = {
                     navController.popBackStack()
                 }
