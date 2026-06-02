@@ -28,4 +28,3 @@ class SearchScreen(
         SearchScreenTestTags.VacanciesList
     )
 }
-
