@@ -14,9 +14,12 @@ import ru.practicum.android.diploma.core.data.formatters.CurrencyFormatter
 import ru.practicum.android.diploma.core.data.network.AuthInterceptor
 import ru.practicum.android.diploma.core.data.network.NetworkClient
 import ru.practicum.android.diploma.core.data.network.NetworkClientImpl
+import ru.practicum.android.diploma.core.data.repository.AreaRepositoryImpl
 import ru.practicum.android.diploma.core.data.repository.ConnectivityRepositoryImpl
+import ru.practicum.android.diploma.core.data.repository.FiltersRepositoryImpl
+import ru.practicum.android.diploma.core.domain.repository.AreaRepository
 import ru.practicum.android.diploma.core.domain.repository.ConnectivityRepository
-import ru.practicum.android.diploma.core.util.NetworkConnectivity
+import ru.practicum.android.diploma.core.domain.repository.FiltersRepository
 
 private const val BASE_URL = "https://android-diploma.education-services.ru/"
 private const val DB_NAME = "diploma.db"
@@ -62,10 +65,16 @@ val coreModule = module {
     }
 
     single<AppDatabase> {
-        Room.databaseBuilder(get(), AppDatabase::class.java, DB_NAME).build()
+        Room.databaseBuilder(get(), AppDatabase::class.java, DB_NAME)
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
     }
 
-    single {
-        NetworkConnectivity(get())
+    single<FiltersRepository> {
+        FiltersRepositoryImpl(get())
+    }
+
+    single<AreaRepository> {
+        AreaRepositoryImpl(get())
     }
 }

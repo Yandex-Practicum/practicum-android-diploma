@@ -1,29 +1,88 @@
 package ru.practicum.android.diploma.area.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.area.ui.mock.AreaPreviewProvider
+import ru.practicum.android.diploma.core.domain.models.Area
+import ru.practicum.android.diploma.core.ui.theme.AppTheme
+import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.utils.AppScreen
+import ru.practicum.android.diploma.core.ui.utils.Button
+import ru.practicum.android.diploma.core.ui.utils.CancellableFilterListItem
 
 @Composable
 fun AreaScreen(
+    currentEntry: NavBackStackEntry?,
     viewModel: AreaViewModel,
     onNavigateToRegion: () -> Unit,
     onNavigateToCountry: () -> Unit,
     onBack: () -> Unit
 ) {
-    AppScreen(R.string.filter_screen_title, onBack) {
-        Column {
-            Button(
-                onClick = onNavigateToRegion,
-                content = { Text("to Region") }
-            )
-            Button(
-                onClick = onNavigateToCountry,
-                content = { Text("to Country") }
-            )
+    val state = viewModel.state.collectAsState()
+    val result by currentEntry?.savedStateHandle
+        ?.getStateFlow<Area?>("country", null)
+        ?.collectAsStateWithLifecycle() ?: remember { mutableStateOf(null) }
+
+    LaunchedEffect(result) {
+        result?.let { data ->
+            viewModel.onBack(country = data)
+            currentEntry?.savedStateHandle?.remove<Area?>("country")
         }
+    }
+
+    AppScreen(R.string.area_screen_title, onBack) {
+        Column(modifier = Modifier.padding(top = Dimens.padding16)) {
+            CancellableFilterListItem(
+                label = stringResource(R.string.area_country),
+                value = state.value.country?.name,
+                onReset = viewModel::resetCountry,
+                onNavigate = onNavigateToCountry
+            )
+
+            CancellableFilterListItem(
+                label = stringResource(R.string.area_region),
+                value = state.value.region?.name,
+                onReset = viewModel::resetRegion,
+                onNavigate = onNavigateToRegion
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            if (state.value.country != null || state.value.region != null) {
+                Button(
+                    text = stringResource(R.string.area_button_aply),
+                    modifier = Modifier.padding(horizontal = Dimens.padding16),
+                    onClick = {
+                        viewModel.apply()
+                        onBack()
+                    }
+                )
+            }
+        }
+
+    }
+}
+
+@Preview(name = "Light", showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Composable
+private fun AreaScreenPreview(
+    @PreviewParameter(AreaPreviewProvider::class) model: AreaViewModel
+) {
+    AppTheme {
+        AreaScreen(null, model, {}, {}, {})
     }
 }

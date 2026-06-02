@@ -8,4 +8,7 @@ sealed class Request {
     data class VacancyDetailsRequest(
         val id: String
     ) : Request()
+
+    object IndustriesRequest : Request()
+    object AreasRequest : Request()
 }

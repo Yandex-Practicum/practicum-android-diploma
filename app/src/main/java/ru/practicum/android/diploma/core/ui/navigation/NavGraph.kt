@@ -8,6 +8,7 @@ import androidx.navigation.toRoute
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.area.ui.AreaScreen
+import ru.practicum.android.diploma.core.domain.models.Area
 import ru.practicum.android.diploma.country.ui.CountryScreen
 import ru.practicum.android.diploma.favorites.ui.FavoritesScreen
 import ru.practicum.android.diploma.filter.ui.FilterScreen
@@ -22,6 +23,7 @@ fun NavGraph(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.Search) {
         composable<Screen.Search> {
             SearchScreen(
+                koinViewModel(),
                 onNavigateToFilter = {
                     navController.navigate(Screen.Filter)
                 },
@@ -56,6 +58,7 @@ fun NavGraph(navController: NavHostController) {
 
         composable<Screen.Area> {
             AreaScreen(
+                navController.currentBackStackEntry,
                 koinViewModel(),
                 onNavigateToRegion = {
                     navController.navigate(Screen.Region)
@@ -72,7 +75,8 @@ fun NavGraph(navController: NavHostController) {
         composable<Screen.Country> {
             CountryScreen(
                 koinViewModel(),
-                onBack = {
+                onBack = { country ->
+                    navController.previousBackStackEntry?.savedStateHandle?.set("country", country)
                     navController.popBackStack()
                 }
             )
@@ -109,4 +113,5 @@ fun NavGraph(navController: NavHostController) {
             TeamScreen()
         }
     }
+
 }

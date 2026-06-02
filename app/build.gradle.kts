@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.kotlin.parcelize)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 

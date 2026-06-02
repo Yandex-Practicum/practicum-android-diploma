@@ -6,12 +6,12 @@ import ru.practicum.android.diploma.search.data.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.impl.SearchInteractorImpl
+import ru.practicum.android.diploma.search.ui.SearchViewModel
 import ru.practicum.android.diploma.search.ui.SearchViewModelImpl
 
 val searchModule = module {
-
-    viewModel {
-        SearchViewModelImpl(get(), get())
+    viewModel<SearchViewModel> {
+        SearchViewModelImpl(get())
     }
 
     single<SearchRepository> {
@@ -19,6 +19,6 @@ val searchModule = module {
     }
 
     single<SearchInteractor> {
-        SearchInteractorImpl(get())
+        SearchInteractorImpl(get(), get())
     }
 }
