@@ -30,10 +30,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.presentation.filtration.action.FiltrationAction
 import ru.practicum.android.diploma.ui.common.CheckBox
 import ru.practicum.android.diploma.ui.common.FilterItem
 import ru.practicum.android.diploma.ui.common.PrimaryButton
@@ -47,14 +47,19 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 @Composable
 fun FiltrationScreen(
     country: String,
-    specialization: String,
-    expectedSalary: String,
+    industry: String,
+    salary: String,
     dontShowWithoutSalaryChecked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onApplyClick: () -> Unit,
     onCancelClick: () -> Unit,
+    onNavClick: () -> Unit,
+    onIndustryClick: () -> Unit,
+    onAreaClick: () -> Unit,
+    onIndustryClear: () -> Unit,
+    onAreaClear: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -65,7 +70,8 @@ fun FiltrationScreen(
                 text = stringResource(R.string.filter_settings_title),
                 navIconVisible = true,
                 endFirstIconVisible = false,
-                endSecondIconVisible = false
+                endSecondIconVisible = false,
+                onNavClick = onNavClick
             )
         },
         bottomBar = {
@@ -82,15 +88,19 @@ fun FiltrationScreen(
         ) {
             FilterItem(
                 modifier = Modifier.padding(top = 16.dp),
-                headlineText = stringResource(R.string.filter_settings_country_title),
-                supportingText = country.takeIf { it.isNotEmpty() },
+                title = stringResource(R.string.filter_settings_country_title),
+                value = country.takeIf { it.isNotEmpty() },
+                onItemClick = onAreaClick,
+                onCrossClick = onAreaClear
             )
             FilterItem(
-                headlineText = stringResource(R.string.specialization_title),
-                supportingText = specialization.takeIf { it.isNotEmpty() },
+                title = stringResource(R.string.specialization_title),
+                value = industry.takeIf { it.isNotEmpty() },
+                onItemClick = onIndustryClick,
+                onCrossClick = onIndustryClear
             )
             SalaryTextEdit(
-                searchQuery = expectedSalary,
+                searchQuery = salary,
                 interactionSource = interactionSource,
                 onSearchTextChange = onSearchTextChange,
                 onClear = onClear,
@@ -258,21 +268,5 @@ fun SalaryTextEditPlaceholder() {
             ),
         ),
         maxLines = 1,
-    )
-}
-
-@Composable
-@Preview
-fun PreviewFiltrationScreen() {
-    FiltrationScreen(
-        country = "Россия",
-        specialization = "Разработчик",
-        expectedSalary = "100000",
-        true,
-        {},
-        {},
-        {},
-        {},
-        {},
     )
 }

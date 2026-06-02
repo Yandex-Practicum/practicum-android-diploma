@@ -5,6 +5,8 @@ import ru.practicum.android.diploma.domain.models.FilterIndustry
 sealed interface FiltrationAction {
     data class SalaryChanged(val salary: Int) : FiltrationAction
     data object SalaryCleared : FiltrationAction
+
+    data object IndustryCleared : FiltrationAction
     data class OnlyWithSalaryChanged(val checked: Boolean) : FiltrationAction
     data object ApplyClicked : FiltrationAction
     data object ResetClicked : FiltrationAction

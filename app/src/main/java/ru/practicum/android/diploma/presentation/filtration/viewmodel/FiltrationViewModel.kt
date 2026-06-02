@@ -58,6 +58,7 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
             FiltrationAction.IndustryClicked -> navigateIndustry()
             is FiltrationAction.IndustryChanged -> applyIndustry(action.industry)
             is FiltrationAction.CloseScreen -> saveFilters()
+            is FiltrationAction.IndustryCleared -> clearIndustry()
         }
     }
 
@@ -103,6 +104,10 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
 
     private fun clearSalary() {
         _state.update { it.copy(salary = null) }
+    }
+
+    private fun clearIndustry() {
+        _state.update { it.copy(industry = null) }
     }
 
     private fun navigateBack() {
