@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.common.FilterItem
 import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.PrimaryButton
 import ru.practicum.android.diploma.ui.common.SecondaryButton
@@ -86,14 +87,14 @@ fun FiltrationScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            CellComponent(
+            FilterItem(
                 modifier = Modifier.padding(top = 16.dp),
-                upperText = stringResource(R.string.filter_settings_country_title),
-                lowerText = country
+                headlineText = stringResource(R.string.filter_settings_country_title),
+                supportingText = country.takeIf { it.isNotEmpty() },
             )
-            CellComponent(
-                upperText = stringResource(R.string.specialization_title),
-                lowerText = specialization
+            FilterItem(
+                headlineText = stringResource(R.string.specialization_title),
+                supportingText = specialization.takeIf { it.isNotEmpty() },
             )
             SalaryTextEdit(
                 searchQuery = expectedSalary,
@@ -278,62 +279,6 @@ fun SalaryTextEdit(
                 .clickable(enabled = true, onClick = onClear),
             resId = R.drawable.ic_cross,
             color = MaterialTheme.colorScheme.secondaryFixed
-        )
-    }
-}
-
-@Composable
-fun CellComponent(
-    upperText: String,
-    lowerText: String,
-    modifier: Modifier = Modifier,
-    trailingIconId: Int? = null,
-    onIconClick: () -> Unit = {},
-) {
-    val hasValue = lowerText.isNotEmpty()
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .weight(1f)
-                .padding(start = 16.dp)
-        ) {
-            Text(
-                text = upperText,
-                style = if (hasValue) {
-                    MaterialTheme.typography.labelSmall
-                } else {
-                    MaterialTheme.typography.labelMedium
-                },
-                color = if (hasValue) {
-                    MaterialTheme.colorScheme.onBackground
-                } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                },
-            )
-            if (hasValue) {
-                Text(
-                    text = lowerText,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
-        IconImage(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .testTag(SearchScreenTestTags.ClearButton)
-                .padding(end = 4.dp)
-                .clickable(enabled = true, onClick = onIconClick),
-            resId = trailingIconId ?: if (lowerText.isEmpty()) {
-                R.drawable.ic_arrow_right
-            } else {
-                R.drawable.ic_cross
-            },
-            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }

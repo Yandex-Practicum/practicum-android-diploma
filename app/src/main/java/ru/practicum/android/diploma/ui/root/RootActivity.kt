@@ -21,8 +21,6 @@ class RootActivity : AppCompatActivity() {
         setContentView(R.layout.activity_root)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val fragmentContainer = findViewById<FragmentContainerView>(R.id.fragment_container_view)
-        fragmentContainer.applySystemBarsPadding(bottomNavigationView)
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
@@ -41,7 +39,6 @@ class RootActivity : AppCompatActivity() {
 
                 else -> bottomNavigationView.isVisible = false
             }
-            ViewCompat.requestApplyInsets(fragmentContainer)
         }
     }
 
