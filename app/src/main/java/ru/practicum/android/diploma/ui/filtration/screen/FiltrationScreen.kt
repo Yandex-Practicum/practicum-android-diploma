@@ -46,6 +46,7 @@ import ru.practicum.android.diploma.ui.common.FilterItem
 import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.PrimaryButton
 import ru.practicum.android.diploma.ui.common.SecondaryButton
+import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.search.screen.SearchScreenTestTags
 import ru.practicum.android.diploma.ui.theme.Blue
@@ -272,13 +273,9 @@ fun SalaryTextEdit(
                 }
             }
         )
-        IconImage(
-            modifier = Modifier
-                .testTag(SearchScreenTestTags.ClearButton)
-                .padding(end = 4.dp)
-                .clickable(enabled = true, onClick = onClear),
-            resId = R.drawable.ic_cross,
-            color = MaterialTheme.colorScheme.secondaryFixed
+        TextEditTrailingIcon(
+            R.drawable.ic_cross,
+            onClear
         )
     }
 }

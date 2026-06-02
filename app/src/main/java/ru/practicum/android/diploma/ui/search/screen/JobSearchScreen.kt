@@ -36,6 +36,7 @@ import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.ui.common.BadgeItem
 import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
+import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.common.search.VacanciesContent
 import ru.practicum.android.diploma.ui.theme.Blue
@@ -149,13 +150,9 @@ private fun SearchQueryField(
                 }
             }
         )
-        IconImage(
-            modifier = Modifier
-                .testTag(SearchScreenTestTags.ClearButton)
-                .padding(end = 4.dp)
-                .clickable(enabled = true, onClick = onClear),
-            resId = if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
-            color = MaterialTheme.colorScheme.secondaryFixed
+        TextEditTrailingIcon(
+            if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
+            onClear
         )
     }
 }
