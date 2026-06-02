@@ -18,5 +18,6 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="from">от</string>
     <string name="to">до</string>
+    <string name="choose">Выбрать</string>
     <string name="search_error_server">Ошибка сервера</string>
 </resources>

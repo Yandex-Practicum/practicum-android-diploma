@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.core.ui.utils
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -58,7 +57,7 @@ fun TextField(
         bottom = Dimens.padding8
     ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    @StringRes placeholderStringResource: Int? = null
+    placeholderStringResource: Int? = null
 ) {
     val isFocused = remember { false }
     Row(
@@ -95,14 +94,13 @@ fun TextField(
                 keyboardOptions = keyboardOptions,
                 decorationBox = @Composable { innerTextField ->
 //
+                    val searchPlaceholder = placeholderStringResource ?: R.string.search_placeholder
                     TextFieldDefaults.DecorationBox(
                         value = query,
                         visualTransformation = VisualTransformation.None,
                         innerTextField = innerTextField,
 
-                        placeholder = {
-                            Text(text = stringResource(id = placeholderStringResource ?: R.string.search_placeholder))
-                        },
+                        placeholder = { Text(text = stringResource(id = searchPlaceholder)) },
                         prefix = null,
                         suffix = null,
                         supportingText = null,
