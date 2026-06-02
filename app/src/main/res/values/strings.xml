@@ -66,4 +66,10 @@
     <string name="do_not_show_without_salary_title">Не показывать без зарплаты</string>
     <string name="cancel_button_text">Сбросить</string>
     <string name="apply_button_text">Применить</string>
+
+    <!-- Экран выбора региона -->
+    <string name="choose_region_title">Выбор региона</string>
+    <string name="choose_region_search_hint">Введите регион</string>
+    <string name="choose_region_not_found">Такого региона нет</string>
+    <string name="choose_region_error">Не удалось получить\nсписок</string>
 </resources>

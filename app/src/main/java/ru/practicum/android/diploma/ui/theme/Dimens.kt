@@ -22,4 +22,8 @@ object Dimens {
     val TopBarHeight = 64.dp
     val TopBarIconSize = 48.dp
     val TopBarTitleStartPadding = 12.dp
+
+    val RegionPlaceholderImageHeight = 223.dp
+    val RegionPlaceholderTextWidth = 268.dp
+    val RegionPlaceholderTextTopPadding = 8.dp
 }
