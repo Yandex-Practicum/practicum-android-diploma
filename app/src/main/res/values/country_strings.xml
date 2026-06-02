@@ -1,0 +1,3 @@
+<resources>
+    <string name="country_stub_empty_list">Не удалось получить список</string>
+</resources>

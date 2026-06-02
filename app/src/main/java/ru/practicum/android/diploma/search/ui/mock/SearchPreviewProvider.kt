@@ -9,17 +9,36 @@ import ru.practicum.android.diploma.search.ui.SearchViewModel
 
 class SearchPreviewProvider : PreviewParameterProvider<SearchViewModel> {
     override val values = sequenceOf(
-        SearchViewModelMock(SearchScreenState.Default),
-        SearchViewModelMock(SearchScreenState.Default, isFiltered = true, query = "123"),
+        SearchViewModelMock(SearchScreenState.Initial),
+        SearchViewModelMock(SearchScreenState.Initial, isFiltered = true, query = "123"),
         SearchViewModelMock(SearchScreenState.Loading, query = "123"),
         SearchViewModelMock(
             SearchScreenState.Content(
                 Vacancy.mockList(),
-                totalFound = Vacancy.mockList().count()
+                totalFound = Vacancy.mockList().count(),
+                false,
             ),
             query = "123"
         ),
-        SearchViewModelMock(SearchScreenState.Error(SearchError.INTERNET), query = "123"),
-        SearchViewModelMock(SearchScreenState.Error(SearchError.NOT_FOUND), query = "123"),
+        SearchViewModelMock(
+            SearchScreenState.Content(
+                Vacancy.mockList(),
+                totalFound = Vacancy.mockList().count(),
+                true,
+            ),
+            query = "123"
+        ),
+        SearchViewModelMock(
+            SearchScreenState.Content(
+                Vacancy.mockList(),
+                totalFound = Vacancy.mockList().count(),
+                false
+            ),
+            query = "123",
+            errorCode = SearchError.NO_INTERNET
+        ),
+        SearchViewModelMock(SearchScreenState.Error(SearchError.NO_INTERNET), query = "123"),
+        SearchViewModelMock(SearchScreenState.Error(SearchError.EMPTY_RESULTS), query = "123"),
+        SearchViewModelMock(SearchScreenState.Error(SearchError.SERVER_ERROR), query = "123"),
     )
 }
