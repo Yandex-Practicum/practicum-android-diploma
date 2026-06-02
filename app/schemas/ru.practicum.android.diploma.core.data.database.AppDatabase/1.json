@@ -196,7 +196,6 @@
       },
       {
         "tableName": "favorite_phone",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancyId` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `number` TEXT, `comment` TEXT, FOREIGN KEY(`vacancyId`) REFERENCES `favorite_vacancy`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "vacancyId",
