@@ -223,7 +223,7 @@ fun SalaryTextEdit(
                         verticalArrangement = Arrangement.spacedBy(0.dp),
                     ) {
                         SalaryTextEditTitle(labelColor)
-                        if (searchQuery.isEmpty()) {
+                        if (searchQuery.isEmpty() && !isFocused) {
                             SalaryTextEditPlaceholder()
                         }
                         innerTextField()
