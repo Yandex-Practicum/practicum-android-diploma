@@ -29,7 +29,7 @@ class NetworkClientImpl(
         }
     }
 
-    @Suppress("CyclomaticComplexMethod")
+    @Suppress("UnusedParameter", "UnusedPrivateMember")
     private suspend fun executeRequest(request: Request): Response {
         return when (request) {
             is Request.SearchRequest -> {

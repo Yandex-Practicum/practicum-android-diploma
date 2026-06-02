@@ -101,6 +101,7 @@ private fun SearchFilterIcon(isFiltered: Boolean, onNavigateToFilter: () -> Unit
         )
     }
 }
+@Suppress("CyclomaticComplexMethod")
 @Composable
 private fun SearchContent(
     state: SearchScreenState,
