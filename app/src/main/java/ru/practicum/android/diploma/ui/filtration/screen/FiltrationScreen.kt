@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.common.CheckBox
-import ru.practicum.android.diploma.ui.common.FilterItem
+import ru.practicum.android.diploma.ui.common.filter.FilterItem
 import ru.practicum.android.diploma.ui.common.PrimaryButton
 import ru.practicum.android.diploma.ui.common.SecondaryButton
 import ru.practicum.android.diploma.ui.common.TextEdit

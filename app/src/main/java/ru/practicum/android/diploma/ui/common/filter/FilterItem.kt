@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.common
+package ru.practicum.android.diploma.ui.common.filter
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

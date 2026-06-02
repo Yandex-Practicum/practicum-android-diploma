@@ -78,6 +78,11 @@
     <string name="choose_country">Выбор страны</string>
     <string name="choose_country_error">Не удалось получить список</string>
 
+    <!-- Экран отраслей -->
+    <string name="industry_choice_title">Выбор отрасли</string>
+    <string name="region_search_placeholder_text">Введите отрасль</string>
+    <string name="industry_server_error">Не удалось получить\nсписок</string>
+
     <!-- Экран выбора региона -->
     <string name="choose_region_title">Выбор региона</string>
     <string name="choose_region_search_hint">Введите регион</string>
