@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.models.Filters
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
@@ -13,11 +14,19 @@ class FilterViewModelImpl(val interactor: FilterInteractor) : FilterViewModel() 
     private val _state = MutableStateFlow<Filters>(Filters())
     override var state: StateFlow<Filters> = _state.asStateFlow()
 
+    private val _isModified = MutableStateFlow(false)
+    override val isModified: StateFlow<Boolean> = _isModified.asStateFlow()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.filters().collect {
                 _state.value = it
             }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            combine(interactor.filters(), interactor.appliedFilters()) { temp, applied ->
+                temp != applied
+            }.collect { _isModified.value = it }
         }
     }
     override fun onQueryChanged(query: String) {

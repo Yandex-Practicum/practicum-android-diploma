@@ -16,7 +16,11 @@ class AreaViewModelImpl(val interactor: AreaInteractor) : AreaViewModel() {
         viewModelScope.launch {
             combine(interactor.country, interactor.region) { country, region -> country to region }
                 .collect { (country, region) ->
-                    _state.value = _state.value.copy(country = country, region = region)
+                    _state.value = _state.value.copy(
+                        country = country,
+                        region = region,
+                        regionCountryId = if (region != null) country?.id else null
+                    )
                 }
         }
     }
@@ -34,7 +38,6 @@ class AreaViewModelImpl(val interactor: AreaInteractor) : AreaViewModel() {
 
     override fun onCountrySelected(country: Area) {
         val current = _state.value
-        // Регион принадлежит другой стране — сбрасываем его.
         val resetRegion = current.region != null && current.regionCountryId != country.id
         _state.value = current.copy(
             country = country,
@@ -48,7 +51,6 @@ class AreaViewModelImpl(val interactor: AreaInteractor) : AreaViewModel() {
         _state.value = current.copy(
             region = region,
             regionCountryId = regionCountry.id,
-            // Авто-подстановка страны, если она ещё не выбрана.
             country = current.country ?: regionCountry
         )
     }

@@ -34,10 +34,9 @@ class RegionRepositoryImpl(private val networkClient: NetworkClient) : RegionRep
         }
     }
 
-    // Если задана страна — берём только её поддерево, иначе обходим все страны.
-    // Сами страны (корни) в список не попадают — только их вложенные субъекты и населённые пункты.
     private fun mapRegions(tree: AreasDto, countryId: String?): List<RegionItem> {
-        val roots = if (countryId != null) tree.filter { it.id == countryId } else tree
+        val countries = tree.filter { it.parentId == null }
+        val roots = if (countryId != null) countries.filter { it.id == countryId } else countries
         return roots
             .flatMap { country -> collectRegions(country.areas, Area(country.id, country.name)) }
             .sortedBy { it.region.name.lowercase() }
@@ -46,7 +45,9 @@ class RegionRepositoryImpl(private val networkClient: NetworkClient) : RegionRep
     private fun collectRegions(nodes: List<AreaDto>, country: Area): List<RegionItem> {
         return nodes.flatMap { node ->
             buildList {
-                add(RegionItem(region = Area(node.id, node.name), country = country))
+                if (node.parentId != null) {
+                    add(RegionItem(region = Area(node.id, node.name), country = country))
+                }
                 addAll(collectRegions(node.areas, country))
             }
         }

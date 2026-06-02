@@ -58,8 +58,8 @@ fun RegionScreen(
                 }
 
                 is RegionScreenState.Empty -> Stub(
-                    R.drawable.image_core_stub_empty_list,
-                    R.string.country_stub_empty_list
+                    R.drawable.image_core_stub_not_found,
+                    R.string.region_stub_nothing_found
                 )
 
                 is RegionScreenState.Error -> {
@@ -73,7 +73,7 @@ fun RegionScreen(
                         if (error == RegionError.NO_INTERNET) {
                             R.string.no_internet_connection
                         } else {
-                            R.string.country_stub_empty_list
+                            R.string.region_stub_empty_list
                         }
                     )
                 }

@@ -29,7 +29,7 @@ import ru.practicum.android.diploma.core.ui.utils.CancellableFilterListItem
 fun AreaScreen(
     currentEntry: NavBackStackEntry?,
     viewModel: AreaViewModel,
-    onNavigateToRegion: () -> Unit,
+    onNavigateToRegion: (countryId: String?) -> Unit,
     onNavigateToCountry: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -74,7 +74,7 @@ fun AreaScreen(
                 label = stringResource(R.string.area_region),
                 value = state.value.region?.name,
                 onReset = viewModel::resetRegion,
-                onNavigate = onNavigateToRegion
+                onNavigate = { onNavigateToRegion(state.value.country?.id) }
             )
             Spacer(modifier = Modifier.weight(1f))
             if (state.value.country != null || state.value.region != null) {
@@ -99,6 +99,6 @@ private fun AreaScreenPreview(
     @PreviewParameter(AreaPreviewProvider::class) model: AreaViewModel
 ) {
     AppTheme {
-        AreaScreen(null, model, {}, {}, {})
+        AreaScreen(null, model, { _ -> }, {}, {})
     }
 }

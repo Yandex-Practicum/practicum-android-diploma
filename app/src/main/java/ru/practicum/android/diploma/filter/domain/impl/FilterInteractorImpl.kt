@@ -13,6 +13,12 @@ class FilterInteractorImpl(val repository: FiltersRepository) : FilterInteractor
         }
     }
 
+    override fun appliedFilters(): Flow<Filters> = flow {
+        repository.filters.collect {
+            emit(it)
+        }
+    }
+
     override fun resetIndustry() {
         repository.applyIndustry(null)
     }

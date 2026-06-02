@@ -11,6 +11,10 @@ class FilterViewModelMock(
 ) : FilterViewModel() {
     private val _state = MutableStateFlow<Filters>(Filters())
     override var state: StateFlow<Filters> = _state.asStateFlow()
+
+    private val _isModified = MutableStateFlow(true)
+    override val isModified: StateFlow<Boolean> = _isModified.asStateFlow()
+
     init {
         _state.value = mockState
     }

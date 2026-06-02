@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.core.domain.Resource
 import ru.practicum.android.diploma.region.domain.models.RegionItem
 
 interface RegionInteractor {
-    fun getRegions(): Flow<Resource<List<RegionItem>>>
+    fun getRegions(countryId: String?): Flow<Resource<List<RegionItem>>>
 }

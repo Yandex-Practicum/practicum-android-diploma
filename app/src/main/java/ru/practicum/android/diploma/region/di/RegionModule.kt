@@ -14,9 +14,9 @@ val regionModule = module {
         RegionRepositoryImpl(get())
     }
     factory<RegionInteractor> {
-        RegionInteractorImpl(get(), get())
+        RegionInteractorImpl(get())
     }
-    viewModel<RegionViewModel> {
-        RegionViewModelImpl(get())
+    viewModel<RegionViewModel> { (countryId: String?) ->
+        RegionViewModelImpl(get(), countryId)
     }
 }

@@ -8,7 +8,7 @@ sealed class Screen(val route: String) {
     @Serializable object Filter : Screen("filters")
     @Serializable object Area : Screen("area")
     @Serializable object Country : Screen("country")
-    @Serializable object Region : Screen("region")
+    @Serializable data class Region(val countryId: String?) : Screen("region/{countryId}")
     @Serializable data class Industry(val industryId: String?) : Screen("industry/{industryId}")
     @Serializable data class Vacancy(val id: String) : Screen("vacancy/{id}")
     @Serializable object Favorites : Screen("favorites")

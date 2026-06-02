@@ -11,7 +11,8 @@ import ru.practicum.android.diploma.region.domain.api.RegionInteractor
 import ru.practicum.android.diploma.region.domain.models.RegionItem
 
 class RegionViewModelImpl(
-    private val interactor: RegionInteractor
+    private val interactor: RegionInteractor,
+    private val countryId: String?
 ) : RegionViewModel() {
     private val _query = MutableStateFlow("")
     override val query: StateFlow<String> = _query.asStateFlow()
@@ -23,7 +24,7 @@ class RegionViewModelImpl(
 
     init {
         viewModelScope.launch {
-            interactor.getRegions().collect { resource ->
+            interactor.getRegions(countryId).collect { resource ->
                 when (resource) {
                     is Resource.Loading -> _state.value = RegionScreenState.Loading
                     is Resource.Success -> {
