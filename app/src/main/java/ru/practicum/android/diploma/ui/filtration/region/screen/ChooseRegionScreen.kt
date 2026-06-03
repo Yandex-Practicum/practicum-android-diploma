@@ -9,12 +9,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.common.Loader
+import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.filtration.region.action.ChooseRegionAction
 import ru.practicum.android.diploma.ui.filtration.region.model.RegionUi
 import ru.practicum.android.diploma.ui.filtration.region.screen.components.ChooseRegionTopBar
-import ru.practicum.android.diploma.ui.filtration.region.screen.components.RegionEmptyState
-import ru.practicum.android.diploma.ui.filtration.region.screen.components.RegionErrorState
 import ru.practicum.android.diploma.ui.filtration.region.screen.components.RegionList
 import ru.practicum.android.diploma.ui.filtration.region.screen.components.RegionSearchField
 import ru.practicum.android.diploma.ui.filtration.region.state.ChooseRegionUiState
@@ -59,9 +59,15 @@ private fun ChooseRegionContent(
     when {
         state.isLoading -> Loader(modifier = modifier.fillMaxSize())
 
-        state.isError -> RegionErrorState(modifier = modifier.fillMaxSize())
+        state.isError -> PlaceholderLayout(
+            imageRes = R.drawable.img_region_list_error,
+            textRes = R.string.choose_region_error,
+        )
 
-        state.isEmptySearchResult -> RegionEmptyState(modifier = modifier.fillMaxSize())
+        state.isEmptySearchResult -> PlaceholderLayout(
+            imageRes = R.drawable.img_nothing_found,
+            textRes = R.string.choose_region_not_found,
+        )
 
         else -> RegionList(
             regions = state.regions,

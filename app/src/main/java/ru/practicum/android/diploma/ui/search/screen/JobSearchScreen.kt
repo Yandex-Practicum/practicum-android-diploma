@@ -1,25 +1,16 @@
 package ru.practicum.android.diploma.ui.search.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -28,8 +19,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.ui.common.BadgeItem
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
-import ru.practicum.android.diploma.ui.common.TextEdit
-import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
+import ru.practicum.android.diploma.ui.common.SearchQueryField
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.common.search.VacanciesContent
 import ru.practicum.android.diploma.ui.theme.Dimens
@@ -67,10 +57,12 @@ fun JobSearchScreen(
         ) {
             SearchQueryField(
                 searchQuery = searchQuery,
+                hintRes = R.string.search_input_hint,
                 interactionSource = interactionSource,
                 onSearchTextChange = onSearchTextChange,
                 onClear = onClear,
                 onKeyboardDone = { keyboardController?.hide() },
+                textFieldModifier = Modifier.testTag(SearchScreenTestTags.TextField),
             )
             Box(modifier = Modifier.weight(1F)) {
                 JobSearchStateContent(
@@ -80,64 +72,6 @@ fun JobSearchScreen(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun SearchQueryField(
-    searchQuery: String,
-    interactionSource: MutableInteractionSource,
-    onSearchTextChange: (String) -> Unit,
-    onClear: () -> Unit,
-    onKeyboardDone: () -> Unit,
-) {
-    val fieldShape = RoundedCornerShape(8.dp)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = Dimens.ScreenHorizontalPadding,
-                top = 8.dp,
-                end = Dimens.ScreenHorizontalPadding,
-            )
-            .height(56.dp)
-            .clip(fieldShape)
-            .background(MaterialTheme.colorScheme.surfaceContainer),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextEdit(
-            value = searchQuery,
-            onValueChange = onSearchTextChange,
-            modifier = Modifier
-                .weight(1f)
-                .testTag(SearchScreenTestTags.TextField)
-                .fillMaxHeight()
-                .padding(start = 20.dp),
-            interactionSource = interactionSource,
-            onKeyboardDone = onKeyboardDone,
-            decorationBox = { innerTextField ->
-                Box(
-                    Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    if (searchQuery.isEmpty()) {
-                        Text(
-                            text = stringResource(R.string.search_input_hint),
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                color = MaterialTheme.colorScheme.inverseOnSurface
-                            ),
-                            maxLines = 1,
-                            modifier = Modifier.align(Alignment.CenterStart),
-                        )
-                    }
-                    innerTextField()
-                }
-            },
-        )
-        TextEditTrailingIcon(
-            if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
-            onClear
-        )
     }
 }
 
