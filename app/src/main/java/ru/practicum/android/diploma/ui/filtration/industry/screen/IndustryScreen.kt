@@ -177,11 +177,7 @@ private fun IndustrySearchStateContent(
         is IndustryScreenState.Content -> IndustriesContent(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    start = Dimens.ScreenHorizontalPadding,
-                    top = 8.dp,
-                    end = Dimens.ScreenHorizontalPadding,
-                ),
+                .padding(top = 8.dp),
             industries = state.industries,
             selectedIndustryId = state.selectedIndustry?.id,
             isLoading = status.isLoading,
@@ -207,15 +203,14 @@ fun IndustriesContent(
     isLoading: Boolean,
     onClick: (FilterIndustry) -> Unit,
 ) {
-    Column(modifier = modifier) {
-        Box(contentAlignment = Alignment.TopCenter) {
-            IndustryList(
-                industries = industries,
-                selectedIndustryId = selectedIndustryId,
-                isLoading = isLoading,
-                onClick = onClick,
-            )
-        }
+    Column(modifier = modifier.fillMaxWidth()) {
+        IndustryList(
+            modifier = Modifier.fillMaxWidth(),
+            industries = industries,
+            selectedIndustryId = selectedIndustryId,
+            isLoading = isLoading,
+            onClick = onClick,
+        )
         if (isLoading && industries.isEmpty()) {
             Loader(
                 modifier

@@ -20,6 +20,11 @@ import ru.practicum.android.diploma.ui.theme.AppTheme
 class FiltrationFragment : Fragment() {
     private val viewModel: FiltrationViewModel by viewModel()
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadFilters()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,11 +43,11 @@ class FiltrationFragment : Fragment() {
                         dontShowWithoutSalaryChecked = state.value.onlyWithSalary,
                         showButtons = state.value.showButtons,
                         onCheckedChange = { viewModel.onOnlyWithSalaryChanged(it) },
-                        onSearchTextChange = { viewModel.onSalaryChanged(it) },
+                        onSearchTextChange = { viewModel.onSalaryTextChanged(it) },
                         onClear = { viewModel.onSalaryCleared() },
                         onApplyClick = {
                             viewLifecycleOwner.lifecycleScope.launch {
-                                viewModel.saveFilters()
+                                viewModel.applyFilters()
                                 findNavController().popBackStack()
                             }
                         },
