@@ -1,0 +1,5 @@
+<resources>
+    <string name="region_search_placeholder">Введите название региона</string>
+    <string name="region_stub_nothing_found">Такого региона нет</string>
+    <string name="region_stub_empty_list">Не удалось получить список</string>
+</resources>

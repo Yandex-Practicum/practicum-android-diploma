@@ -77,10 +77,11 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient, private val
     }
 
     private fun mapFilters(filters: Filters): Map<String, String> {
-        var result = mutableMapOf<String, String>()
+        val result = mutableMapOf<String, String>()
 
-        (filters.country ?: filters.region)?.let {
-            result["area"] = it.id // Внимание! Api принимает только значение 1, задала вопрос наставнику в чате
+        (filters.region ?: filters.country)?.let {
+            result["area"] = it.id // Внимание! Api принимает только значение 1(Москва) и 2(Санкт-Петербург)// согласовано с наставником
+
         }
 
         filters.industry?.let {

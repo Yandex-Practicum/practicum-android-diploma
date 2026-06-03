@@ -6,6 +6,8 @@ import ru.practicum.android.diploma.core.domain.models.Filters
 
 abstract class FilterViewModel : ViewModel() {
     abstract var state: StateFlow<Filters>
+    abstract val isModified: StateFlow<Boolean>
+    abstract val isFiltered: StateFlow<Boolean>
     abstract fun onQueryChanged(query: String): Unit
     abstract fun onResetSalary(): Unit
     abstract fun onResetArea(): Unit

@@ -10,9 +10,18 @@ import ru.practicum.android.diploma.filter.ui.FilterViewModel
 class FilterPreviewProvider : PreviewParameterProvider<FilterViewModel> {
     override val values = sequenceOf(
         FilterViewModelMock(Filters()),
-        FilterViewModelMock(Filters(industry = Industry.mock1())),
-        FilterViewModelMock(Filters(industry = Industry.mock1(), country = Area.mock1())),
-        FilterViewModelMock(Filters(industry = Industry.mock1(), region = Area.mock1(), salary = "500")),
+        FilterViewModelMock(Filters(), isModified = true),
+        FilterViewModelMock(Filters(industry = Industry.mock1()), isFiltered = true),
+        FilterViewModelMock(Filters(industry = Industry.mock1()), isFiltered = true),
+        FilterViewModelMock(
+            Filters(industry = Industry.mock1(), country = Area.mock1()),
+            isFiltered = true
+        ),
+        FilterViewModelMock(
+            Filters(industry = Industry.mock1(), region = Area.mock1(), salary = "500"),
+            isFiltered = true,
+            isModified = true
+        ),
         FilterViewModelMock(
             Filters(
                 industry = Industry.mock1(),
@@ -20,7 +29,9 @@ class FilterPreviewProvider : PreviewParameterProvider<FilterViewModel> {
                 region = Area.mock1(),
                 salary = "500",
                 onlyWithSalary = true
-            )
+            ),
+            isFiltered = true,
+            isModified = true
         )
     )
 }

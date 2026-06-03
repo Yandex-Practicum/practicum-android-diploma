@@ -31,6 +31,9 @@ fun FilterScreen(
     onBack: () -> Unit
 ) {
     val state = viewModel.state.collectAsState()
+    val isModified = viewModel.isModified.collectAsState()
+    val isFiltered = viewModel.isFiltered.collectAsState()
+
     AppScreen(R.string.filter_screen_title, {
         viewModel.cancel()
         onBack()
@@ -38,7 +41,9 @@ fun FilterScreen(
         Column(modifier = Modifier.padding(bottom = Dimens.padding24)) {
             CancellableFilterListItem(
                 label = stringResource(R.string.filter_area_label),
-                value = state.value.region?.name ?: state.value.country?.name,
+                value = state.value.region?.let { region ->
+                    listOfNotNull(state.value.country?.name, region.name).joinToString(", ")
+                } ?: state.value.country?.name,
                 onReset = viewModel::onResetArea,
                 onNavigate = onNavigateToArea
             )
@@ -71,22 +76,26 @@ fun FilterScreen(
                 onClickIcon = viewModel::onToggleSalary
             )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                text = stringResource(R.string.filter_apply),
-                modifier = Modifier.padding(horizontal = Dimens.padding16),
-                onClick = {
-                    viewModel.apply()
-                    onBack()
-                }
-            )
-            Button(
-                text = stringResource(R.string.filter_reset),
-                type = ButtonType.TERTIARY,
-                modifier = Modifier.padding(horizontal = Dimens.padding16),
-                onClick = {
-                    viewModel.reset()
-                }
-            )
+            if (isModified.value) {
+                Button(
+                    text = stringResource(R.string.filter_apply),
+                    modifier = Modifier.padding(horizontal = Dimens.padding16),
+                    onClick = {
+                        viewModel.apply()
+                        onBack()
+                    }
+                )
+            }
+            if (isFiltered.value) {
+                Button(
+                    text = stringResource(R.string.filter_reset),
+                    type = ButtonType.TERTIARY,
+                    modifier = Modifier.padding(horizontal = Dimens.padding16),
+                    onClick = {
+                        viewModel.reset()
+                    }
+                )
+            }
 
         }
     }

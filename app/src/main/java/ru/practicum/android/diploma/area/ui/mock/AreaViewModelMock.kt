@@ -21,6 +21,7 @@ class AreaViewModelMock(
 
     override fun resetRegion() {}
     override fun apply() {}
-    override fun onBack(country: Area?) {}
+    override fun onCountrySelected(country: Area) {}
+    override fun onRegionSelected(region: Area, regionCountry: Area) {}
 
 }

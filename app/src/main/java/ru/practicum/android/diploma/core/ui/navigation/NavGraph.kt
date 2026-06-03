@@ -60,8 +60,8 @@ fun NavGraph(navController: NavHostController) {
             AreaScreen(
                 navController.currentBackStackEntry,
                 koinViewModel(),
-                onNavigateToRegion = {
-                    navController.navigate(Screen.Region)
+                onNavigateToRegion = { countryId ->
+                    navController.navigate(Screen.Region(countryId))
                 },
                 onNavigateToCountry = {
                     navController.navigate(Screen.Country)
@@ -82,9 +82,15 @@ fun NavGraph(navController: NavHostController) {
             )
         }
 
-        composable<Screen.Region> {
+        composable<Screen.Region> { backStackEntry ->
+            val countryId = backStackEntry.arguments?.getString("countryId")
             RegionScreen(
-                koinViewModel(),
+                koinViewModel { parametersOf(countryId) },
+                onSelect = { region, country ->
+                    navController.previousBackStackEntry?.savedStateHandle?.set("region", region)
+                    navController.previousBackStackEntry?.savedStateHandle?.set("region_country", country)
+                    navController.popBackStack()
+                },
                 onBack = {
                     navController.popBackStack()
                 }
