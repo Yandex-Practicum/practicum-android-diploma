@@ -65,6 +65,7 @@ class VacancyViewModelImpl(
         loadResult.value = when {
             cached != null -> LoadResult.Loaded(cached, fromCache = true)
             code == ResultCode.NO_INTERNET -> LoadResult.NoInternet
+            code == ResultCode.NOT_FOUND -> LoadResult.NotFound
             else -> LoadResult.Failed
         }
     }
@@ -77,6 +78,7 @@ class VacancyViewModelImpl(
             fromCache = result.fromCache,
         )
         LoadResult.NoInternet -> VacancyState.NoInternet
+        LoadResult.NotFound -> VacancyState.NotFound
         LoadResult.Failed -> VacancyState.Error
     }
 
@@ -84,6 +86,7 @@ class VacancyViewModelImpl(
         object Loading : LoadResult
         data class Loaded(val details: VacancyDetails, val fromCache: Boolean) : LoadResult
         object NoInternet : LoadResult
+        object NotFound : LoadResult
         object Failed : LoadResult
     }
 }

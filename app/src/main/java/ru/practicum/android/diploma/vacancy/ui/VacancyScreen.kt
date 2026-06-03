@@ -60,8 +60,12 @@ fun VacancyScreen(viewModel: VacancyViewModel, onBack: () -> Unit) {
                 iconId = R.drawable.image_core_stub_no_internet,
                 descriptionId = R.string.vacancy_error_no_internet,
             )
+            VacancyState.NotFound -> Stub(
+                iconId = R.drawable.image_vacancy_stub_not_found,
+                descriptionId = R.string.vacancy_error_not_found,
+            )
             VacancyState.Error -> Stub(
-                iconId = R.drawable.image_core_stub_not_found,
+                iconId = R.drawable.image_vacancy_stub_no_server,
                 descriptionId = R.string.vacancy_error_server,
             )
         }

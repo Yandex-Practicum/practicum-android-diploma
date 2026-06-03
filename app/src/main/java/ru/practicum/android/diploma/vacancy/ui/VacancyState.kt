@@ -11,4 +11,5 @@ sealed interface VacancyState {
     ) : VacancyState
     object NoInternet : VacancyState
     object Error : VacancyState
+    object NotFound : VacancyState
 }

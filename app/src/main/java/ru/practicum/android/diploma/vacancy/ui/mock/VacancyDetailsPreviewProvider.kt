@@ -33,6 +33,7 @@ class VacancyDetailsPreviewProvider : PreviewParameterProvider<VacancyViewModel>
         ),
         VacancyViewModelMock(VacancyState.Loading),
         VacancyViewModelMock(VacancyState.NoInternet),
+        VacancyViewModelMock(VacancyState.NotFound),
         VacancyViewModelMock(VacancyState.Error),
     )
 }

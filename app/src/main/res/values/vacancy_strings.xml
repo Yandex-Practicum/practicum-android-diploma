@@ -10,5 +10,6 @@
     <string name="vacancy_favorite_add">Добавить в избранное</string>
     <string name="vacancy_favorite_remove">Удалить из избранного</string>
     <string name="vacancy_error_no_internet">Нет интернета</string>
-    <string name="vacancy_error_server">Ошибка сервера.\nПопробуйте позже</string>
+    <string name="vacancy_error_not_found">Вакансия не найдена или\nудалена</string>
+    <string name="vacancy_error_server">Ошибка сервера</string>
 </resources>

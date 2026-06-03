@@ -10,5 +10,6 @@ object ResultCode {
     const val SUCCESS = 200
     const val NO_INTERNET = -1
     const val CLIENT_ERROR = 400
+    const val NOT_FOUND = 404
     const val SERVER_ERROR = 500
 }
