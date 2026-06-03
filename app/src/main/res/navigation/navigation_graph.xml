@@ -47,8 +47,12 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_filtrationFragment_to_chooseIndustryFragment"
-            app:destination="@id/chooseIndustryFragment" />
+            android:id="@+id/action_filtrationFragment_to_industrySelectionFragment"
+            app:destination="@id/industrySelectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/placeOfWorkFragment"
@@ -91,7 +95,11 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/chooseIndustryFragment"
-        android:name="ru.practicum.android.diploma.ui.filtration.industry.fragment.ChooseIndustryFragment"
-        android:label="ChooseIndustryFragment" />
+        android:id="@+id/industrySelectionFragment"
+        android:name="ru.practicum.android.diploma.ui.filtration.industry.fragment.IndustryFragment"
+        android:label="fragment_industry_selection" >
+        <action
+            android:id="@+id/action_industrySelectionFragment_to_filtrationFragment"
+            app:destination="@id/filtrationFragment" />
+    </fragment>
 </navigation>

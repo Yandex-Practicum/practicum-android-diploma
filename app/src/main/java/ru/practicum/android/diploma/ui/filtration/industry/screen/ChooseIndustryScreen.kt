@@ -50,7 +50,7 @@ fun ChooseIndustryScreen(
     showButton: Boolean,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
-    onItemClick: () -> Unit,
+    onItemClick: (FilterIndustry) -> Unit,
     onChooseButtonClick: () -> Unit,
     onNavClick: () -> Unit,
 ) {
@@ -175,7 +175,7 @@ fun IndustryTextEdit(
 @Composable
 private fun IndustrySearchStateContent(
     state: IndustryUiState,
-    onClick: () -> Unit,
+    onClick: (FilterIndustry) -> Unit,
 ) {
     when (state) {
         is IndustryUiState.Content -> IndustriesContent(
@@ -192,7 +192,7 @@ private fun IndustrySearchStateContent(
         )
 
         IndustryUiState.Initial -> {
-            //N0 content
+            // No content at all
         }
 
         IndustryUiState.Error -> {
@@ -207,9 +207,9 @@ private fun IndustrySearchStateContent(
 @Composable
 fun IndustriesContent(
     modifier: Modifier = Modifier,
-    industries: List<FilterIndustryDto>, // Industry
+    industries: List<FilterIndustry>,
     isLoading: Boolean,
-    onClick: () -> Unit,
+    onClick: (FilterIndustry) -> Unit,
 ) {
     Column(modifier = modifier) {
         Box(contentAlignment = Alignment.TopCenter) {
@@ -235,7 +235,7 @@ fun IndustryList(
     modifier: Modifier = Modifier,
     industries: List<FilterIndustry>,
     isLoading: Boolean,
-    onClick: () -> Unit,
+    onClick: (FilterIndustry) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
@@ -250,7 +250,7 @@ fun IndustryList(
             IndustryItem(
                 text = industry.name,
                 checked = false,
-                onItemClick = onClick
+                onItemClick = { onClick(industry) }
             )
         }
         item {

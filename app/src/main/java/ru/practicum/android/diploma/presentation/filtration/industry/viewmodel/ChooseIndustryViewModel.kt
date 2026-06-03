@@ -6,19 +6,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.FiltrationInteractor
 import ru.practicum.android.diploma.domain.api.IndustryInteractor
 import ru.practicum.android.diploma.domain.models.FilterIndustry
 import ru.practicum.android.diploma.domain.models.IndustryResult
 import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
 
 class ChooseIndustryViewModel(
-    private val filtrationInteractor: FiltrationInteractor,
    private val industryInteractor: IndustryInteractor
 ) : ViewModel() {
-    private val initialState = IndustryUiState.Initial
-
-    private val _state = MutableStateFlow(initialState)
+    private val _state = MutableStateFlow<IndustryUiState>(IndustryUiState.Initial)
     val state: StateFlow<IndustryUiState> = _state.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
@@ -43,7 +39,7 @@ class ChooseIndustryViewModel(
         resetSearchState()
     }
 
-    fun onIndustryClick() {
+    fun onIndustryClick(item: FilterIndustry) {
 
     }
 
@@ -74,6 +70,6 @@ class ChooseIndustryViewModel(
         val progressBarVisible: Boolean = false,
         val errorText: String = "",
         val errorIcon: Int = 0,
+        val showButton: Boolean = false,
     )
-
 }

@@ -60,6 +60,10 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
         _state.update { it.copy(industry = null) }
     }
 
+    fun chooseIndustry(industry: FilterIndustry) {
+        _state.update { it.copy(industry = industry) }
+    }
+
     fun saveFilters() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
