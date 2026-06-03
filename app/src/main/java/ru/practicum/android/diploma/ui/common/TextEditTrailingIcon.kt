@@ -20,7 +20,9 @@ fun TextEditTrailingIcon(
             .testTag(SearchScreenTestTags.ClearButton)
             .padding(end = 4.dp)
             .clickable(enabled = true, onClick = onClick),
-        resId = iconId,
-        color = MaterialTheme.colorScheme.secondaryFixed
+        IconResource.DefaultIcon(
+            resId = iconId,
+            color = MaterialTheme.colorScheme.secondaryFixed
+        )
     )
 }

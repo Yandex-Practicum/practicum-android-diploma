@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.ui.common.BadgeItem
-import ru.practicum.android.diploma.ui.common.IconImage
 import ru.practicum.android.diploma.ui.common.IconResource
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.common.TextEdit
@@ -45,10 +44,8 @@ fun JobSearchScreen(
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onLoadNextPage: () -> Unit,
-    onNetworkError: () -> Unit,
-    onNavigationTap: () -> Unit
-    onNetworkError: () -> Unit,
-    onFilterClick: () -> Unit
+    onFilterClick: () -> Unit,
+    onNetworkError: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -66,9 +63,6 @@ fun JobSearchScreen(
                     defaultColor = MaterialTheme.colorScheme.onBackground
                 ),
                 endSecondIconVisible = false
-                endFirstIconId = R.drawable.ic_filter,
-                endSecondIconVisible = false,
-                onEndFirstIconClick = onNavigationTap
             )
         },
         contentWindowInsets = WindowInsets(bottom = 0),
