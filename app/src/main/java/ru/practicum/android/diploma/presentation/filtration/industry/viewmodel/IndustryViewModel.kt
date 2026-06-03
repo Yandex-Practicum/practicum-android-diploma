@@ -9,16 +9,16 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.IndustryInteractor
 import ru.practicum.android.diploma.domain.models.FilterIndustry
 import ru.practicum.android.diploma.domain.models.IndustryResult
-import ru.practicum.android.diploma.presentation.filtration.industry.state.ChooseIndustryUiState
-import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
+import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryScreenUiState
+import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryScreenState
 
-class ChooseIndustryViewModel(
+class IndustryViewModel(
     private val industryInteractor: IndustryInteractor,
 ) : ViewModel() {
     private var allIndustries: List<FilterIndustry> = emptyList()
 
-    private val _state = MutableStateFlow(ChooseIndustryUiState())
-    val state: StateFlow<ChooseIndustryUiState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(IndustryScreenUiState())
+    val state: StateFlow<IndustryScreenUiState> = _state.asStateFlow()
 
     init {
         loadIndustries()
@@ -38,26 +38,26 @@ class ChooseIndustryViewModel(
 
     private fun loadIndustries() {
         viewModelScope.launch {
-            publishState(status = IndustryUiState.Content(isLoading = true))
+            publishState(status = IndustryScreenState.Content(isLoading = true))
             when (val outcome = industryInteractor.getIndustries()) {
                 is IndustryResult.Success -> {
                     allIndustries = outcome.industries
-                    publishState(status = IndustryUiState.Content(isLoading = false))
+                    publishState(status = IndustryScreenState.Content(isLoading = false))
                 }
                 is IndustryResult.Error,
                 is IndustryResult.NoInternet,
                 is IndustryResult.ServerError,
-                -> publishState(status = IndustryUiState.Error)
+                -> publishState(status = IndustryScreenState.Error)
             }
         }
     }
 
     private fun publishState(
-        status: IndustryUiState = _state.value.status,
+        status: IndustryScreenState = _state.value.status,
         searchQuery: String = _state.value.searchQuery,
         selectedIndustry: FilterIndustry? = _state.value.selectedIndustry,
     ) {
-        _state.value = ChooseIndustryUiState(
+        _state.value = IndustryScreenUiState(
             status = status,
             searchQuery = searchQuery,
             industries = filterIndustries(searchQuery),

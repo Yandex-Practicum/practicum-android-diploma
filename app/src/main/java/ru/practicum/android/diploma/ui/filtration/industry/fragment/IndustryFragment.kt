@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.presentation.filtration.industry.viewmodel.ChooseIndustryViewModel
+import ru.practicum.android.diploma.presentation.filtration.industry.viewmodel.IndustryViewModel
 import ru.practicum.android.diploma.presentation.filtration.viewmodel.FiltrationViewModel
 import ru.practicum.android.diploma.ui.filtration.industry.screen.ChooseIndustryScreen
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
-class ChooseIndustryFragment : Fragment() {
-    private val viewModel: ChooseIndustryViewModel by viewModel()
+class IndustryFragment : Fragment() {
+    private val viewModel: IndustryViewModel by viewModel()
     private val filtersViewModel: FiltrationViewModel by viewModel()
 
     override fun onCreateView(

@@ -31,8 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.FilterIndustry
-import ru.practicum.android.diploma.presentation.filtration.industry.state.ChooseIndustryUiState
-import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
+import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryScreenUiState
+import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryScreenState
 import ru.practicum.android.diploma.ui.common.Loader
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.common.PrimaryButton
@@ -45,7 +45,7 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun ChooseIndustryScreen(
-    state: ChooseIndustryUiState,
+    state: IndustryScreenUiState,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onItemClick: (FilterIndustry) -> Unit,
@@ -170,11 +170,11 @@ fun IndustryTextEdit(
 
 @Composable
 private fun IndustrySearchStateContent(
-    state: ChooseIndustryUiState,
+    state: IndustryScreenUiState,
     onClick: (FilterIndustry) -> Unit,
 ) {
     when (val status = state.status) {
-        is IndustryUiState.Content -> IndustriesContent(
+        is IndustryScreenState.Content -> IndustriesContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
@@ -188,9 +188,9 @@ private fun IndustrySearchStateContent(
             onClick = onClick,
         )
 
-        IndustryUiState.Initial -> Unit
+        IndustryScreenState.Initial -> Unit
 
-        IndustryUiState.Error -> {
+        IndustryScreenState.Error -> {
             PlaceholderLayout(
                 R.drawable.img_industries_error,
                 R.string.industry_server_error,
