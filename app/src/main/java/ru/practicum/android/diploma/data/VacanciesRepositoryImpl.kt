@@ -9,9 +9,23 @@ class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
 ) : VacanciesRepository {
 
-    override suspend fun searchVacancies(searchText: String, page: Int): SearchVacanciesOutcome {
+    override suspend fun searchVacancies(
+        searchText: String,
+        page: Int,
+        area: Int?,
+        industry: Int?,
+        salary: Int?,
+        onlyWithSalary: Boolean
+    ): SearchVacanciesOutcome {
         val response = networkClient.doRequest(
-            VacanciesRequest(searchText = searchText, page = page),
+            VacanciesRequest(
+                searchText = searchText,
+                page = page,
+                area = area,
+                industry = industry,
+                salary = salary,
+                onlyWithSalary = onlyWithSalary
+            ),
         )
         val data = response.data as? VacanciesResponseDto
         return when {

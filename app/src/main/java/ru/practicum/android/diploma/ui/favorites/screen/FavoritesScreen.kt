@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.favorites.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -102,8 +104,5 @@ fun FavoriteVacanciesList(
 @Preview
 @Composable
 private fun PreviewFavoritesContent() {
-    FavoritesScreen(
-        state = FavoritesUiState.Content(MocData.vacancies),
-        onVacancyClick = {}
-    )
+
 }

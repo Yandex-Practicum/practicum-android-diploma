@@ -35,6 +35,7 @@ fun TopBar(
     onNavClick: () -> Unit = {},
     onEndFirstIconClick: () -> Unit = {},
     onEndSecondIconClick: () -> Unit = {},
+    hasActiveFilter: Boolean = false
 ) {
     Row(
         modifier = Modifier

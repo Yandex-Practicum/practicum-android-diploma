@@ -33,7 +33,8 @@ class JobSearchFragment : Fragment() {
 
                     JobSearchScreen(
                         state = state.value,
-                        searchQuery = query.value,
+                        searchQuery = query.value.query,
+                        hasActiveFilter = query.value.hasActiveFilter,
                         onSearchTextChange = { viewModel.onSearchQueryChanged(it) },
                         onVacancyClick = { vacancyId ->
                             findNavController().navigate(
