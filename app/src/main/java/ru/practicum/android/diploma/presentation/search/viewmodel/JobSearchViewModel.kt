@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.presentation.search.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.query
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,7 +46,7 @@ class JobSearchViewModel(
             .debounce(SEARCH_DEBOUNCE_MS)
             .distinctUntilChanged()
             .filter { it.query.isNotBlank() }
-            .onEach { params -> performSearch(params.query, page = 0) }
+            .onEach { queryParams -> performSearch(query = queryParams.query, page = 0) }
             .launchIn(viewModelScope)
     }
 
@@ -72,7 +71,11 @@ class JobSearchViewModel(
         }
         viewModelScope.launch {
             _state.value = content.copy(isLoading = true)
-            when (val outcome = searchInteractor.searchVacancies(query, nextPage)) {
+            when (val outcome = searchInteractor.searchVacancies(
+                query = query,
+                page = nextPage,
+                filterParameters = filtrationInteractor.getFilter()
+            )) {
                 is SearchVacanciesOutcome.Success -> {
                     currentPage = outcome.result.page
                     _state.value = JobSearchState.Content(
@@ -117,7 +120,11 @@ class JobSearchViewModel(
                 vacancies = emptyList(),
                 isLoading = true,
             )
-            when (val outcome = searchInteractor.searchVacancies(query, page)) {
+            when (val outcome = searchInteractor.searchVacancies(
+                query = query,
+                page = page,
+                filterParameters = filtrationInteractor.getFilter()
+            )) {
                 is SearchVacanciesOutcome.Success -> applySuccess(outcome, replaceList = true)
                 SearchVacanciesOutcome.Empty -> _state.value = JobSearchState.Empty
                 SearchVacanciesOutcome.Error -> _state.value = JobSearchState.Error

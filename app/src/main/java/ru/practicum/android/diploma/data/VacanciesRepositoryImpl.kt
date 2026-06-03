@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data
 import ru.practicum.android.diploma.data.dto.VacanciesRequest
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.domain.api.VacanciesRepository
+import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.domain.models.SearchVacanciesOutcome
 
 class VacanciesRepositoryImpl(
@@ -12,19 +13,16 @@ class VacanciesRepositoryImpl(
     override suspend fun searchVacancies(
         searchText: String,
         page: Int,
-        area: Int?,
-        industry: Int?,
-        salary: Int?,
-        onlyWithSalary: Boolean
+        filterParameters: FilterParameters
     ): SearchVacanciesOutcome {
         val response = networkClient.doRequest(
             VacanciesRequest(
                 searchText = searchText,
                 page = page,
-                area = area,
-                industry = industry,
-                salary = salary,
-                onlyWithSalary = onlyWithSalary
+                area = filterParameters.area,
+                industry = filterParameters.industryId,
+                salary = filterParameters.salary,
+                onlyWithSalary = filterParameters.hideWithoutSalary
             ),
         )
         val data = response.data as? VacanciesResponseDto

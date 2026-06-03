@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
 import ru.practicum.android.diploma.ui.common.BadgeItem
+import ru.practicum.android.diploma.ui.common.IconImage
+import ru.practicum.android.diploma.ui.common.IconResource
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.common.TextEdit
 import ru.practicum.android.diploma.ui.common.TextEditTrailingIcon
@@ -38,13 +40,15 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 fun JobSearchScreen(
     state: JobSearchState,
     searchQuery: String,
-    hasActiveFilter : Boolean,
+    hasActiveFilter: Boolean,
     onVacancyClick: (String) -> Unit,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onLoadNextPage: () -> Unit,
     onNetworkError: () -> Unit,
     onNavigationTap: () -> Unit
+    onNetworkError: () -> Unit,
+    onFilterClick: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -56,6 +60,12 @@ fun JobSearchScreen(
                 text = stringResource(R.string.search_screen_title),
                 navIconVisible = false,
                 endFirstIconVisible = true,
+                endFirstIcon = IconResource.FilterIcon(
+                    isActive = hasActiveFilter,
+                    onClick = onFilterClick,
+                    defaultColor = MaterialTheme.colorScheme.onBackground
+                ),
+                endSecondIconVisible = false
                 endFirstIconId = R.drawable.ic_filter,
                 endSecondIconVisible = false,
                 onEndFirstIconClick = onNavigationTap

@@ -58,6 +58,11 @@ class JobSearchFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateActiveFilters()
+    }
+
     fun showToast(message: String?) {
         requireActivity().runOnUiThread {
             Toast.makeText(requireActivity(), message ?: "Empty message", Toast.LENGTH_LONG)

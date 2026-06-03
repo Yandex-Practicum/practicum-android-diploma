@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+
+    <!-- Экран поиска вакансий -->
     <string name="search_screen_title">Поиск вакансий</string>
     <string name="search_input_hint">Введите запрос</string>
-    <string name="main">Главная</string>
-    <string name="favorites">Избранное</string>
-    <string name="team">Команда</string>
     <string name="found">Найдено</string>
     <string name="from">от</string>
     <string name="to">до</string>
@@ -12,12 +11,9 @@
     <string name="salary_level_not_specified">Уровень зарплаты не указан</string>
     <string name="no_company">Компания не указана</string>
     <string name="back">Назад</string>
-
-    <!-- Текст для плейсхолдеров на экране поиска -->
-    <string name="no_internet_error">Нет интернета</string>
-    <string name="no_vacancies">Таких вакансий нет</string>
-    <string name="no_vacancies_error">Не удалось получить \n список вакансий</string>
-    <!-- Текст для плейсхолдеров на экране поиска -->
+    <string name="vacancies_filter">Фильтр вакансий</string>
+    <string name="search_description">Поиск</string>
+    <string name="search_clear_description">Очистить поиск</string>
 
     <plurals name="vacancy_found_count">
         <item quantity="zero">Найдено %d вакансий</item>
@@ -27,6 +23,17 @@
         <item quantity="other">Найдено %d вакансий</item>
     </plurals>
 
+    <!--Панель навигации -->
+    <string name="main">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="team">Команда</string>
+
+    <!-- Текст для плейсхолдеров на экране поиска -->
+    <string name="no_internet_error">Нет интернета</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="no_vacancies_error">Не удалось получить \n список вакансий</string>
+
+    <!-- Текст экрана "Команда"-->
     <string name="team_screen_headline">Над приложением\nработали</string>
     <string name="team_footer_tagline">Бороздим океан вакансий для вас!</string>
 

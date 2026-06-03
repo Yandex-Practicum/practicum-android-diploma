@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.vacancy.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.vacancy.mapper.toContentUi
 import ru.practicum.android.diploma.presentation.vacancy.state.VacancyDetailsUiState
+import ru.practicum.android.diploma.ui.common.IconResource
 import ru.practicum.android.diploma.ui.common.TopBar
 import ru.practicum.android.diploma.ui.vacancy.components.VacancyDetailsContent
 import ru.practicum.android.diploma.ui.vacancy.components.VacancyDetailsError
@@ -74,10 +76,18 @@ private fun VacancyDetailsTopBar(
         navIconVisible = true,
         onNavClick = onBackClick,
         endFirstIconVisible = showActions,
-        onEndFirstIconClick = onShareClick,
+        endFirstIcon = IconResource.DefaultIcon(
+            resId = R.drawable.ic_share,
+            contentDescriptionStringId = R.string.share,
+            onClick = onShareClick,
+            color = MaterialTheme.colorScheme.onBackground
+        ),
         endSecondIconVisible = showActions,
-        onEndSecondIconClick = onFavoriteClick,
-        endSecondIconId = if (isFavorite) R.drawable.ic_like_red else R.drawable.ic_like_empty
+        endSecondIcon = IconResource.LikeIcon(
+            isActive = isFavorite,
+            onClick = onFavoriteClick,
+            defaultColor = MaterialTheme.colorScheme.onBackground
+        )
     )
 }
 

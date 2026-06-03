@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -29,13 +28,10 @@ fun TopBar(
     text: String,
     navIconVisible: Boolean,
     endFirstIconVisible: Boolean,
-    endFirstIconId: Int = R.drawable.ic_share,
+    endFirstIcon: IconResource? = null,
     endSecondIconVisible: Boolean,
-    endSecondIconId: Int = R.drawable.ic_like_empty,
+    endSecondIcon: IconResource? = null,
     onNavClick: () -> Unit = {},
-    onEndFirstIconClick: () -> Unit = {},
-    onEndSecondIconClick: () -> Unit = {},
-    hasActiveFilter: Boolean = false
 ) {
     Row(
         modifier = Modifier
@@ -46,9 +42,12 @@ fun TopBar(
     ) {
         if (navIconVisible) {
             IconImage(
-                resId = R.drawable.ic_back,
-                contentDescription = stringResource(R.string.back),
-                onClick = onNavClick,
+                icon = IconResource.DefaultIcon(
+                    resId = R.drawable.ic_back,
+                    contentDescriptionStringId = R.string.back,
+                    onClick = onNavClick,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
             )
         }
         Text(
@@ -62,17 +61,12 @@ fun TopBar(
         }
         if (endFirstIconVisible) {
             IconImage(
-                resId = endFirstIconId,
-                contentDescription = stringResource(R.string.share),
-                onClick = onEndFirstIconClick,
+                icon = endFirstIcon!!
             )
         }
         if (endSecondIconVisible) {
             IconImage(
-                resId = endSecondIconId,
-                contentDescription = stringResource(R.string.add_to_favorites),
-                onClick = onEndSecondIconClick,
-                color = if (endSecondIconId == R.drawable.ic_like_red) MaterialTheme.colorScheme.error else null
+                icon = endSecondIcon!!
             )
         }
     }
@@ -80,19 +74,16 @@ fun TopBar(
 
 @Composable
 fun IconImage(
-    resId: Int,
     modifier: Modifier = Modifier,
-    contentDescription: String? = null,
-    onClick: (() -> Unit)? = null,
-    color: Color? = null
+    icon: IconResource
 ) {
     Box(
         modifier = modifier
             .height(Dimens.TopBarIconSize)
             .width(Dimens.TopBarIconSize)
             .then(
-                if (onClick != null) {
-                    Modifier.clickable(onClick = onClick)
+                if (icon.onClick != null) {
+                    Modifier.clickable(onClick = icon.onClick)
                 } else {
                     Modifier
                 },
@@ -100,9 +91,11 @@ fun IconImage(
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            painter = painterResource(id = resId),
-            contentDescription = contentDescription,
-            colorFilter = ColorFilter.tint(color ?: MaterialTheme.colorScheme.onBackground),
+            painter = painterResource(id = icon.resId),
+            contentDescription = if (icon.contentDescriptionStringId != null) {
+                stringResource(icon.contentDescriptionStringId)
+            } else null,
+            colorFilter = icon.color?.let { ColorFilter.tint(icon.color) }
         )
     }
 }
