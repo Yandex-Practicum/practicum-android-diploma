@@ -32,6 +32,8 @@ fun FilterScreen(
 ) {
     val state = viewModel.state.collectAsState()
     val isModified = viewModel.isModified.collectAsState()
+    val isFiltered = viewModel.isFiltered.collectAsState()
+
     AppScreen(R.string.filter_screen_title, {
         viewModel.cancel()
         onBack()
@@ -84,14 +86,16 @@ fun FilterScreen(
                     }
                 )
             }
-            Button(
-                text = stringResource(R.string.filter_reset),
-                type = ButtonType.TERTIARY,
-                modifier = Modifier.padding(horizontal = Dimens.padding16),
-                onClick = {
-                    viewModel.reset()
-                }
-            )
+            if (isFiltered.value) {
+                Button(
+                    text = stringResource(R.string.filter_reset),
+                    type = ButtonType.TERTIARY,
+                    modifier = Modifier.padding(horizontal = Dimens.padding16),
+                    onClick = {
+                        viewModel.reset()
+                    }
+                )
+            }
 
         }
     }

@@ -16,11 +16,18 @@ class FilterViewModelImpl(val interactor: FilterInteractor) : FilterViewModel() 
 
     private val _isModified = MutableStateFlow(false)
     override val isModified: StateFlow<Boolean> = _isModified.asStateFlow()
+    private val _isFiltered = MutableStateFlow(false)
+    override val isFiltered: StateFlow<Boolean> = _isFiltered.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.filters().collect {
                 _state.value = it
+                _isFiltered.value = it.salary != null ||
+                    it.country != null ||
+                    it.region != null ||
+                    it.industry != null ||
+                    it.onlyWithSalary
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
