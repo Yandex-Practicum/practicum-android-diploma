@@ -17,16 +17,29 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.theme.AppTheme
 
 @Composable
 fun FilterItem(
     modifier: Modifier = Modifier,
     title: String,
     value: String? = null,
+    headlineContentColorInverted: Boolean = false,
     onItemClick: () -> Unit = {},
     onCrossClick: () -> Unit = {}
 ) {
     val hasValue = value != null
+    val headlineColor = if (headlineContentColorInverted) {
+        MaterialTheme.colorScheme.onBackground
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
+    val iconImg = if (hasValue) {
+        painterResource(R.drawable.ic_cross)
+    } else {
+        painterResource(R.drawable.ic_arrow_forward_14)
+    }
+
     ListItem(
         modifier = modifier
             .fillMaxWidth()
@@ -39,7 +52,7 @@ fun FilterItem(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = headlineColor
                 )
             }
         },
@@ -73,11 +86,7 @@ fun FilterItem(
                 Icon(
                     modifier = Modifier
                         .size(14.dp),
-                    painter = if (hasValue) {
-                        painterResource(R.drawable.ic_cross)
-                    } else {
-                        painterResource(R.drawable.ic_arrow_forward_14)
-                    },
+                    painter = iconImg,
                     tint = MaterialTheme.colorScheme.onBackground,
                     contentDescription = null,
                 )
@@ -92,8 +101,10 @@ private const val COUNTRY = "Страна"
 @Preview(showSystemUi = false)
 @Composable
 private fun FilterItemPreview() {
-    Column {
-        FilterItem(title = COUNTRY, value = COUNTRY_RUSSIA)
-        FilterItem(title = COUNTRY)
+    AppTheme {
+        Column {
+            FilterItem(title = COUNTRY, value = COUNTRY_RUSSIA)
+            FilterItem(title = COUNTRY, headlineContentColorInverted = true)
+        }
     }
 }

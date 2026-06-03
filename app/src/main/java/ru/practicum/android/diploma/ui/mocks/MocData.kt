@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.mocks
 
+import ru.practicum.android.diploma.domain.models.FilterArea
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -55,6 +56,72 @@ object MocData {
             city = "Новосибирск",
             salary = Salary(from = 500_000, to = null, currency = "RUB"),
             logo = null
+        )
+    )
+    val countries: List<FilterArea> = listOf(
+        FilterArea(
+            id = 113,
+            name = "Россия",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 1, name = "Москва", parentId = 113, areas = emptyList()),
+                FilterArea(id = 2, name = "Санкт-Петербург", parentId = 113, areas = emptyList()),
+                FilterArea(id = 3, name = "Краснодарский край", parentId = 113, areas = emptyList())
+            )
+        ),
+        FilterArea(
+            id = 114,
+            name = "Беларусь",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 4, name = "Минск", parentId = 114, areas = emptyList()),
+                FilterArea(id = 5, name = "Брест", parentId = 114, areas = emptyList())
+            )
+        ),
+        FilterArea(
+            id = 115,
+            name = "Казахстан",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 6, name = "Астана", parentId = 115, areas = emptyList()),
+                FilterArea(id = 7, name = "Алматы", parentId = 115, areas = emptyList())
+            )
+        ),
+        FilterArea(
+            id = 116,
+            name = "Армения",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 8, name = "Ереван", parentId = 116, areas = emptyList()),
+                FilterArea(id = 9, name = "Гюмри", parentId = 116, areas = emptyList())
+            )
+        ),
+        FilterArea(
+            id = 117,
+            name = "Грузия",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 10, name = "Тбилиси", parentId = 117, areas = emptyList()),
+                FilterArea(id = 11, name = "Батуми", parentId = 117, areas = emptyList())
+            )
+        ),
+        FilterArea(
+            id = 118,
+            name = "Узбекистан",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 12, name = "Ташкент", parentId = 118, areas = emptyList()),
+                FilterArea(id = 13, name = "Самарканд", parentId = 118, areas = emptyList())
+            )
+        ),
+        FilterArea(
+            id = 119,
+            name = "Кыргызстан",
+            parentId = null,
+            areas = listOf(
+                FilterArea(id = 14, name = "Бишкек", parentId = 119, areas = emptyList()),
+                FilterArea(id = 15, name = "Ош", parentId = 119, areas = emptyList())
+            )
         )
     )
 }

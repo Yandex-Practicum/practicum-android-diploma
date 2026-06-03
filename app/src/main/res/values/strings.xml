@@ -74,6 +74,10 @@
     <string name="cancel_button_text">Сбросить</string>
     <string name="apply_button_text">Применить</string>
 
+    <!-- Экран выбора страны-->
+    <string name="choose_country">Выбор страны</string>
+    <string name="choose_country_error">Не удалось получить список</string>
+
     <!-- Экран выбора региона -->
     <string name="choose_region_title">Выбор региона</string>
     <string name="choose_region_search_hint">Введите регион</string>
