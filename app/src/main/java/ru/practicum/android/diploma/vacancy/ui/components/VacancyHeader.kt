@@ -14,6 +14,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +25,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import coil3.compose.AsyncImage
+import coil3.network.NetworkHeaders
+import coil3.network.httpHeaders
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import ru.practicum.android.diploma.R
@@ -63,6 +69,7 @@ private fun EmployerCard(
     employerLogoUrl: String?,
     employerLocation: String?
 ) {
+    var imageLoaded by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,21 +84,27 @@ private fun EmployerCard(
                 .clip(RoundedCornerShape(Dimens.radius12)),
             contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(R.drawable.ic_core_placeholder),
-                modifier = Modifier.size(Dimens.icon32)
-            )
+            if (!imageLoaded) {
+                Image(
+                    painter = painterResource(R.drawable.ic_core_placeholder),
+                    modifier = Modifier.size(Dimens.icon32)
+                )
+            }
             if (!employerLogoUrl.isNullOrBlank()) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(employerLogoUrl)
+                        .httpHeaders(NetworkHeaders.Builder().add("User-Agent", "Mozilla/5.0").build())
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .size(Dimens.icon48)
-                        .clip(RoundedCornerShape(Dimens.radius12))
+                        .clip(RoundedCornerShape(Dimens.radius12)),
+                    onSuccess = {
+                        imageLoaded = true
+                    }
                 )
             }
         }
