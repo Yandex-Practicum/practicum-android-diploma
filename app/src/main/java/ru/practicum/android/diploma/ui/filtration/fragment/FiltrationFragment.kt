@@ -38,7 +38,7 @@ class FiltrationFragment : Fragment() {
 
                     FiltrationScreen(
                         country = "",
-                        industry = state.value.industry?.name.orEmpty(),
+                        industryName = state.value.industry?.name,
                         salary = state.value.salary?.toString().orEmpty(),
                         dontShowWithoutSalaryChecked = state.value.onlyWithSalary,
                         showButtons = state.value.showButtons,

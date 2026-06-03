@@ -8,16 +8,16 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.presentation.filtration.industry.viewmodel.IndustryViewModel
-import ru.practicum.android.diploma.presentation.filtration.viewmodel.FiltrationViewModel
 import ru.practicum.android.diploma.ui.filtration.industry.screen.ChooseIndustryScreen
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
 class IndustryFragment : Fragment() {
     private val viewModel: IndustryViewModel by viewModel()
-    private val filtersViewModel: FiltrationViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,13 +34,12 @@ class IndustryFragment : Fragment() {
                         state = state.value,
                         onSearchTextChange = { viewModel.onSearchQueryChanged(it) },
                         onClear = { viewModel.clearSearch() },
-                        onItemClick = {
-                            viewModel.onIndustryClick(it)
-                            filtersViewModel.chooseIndustry(it)
-                        },
+                        onItemClick = { viewModel.onIndustryClick(it) },
                         onChooseButtonClick = {
-                            filtersViewModel.saveFilters()
-                            findNavController().popBackStack()
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                viewModel.saveSelectedIndustry()
+                                findNavController().popBackStack()
+                            }
                         },
                         onNavClick = { findNavController().popBackStack() },
                     )

@@ -46,7 +46,7 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 @Composable
 fun FiltrationScreen(
     country: String,
-    industry: String,
+    industryName: String?,
     salary: String,
     dontShowWithoutSalaryChecked: Boolean,
     showButtons: Boolean,
@@ -97,7 +97,7 @@ fun FiltrationScreen(
             )
             FilterItem(
                 title = stringResource(R.string.specialization_title),
-                value = industry.takeIf { it.isNotEmpty() },
+                value = industryName,
                 onItemClick = onIndustryClick,
                 onCrossClick = onIndustryClear,
             )
