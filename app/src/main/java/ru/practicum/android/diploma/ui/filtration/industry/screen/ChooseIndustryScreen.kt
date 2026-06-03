@@ -30,8 +30,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.domain.models.FilterIndustry
+import ru.practicum.android.diploma.presentation.filtration.industry.state.ChooseIndustryUiState
 import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
 import ru.practicum.android.diploma.ui.common.Loader
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
@@ -45,9 +45,7 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun ChooseIndustryScreen(
-    state: IndustryUiState,
-    searchQuery: String,
-    showButton: Boolean,
+    state: ChooseIndustryUiState,
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onItemClick: (FilterIndustry) -> Unit,
@@ -68,10 +66,8 @@ fun ChooseIndustryScreen(
             )
         },
         bottomBar = {
-            if (showButton) {
-                IndustryBottomBar(
-                    onButtonClick = onChooseButtonClick,
-                )
+            if (state.showButton) {
+                IndustryBottomBar(onButtonClick = onChooseButtonClick)
             }
         },
     ) { paddingValues ->
@@ -81,7 +77,7 @@ fun ChooseIndustryScreen(
                 .padding(paddingValues)
         ) {
             IndustryTextEdit(
-                searchQuery = searchQuery,
+                searchQuery = state.searchQuery,
                 interactionSource = interactionSource,
                 onSearchTextChange = onSearchTextChange,
                 onClear = onClear,
@@ -109,7 +105,7 @@ fun IndustryBottomBar(
     ) {
         PrimaryButton(
             text = stringResource(R.string.choose_button_text),
-            onClick = onButtonClick
+            onClick = onButtonClick,
         )
     }
 }
@@ -121,63 +117,63 @@ fun IndustryTextEdit(
     onSearchTextChange: (String) -> Unit,
     onClear: () -> Unit,
     onKeyboardDone: () -> Unit,
+) {
+    val fieldShape = RoundedCornerShape(8.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = Dimens.ScreenHorizontalPadding,
+                top = 8.dp,
+                end = Dimens.ScreenHorizontalPadding,
+            )
+            .height(56.dp)
+            .clip(fieldShape)
+            .background(MaterialTheme.colorScheme.surfaceContainer),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        val fieldShape = RoundedCornerShape(8.dp)
-        Row(
+        TextEdit(
+            value = searchQuery,
+            onValueChange = onSearchTextChange,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = Dimens.ScreenHorizontalPadding,
-                    top = 8.dp,
-                    end = Dimens.ScreenHorizontalPadding,
-                )
-                .height(56.dp)
-                .clip(fieldShape)
-                .background(MaterialTheme.colorScheme.surfaceContainer),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            TextEdit(
-                value = searchQuery,
-                onValueChange = onSearchTextChange,
-                modifier = Modifier
-                    .weight(1f)
-                    .testTag(SearchScreenTestTags.TextField)
-                    .fillMaxHeight()
-                    .padding(start = 20.dp),
-                interactionSource = interactionSource,
-                onKeyboardDone = onKeyboardDone,
-                decorationBox = { innerTextField ->
-                    Box(
-                        Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (searchQuery.isEmpty()) {
-                            Text(
-                                text = stringResource(R.string.region_search_placeholder_text),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.inverseOnSurface
-                                ),
-                                maxLines = 1,
-                                modifier = Modifier.align(Alignment.CenterStart),
-                            )
-                        }
-                        innerTextField()
+                .weight(1f)
+                .testTag(SearchScreenTestTags.TextField)
+                .fillMaxHeight()
+                .padding(start = 20.dp),
+            interactionSource = interactionSource,
+            onKeyboardDone = onKeyboardDone,
+            decorationBox = { innerTextField ->
+                Box(
+                    Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.CenterStart,
+                ) {
+                    if (searchQuery.isEmpty()) {
+                        Text(
+                            text = stringResource(R.string.region_search_placeholder_text),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.inverseOnSurface,
+                            ),
+                            maxLines = 1,
+                            modifier = Modifier.align(Alignment.CenterStart),
+                        )
                     }
-                },
-            )
-            TextEditTrailingIcon(
-                if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
-                onClear
-            )
-        }
+                    innerTextField()
+                }
+            },
+        )
+        TextEditTrailingIcon(
+            if (searchQuery.isEmpty()) R.drawable.ic_search else R.drawable.ic_cross,
+            onClear,
+        )
+    }
 }
 
 @Composable
 private fun IndustrySearchStateContent(
-    state: IndustryUiState,
+    state: ChooseIndustryUiState,
     onClick: (FilterIndustry) -> Unit,
 ) {
-    when (state) {
+    when (val status = state.status) {
         is IndustryUiState.Content -> IndustriesContent(
             modifier = Modifier
                 .fillMaxSize()
@@ -187,18 +183,17 @@ private fun IndustrySearchStateContent(
                     end = Dimens.ScreenHorizontalPadding,
                 ),
             industries = state.industries,
-            isLoading = state.isLoading,
-            onClick = onClick
+            selectedIndustryId = state.selectedIndustry?.id,
+            isLoading = status.isLoading,
+            onClick = onClick,
         )
 
-        IndustryUiState.Initial -> {
-            // No content at all
-        }
+        IndustryUiState.Initial -> Unit
 
         IndustryUiState.Error -> {
             PlaceholderLayout(
                 R.drawable.img_industries_error,
-                R.string.industry_server_error
+                R.string.industry_server_error,
             )
         }
     }
@@ -208,6 +203,7 @@ private fun IndustrySearchStateContent(
 fun IndustriesContent(
     modifier: Modifier = Modifier,
     industries: List<FilterIndustry>,
+    selectedIndustryId: Int?,
     isLoading: Boolean,
     onClick: (FilterIndustry) -> Unit,
 ) {
@@ -215,6 +211,7 @@ fun IndustriesContent(
         Box(contentAlignment = Alignment.TopCenter) {
             IndustryList(
                 industries = industries,
+                selectedIndustryId = selectedIndustryId,
                 isLoading = isLoading,
                 onClick = onClick,
             )
@@ -223,17 +220,17 @@ fun IndustriesContent(
             Loader(
                 modifier
                     .weight(1F)
-                    .imePadding()
+                    .imePadding(),
             )
         }
     }
-
 }
 
 @Composable
 fun IndustryList(
     modifier: Modifier = Modifier,
     industries: List<FilterIndustry>,
+    selectedIndustryId: Int?,
     isLoading: Boolean,
     onClick: (FilterIndustry) -> Unit,
 ) {
@@ -245,22 +242,20 @@ fun IndustryList(
     ) {
         items(
             items = industries,
-            key = { it.id }
+            key = { it.id },
         ) { industry ->
             IndustryItem(
                 text = industry.name,
-                checked = false,
-                onItemClick = { onClick(industry) }
+                checked = industry.id == selectedIndustryId,
+                onItemClick = { onClick(industry) },
             )
         }
         item {
             if (isLoading && industries.isNotEmpty()) {
                 Loader(
-                    modifier = modifier
-                        .heightIn(min = 80.dp)
+                    modifier = modifier.heightIn(min = 80.dp),
                 )
             }
         }
     }
 }
-

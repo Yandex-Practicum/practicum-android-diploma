@@ -9,67 +9,69 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.IndustryInteractor
 import ru.practicum.android.diploma.domain.models.FilterIndustry
 import ru.practicum.android.diploma.domain.models.IndustryResult
+import ru.practicum.android.diploma.presentation.filtration.industry.state.ChooseIndustryUiState
 import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
 
 class ChooseIndustryViewModel(
-   private val industryInteractor: IndustryInteractor
+    private val industryInteractor: IndustryInteractor,
 ) : ViewModel() {
-    private val _state = MutableStateFlow<IndustryUiState>(IndustryUiState.Initial)
-    val state: StateFlow<IndustryUiState> = _state.asStateFlow()
+    private var allIndustries: List<FilterIndustry> = emptyList()
 
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
-
-    private val _uiState = MutableStateFlow(IndustryScreenState())
-    val uiState: StateFlow<IndustryScreenState> = _uiState.asStateFlow()
+    private val _state = MutableStateFlow(ChooseIndustryUiState())
+    val state: StateFlow<ChooseIndustryUiState> = _state.asStateFlow()
 
     init {
         loadIndustries()
     }
 
     fun onSearchQueryChanged(query: String) {
-        _searchQuery.value = query
-        if (query.isBlank()) {
-            resetSearchState()
-        }
+        publishState(searchQuery = query)
     }
 
     fun clearSearch() {
-        _searchQuery.value = ""
-        resetSearchState()
+        publishState(searchQuery = "")
     }
 
     fun onIndustryClick(item: FilterIndustry) {
-
+        publishState(selectedIndustry = item)
     }
 
     private fun loadIndustries() {
         viewModelScope.launch {
-            _state.value = IndustryUiState.Initial
+            publishState(status = IndustryUiState.Content(isLoading = true))
             when (val outcome = industryInteractor.getIndustries()) {
-                is IndustryResult.Success -> _state.value = IndustryUiState.Content(
-                    industries = outcome.industries,
-                    isLoading = false,
-                )
-                is IndustryResult.Error -> _state.value = IndustryUiState.Error
-                is IndustryResult.NoInternet -> _state.value = IndustryUiState.Error
-                is IndustryResult.ServerError -> _state.value = IndustryUiState.Error
+                is IndustryResult.Success -> {
+                    allIndustries = outcome.industries
+                    publishState(status = IndustryUiState.Content(isLoading = false))
+                }
+                is IndustryResult.Error,
+                is IndustryResult.NoInternet,
+                is IndustryResult.ServerError,
+                -> publishState(status = IndustryUiState.Error)
             }
         }
     }
 
-    private fun resetSearchState() {
-        _state.value = IndustryUiState.Initial
+    private fun publishState(
+        status: IndustryUiState = _state.value.status,
+        searchQuery: String = _state.value.searchQuery,
+        selectedIndustry: FilterIndustry? = _state.value.selectedIndustry,
+    ) {
+        _state.value = ChooseIndustryUiState(
+            status = status,
+            searchQuery = searchQuery,
+            industries = filterIndustries(searchQuery),
+            selectedIndustry = selectedIndustry,
+        )
     }
 
-    data class IndustryScreenState(
-        val industryList: List<FilterIndustry> = emptyList(),
-        val selectedIndustry: FilterIndustry? = null,
-        val errorVisible: Boolean = false,
-        val recyclerVisible: Boolean = false,
-        val progressBarVisible: Boolean = false,
-        val errorText: String = "",
-        val errorIcon: Int = 0,
-        val showButton: Boolean = false,
-    )
+    private fun filterIndustries(query: String): List<FilterIndustry> {
+        val trimmedQuery = query.trim()
+        if (trimmedQuery.isEmpty()) {
+            return allIndustries
+        }
+        return allIndustries.filter { industry ->
+            industry.name.contains(trimmedQuery, ignoreCase = true)
+        }
+    }
 }
