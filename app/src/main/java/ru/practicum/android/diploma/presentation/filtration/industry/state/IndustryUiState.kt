@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.presentation.filtration.industry.state
 
-import ru.practicum.android.diploma.data.dto.FilterIndustryDto
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.FilterIndustry
 
 sealed interface IndustryUiState {
     data object Initial : IndustryUiState
@@ -9,7 +8,7 @@ sealed interface IndustryUiState {
     data object Error : IndustryUiState
 
     data class Content(
-        val industries: List<FilterIndustryDto>, // Industry
+        val industries: List<FilterIndustry>,
         val isLoading: Boolean = false,
     ) : IndustryUiState
 }

@@ -31,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.FilterIndustryDto
+import ru.practicum.android.diploma.domain.models.FilterIndustry
 import ru.practicum.android.diploma.presentation.filtration.industry.state.IndustryUiState
 import ru.practicum.android.diploma.ui.common.Loader
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
@@ -232,7 +233,7 @@ fun IndustriesContent(
 @Composable
 fun IndustryList(
     modifier: Modifier = Modifier,
-    industries: List<FilterIndustryDto>,// Industry
+    industries: List<FilterIndustry>,
     isLoading: Boolean,
     onClick: () -> Unit,
 ) {
