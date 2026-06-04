@@ -19,7 +19,7 @@ class FilterViewModel(
 
     fun onSalaryChanged(salary: String) {
         updateSettings { settings ->
-            settings.copy(salary = salary.filter(Char::isDigit))
+            settings.copy(salary = salary.filter(Char::isDigit).take(MAX_SALARY_LENGTH))
         }
     }
 
@@ -37,14 +37,23 @@ class FilterViewModel(
 
     fun onResetClicked() {
         filterInteractor.clearFilterSettings()
-        _uiState.update { FilterUiState(settings = FilterSettings()) }
+        _uiState.update { state ->
+            state.copy(settings = FilterSettings())
+        }
     }
 
     private fun updateSettings(transform: (FilterSettings) -> FilterSettings) {
-        _uiState.update { state ->
-            val newSettings = transform(state.settings)
+        val currentSettings = _uiState.value.settings
+        val newSettings = transform(currentSettings)
+        if (newSettings != currentSettings) {
             filterInteractor.saveFilterSettings(newSettings)
-            state.copy(settings = newSettings)
+            _uiState.update { state ->
+                state.copy(settings = newSettings)
+            }
         }
+    }
+
+    companion object {
+        private const val MAX_SALARY_LENGTH = 9
     }
 }

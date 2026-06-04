@@ -138,8 +138,9 @@ private fun FilterScreen(
                 onCheckedChange = onOnlyWithSalaryChanged,
             )
             Spacer(modifier = Modifier.weight(1f))
-            if (state.hasActiveFilters) {
+            if (state.shouldShowApplyButton) {
                 FilterActions(
+                    showResetButton = state.shouldShowResetButton,
                     onApplyClicked = onApplyClicked,
                     onResetClicked = onResetClicked,
                 )
@@ -322,6 +323,7 @@ private fun OnlyWithSalaryRow(
 
 @Composable
 private fun FilterActions(
+    showResetButton: Boolean,
     onApplyClicked: () -> Unit,
     onResetClicked: () -> Unit,
 ) {
@@ -350,15 +352,17 @@ private fun FilterActions(
                 ),
             )
         }
-        TextButton(onClick = onResetClicked) {
-            Text(
-                text = stringResource(R.string.filter_reset),
-                color = Red,
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                ),
-            )
+        if (showResetButton) {
+            TextButton(onClick = onResetClicked) {
+                Text(
+                    text = stringResource(R.string.filter_reset),
+                    color = Red,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                    ),
+                )
+            }
         }
     }
 }
