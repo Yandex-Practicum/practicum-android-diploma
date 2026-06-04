@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data
 
-import ru.practicum.android.diploma.AreaRequest
+import ru.practicum.android.diploma.data.dto.AreasRequest
 import ru.practicum.android.diploma.data.dto.FilterAreaDto
 import ru.practicum.android.diploma.domain.api.AreaRepository
 import ru.practicum.android.diploma.domain.models.AreaResult
@@ -10,7 +10,7 @@ class AreaRepositoryImpl(
 ) : AreaRepository {
 
     override suspend fun getAreas(): AreaResult {
-        val response = networkClient.doRequest(AreaRequest)
+        val response = networkClient.doRequest(AreasRequest)
         return when (response.resultCode) {
             NO_INTERNET -> AreaResult.NoInternet
             HTTP_SERVER_ERROR -> AreaResult.ServerError

@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.domain.models
 
-interface AreaResult {
+sealed interface AreaResult {
     data class Success(val areas: List<FilterArea>) : AreaResult
 
     data object NoInternet : AreaResult
