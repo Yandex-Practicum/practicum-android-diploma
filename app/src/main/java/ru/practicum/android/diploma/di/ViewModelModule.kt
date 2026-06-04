@@ -4,12 +4,16 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.presentation.details.VacancyDetailsViewModel
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
+import ru.practicum.android.diploma.presentation.filter.FilterViewModel
 import ru.practicum.android.diploma.presentation.search.SearchViewModel
 
 val viewModelModule = module {
 
     viewModel {
-        SearchViewModel(vacanciesInteractor = get())
+        SearchViewModel(
+            vacanciesInteractor = get(),
+            filterInteractor = get(),
+        )
     }
 
     viewModel {
@@ -24,5 +28,9 @@ val viewModelModule = module {
         FavoritesViewModel(
             favoritesInteractor = get(),
         )
+    }
+
+    viewModel {
+        FilterViewModel(filterInteractor = get())
     }
 }
