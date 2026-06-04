@@ -9,3 +9,8 @@ fun FilterAreaDto.toDomain(): FilterArea = FilterArea(
     parentId = parentId,
     areas = areas.map { it.toDomain() }
 )
+
+fun List<FilterAreaDto>.toDomain(): List<FilterArea> = map { areaDto ->
+    areaDto.toDomain()
+}
+
