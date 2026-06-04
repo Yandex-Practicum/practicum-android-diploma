@@ -58,6 +58,11 @@ class FilterFragment : Fragment() {
 
     private val viewModel by viewModel<FilterViewModel>()
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadFilterSettings()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,6 +78,7 @@ class FilterFragment : Fragment() {
                     FilterScreen(
                         state = state,
                         onBackClicked = { findNavController().popBackStack() },
+                        onWorkplaceClicked = { findNavController().navigate(R.id.workplaceFragment) },
                         onSalaryChanged = viewModel::onSalaryChanged,
                         onSalaryClearClicked = viewModel::onSalaryClearClicked,
                         onOnlyWithSalaryChanged = viewModel::onOnlyWithSalaryChanged,
@@ -98,6 +104,7 @@ class FilterFragment : Fragment() {
 private fun FilterScreen(
     state: FilterUiState,
     onBackClicked: () -> Unit,
+    onWorkplaceClicked: () -> Unit,
     onSalaryChanged: (String) -> Unit,
     onSalaryClearClicked: () -> Unit,
     onOnlyWithSalaryChanged: (Boolean) -> Unit,
@@ -119,7 +126,7 @@ private fun FilterScreen(
             FilterNavigationRow(
                 text = state.workplaceTitle ?: stringResource(R.string.filter_workplace),
                 isSelected = state.workplaceTitle != null,
-                onClick = {},
+                onClick = onWorkplaceClicked,
             )
             FilterNavigationRow(
                 text = state.industryTitle ?: stringResource(R.string.filter_industry),
@@ -379,6 +386,7 @@ private fun FilterEmptyPreview() {
         FilterScreen(
             state = FilterUiState(),
             onBackClicked = {},
+            onWorkplaceClicked = {},
             onSalaryChanged = {},
             onSalaryClearClicked = {},
             onOnlyWithSalaryChanged = {},
@@ -405,6 +413,7 @@ private fun FilterFilledPreview() {
                 )
             ),
             onBackClicked = {},
+            onWorkplaceClicked = {},
             onSalaryChanged = {},
             onSalaryClearClicked = {},
             onOnlyWithSalaryChanged = {},

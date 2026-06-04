@@ -42,6 +42,16 @@ class FilterViewModel(
         }
     }
 
+    fun loadFilterSettings() {
+        val currentSettings = filterInteractor.getFilterSettings()
+        _uiState.update { state ->
+            state.copy(
+                settings = currentSettings,
+                initialSettings = currentSettings
+            )
+        }
+    }
+
     private fun updateSettings(transform: (FilterSettings) -> FilterSettings) {
         val currentSettings = _uiState.value.settings
         val newSettings = transform(currentSettings)
