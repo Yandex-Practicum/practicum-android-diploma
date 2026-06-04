@@ -67,8 +67,10 @@ class WorkplaceFragment : Fragment() {
             val regionName = bundle.getString(REGION_NAME_KEY)
             val countryId = bundle.getString(COUNTRY_ID_KEY)
             val countryName = bundle.getString(COUNTRY_NAME_KEY)
-            if (regionId != null && regionName != null && countryId != null && countryName != null) {
-                viewModel.onRegionSelected(regionId, regionName, countryId, countryName)
+            val isRegionValid = regionId != null && regionName != null
+            val isCountryValid = countryId != null && countryName != null
+            if (isRegionValid && isCountryValid) {
+                viewModel.onRegionSelected(regionId!!, regionName!!, countryId!!, countryName!!)
             }
         }
     }

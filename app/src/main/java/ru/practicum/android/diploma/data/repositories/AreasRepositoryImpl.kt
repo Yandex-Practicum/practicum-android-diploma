@@ -31,29 +31,39 @@ class AreasRepositoryImpl(
     override suspend fun getRegions(countryId: String?): Resource<List<Region>> = withContext(Dispatchers.IO) {
         when (val result = networkClient.safeApiCall { api.getAreas() }) {
             is Resource.Success -> {
-                val regions = mutableListOf<Region>()
-                if (countryId != null) {
-                    val countryDto = result.data.firstOrNull { it.id == countryId }
-                    if (countryDto != null) {
-                        regions.addAll(flattenRegions(countryDto, countryDto.id, countryDto.name))
-                    }
-                } else {
-                    for (countryDto in result.data) {
-                        if (countryDto.id == OTHER_REGIONS_ID) {
-                            for (otherCountry in countryDto.areas) {
-                                regions.addAll(flattenRegions(otherCountry, otherCountry.id, otherCountry.name))
-                            }
-                        } else {
-                            regions.addAll(flattenRegions(countryDto, countryDto.id, countryDto.name))
-                        }
-                    }
-                }
-                regions.sortBy { it.name }
-                Resource.Success(regions)
+                val regions = mapRegions(result.data, countryId)
+                Resource.Success(regions.sortedBy { it.name })
             }
             is Resource.Error -> Resource.Error(message = result.message, code = result.code)
             Resource.Loading -> Resource.Loading
         }
+    }
+
+    private fun mapRegions(areas: List<AreaResponseDto>, countryId: String?): List<Region> {
+        val regions = mutableListOf<Region>()
+        if (countryId != null) {
+            val countryDto = areas.firstOrNull { it.id == countryId }
+            if (countryDto != null) {
+                regions.addAll(flattenRegions(countryDto, countryDto.id, countryDto.name))
+            }
+        } else {
+            for (countryDto in areas) {
+                regions.addAll(mapCountryRegions(countryDto))
+            }
+        }
+        return regions
+    }
+
+    private fun mapCountryRegions(countryDto: AreaResponseDto): List<Region> {
+        val regions = mutableListOf<Region>()
+        if (countryDto.id == OTHER_REGIONS_ID) {
+            for (otherCountry in countryDto.areas) {
+                regions.addAll(flattenRegions(otherCountry, otherCountry.id, otherCountry.name))
+            }
+        } else {
+            regions.addAll(flattenRegions(countryDto, countryDto.id, countryDto.name))
+        }
+        return regions
     }
 
     private fun flattenRegions(area: AreaResponseDto, countryId: String, countryName: String): List<Region> {

@@ -111,19 +111,19 @@ private fun SelectRegionScreen(
     ) {
         SelectRegionTopBar(onBackClicked = onBackClicked)
         Spacer(modifier = Modifier.height(Dimens.paddingSystemBar))
-        
+
         val query = when (state) {
             is SelectRegionUiState.Content -> state.query
             is SelectRegionUiState.EmptySearch -> state.query
             else -> ""
         }
-        
+
         RegionSearchField(
             query = query,
             onQueryChanged = onQueryChanged,
             onClearQueryClicked = onClearQueryClicked,
         )
-        
+
         Spacer(modifier = Modifier.height(Dimens.paddingDefault))
         Box(
             modifier = Modifier
