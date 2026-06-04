@@ -20,6 +20,11 @@
         android:label="Team" />
 
     <fragment
+        android:id="@+id/filterFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.FilterFragment"
+        android:label="Filter" />
+
+    <fragment
         android:id="@+id/vacancyDetailsFragment"
         android:name="ru.practicum.android.diploma.presentation.details.VacancyDetailsFragment"
         android:label="Vacancy Details">

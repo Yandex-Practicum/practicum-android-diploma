@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
@@ -61,6 +62,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancySalary
+import ru.practicum.android.diploma.presentation.filter.FilterFragment
 import ru.practicum.android.diploma.presentation.ui.components.vacancy.VacancyList
 import ru.practicum.android.diploma.presentation.ui.components.vacancy.VacancyUiModel
 import ru.practicum.android.diploma.presentation.ui.components.vacancy.formatSalary
@@ -72,6 +74,16 @@ import ru.practicum.android.diploma.presentation.ui.theme.WhiteUniversal
 class SearchFragment : Fragment() {
 
     private val viewModel by viewModel<SearchViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parentFragmentManager.setFragmentResultListener(
+            FilterFragment.FILTER_APPLIED_REQUEST_KEY,
+            this,
+        ) { _, _ ->
+            viewModel.onFiltersApplied()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,6 +101,7 @@ class SearchFragment : Fragment() {
                         state = state,
                         onQueryChanged = viewModel::onQueryChanged,
                         onClearQueryClicked = viewModel::onClearQueryClicked,
+                        onFilterClicked = ::onFilterClicked,
                         onVacancyClicked = ::onVacancyClicked,
                         onLoadNextPage = viewModel::loadNextPage,
                         paginationError = viewModel.paginationError,
@@ -96,6 +109,15 @@ class SearchFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshFiltersState()
+    }
+
+    private fun onFilterClicked() {
+        findNavController().navigate(R.id.filterFragment)
     }
 
     private fun onVacancyClicked(vacancyId: String) {
@@ -118,6 +140,7 @@ private fun SearchScreen(
     state: SearchUiState,
     onQueryChanged: (String) -> Unit,
     onClearQueryClicked: () -> Unit,
+    onFilterClicked: () -> Unit,
     onVacancyClicked: (String) -> Unit,
     onLoadNextPage: () -> Unit = {},
     paginationError: SharedFlow<SearchError>? = null,
@@ -133,7 +156,10 @@ private fun SearchScreen(
             }
             .padding(horizontal = Dimens.paddingDefault),
     ) {
-        SearchTopBar()
+        SearchTopBar(
+            hasActiveFilters = state.hasActiveFilters,
+            onFilterClicked = onFilterClicked,
+        )
         Spacer(modifier = Modifier.height(Dimens.paddingSystemBar))
         SearchField(
             query = state.query,
@@ -168,7 +194,10 @@ private fun SearchScreen(
 }
 
 @Composable
-private fun SearchTopBar() {
+private fun SearchTopBar(
+    hasActiveFilters: Boolean,
+    onFilterClicked: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -184,11 +213,13 @@ private fun SearchTopBar() {
                 fontWeight = FontWeight.Medium,
             ),
         )
-        IconButton(onClick = { }) {
+        IconButton(onClick = onFilterClicked) {
             Icon(
-                painter = painterResource(R.drawable.ic_filter_off_24),
+                painter = painterResource(
+                    if (hasActiveFilters) R.drawable.ic_filter_on_24 else R.drawable.ic_filter_off_24
+                ),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground,
+                tint = if (hasActiveFilters) Color.Unspecified else MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -292,18 +323,18 @@ private fun ServerErrorPlaceholder() {
 }
 
 @Composable
-private fun EmptyResultsPlaceholder(modifier: Modifier = Modifier.fillMaxSize()) {
+private fun EmptyResultsPlaceholder(modifier: Modifier = Modifier) {
     SearchPlaceholder(
         imageRes = R.drawable.il_main_no_results_328,
         textRes = R.string.search_no_results,
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
     )
 }
 
 @Composable
-private fun SearchPlaceholder(imageRes: Int, textRes: Int, modifier: Modifier = Modifier.fillMaxSize()) {
+private fun SearchPlaceholder(imageRes: Int, textRes: Int, modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -361,12 +392,13 @@ private fun SearchResults(
     }
 
     val context = LocalContext.current
-    val resources = context.resources
-    LaunchedEffect(paginationError) {
+    val noInternetMessage = stringResource(R.string.search_toast_no_internet)
+    val serverErrorMessage = stringResource(R.string.search_toast_server_error)
+    LaunchedEffect(paginationError, noInternetMessage, serverErrorMessage) {
         paginationError?.collect { error ->
             val message = when (error) {
-                SearchError.NO_INTERNET -> resources.getString(R.string.search_toast_no_internet)
-                else -> resources.getString(R.string.search_toast_server_error)
+                SearchError.NO_INTERNET -> noInternetMessage
+                else -> serverErrorMessage
             }
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
@@ -455,6 +487,7 @@ private fun SearchInitialPreview() {
             state = SearchUiState(),
             onQueryChanged = {},
             onClearQueryClicked = {},
+            onFilterClicked = {},
             onVacancyClicked = {},
         )
     }
@@ -476,6 +509,7 @@ private fun SearchLoadingPreview() {
             ),
             onQueryChanged = {},
             onClearQueryClicked = {},
+            onFilterClicked = {},
             onVacancyClicked = {},
         )
     }
@@ -498,6 +532,7 @@ private fun SearchResultsPreview() {
             ),
             onQueryChanged = {},
             onClearQueryClicked = {},
+            onFilterClicked = {},
             onVacancyClicked = {},
         )
     }

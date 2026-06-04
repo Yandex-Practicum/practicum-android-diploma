@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -9,9 +10,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.interactors.FilterInteractor
 import ru.practicum.android.diploma.domain.interactors.VacanciesInteractor
+import ru.practicum.android.diploma.domain.models.FilterSettings
 import ru.practicum.android.diploma.domain.models.VacancySearchRequest
 import ru.practicum.android.diploma.domain.models.VacancySearchResult
 import ru.practicum.android.diploma.util.Resource
@@ -19,6 +21,7 @@ import ru.practicum.android.diploma.util.debounce
 
 class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
+    private val filterInteractor: FilterInteractor,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -29,6 +32,11 @@ class SearchViewModel(
 
     private val loadedPages = mutableSetOf<Int>()
     private var paginationJob: Job? = null
+    private var searchFilters: FilterSettings = filterInteractor.getFilterSettings()
+
+    init {
+        refreshFiltersState()
+    }
 
     private val searchDebounce = debounce<String>(
         delayMillis = SEARCH_DEBOUNCE_MILLIS,
@@ -60,11 +68,46 @@ class SearchViewModel(
             return
         }
 
+        searchFilters = filterInteractor.getFilterSettings()
+        refreshFiltersState()
         searchDebounce(query)
     }
 
     fun onClearQueryClicked() {
         onQueryChanged(query = "")
+    }
+
+    fun refreshFiltersState() {
+        val filters = filterInteractor.getFilterSettings()
+        _uiState.update { state ->
+            state.copy(hasActiveFilters = filters.hasActiveFilters)
+        }
+    }
+
+    fun onFiltersApplied() {
+        refreshFiltersState()
+        val query = _uiState.value.query
+        if (query.isBlank()) return
+
+        searchFilters = filterInteractor.getFilterSettings()
+        searchDebounce.cancel()
+        paginationJob?.cancel()
+        paginationJob = null
+        loadedPages.clear()
+        _uiState.update { state ->
+            state.copy(
+                isLoading = false,
+                found = 0,
+                vacancies = emptyList(),
+                errorType = null,
+                currentPage = VacancySearchRequest.FIRST_PAGE,
+                totalPages = 0,
+                isNextPageLoading = false,
+            )
+        }
+        paginationJob = viewModelScope.launch {
+            searchPage(query, page = VacancySearchRequest.FIRST_PAGE, isPagination = false)
+        }
     }
 
     fun loadNextPage() {
@@ -81,12 +124,24 @@ class SearchViewModel(
 
     private suspend fun searchPage(query: String, page: Int, isPagination: Boolean) {
         setLoadingState(isPagination)
-        val request = VacancySearchRequest(text = query, page = page)
+        val request = createSearchRequest(query = query, page = page)
         when (val result = vacanciesInteractor.searchVacancies(request)) {
             is Resource.Success -> handleSuccess(result, page, isPagination)
             is Resource.Error -> handleError(result, isPagination)
             Resource.Loading -> Unit
         }
+    }
+
+    private fun createSearchRequest(query: String, page: Int): VacancySearchRequest {
+        val filters = searchFilters
+        return VacancySearchRequest(
+            text = query,
+            area = filters.areaId,
+            industry = filters.industryId,
+            salary = filters.salaryValue,
+            page = page,
+            onlyWithSalary = filters.onlyWithSalary.takeIf { it },
+        )
     }
 
     private fun setLoadingState(isPagination: Boolean) {

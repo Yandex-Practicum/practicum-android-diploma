@@ -18,4 +18,5 @@ data class SearchUiState(
     val currentPage: Int = VacancySearchRequest.FIRST_PAGE,
     val totalPages: Int = 0,
     val isNextPageLoading: Boolean = false,
+    val hasActiveFilters: Boolean = false,
 )
