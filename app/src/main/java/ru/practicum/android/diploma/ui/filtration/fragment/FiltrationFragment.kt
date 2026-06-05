@@ -43,11 +43,11 @@ class FiltrationFragment : Fragment() {
                         dontShowWithoutSalaryChecked = state.value.onlyWithSalary,
                         showButtons = state.value.showButtons,
                         onCheckedChange = { viewModel.onOnlyWithSalaryChanged(it) },
-                        onSearchTextChange = { viewModel.onSalaryTextChanged(it) },
+                        onSearchTextChange = { viewModel.onSalaryChanged(it) },
                         onClear = { viewModel.onSalaryCleared() },
                         onApplyClick = {
                             viewLifecycleOwner.lifecycleScope.launch {
-                                viewModel.applyFilters()
+                                viewModel.saveFilters()
                                 findNavController().popBackStack()
                             }
                         },

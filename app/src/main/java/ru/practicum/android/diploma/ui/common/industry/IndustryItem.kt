@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.common.IconImage
+import ru.practicum.android.diploma.ui.common.IconResource
 import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
@@ -37,17 +38,19 @@ fun IndustryItem(
                 .padding(start = Dimens.ScreenHorizontalPadding),
             text = text,
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         IconImage(
             modifier = Modifier.padding(end = 4.dp),
-            resId = if (checked) {
-                R.drawable.ic_round_checked
-            } else {
-                R.drawable.ic_round_unchecked
-            },
-            onClick = onItemClick,
-            color = MaterialTheme.colorScheme.primary,
+            icon = IconResource.DefaultIcon(
+                resId = if (checked) {
+                    R.drawable.ic_round_checked
+                } else {
+                    R.drawable.ic_round_unchecked
+                },
+                onClick = onItemClick,
+                color = MaterialTheme.colorScheme.primary,
+            ),
         )
     }
 }
