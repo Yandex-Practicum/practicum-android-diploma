@@ -32,4 +32,3 @@ class AreaRepositoryImpl(
         const val HTTP_SERVER_ERROR = 500
     }
 }
-

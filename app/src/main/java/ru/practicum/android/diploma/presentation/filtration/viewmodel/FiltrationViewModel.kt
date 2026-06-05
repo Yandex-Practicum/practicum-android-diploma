@@ -44,7 +44,7 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
         val digits = text.filter { it.isDigit() }
         when {
             digits.isEmpty() -> onSalaryCleared()
-            else -> digits.toIntOrNull()?.let { newSalary ->  _state.update { it.copy(salary = newSalary) } }
+            else -> digits.toIntOrNull()?.let { newSalary -> _state.update { it.copy(salary = newSalary) } }
         }
     }
 

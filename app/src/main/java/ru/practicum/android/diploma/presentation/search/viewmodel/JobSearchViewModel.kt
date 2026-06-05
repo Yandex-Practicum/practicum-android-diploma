@@ -11,20 +11,26 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.FiltrationInteractor
 import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.SearchVacanciesOutcome
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.search.state.JobSearchState
+import ru.practicum.android.diploma.presentation.search.state.SearchParams
 import ru.practicum.android.diploma.util.SEARCH_DEBOUNCE_MS
 
 @OptIn(FlowPreview::class)
 class JobSearchViewModel(
     private val searchInteractor: SearchInteractor,
+    private val filtrationInteractor: FiltrationInteractor
 ) : ViewModel() {
 
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+    private val _searchQuery = MutableStateFlow(
+        SearchParams("", filtrationInteractor.hasActiveFilter())
+    )
+    val searchQuery: StateFlow<SearchParams> = _searchQuery.asStateFlow()
 
     private val _state = MutableStateFlow<JobSearchState>(JobSearchState.Initial)
     val state: StateFlow<JobSearchState> = _state.asStateFlow()
@@ -39,25 +45,25 @@ class JobSearchViewModel(
         _searchQuery
             .debounce(SEARCH_DEBOUNCE_MS)
             .distinctUntilChanged()
-            .filter { it.isNotBlank() }
-            .onEach { query -> performSearch(query, page = 0) }
+            .filter { it.query.isNotBlank() }
+            .onEach { queryParams -> performSearch(query = queryParams.query, page = 0) }
             .launchIn(viewModelScope)
     }
 
     fun onSearchQueryChanged(query: String) {
-        _searchQuery.value = query
+        _searchQuery.update { it.copy(query = query) }
         if (query.isBlank()) {
             resetSearchState()
         }
     }
 
     fun clearSearch() {
-        _searchQuery.value = ""
+        _searchQuery.update { it.copy(query = "") }
         resetSearchState()
     }
 
     fun loadNextPage() {
-        val query = _searchQuery.value.trim()
+        val query = _searchQuery.value.query.trim()
         val content = _state.value as? JobSearchState.Content ?: return
         val nextPage = currentPage + 1
         if (!canLoadNextPage(content, query, nextPage)) {
@@ -65,7 +71,11 @@ class JobSearchViewModel(
         }
         viewModelScope.launch {
             _state.value = content.copy(isLoading = true)
-            when (val outcome = searchInteractor.searchVacancies(query, nextPage)) {
+            when (val outcome = searchInteractor.searchVacancies(
+                query = query,
+                page = nextPage,
+                filterParameters = filtrationInteractor.getFilter()
+            )) {
                 is SearchVacanciesOutcome.Success -> {
                     currentPage = outcome.result.page
                     _state.value = JobSearchState.Content(
@@ -74,11 +84,16 @@ class JobSearchViewModel(
                         isLoading = false,
                     )
                 }
+
                 is SearchVacanciesOutcome.Empty,
                 is SearchVacanciesOutcome.Error,
-                -> stopPaginationLoading()
+                    -> stopPaginationLoading()
             }
         }
+    }
+
+    fun updateActiveFilters() {
+        _searchQuery.update { it.copy(hasActiveFilter = filtrationInteractor.hasActiveFilter()) }
     }
 
     private fun canLoadNextPage(
@@ -105,7 +120,11 @@ class JobSearchViewModel(
                 vacancies = emptyList(),
                 isLoading = true,
             )
-            when (val outcome = searchInteractor.searchVacancies(query, page)) {
+            when (val outcome = searchInteractor.searchVacancies(
+                query = query,
+                page = page,
+                filterParameters = filtrationInteractor.getFilter()
+            )) {
                 is SearchVacanciesOutcome.Success -> applySuccess(outcome, replaceList = true)
                 SearchVacanciesOutcome.Empty -> _state.value = JobSearchState.Empty
                 SearchVacanciesOutcome.Error -> _state.value = JobSearchState.Error

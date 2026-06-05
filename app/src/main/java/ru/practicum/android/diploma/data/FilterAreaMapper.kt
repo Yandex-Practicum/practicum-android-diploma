@@ -13,4 +13,3 @@ fun FilterAreaDto.toDomain(): FilterArea = FilterArea(
 fun List<FilterAreaDto>.toDomain(): List<FilterArea> = map { areaDto ->
     areaDto.toDomain()
 }
-

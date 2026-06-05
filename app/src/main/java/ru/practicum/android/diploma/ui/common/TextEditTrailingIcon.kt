@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.ui.search.screen.SearchScreenTestTags
 
-
 @Composable
 fun TextEditTrailingIcon(
     iconId: Int,
@@ -20,7 +19,9 @@ fun TextEditTrailingIcon(
             .testTag(SearchScreenTestTags.ClearButton)
             .padding(end = 4.dp)
             .clickable(enabled = true, onClick = onClick),
-        resId = iconId,
-        color = MaterialTheme.colorScheme.secondaryFixed
+        IconResource.DefaultIcon(
+            resId = iconId,
+            color = MaterialTheme.colorScheme.secondaryFixed
+        )
     )
 }
