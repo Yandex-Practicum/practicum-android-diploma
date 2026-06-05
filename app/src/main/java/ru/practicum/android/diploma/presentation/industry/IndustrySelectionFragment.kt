@@ -341,7 +341,13 @@ private fun IndustrySelectionLoadingPreview() {
     }
 }
 
-@Preview(name = "Loading Dark", showBackground = true, widthDp = 360, heightDp = 640, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "Loading Dark",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
 private fun IndustrySelectionLoadingDarkPreview() {
     AppTheme(darkTheme = true) {
@@ -392,7 +398,13 @@ private fun IndustrySelectionSearchAndSelectionPreview() {
     }
 }
 
-@Preview(name = "Default Dark", showBackground = true, widthDp = 360, heightDp = 640, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "Default Dark",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
 private fun IndustrySelectionDefaultDarkPreview() {
     AppTheme(darkTheme = true) {
@@ -409,7 +421,13 @@ private fun IndustrySelectionDefaultDarkPreview() {
     }
 }
 
-@Preview(name = "Search & Selection Dark", showBackground = true, widthDp = 360, heightDp = 640, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "Search & Selection Dark",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
 private fun IndustrySelectionSearchAndSelectionDarkPreview() {
     val query = "фин"
@@ -443,7 +461,13 @@ private fun IndustrySelectionServerErrorPreview() {
     }
 }
 
-@Preview(name = "Server Error Dark", showBackground = true, widthDp = 360, heightDp = 640, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "Server Error Dark",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
 private fun IndustrySelectionServerErrorDarkPreview() {
     AppTheme(darkTheme = true) {
@@ -471,7 +495,13 @@ private fun IndustrySelectionNetworkErrorPreview() {
     }
 }
 
-@Preview(name = "Network Error Dark", showBackground = true, widthDp = 360, heightDp = 640, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "Network Error Dark",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
 private fun IndustrySelectionNetworkErrorDarkPreview() {
     AppTheme(darkTheme = true) {

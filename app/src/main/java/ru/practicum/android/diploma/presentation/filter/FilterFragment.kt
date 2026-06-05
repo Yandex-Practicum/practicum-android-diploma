@@ -93,9 +93,10 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setFragmentResultListener(IndustrySelectionFragment.INDUSTRY_SELECTED_REQUEST_KEY) { _, bundle ->
             val id = bundle.getInt(IndustrySelectionFragment.INDUSTRY_ID_KEY, -1)
-            if (id == -1) return@setFragmentResultListener
-            val name = bundle.getString(IndustrySelectionFragment.INDUSTRY_NAME_KEY) ?: return@setFragmentResultListener
-            viewModel.onIndustrySelected(id, name)
+            val name = bundle.getString(IndustrySelectionFragment.INDUSTRY_NAME_KEY)
+            if (id != -1 && name != null) {
+                viewModel.onIndustrySelected(id, name)
+            }
         }
     }
 
