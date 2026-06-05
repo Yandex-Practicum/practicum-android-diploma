@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.FilterArea
 import ru.practicum.android.diploma.presentation.filtration.country.state.ChooseCountryUIState
-import ru.practicum.android.diploma.ui.common.FilterItem
+import ru.practicum.android.diploma.ui.common.filter.FilterItem
 import ru.practicum.android.diploma.ui.common.Loader
 import ru.practicum.android.diploma.ui.common.PlaceholderLayout
 import ru.practicum.android.diploma.ui.common.TopBar
