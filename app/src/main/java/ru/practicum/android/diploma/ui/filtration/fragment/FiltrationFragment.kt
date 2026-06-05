@@ -20,6 +20,11 @@ import ru.practicum.android.diploma.ui.theme.AppTheme
 class FiltrationFragment : Fragment() {
     private val viewModel: FiltrationViewModel by viewModel()
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadFilters()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +38,7 @@ class FiltrationFragment : Fragment() {
 
                     FiltrationScreen(
                         country = "",
-                        industry = state.value.industry?.name.orEmpty(),
+                        industryName = state.value.industry?.name,
                         salary = state.value.salary?.toString().orEmpty(),
                         dontShowWithoutSalaryChecked = state.value.onlyWithSalary,
                         showButtons = state.value.showButtons,
@@ -50,7 +55,7 @@ class FiltrationFragment : Fragment() {
                         onNavClick = { findNavController().popBackStack() },
                         onIndustryClick = {
                             findNavController().navigate(
-                                R.id.action_filtrationFragment_to_chooseIndustryFragment,
+                                R.id.action_filtrationFragment_to_industrySelectionFragment,
                             )
                         },
                         onAreaClick = {

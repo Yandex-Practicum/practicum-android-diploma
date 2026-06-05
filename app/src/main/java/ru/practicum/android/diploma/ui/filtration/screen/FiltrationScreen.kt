@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.common.CheckBox
-import ru.practicum.android.diploma.ui.common.FilterItem
+import ru.practicum.android.diploma.ui.common.filter.FilterItem
 import ru.practicum.android.diploma.ui.common.PrimaryButton
 import ru.practicum.android.diploma.ui.common.SecondaryButton
 import ru.practicum.android.diploma.ui.common.TextEdit
@@ -46,7 +46,7 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 @Composable
 fun FiltrationScreen(
     country: String,
-    industry: String,
+    industryName: String?,
     salary: String,
     dontShowWithoutSalaryChecked: Boolean,
     showButtons: Boolean,
@@ -97,7 +97,7 @@ fun FiltrationScreen(
             )
             FilterItem(
                 title = stringResource(R.string.specialization_title),
-                value = industry.takeIf { it.isNotEmpty() },
+                value = industryName,
                 onItemClick = onIndustryClick,
                 onCrossClick = onIndustryClear,
             )

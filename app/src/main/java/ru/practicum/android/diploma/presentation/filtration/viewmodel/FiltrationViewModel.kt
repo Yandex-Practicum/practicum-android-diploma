@@ -18,22 +18,24 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
     private val initialState = FiltrationUIState(
         salary = null,
         onlyWithSalary = false,
-        industry = null
+        industry = null,
     )
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<FiltrationUIState> = _state.asStateFlow()
 
     init {
+        loadFilters()
+    }
+
+    fun loadFilters() {
         viewModelScope.launch(Dispatchers.IO) {
             val filters = filtrationInteractor.getFilter()
             _state.update {
                 FiltrationUIState(
                     salary = filters.salary,
                     onlyWithSalary = filters.hideWithoutSalary,
-                    industry = if (filters.industryId != null) {
-                        FilterIndustry(id = filters.industryId, name = filters.industryName ?: "")
-                    } else {
-                        null
+                    industry = filters.industryId?.let { id ->
+                        FilterIndustry(id = id, name = filters.industryName.orEmpty())
                     },
                 )
             }
@@ -48,6 +50,10 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
         }
     }
 
+    fun onSalaryChanged(salary: Int) {
+        _state.update { it.copy(salary = salary) }
+    }
+
     fun onSalaryCleared() {
         _state.update { it.copy(salary = null) }
     }
@@ -58,6 +64,10 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
 
     fun clearIndustry() {
         _state.update { it.copy(industry = null) }
+    }
+
+    fun onIndustryChanged(industry: FilterIndustry) {
+        _state.update { it.copy(industry = industry) }
     }
 
     fun saveFilters() {
@@ -79,6 +89,19 @@ class FiltrationViewModel(private val filtrationInteractor: FiltrationInteractor
         viewModelScope.launch(Dispatchers.IO) {
             filtrationInteractor.clearFilter()
             _state.value = initialState
+        }
+    }
+
+    private suspend fun persistFilters(filters: FiltrationUIState) {
+        withContext(Dispatchers.IO) {
+            filtrationInteractor.saveFilter(
+                filterParameters = FilterParameters(
+                    salary = filters.salary,
+                    hideWithoutSalary = filters.onlyWithSalary,
+                    industryId = filters.industry?.id,
+                    industryName = filters.industry?.name,
+                ),
+            )
         }
     }
 }

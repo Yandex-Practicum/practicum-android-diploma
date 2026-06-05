@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.practicum.android.diploma.ui.common.FilterItem
+import ru.practicum.android.diploma.ui.common.filter.FilterItem
 import ru.practicum.android.diploma.ui.filtration.region.action.ChooseRegionAction
 import ru.practicum.android.diploma.ui.filtration.region.model.RegionUi
 import ru.practicum.android.diploma.ui.theme.Dimens
