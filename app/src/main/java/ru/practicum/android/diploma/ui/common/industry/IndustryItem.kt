@@ -54,15 +54,3 @@ fun IndustryItem(
         )
     }
 }
-
-@Preview(showSystemUi = false)
-@Composable
-private fun IndustryItemPreview() {
-    Column {
-        IndustryItem(text = "Авиаперевозки", checked = true)
-        IndustryItem(
-            text = "Авиационная, вертолетная и аэрокосмическая промышленность",
-            checked = false,
-        )
-    }
-}

@@ -47,4 +47,9 @@ class IndustryFragment : Fragment() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadIndustry()
+    }
 }
