@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.ui.search.screen.SearchScreenTestTags
 
-
 @Composable
 fun TextEditTrailingIcon(
     iconId: Int,

@@ -94,7 +94,9 @@ fun IconImage(
             painter = painterResource(id = icon.resId),
             contentDescription = if (icon.contentDescriptionStringId != null) {
                 stringResource(icon.contentDescriptionStringId)
-            } else null,
+            } else {
+                null
+            },
             colorFilter = icon.color?.let { ColorFilter.tint(icon.color) }
         )
     }
