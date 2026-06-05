@@ -5,6 +5,7 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.presentation.details.VacancyDetailsViewModel
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
 import ru.practicum.android.diploma.presentation.filter.FilterViewModel
+import ru.practicum.android.diploma.presentation.industry.IndustrySelectionViewModel
 import ru.practicum.android.diploma.presentation.search.SearchViewModel
 
 val viewModelModule = module {
@@ -32,5 +33,9 @@ val viewModelModule = module {
 
     viewModel {
         FilterViewModel(filterInteractor = get())
+    }
+
+    viewModel {
+        IndustrySelectionViewModel(interactor = get(), savedStateHandle = get())
     }
 }
