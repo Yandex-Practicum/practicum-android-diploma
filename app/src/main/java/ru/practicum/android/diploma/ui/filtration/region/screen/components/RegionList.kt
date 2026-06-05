@@ -35,6 +35,7 @@ fun RegionList(
         ) { region ->
             FilterItem(
                 title = region.name,
+                headlineContentColorInverted = true,
                 onItemClick = { onAction(ChooseRegionAction.RegionClicked(region)) },
             )
         }
