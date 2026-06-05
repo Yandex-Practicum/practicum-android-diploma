@@ -188,7 +188,7 @@ private fun IndustrySearchStateContent(
 
         IndustryScreenState.Error -> {
             PlaceholderLayout(
-                R.drawable.img_industries_error,
+                R.drawable.img_nothing_found,
                 R.string.industry_server_error,
             )
         }
