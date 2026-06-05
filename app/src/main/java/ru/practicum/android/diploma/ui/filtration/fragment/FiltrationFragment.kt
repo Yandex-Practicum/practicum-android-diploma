@@ -50,7 +50,7 @@ class FiltrationFragment : Fragment() {
                         onNavClick = { findNavController().popBackStack() },
                         onIndustryClick = {
                             findNavController().navigate(
-                                R.id.action_filtrationFragment_to_industrySelectionFragment,
+                                R.id.action_filtrationFragment_to_chooseIndustryFragment,
                             )
                         },
                         onAreaClick = {

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.presentation.filtration.country.state.ChooseCountryUIState
 import ru.practicum.android.diploma.ui.filtration.country.screen.ChooseCountryScreen
 import ru.practicum.android.diploma.ui.theme.AppTheme
 
@@ -18,9 +20,14 @@ class ChooseCountryFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            val state: ChooseCountryUIState = ChooseCountryUIState.Loading
             setContent {
                 AppTheme {
-                    ChooseCountryScreen()
+                    ChooseCountryScreen(
+                        state = state,
+                        onItemClick = { findNavController().navigateUp() },
+                        onBackClick = { findNavController().navigateUp() }
+                    )
                 }
             }
         }
