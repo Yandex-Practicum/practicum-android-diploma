@@ -4,10 +4,12 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.interactors.DetailsInteractor
 import ru.practicum.android.diploma.domain.interactors.FavoritesInteractor
 import ru.practicum.android.diploma.domain.interactors.FilterInteractor
+import ru.practicum.android.diploma.domain.interactors.IndustriesInteractor
 import ru.practicum.android.diploma.domain.interactors.VacanciesInteractor
 import ru.practicum.android.diploma.domain.interactors.impl.DetailsInteractorImpl
 import ru.practicum.android.diploma.domain.interactors.impl.FavoritesInteractorImpl
 import ru.practicum.android.diploma.domain.interactors.impl.FilterInteractorImpl
+import ru.practicum.android.diploma.domain.interactors.impl.IndustriesInteractorImpl
 import ru.practicum.android.diploma.domain.interactors.impl.VacanciesInteractorImpl
 
 val domainModule = module {
@@ -26,5 +28,9 @@ val domainModule = module {
 
     single<FavoritesInteractor> {
         FavoritesInteractorImpl(repository = get())
+    }
+
+    single<IndustriesInteractor> {
+        IndustriesInteractorImpl(repository = get())
     }
 }
