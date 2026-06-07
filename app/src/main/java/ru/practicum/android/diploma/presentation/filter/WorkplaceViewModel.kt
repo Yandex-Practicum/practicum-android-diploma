@@ -20,12 +20,20 @@ class WorkplaceViewModel(
 
     fun loadFilterSettings() {
         val settings = filterInteractor.getFilterSettings()
+        val cId = settings.countryId?.toString()
+        val cName = settings.countryName
+        val rId = settings.regionId?.toString()
+        val rName = settings.regionName
         _uiState.update {
             WorkplaceUiState(
-                countryId = settings.countryId?.toString(),
-                countryName = settings.countryName,
-                regionId = settings.regionId?.toString(),
-                regionName = settings.regionName
+                countryId = cId,
+                countryName = cName,
+                regionId = rId,
+                regionName = rName,
+                initialCountryId = cId,
+                initialCountryName = cName,
+                initialRegionId = rId,
+                initialRegionName = rName
             )
         }
     }
@@ -46,8 +54,8 @@ class WorkplaceViewModel(
     }
 
     fun onRegionSelected(regionId: String, regionName: String, countryId: String, countryName: String) {
-        _uiState.update {
-            WorkplaceUiState(
+        _uiState.update { state ->
+            state.copy(
                 countryId = countryId,
                 countryName = countryName,
                 regionId = regionId,

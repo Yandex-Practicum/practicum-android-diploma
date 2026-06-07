@@ -41,7 +41,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -106,38 +105,44 @@ private fun SelectRegionScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = Dimens.paddingDefault),
+            .background(MaterialTheme.colorScheme.background),
     ) {
         SelectRegionTopBar(onBackClicked = onBackClicked)
         Spacer(modifier = Modifier.height(Dimens.paddingSystemBar))
 
-        val query = when (state) {
-            is SelectRegionUiState.Content -> state.query
-            is SelectRegionUiState.EmptySearch -> state.query
-            else -> ""
-        }
-
-        RegionSearchField(
-            query = query,
-            onQueryChanged = onQueryChanged,
-            onClearQueryClicked = onClearQueryClicked,
-        )
-
-        Spacer(modifier = Modifier.height(Dimens.paddingDefault))
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                .padding(horizontal = Dimens.paddingDefault),
         ) {
-            when (state) {
-                is SelectRegionUiState.Loading -> RegionLoading()
-                is SelectRegionUiState.Error -> RegionErrorPlaceholder()
-                is SelectRegionUiState.EmptySearch -> RegionEmptySearchPlaceholder()
-                is SelectRegionUiState.Content -> RegionList(
-                    regions = state.regions,
-                    onRegionClicked = onRegionClicked,
-                )
+            val query = when (state) {
+                is SelectRegionUiState.Content -> state.query
+                is SelectRegionUiState.EmptySearch -> state.query
+                else -> ""
+            }
+
+            RegionSearchField(
+                query = query,
+                onQueryChanged = onQueryChanged,
+                onClearQueryClicked = onClearQueryClicked,
+            )
+
+            Spacer(modifier = Modifier.height(Dimens.paddingDefault))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            ) {
+                when (state) {
+                    is SelectRegionUiState.Loading -> RegionLoading()
+                    is SelectRegionUiState.Error -> RegionErrorPlaceholder()
+                    is SelectRegionUiState.EmptySearch -> RegionEmptySearchPlaceholder()
+                    is SelectRegionUiState.Content -> RegionList(
+                        regions = state.regions,
+                        onRegionClicked = onRegionClicked,
+                    )
+                }
             }
         }
     }
@@ -150,8 +155,8 @@ private fun SelectRegionTopBar(onBackClicked: () -> Unit) {
             .fillMaxWidth()
             .padding(
                 top = Dimens.paddingTopLarge,
-                start = 0.dp,
-                end = 0.dp,
+                start = Dimens.paddingSmall,
+                end = Dimens.paddingDefault,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {

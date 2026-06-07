@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,6 +33,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -167,25 +170,30 @@ private fun WorkplaceScreen(
             )
             Spacer(modifier = Modifier.weight(1f))
             if (state.showApplyButton) {
-                Button(
-                    onClick = onApplyClicked,
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(Dimens.heightButton)
-                        .padding(bottom = Dimens.paddingDefault),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Blue,
-                        contentColor = WhiteUniversal,
-                    ),
-                    shape = RoundedCornerShape(Dimens.cornerRadius),
+                        .padding(bottom = Dimens.paddingDefault)
                 ) {
-                    Text(
-                        text = stringResource(R.string.filter_workplace_apply),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
+                    Button(
+                        onClick = onApplyClicked,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(Dimens.heightButton),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Blue,
+                            contentColor = WhiteUniversal,
                         ),
-                    )
+                        shape = RoundedCornerShape(Dimens.cornerRadius),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.filter_workplace_apply),
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                            ),
+                        )
+                    }
                 }
             }
         }
@@ -269,7 +277,10 @@ private fun WorkplaceRow(
             }
         }
         if (value != null) {
-            IconButton(onClick = onClearClick) {
+            IconButton(
+                onClick = onClearClick,
+                modifier = Modifier.offset(x = 12.dp)
+            ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_close_24),
                     contentDescription = null,
