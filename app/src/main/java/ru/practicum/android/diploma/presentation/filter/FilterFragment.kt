@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,6 +59,11 @@ class FilterFragment : Fragment() {
 
     private val viewModel by viewModel<FilterViewModel>()
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadFilterSettings()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,11 +79,13 @@ class FilterFragment : Fragment() {
                     FilterScreen(
                         state = state,
                         onBackClicked = { findNavController().popBackStack() },
+                        onWorkplaceClicked = { findNavController().navigate(R.id.workplaceFragment) },
                         onSalaryChanged = viewModel::onSalaryChanged,
                         onSalaryClearClicked = viewModel::onSalaryClearClicked,
                         onOnlyWithSalaryChanged = viewModel::onOnlyWithSalaryChanged,
                         onApplyClicked = ::onApplyClicked,
                         onResetClicked = viewModel::onResetClicked,
+                        onWorkplaceClearClicked = viewModel::onWorkplaceClearClicked,
                     )
                 }
             }
@@ -98,11 +106,13 @@ class FilterFragment : Fragment() {
 private fun FilterScreen(
     state: FilterUiState,
     onBackClicked: () -> Unit,
+    onWorkplaceClicked: () -> Unit,
     onSalaryChanged: (String) -> Unit,
     onSalaryClearClicked: () -> Unit,
     onOnlyWithSalaryChanged: (Boolean) -> Unit,
     onApplyClicked: () -> Unit,
     onResetClicked: () -> Unit,
+    onWorkplaceClearClicked: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -119,7 +129,8 @@ private fun FilterScreen(
             FilterNavigationRow(
                 text = state.workplaceTitle ?: stringResource(R.string.filter_workplace),
                 isSelected = state.workplaceTitle != null,
-                onClick = {},
+                onClick = onWorkplaceClicked,
+                onClearClick = onWorkplaceClearClicked,
             )
             FilterNavigationRow(
                 text = state.industryTitle ?: stringResource(R.string.filter_industry),
@@ -185,6 +196,7 @@ private fun FilterNavigationRow(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
+    onClearClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = Modifier
@@ -206,11 +218,24 @@ private fun FilterNavigationRow(
                 fontWeight = FontWeight.Normal,
             ),
         )
-        Icon(
-            painter = painterResource(R.drawable.ic_arrow_forward_24),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onBackground,
-        )
+        if (isSelected && onClearClick != null) {
+            IconButton(
+                onClick = onClearClick,
+                modifier = Modifier.offset(x = 12.dp)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_close_24),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+        } else {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_forward_24),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onBackground,
+            )
+        }
     }
 }
 
@@ -379,11 +404,13 @@ private fun FilterEmptyPreview() {
         FilterScreen(
             state = FilterUiState(),
             onBackClicked = {},
+            onWorkplaceClicked = {},
             onSalaryChanged = {},
             onSalaryClearClicked = {},
             onOnlyWithSalaryChanged = {},
             onApplyClicked = {},
             onResetClicked = {},
+            onWorkplaceClearClicked = {},
         )
     }
 }
@@ -405,11 +432,13 @@ private fun FilterFilledPreview() {
                 )
             ),
             onBackClicked = {},
+            onWorkplaceClicked = {},
             onSalaryChanged = {},
             onSalaryClearClicked = {},
             onOnlyWithSalaryChanged = {},
             onApplyClicked = {},
             onResetClicked = {},
+            onWorkplaceClearClicked = {},
         )
     }
 }
