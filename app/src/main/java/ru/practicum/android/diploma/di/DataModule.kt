@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.data.network.NetworkClientImpl
 import ru.practicum.android.diploma.data.network.NetworkConnectionChecker
 import ru.practicum.android.diploma.data.network.NetworkConnectionCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkConstants
+import ru.practicum.android.diploma.data.repositories.AreasRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.DetailsRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.FilterRepositoryImpl
@@ -23,6 +24,7 @@ import ru.practicum.android.diploma.data.repositories.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.repositories.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.data.storage.filter.FilterSettingsStorage
 import ru.practicum.android.diploma.data.storage.filter.SharedPreferencesFilterSettingsStorage
+import ru.practicum.android.diploma.domain.api.AreasRepository
 import ru.practicum.android.diploma.domain.api.DetailsRepository
 import ru.practicum.android.diploma.domain.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.api.FilterRepository
@@ -92,6 +94,10 @@ val dataModule = module {
 
     single<DetailsRepository> {
         DetailsRepositoryImpl(api = get(), networkClient = get())
+    }
+
+    single<AreasRepository> {
+        AreasRepositoryImpl(api = get(), networkClient = get())
     }
 
     single<AppDatabase> {

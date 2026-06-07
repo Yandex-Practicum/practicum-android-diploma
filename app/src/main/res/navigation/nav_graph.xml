@@ -47,4 +47,25 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/workplaceFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.WorkplaceFragment"
+        android:label="Workplace" />
+
+    <fragment
+        android:id="@+id/selectCountryFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.SelectCountryFragment"
+        android:label="Select Country" />
+
+    <fragment
+        android:id="@+id/selectRegionFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.SelectRegionFragment"
+        android:label="Select Region">
+        <argument
+            android:name="country_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
 </navigation>

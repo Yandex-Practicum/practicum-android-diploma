@@ -19,7 +19,13 @@ data class FilterUiState(
         get() = hasActiveFilters
 
     val workplaceTitle: String?
-        get() = settings.regionName ?: settings.countryName
+        get() = when {
+            settings.countryName != null && settings.regionName != null ->
+                "${settings.countryName}, ${settings.regionName}"
+            settings.countryName != null -> settings.countryName
+            settings.regionName != null -> settings.regionName
+            else -> null
+        }
 
     val industryTitle: String?
         get() = settings.industryName

@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import ru.practicum.android.diploma.data.dto.AreasResponseDto
 import ru.practicum.android.diploma.data.dto.IndustryDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDetailDto
@@ -22,5 +23,8 @@ interface DiplomaApi {
 
     @GET("industries")
     suspend fun getIndustries(): Response<List<IndustryDto>>
+
+    @GET("areas")
+    suspend fun getAreas(): Response<AreasResponseDto>
 
 }

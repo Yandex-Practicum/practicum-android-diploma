@@ -35,6 +35,17 @@ class FilterViewModel(
         }
     }
 
+    fun onWorkplaceClearClicked() {
+        updateSettings { settings ->
+            settings.copy(
+                countryId = null,
+                countryName = null,
+                regionId = null,
+                regionName = null
+            )
+        }
+    }
+
     fun onIndustrySelected(industryId: Int, industryName: String) {
         updateSettings { settings ->
             settings.copy(industryId = industryId, industryName = industryName)
@@ -51,6 +62,16 @@ class FilterViewModel(
         filterInteractor.clearFilterSettings()
         _uiState.update { state ->
             state.copy(settings = FilterSettings())
+        }
+    }
+
+    fun loadFilterSettings() {
+        val currentSettings = filterInteractor.getFilterSettings()
+        _uiState.update { state ->
+            state.copy(
+                settings = currentSettings,
+                initialSettings = currentSettings
+            )
         }
     }
 
