@@ -46,6 +46,18 @@ class FilterViewModel(
         }
     }
 
+    fun onIndustrySelected(industryId: Int, industryName: String) {
+        updateSettings { settings ->
+            settings.copy(industryId = industryId, industryName = industryName)
+        }
+    }
+
+    fun onIndustryClearClicked() {
+        updateSettings { settings ->
+            settings.copy(industryId = null, industryName = null)
+        }
+    }
+
     fun onResetClicked() {
         filterInteractor.clearFilterSettings()
         _uiState.update { state ->

@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.presentation.filter.FilterViewModel
 import ru.practicum.android.diploma.presentation.filter.SelectCountryViewModel
 import ru.practicum.android.diploma.presentation.filter.SelectRegionViewModel
 import ru.practicum.android.diploma.presentation.filter.WorkplaceViewModel
+import ru.practicum.android.diploma.presentation.industry.IndustrySelectionViewModel
 import ru.practicum.android.diploma.presentation.search.SearchViewModel
 
 val viewModelModule = module {
@@ -35,6 +36,10 @@ val viewModelModule = module {
 
     viewModel {
         FilterViewModel(filterInteractor = get())
+    }
+
+    viewModel {
+        IndustrySelectionViewModel(interactor = get(), savedStateHandle = get())
     }
 
     viewModel {

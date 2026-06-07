@@ -45,9 +45,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.presentation.industry.IndustrySelectionFragment
+import ru.practicum.android.diploma.presentation.industry.IndustrySelectionViewModel
 import ru.practicum.android.diploma.domain.models.FilterSettings
 import ru.practicum.android.diploma.presentation.ui.theme.AppTheme
 import ru.practicum.android.diploma.presentation.ui.theme.Blue
@@ -85,6 +88,8 @@ class FilterFragment : Fragment() {
                         onOnlyWithSalaryChanged = viewModel::onOnlyWithSalaryChanged,
                         onApplyClicked = ::onApplyClicked,
                         onResetClicked = viewModel::onResetClicked,
+                        onIndustryClicked = ::onIndustryClicked,
+                        onIndustryClearClicked = viewModel::onIndustryClearClicked,
                         onWorkplaceClearClicked = viewModel::onWorkplaceClearClicked,
                     )
                 }
@@ -92,9 +97,28 @@ class FilterFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setFragmentResultListener(IndustrySelectionFragment.INDUSTRY_SELECTED_REQUEST_KEY) { _, bundle ->
+            val id = bundle.getInt(IndustrySelectionFragment.INDUSTRY_ID_KEY, -1)
+            val name = bundle.getString(IndustrySelectionFragment.INDUSTRY_NAME_KEY)
+            if (id != -1 && name != null) {
+                viewModel.onIndustrySelected(id, name)
+            }
+        }
+    }
+
     private fun onApplyClicked() {
         parentFragmentManager.setFragmentResult(FILTER_APPLIED_REQUEST_KEY, Bundle.EMPTY)
         findNavController().popBackStack()
+    }
+
+    private fun onIndustryClicked() {
+        val currentId = viewModel.uiState.value.settings.industryId ?: -1
+        findNavController().navigate(
+            R.id.action_filterFragment_to_industrySelectionFragment,
+            Bundle().apply { putInt(IndustrySelectionViewModel.ARG_PRESELECTED_INDUSTRY_ID, currentId) },
+        )
     }
 
     companion object {
@@ -113,6 +137,8 @@ private fun FilterScreen(
     onApplyClicked: () -> Unit,
     onResetClicked: () -> Unit,
     onWorkplaceClearClicked: () -> Unit,
+    onIndustryClicked: () -> Unit = {},
+    onIndustryClearClicked: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -135,7 +161,8 @@ private fun FilterScreen(
             FilterNavigationRow(
                 text = state.industryTitle ?: stringResource(R.string.filter_industry),
                 isSelected = state.industryTitle != null,
-                onClick = {},
+                onClick = onIndustryClicked,
+                onClearClick = onIndustryClearClicked,
             )
             Spacer(modifier = Modifier.height(Dimens.paddingDefault))
             SalaryField(
