@@ -23,7 +23,7 @@ private fun VacancySearchRequest.toDto(): VacancySearchRequestDto {
 }
 
 private fun VacancySearchRequestDto.toQueryMap(): Map<String, String> = buildMap {
-    text.takeIf(String::isNotBlank)?.let { put(TEXT_QUERY_KEY, it) }
+    text.trim().takeIf(String::isNotBlank)?.let { put(TEXT_QUERY_KEY, it) }
     area?.let { put(AREA_QUERY_KEY, it.toString()) }
     industry?.let { put(INDUSTRY_QUERY_KEY, it.toString()) }
     salary?.let { put(SALARY_QUERY_KEY, it.toString()) }

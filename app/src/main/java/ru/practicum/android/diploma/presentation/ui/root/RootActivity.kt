@@ -26,7 +26,8 @@ class RootActivity : AppCompatActivity() {
                 R.id.filterFragment,
                 R.id.workplaceFragment,
                 R.id.selectCountryFragment,
-                R.id.selectRegionFragment -> {
+                R.id.selectRegionFragment,
+                R.id.industrySelectionFragment -> {
                     bottomNav.visibility = android.view.View.GONE
                     bottomNavDivider.visibility = android.view.View.GONE
                 }
