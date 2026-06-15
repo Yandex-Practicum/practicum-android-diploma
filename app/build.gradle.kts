@@ -1,9 +1,10 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
     id("ru.practicum.android.diploma.plugins.developproperties")
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -34,6 +35,7 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -54,4 +56,24 @@ dependencies {
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(libs.koin.android)
+    
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    
+    implementation(libs.glide)
+    ksp(libs.glide.compiler)
+
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.activity.ktx)
+    implementation(libs.fragment.ktx)
 }
