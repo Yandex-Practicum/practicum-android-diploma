@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="max_text_view_height">60dp</dimen>
+    <dimen name="max_button_height">59dp</dimen>
+    <dimen name="edit_text_height">56dp</dimen>
+    <dimen name="edit_text_radius">12dp</dimen>
+
+    <dimen name="padding_143">143dp</dimen>
+    <dimen name="padding_120">120dp</dimen>
+    <dimen name="padding_38">38dp</dimen>
+    <dimen name="padding_32">32dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_19">19dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_14.5">14.5dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_9">9dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_4">4dp</dimen>
+
+    <dimen name="text_size_big">32sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+
+</resources>

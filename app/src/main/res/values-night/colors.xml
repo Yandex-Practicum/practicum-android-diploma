@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_background">@color/black</color>
+    <color name="color_on_surface">@color/white</color>
+    <color name="color_text_on_primary">@color/white</color><!--текст на кнопке -->
+    <color name="color_text_primary">@color/black</color><!--black -->
+    <color name="color_text_secondary">@color/gray</color><!--gray -->
+    <color name="color_accent">@color/blue</color><!-- blue -->
+    <color name="color_surface_primary">@color/gray</color><!-- edittext-->
+    <color name="color_primary">@color/blue</color> <!--кнопки и курсор-->
+</resources>

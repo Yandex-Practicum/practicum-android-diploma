@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#1A1B22</color>
+    <color name="white">#FDFDFD</color>
+    <color name="blue">#3772E7</color>
+    <color name="red">#F56B6C</color>
+    <color name="gray">#AEAFB4</color>
+    <color name="light_gray">#E6E8EB</color>
+    <color name="background_50">#501A1B22</color>
+
+    <color name="color_background">@color/white</color>
+    <color name="color_on_surface">@color/black</color>
+    <color name="color_text_on_primary">@color/white</color>
+    <color name="color_text_primary">@color/black</color>
+    <color name="color_text_secondary">@color/gray</color>
+    <color name="color_accent">@color/blue</color>
+    <color name="color_surface_primary">@color/light_gray</color>
+    <color name="color_primary">@color/blue</color> <!--кнопки и курсор-->
 </resources>
