@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_vacancy_search"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.VacancySearchFragment"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vacancy_search_title"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/goToVacancyDetailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Открыть вакансию"/>
+
+    <Button
+        android:id="@+id/goToFiltersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Перейти к фильтрам"/>
+
+</LinearLayout>
