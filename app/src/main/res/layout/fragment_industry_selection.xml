@@ -1,30 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/industrySelectionFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/industrySelectionFragment"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.fragments.filter.IndustrySelectionFragment"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:paddingBottom="@dimen/padding_24"
+    tools:context=".ui.fragments.filter.IndustrySelectionFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingStart="16dp">
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back_24"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/padding_16" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/industry_selection_title"
-            android:textColor="@color/black"
-            android:layout_marginStart="16dp"/>
-    </LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/padding_16" />
 
-</LinearLayout>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/backButton"
+        style="@style/ToolbarStyle"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/industry_selection_title" />
+
+    <EditText
+        android:id="@+id/searchIndustry"
+        style="@style/inputEditTextSearchStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/rightBorder"
+        app:layout_constraintStart_toEndOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/radioButton"
+        app:layout_constraintEnd_toStartOf="@id/rightBorder"
+        app:layout_constraintStart_toEndOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/searchIndustry">
+<!--        android:orientation="vertical">-->
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            style="@style/SelectTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableTint="@color/color_accent"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+            android:text="IT"
+            android:checked="true"
+            app:layout_constraintEnd_toStartOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/searchIndustry"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/choose"
+        style="@style/ButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/choose"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightBorder"
+        app:layout_constraintStart_toEndOf="@id/leftBorder" />
+</androidx.constraintlayout.widget.ConstraintLayout>

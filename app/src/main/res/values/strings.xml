@@ -21,4 +21,7 @@
 
     <string name="country">Страна</string>
     <string name="region">Регион</string>
+
+<!-- Названия кнопок -->
+    <string name="choose">Выбрать</string>
 </resources>
