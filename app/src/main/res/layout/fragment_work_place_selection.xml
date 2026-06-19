@@ -22,8 +22,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/TextDisplayMedium22"
             android:text="@string/work_place_selection_title"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginStart="16dp"/>
     </LinearLayout>
 

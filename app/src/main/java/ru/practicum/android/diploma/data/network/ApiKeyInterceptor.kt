@@ -8,7 +8,7 @@ class ApiKeyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val modifiedRequest = originalRequest.newBuilder()
-            .header("Authorization: ", BuildConfig.API_ACCESS_TOKEN)
+            .header("Authorization", "Bearer " + BuildConfig.API_ACCESS_TOKEN)
             .build()
         return chain.proceed(modifiedRequest)
     }

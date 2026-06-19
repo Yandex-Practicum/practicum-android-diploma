@@ -11,9 +11,9 @@ import ru.practicum.android.diploma.data.network.PracticumApiService
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.network.createLoggingInterceptor
 
-private const val BaseUrl = "https://android-diploma.education-services.ru"
+private const val BASE_URL = "https://android-diploma.education-services.ru/"
 
-val NetworkModule = module {
+val networkModule = module {
     single<PracticumApiService> {
         val okHttpClient = OkHttpClient.Builder().apply {
             addInterceptor(ApiKeyInterceptor())
@@ -21,7 +21,7 @@ val NetworkModule = module {
         }.build()
 
         Retrofit.Builder()
-            .baseUrl(BaseUrl)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
