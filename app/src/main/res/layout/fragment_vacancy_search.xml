@@ -131,6 +131,18 @@
         app:layout_constraintStart_toEndOf="@id/glLeftBorder_16"
         app:layout_constraintTop_toBottomOf="@id/tvResultInfo" />
 
+    <!-- Состояние: Ошибка сервера -->
+    <include
+        android:id="@+id/layoutServerError"
+        layout="@layout/layout_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/glRightBorder_16"
+        app:layout_constraintStart_toEndOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toBottomOf="@id/tvResultInfo" />
+
     <!-- Состояние: Загрузка -->
     <include
         android:id="@+id/layoutLoading"

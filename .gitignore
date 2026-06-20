@@ -53,3 +53,8 @@ google-services.json
 *.log
 
 .kotlin/
+
+# AI Code Map and analysis files
+.codemap/
+PSI.json
+

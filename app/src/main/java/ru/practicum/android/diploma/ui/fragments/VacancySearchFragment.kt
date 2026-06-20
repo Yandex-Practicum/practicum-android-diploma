@@ -32,6 +32,7 @@ class VacancySearchFragment : Fragment() {
                 binding.layoutInitial.root,
                 binding.layoutNoInternet.root,
                 binding.layoutNoFound.root,
+                binding.layoutServerError.root,
                 binding.layoutLoading.root
             )
         )
@@ -39,6 +40,7 @@ class VacancySearchFragment : Fragment() {
         setupInitialState()
         setupNoInternetState()
         setupNoFoundState()
+        setupServerErrorState()
 
         binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_filtersFragment)
@@ -82,6 +84,12 @@ class VacancySearchFragment : Fragment() {
         binding.layoutNoFound.tvPlaceholderText.isVisible = true
     }
 
+    private fun setupServerErrorState() {
+        binding.layoutServerError.ivPlaceholderPicture.setImageResource(R.drawable.placeholder_error_server)
+        binding.layoutServerError.tvPlaceholderText.text = getString(R.string.server_error)
+        binding.layoutServerError.tvPlaceholderText.isVisible = true
+    }
+
     private fun showInitialState() {
         viewStateHelper.showOnly(binding.layoutInitial.root)
         binding.tvResultInfo.isVisible = false
@@ -96,6 +104,11 @@ class VacancySearchFragment : Fragment() {
         viewStateHelper.showOnly(binding.layoutNoFound.root)
         binding.tvResultInfo.isVisible = true
         binding.tvResultInfo.text = getString(R.string.no_vacancies)
+    }
+
+    private fun showServerErrorState() {
+        viewStateHelper.showOnly(binding.layoutServerError.root)
+        binding.tvResultInfo.isVisible = false
     }
 
     private fun showLoadingState() {
