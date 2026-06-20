@@ -1,29 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_vacancy_search"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.fragments.VacancySearchFragment"
-    android:gravity="center"
-    android:orientation="vertical">
+    tools:context=".ui.fragments.VacancySearchFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLeftBorder_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/padding_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glRightBorder_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/padding_16" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/searchTitle"
+        style="@style/TextDisplayMedium22"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_16"
         android:text="@string/vacancy_search_title"
-        android:textAppearance="@style/TextDisplayMedium22"
-        android:textColor="?attr/colorOnSurface"/>
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toStartOf="@+id/filterButton"
+        app:layout_constraintStart_toStartOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/goToVacancyDetailsButton"
+    <ImageView
+        android:id="@+id/filterButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/padding_4"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@string/filters_title"
+        android:focusable="true"
+        android:padding="@dimen/padding_12"
+        android:src="@drawable/ic_filter_off_24"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchTitle"
+        app:tint="?attr/colorOnSurface" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        style="@style/inputEditTextSearchStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_8"
+        android:hint="@string/search_hint"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
+        android:paddingStart="16dp"
+        android:paddingEnd="48dp"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toStartOf="@id/glRightBorder_16"
+        app:layout_constraintStart_toStartOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toBottomOf="@+id/searchTitle" />
+
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:focusable="true"
+        android:padding="12dp"
+        android:src="@drawable/ic_search_24"
+        app:layout_constraintBottom_toBottomOf="@id/searchEditText"
+        app:layout_constraintEnd_toEndOf="@id/searchEditText"
+        app:layout_constraintTop_toTopOf="@id/searchEditText" />
+
+    <TextView
+        android:id="@+id/tvResultInfo"
+        style="@style/TextDisplayMedium16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Открыть вакансию"/>
+        android:layout_marginTop="@dimen/padding_16"
+        android:background="@drawable/blue_bubble_shape"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_4"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/glRightBorder_16"
+        app:layout_constraintStart_toStartOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText"
+        tools:text="Найдено 10 вакансий"
+        tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/goToFiltersButton"
-        android:layout_width="wrap_content"
+    <!-- Состояние: Начальный экран -->
+    <include
+        android:id="@+id/layoutInitial"
+        layout="@layout/layout_placeholder"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Перейти к фильтрам"/>
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/glRightBorder_16"
+        app:layout_constraintStart_toEndOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toBottomOf="@id/tvResultInfo" />
 
-</LinearLayout>
+    <!-- Состояние: Нет интернета -->
+    <include
+        android:id="@+id/layoutNoInternet"
+        layout="@layout/layout_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/glRightBorder_16"
+        app:layout_constraintStart_toEndOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toBottomOf="@id/tvResultInfo" />
+
+    <!-- Состояние: Ошибка / Ничего не найдено -->
+    <include
+        android:id="@+id/layoutNoFound"
+        layout="@layout/layout_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/glRightBorder_16"
+        app:layout_constraintStart_toEndOf="@id/glLeftBorder_16"
+        app:layout_constraintTop_toBottomOf="@id/tvResultInfo" />
+
+    <!-- Состояние: Загрузка -->
+    <include
+        android:id="@+id/layoutLoading"
+        layout="@layout/layout_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

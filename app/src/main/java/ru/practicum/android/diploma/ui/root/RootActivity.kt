@@ -18,22 +18,22 @@ class RootActivity : AppCompatActivity() {
 
         // Подключение NavController к BottomBar
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
-        binding.bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationPanel.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.vacancySearchFragment,
                 R.id.favouritesFragment,
                 R.id.teamFragment -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
-                    binding.divider.visibility = View.VISIBLE
+                    binding.bottomNavigationPanel.visibility = View.VISIBLE
+                    binding.flDivider.visibility = View.VISIBLE
                 }
 
                 else -> {
-                    binding.bottomNavigationView.visibility = View.GONE
-                    binding.divider.visibility = View.GONE
+                    binding.bottomNavigationPanel.visibility = View.GONE
+                    binding.flDivider.visibility = View.GONE
                 }
             }
         }

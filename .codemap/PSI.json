@@ -1,0 +1,4527 @@
+{
+  "metadata": {
+    "parsedAt": "2026-06-18T17:10:55.444049900Z",
+    "project": "Practicum-Android-Diploma",
+    "totalFiles": 47,
+    "totalFunctions": 57,
+    "totalCalls": 146
+  },
+  "files": [
+    {
+      "fileName": "AppModule.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/di/AppModule.kt",
+      "packageName": "ru.practicum.android.diploma.di",
+      "functions": []
+    },
+    {
+      "fileName": "NetworkModule.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/di/NetworkModule.kt",
+      "packageName": "ru.practicum.android.diploma.di",
+      "functions": []
+    },
+    {
+      "fileName": "DatabaseModule.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/di/DatabaseModule.kt",
+      "packageName": "ru.practicum.android.diploma.di",
+      "functions": []
+    },
+    {
+      "fileName": "ViewModelModule.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/di/ViewModelModule.kt",
+      "packageName": "ru.practicum.android.diploma.di",
+      "functions": []
+    },
+    {
+      "fileName": "InteractorModule.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/di/InteractorModule.kt",
+      "packageName": "ru.practicum.android.diploma.di",
+      "functions": []
+    },
+    {
+      "fileName": "RepositoryModule.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/di/RepositoryModule.kt",
+      "packageName": "ru.practicum.android.diploma.di",
+      "functions": []
+    },
+    {
+      "fileName": "RootActivity.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/root/RootActivity.kt",
+      "packageName": "ru.practicum.android.diploma.ui.root",
+      "functions": [
+        {
+          "id": "RootActivity.kt.onCreate",
+          "name": "onCreate",
+          "type": "ACTION",
+          "signature": "override fun onCreate(savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": true,
+          "lineStart": 24,
+          "lineEnd": 59,
+          "calls": [
+            {
+              "targetName": "onCreate",
+              "targetFile": "System",
+              "targetId": "System.onCreate",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 25,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui.binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 26,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 3,
+              "lineNumber": 26,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setContentView",
+              "targetFile": "System",
+              "targetId": "System.setContentView",
+              "targetType": "ACTION",
+              "callOrder": 4,
+              "lineNumber": 27,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "observe",
+              "targetFile": "System",
+              "targetId": "System.observe",
+              "targetType": "STATE",
+              "callOrder": 5,
+              "lineNumber": 30,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "val navHostFragment \u003d",
+              "targetFile": "Local",
+              "targetId": "local.navHostFragment",
+              "targetType": "DATA_FLOW",
+              "callOrder": 6,
+              "lineNumber": 38,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "findFragmentById",
+              "targetFile": "System",
+              "targetId": "System.findFragmentById",
+              "targetType": "ACTION",
+              "callOrder": 7,
+              "lineNumber": 38,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "val navController \u003d",
+              "targetFile": "Local",
+              "targetId": "local.navController",
+              "targetType": "DATA_FLOW",
+              "callOrder": 8,
+              "lineNumber": 40,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setupWithNavController",
+              "targetFile": "System",
+              "targetId": "System.setupWithNavController",
+              "targetType": "ACTION",
+              "callOrder": 9,
+              "lineNumber": 41,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "addOnDestinationChangedListener",
+              "targetFile": "System",
+              "targetId": "System.addOnDestinationChangedListener",
+              "targetType": "ACTION",
+              "callOrder": 10,
+              "lineNumber": 44,
+              "nestedCalls": [],
+              "branches": [
+                {
+                  "type": "WHEN",
+                  "condition": "destination.id",
+                  "lineNumber": 45,
+                  "branches": [
+                    {
+                      "id": "case",
+                      "case": "R.id.vacancySearchFragment, R.id.favouritesFragment, R.id.teamFragment",
+                      "nestedCalls": [
+                        {
+                          "targetName": "binding.bottomNavigationView.visibility \u003d",
+                          "targetFile": "UI",
+                          "targetId": "ui.binding.bottomNavigationView.visibility",
+                          "targetType": "UI",
+                          "callOrder": 1,
+                          "lineNumber": 49,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "binding.divider.visibility \u003d",
+                          "targetFile": "UI",
+                          "targetId": "ui.binding.divider.visibility",
+                          "targetType": "UI",
+                          "callOrder": 2,
+                          "lineNumber": 50,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    },
+                    {
+                      "id": "case",
+                      "case": "else",
+                      "nestedCalls": [
+                        {
+                          "targetName": "binding.bottomNavigationView.visibility \u003d",
+                          "targetFile": "UI",
+                          "targetId": "ui.binding.bottomNavigationView.visibility",
+                          "targetType": "UI",
+                          "callOrder": 1,
+                          "lineNumber": 54,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "binding.divider.visibility \u003d",
+                          "targetFile": "UI",
+                          "targetId": "ui.binding.divider.visibility",
+                          "targetType": "UI",
+                          "callOrder": 2,
+                          "lineNumber": 55,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    }
+                  ]
+                }
+              ],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "FiltersFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/filter/FiltersFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments.filter",
+      "functions": [
+        {
+          "id": "FiltersFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 16,
+          "lineEnd": 19,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 17,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 17,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "FiltersFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 21,
+          "lineEnd": 36,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 22,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 24,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 25,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigateUp",
+                  "targetFile": "System",
+                  "targetId": "System.navigateUp",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 25,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 3,
+              "lineNumber": 29,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 30,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 30,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 4,
+              "lineNumber": 33,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 34,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 34,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "FiltersFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 38,
+          "lineEnd": 41,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 39,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 40,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "RegionSelectionFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/filter/RegionSelectionFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments.filter",
+      "functions": [
+        {
+          "id": "RegionSelectionFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 15,
+          "lineEnd": 18,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "RegionSelectionFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 20,
+          "lineEnd": 26,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 21,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 23,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 24,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigateUp",
+                  "targetFile": "System",
+                  "targetId": "System.navigateUp",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 24,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "RegionSelectionFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 28,
+          "lineEnd": 31,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 29,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 30,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "CountrySelectionFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/filter/CountrySelectionFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments.filter",
+      "functions": [
+        {
+          "id": "CountrySelectionFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 15,
+          "lineEnd": 18,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "CountrySelectionFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 20,
+          "lineEnd": 26,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 21,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 23,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 24,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigateUp",
+                  "targetFile": "System",
+                  "targetId": "System.navigateUp",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 24,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "CountrySelectionFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 28,
+          "lineEnd": 31,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 29,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 30,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "IndustrySelectionFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/filter/IndustrySelectionFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments.filter",
+      "functions": [
+        {
+          "id": "IndustrySelectionFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 14,
+          "lineEnd": 17,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 15,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 15,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "IndustrySelectionFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 19,
+          "lineEnd": 25,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 20,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 22,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 23,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigateUp",
+                  "targetFile": "System",
+                  "targetId": "System.navigateUp",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 23,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "IndustrySelectionFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 27,
+          "lineEnd": 30,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 28,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 29,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "WorkPlaceSelectionFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/filter/WorkPlaceSelectionFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments.filter",
+      "functions": [
+        {
+          "id": "WorkPlaceSelectionFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 16,
+          "lineEnd": 19,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 17,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 17,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "WorkPlaceSelectionFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 21,
+          "lineEnd": 36,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 22,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 24,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 25,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigateUp",
+                  "targetFile": "System",
+                  "targetId": "System.navigateUp",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 25,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 3,
+              "lineNumber": 29,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 30,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 30,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 4,
+              "lineNumber": 33,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 34,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 34,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "WorkPlaceSelectionFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 38,
+          "lineEnd": 41,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 39,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 40,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "TeamFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/TeamFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments",
+      "functions": [
+        {
+          "id": "TeamFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 13,
+          "lineEnd": 16,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 14,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 14,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "TeamFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 18,
+          "lineEnd": 21,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 19,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 20,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "FavouritesFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/FavouritesFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments",
+      "functions": [
+        {
+          "id": "FavouritesFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 16,
+          "lineEnd": 19,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 17,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 17,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "FavouritesFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 21,
+          "lineEnd": 28,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 22,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 25,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 26,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 26,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "FavouritesFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 30,
+          "lineEnd": 33,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 31,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 32,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacancySearchFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/VacancySearchFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments",
+      "functions": [
+        {
+          "id": "VacancySearchFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 15,
+          "lineEnd": 18,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancySearchFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 20,
+          "lineEnd": 30,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 21,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 23,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 24,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 24,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 3,
+              "lineNumber": 27,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 28,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigate",
+                  "targetFile": "System",
+                  "targetId": "System.navigate",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 28,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancySearchFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 32,
+          "lineEnd": 35,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 33,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 34,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacancyDetailsFragment.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/ui/fragments/VacancyDetailsFragment.kt",
+      "packageName": "ru.practicum.android.diploma.ui.fragments",
+      "functions": [
+        {
+          "id": "VacancyDetailsFragment.kt.onCreateView",
+          "name": "onCreateView",
+          "type": "ACTION",
+          "signature": "override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?",
+          "parameters": [
+            {
+              "name": "inflater",
+              "type": "LayoutInflater"
+            },
+            {
+              "name": "container",
+              "type": "ViewGroup?"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "View?",
+          "isEntryPoint": true,
+          "lineStart": 14,
+          "lineEnd": 17,
+          "calls": [
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 15,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "inflate",
+              "targetFile": "System",
+              "targetId": "System.inflate",
+              "targetType": "UI",
+              "callOrder": 2,
+              "lineNumber": 15,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancyDetailsFragment.kt.onViewCreated",
+          "name": "onViewCreated",
+          "type": "DATA_FLOW",
+          "signature": "override fun onViewCreated(view: View, savedInstanceState: Bundle?)",
+          "parameters": [
+            {
+              "name": "view",
+              "type": "View"
+            },
+            {
+              "name": "savedInstanceState",
+              "type": "Bundle?"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 19,
+          "lineEnd": 25,
+          "calls": [
+            {
+              "targetName": "onViewCreated",
+              "targetFile": "System",
+              "targetId": "System.onViewCreated",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 20,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "setOnClickListener",
+              "targetFile": "System",
+              "targetId": "System.setOnClickListener",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 22,
+              "nestedCalls": [
+                {
+                  "targetName": "findNavController",
+                  "targetFile": "System",
+                  "targetId": "System.findNavController",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 23,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "navigateUp",
+                  "targetFile": "System",
+                  "targetId": "System.navigateUp",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 23,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancyDetailsFragment.kt.onDestroyView",
+          "name": "onDestroyView",
+          "type": "DATA_FLOW",
+          "signature": "override fun onDestroyView()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 27,
+          "lineEnd": 30,
+          "calls": [
+            {
+              "targetName": "onDestroyView",
+              "targetFile": "System",
+              "targetId": "System.onDestroyView",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 28,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "_binding \u003d",
+              "targetFile": "UI",
+              "targetId": "ui._binding",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 29,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacancyDao.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/db/VacancyDao.kt",
+      "packageName": "ru.practicum.android.diploma.data.db",
+      "functions": [
+        {
+          "id": "VacancyDao.kt.insertVacancy",
+          "name": "insertVacancy",
+          "type": "DATA_FLOW",
+          "signature": "@Insert(entity \u003d VacancyEntity::class, onConflict \u003d OnConflictStrategy.Companion.REPLACE)\n    suspend fun insertVacancy(vacancy: VacancyEntity)",
+          "parameters": [
+            {
+              "name": "vacancy",
+              "type": "VacancyEntity"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 10,
+          "lineEnd": 11,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": [
+            {
+              "fileName": "VacancyDao.kt",
+              "functionName": "deleteAndInsertVacancy",
+              "functionId": "VacancyDao.kt.deleteAndInsertVacancy"
+            }
+          ]
+        },
+        {
+          "id": "VacancyDao.kt.getFavoriteVacancies",
+          "name": "getFavoriteVacancies",
+          "type": "REQUEST",
+          "signature": "@Query(\"SELECT * FROM fav_vacancies_table ORDER BY vacancy_id DESC\")\n    suspend fun getFavoriteVacancies(): List\u003cVacancyEntity\u003e",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "List\u003cVacancyEntity\u003e",
+          "isEntryPoint": false,
+          "lineStart": 13,
+          "lineEnd": 14,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancyDao.kt.deleteVacancy",
+          "name": "deleteVacancy",
+          "type": "DATA_FLOW",
+          "signature": "@Query(\"DELETE FROM fav_vacancies_table WHERE vacancy_id \u003d :vacancyId\")\n    suspend fun deleteVacancy(vacancyId: String)",
+          "parameters": [
+            {
+              "name": "vacancyId",
+              "type": "String"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 16,
+          "lineEnd": 17,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": [
+            {
+              "fileName": "VacancyDao.kt",
+              "functionName": "deleteAndInsertVacancy",
+              "functionId": "VacancyDao.kt.deleteAndInsertVacancy"
+            }
+          ]
+        },
+        {
+          "id": "VacancyDao.kt.getVacancyId",
+          "name": "getVacancyId",
+          "type": "REQUEST",
+          "signature": "@Query(\"SELECT vacancy_id FROM fav_vacancies_table WHERE vacancy_id \u003d :vacancyId\")\n    suspend fun getVacancyId(vacancyId: String): String?",
+          "parameters": [
+            {
+              "name": "vacancyId",
+              "type": "String"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "String?",
+          "isEntryPoint": false,
+          "lineStart": 19,
+          "lineEnd": 20,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancyDao.kt.deleteAndInsertVacancy",
+          "name": "deleteAndInsertVacancy",
+          "type": "DATA_FLOW",
+          "signature": "@Transaction\n    suspend fun deleteAndInsertVacancy(vacancy: VacancyEntity)",
+          "parameters": [
+            {
+              "name": "vacancy",
+              "type": "VacancyEntity"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 22,
+          "lineEnd": 26,
+          "calls": [
+            {
+              "targetName": "deleteVacancy",
+              "targetFile": "VacancyDao.kt",
+              "targetId": "VacancyDao.kt.deleteVacancy",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 24,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "insertVacancy",
+              "targetFile": "VacancyDao.kt",
+              "targetId": "VacancyDao.kt.insertVacancy",
+              "targetType": "DATA_FLOW",
+              "callOrder": 2,
+              "lineNumber": 25,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "AppDatabase.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/db/AppDatabase.kt",
+      "packageName": "ru.practicum.android.diploma.data.db",
+      "functions": [
+        {
+          "id": "AppDatabase.kt.vacancyDao",
+          "name": "vacancyDao",
+          "type": "REQUEST",
+          "signature": "abstract fun vacancyDao(): VacancyDao",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "VacancyDao",
+          "isEntryPoint": false,
+          "lineStart": 8,
+          "lineEnd": 8,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacancyEntity.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/db/VacancyEntity.kt",
+      "packageName": "ru.practicum.android.diploma.data.db",
+      "functions": []
+    },
+    {
+      "fileName": "StringListConverter.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/db/StringListConverter.kt",
+      "packageName": "ru.practicum.android.diploma.data.db",
+      "functions": [
+        {
+          "id": "StringListConverter.kt.fromString",
+          "name": "fromString",
+          "type": "REQUEST",
+          "signature": "@TypeConverter\n    fun fromString(value: String?): List\u003cString\u003e",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "String?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "List\u003cString\u003e",
+          "isEntryPoint": false,
+          "lineStart": 5,
+          "lineEnd": 12,
+          "calls": [
+            {
+              "targetName": "isNullOrEmpty",
+              "targetFile": "System",
+              "targetId": "System.isNullOrEmpty",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 7,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [
+            {
+              "type": "IF",
+              "condition": "value.isNullOrEmpty()",
+              "lineNumber": 7,
+              "branches": [
+                {
+                  "id": "then",
+                  "case": "true",
+                  "nestedCalls": [
+                    {
+                      "targetName": "emptyList",
+                      "targetFile": "System",
+                      "targetId": "System.emptyList",
+                      "targetType": "ACTION",
+                      "callOrder": 1,
+                      "lineNumber": 8,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                },
+                {
+                  "id": "else",
+                  "case": "false",
+                  "nestedCalls": [
+                    {
+                      "targetName": "split",
+                      "targetFile": "System",
+                      "targetId": "System.split",
+                      "targetType": "ACTION",
+                      "callOrder": 1,
+                      "lineNumber": 10,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "map",
+                      "targetFile": "System",
+                      "targetId": "System.map",
+                      "targetType": "ACTION",
+                      "callOrder": 2,
+                      "lineNumber": 10,
+                      "nestedCalls": [
+                        {
+                          "targetName": "trim",
+                          "targetFile": "System",
+                          "targetId": "System.trim",
+                          "targetType": "ACTION",
+                          "callOrder": 1,
+                          "lineNumber": 10,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                }
+              ]
+            }
+          ],
+          "inboundCalls": []
+        },
+        {
+          "id": "StringListConverter.kt.toString",
+          "name": "toString",
+          "type": "REQUEST",
+          "signature": "@TypeConverter\n    fun toString(list: List\u003cString\u003e?): String",
+          "parameters": [
+            {
+              "name": "list",
+              "type": "List\u003cString\u003e?"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "String",
+          "isEntryPoint": false,
+          "lineStart": 14,
+          "lineEnd": 17,
+          "calls": [
+            {
+              "targetName": "joinToString",
+              "targetFile": "System",
+              "targetId": "System.joinToString",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 16,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "Response.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/Response.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "SalaryDto.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/SalaryDto.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "VacancyDto.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/VacancyDto.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "FilterAreaDto.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/FilterAreaDto.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "VacanciesRequest.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/VacanciesRequest.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "FilterAreaRequest.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/FilterAreaRequest.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "VacanciesResponse.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/VacanciesResponse.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "FilterAreaResponse.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/dto/FilterAreaResponse.kt",
+      "packageName": "ru.practicum.android.diploma.data.dto",
+      "functions": []
+    },
+    {
+      "fileName": "ApiKeyInterceptor.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/network/ApiKeyInterceptor.kt",
+      "packageName": "ru.practicum.android.diploma.data.network",
+      "functions": [
+        {
+          "id": "ApiKeyInterceptor.kt.intercept",
+          "name": "intercept",
+          "type": "REQUEST",
+          "signature": "override fun intercept(chain: Interceptor.Chain): Response",
+          "parameters": [
+            {
+              "name": "chain",
+              "type": "Interceptor.Chain"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Response",
+          "isEntryPoint": false,
+          "lineStart": 7,
+          "lineEnd": 13,
+          "calls": [
+            {
+              "targetName": "val originalRequest \u003d",
+              "targetFile": "Local",
+              "targetId": "local.originalRequest",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 8,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "request",
+              "targetFile": "System",
+              "targetId": "System.request",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 8,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "val modifiedRequest \u003d",
+              "targetFile": "Local",
+              "targetId": "local.modifiedRequest",
+              "targetType": "DATA_FLOW",
+              "callOrder": 3,
+              "lineNumber": 9,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "newBuilder",
+              "targetFile": "System",
+              "targetId": "System.newBuilder",
+              "targetType": "ACTION",
+              "callOrder": 4,
+              "lineNumber": 9,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "header",
+              "targetFile": "System",
+              "targetId": "System.header",
+              "targetType": "ACTION",
+              "callOrder": 5,
+              "lineNumber": 10,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "build",
+              "targetFile": "System",
+              "targetId": "System.build",
+              "targetType": "ACTION",
+              "callOrder": 6,
+              "lineNumber": 11,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "proceed",
+              "targetFile": "System",
+              "targetId": "System.proceed",
+              "targetType": "ACTION",
+              "callOrder": 7,
+              "lineNumber": 12,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "LoggingInterceptor.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/network/LoggingInterceptor.kt",
+      "packageName": "ru.practicum.android.diploma.data.network",
+      "functions": [
+        {
+          "id": "LoggingInterceptor.kt.createLoggingInterceptor",
+          "name": "createLoggingInterceptor",
+          "type": "REQUEST",
+          "signature": "fun createLoggingInterceptor(): HttpLoggingInterceptor",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "HttpLoggingInterceptor",
+          "isEntryPoint": false,
+          "lineStart": 5,
+          "lineEnd": 12,
+          "calls": [
+            {
+              "targetName": "HttpLoggingInterceptor",
+              "targetFile": "System",
+              "targetId": "System.HttpLoggingInterceptor",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 6,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "apply",
+              "targetFile": "System",
+              "targetId": "System.apply",
+              "targetType": "STORAGE",
+              "callOrder": 2,
+              "lineNumber": 6,
+              "nestedCalls": [
+                {
+                  "targetName": "level \u003d",
+                  "targetFile": "UI",
+                  "targetId": "ui.level",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 1,
+                  "lineNumber": 7,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [
+                {
+                  "type": "WHEN",
+                  "condition": "when",
+                  "lineNumber": 7,
+                  "branches": [
+                    {
+                      "id": "case",
+                      "case": "BuildConfig.DEBUG",
+                      "nestedCalls": [],
+                      "branches": []
+                    },
+                    {
+                      "id": "case",
+                      "case": "else",
+                      "nestedCalls": [],
+                      "branches": []
+                    }
+                  ]
+                }
+              ],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "PracticumApiService.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/network/PracticumApiService.kt",
+      "packageName": "ru.practicum.android.diploma.data.network",
+      "functions": [
+        {
+          "id": "PracticumApiService.kt.getAreas",
+          "name": "getAreas",
+          "type": "REQUEST",
+          "signature": "@GET(\"areas\")\n    suspend fun getAreas(): FilterAreaResponse",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "FilterAreaResponse",
+          "isEntryPoint": false,
+          "lineStart": 8,
+          "lineEnd": 9,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "PracticumApiService.kt.searchVacancies",
+          "name": "searchVacancies",
+          "type": "REQUEST",
+          "signature": "@GET(\"vacancies\")\n    suspend fun searchVacancies(\n        @Query(\"text\") text: String,\n        @Query(\"page\") page: Int\n    ): VacanciesResponse",
+          "parameters": [
+            {
+              "name": "text",
+              "type": "String"
+            },
+            {
+              "name": "page",
+              "type": "Int"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "VacanciesResponse",
+          "isEntryPoint": false,
+          "lineStart": 11,
+          "lineEnd": 15,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "RetrofitNetworkClient.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/network/RetrofitNetworkClient.kt",
+      "packageName": "ru.practicum.android.diploma.data.network",
+      "functions": [
+        {
+          "id": "RetrofitNetworkClient.kt.filterAreaRequest",
+          "name": "filterAreaRequest",
+          "type": "ASYNC",
+          "signature": "override suspend fun filterAreaRequest(dto: Any): Response",
+          "parameters": [
+            {
+              "name": "dto",
+              "type": "Any"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Response",
+          "isEntryPoint": false,
+          "lineStart": 16,
+          "lineEnd": 30,
+          "calls": [
+            {
+              "targetName": "networkConnectivityChecker",
+              "targetFile": "NetworkConnectivityChecker.kt",
+              "targetId": "NetworkConnectivityChecker.kt.networkConnectivityChecker",
+              "targetType": "UNKNOWN",
+              "callOrder": 1,
+              "lineNumber": 17,
+              "nestedCalls": [
+                {
+                  "targetName": "val connectivityManager \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.connectivityManager",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 1,
+                  "lineNumber": 7,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "getSystemService",
+                  "targetFile": "System",
+                  "targetId": "System.getSystemService",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 7,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "val capabilities \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.capabilities",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 3,
+                  "lineNumber": 8,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "getNetworkCapabilities",
+                  "targetFile": "System",
+                  "targetId": "System.getNetworkCapabilities",
+                  "targetType": "ACTION",
+                  "callOrder": 4,
+                  "lineNumber": 8,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "hasTransport",
+                  "targetFile": "System",
+                  "targetId": "System.hasTransport",
+                  "targetType": "ACTION",
+                  "callOrder": 5,
+                  "lineNumber": 11,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "hasTransport",
+                  "targetFile": "System",
+                  "targetId": "System.hasTransport",
+                  "targetType": "ACTION",
+                  "callOrder": 6,
+                  "lineNumber": 12,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "hasTransport",
+                  "targetFile": "System",
+                  "targetId": "System.hasTransport",
+                  "targetType": "ACTION",
+                  "callOrder": 7,
+                  "lineNumber": 13,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "withContext",
+              "targetFile": "System",
+              "targetId": "System.withContext",
+              "targetType": "ASYNC",
+              "callOrder": 2,
+              "lineNumber": 23,
+              "nestedCalls": [],
+              "branches": [
+                {
+                  "type": "ERROR",
+                  "condition": "try-catch",
+                  "lineNumber": 24,
+                  "branches": [
+                    {
+                      "id": "try",
+                      "case": "try",
+                      "nestedCalls": [
+                        {
+                          "targetName": "getAreas",
+                          "targetFile": "PracticumApiService.kt",
+                          "targetId": "PracticumApiService.kt.getAreas",
+                          "targetType": "REQUEST",
+                          "callOrder": 1,
+                          "lineNumber": 25,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "apply",
+                          "targetFile": "System",
+                          "targetId": "System.apply",
+                          "targetType": "STORAGE",
+                          "callOrder": 2,
+                          "lineNumber": 25,
+                          "nestedCalls": [
+                            {
+                              "targetName": "resultCode \u003d",
+                              "targetFile": "UI",
+                              "targetId": "ui.resultCode",
+                              "targetType": "DATA_FLOW",
+                              "callOrder": 1,
+                              "lineNumber": 25,
+                              "nestedCalls": [],
+                              "branches": [],
+                              "isRecursive": false,
+                              "isSystemCall": false,
+                              "isImplicit": false
+                            }
+                          ],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    },
+                    {
+                      "id": "catch",
+                      "case": "e: Throwable",
+                      "nestedCalls": [
+                        {
+                          "targetName": "Response",
+                          "targetFile": "Response.kt",
+                          "targetId": "Response.kt.Response",
+                          "targetType": "INTERNAL",
+                          "callOrder": 1,
+                          "lineNumber": 27,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "apply",
+                          "targetFile": "System",
+                          "targetId": "System.apply",
+                          "targetType": "STORAGE",
+                          "callOrder": 2,
+                          "lineNumber": 27,
+                          "nestedCalls": [
+                            {
+                              "targetName": "resultCode \u003d",
+                              "targetFile": "UI",
+                              "targetId": "ui.resultCode",
+                              "targetType": "DATA_FLOW",
+                              "callOrder": 1,
+                              "lineNumber": 27,
+                              "nestedCalls": [],
+                              "branches": [],
+                              "isRecursive": false,
+                              "isSystemCall": false,
+                              "isImplicit": false
+                            }
+                          ],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    }
+                  ]
+                }
+              ],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [
+            {
+              "type": "IF",
+              "condition": "!networkConnectivityChecker(context) || dto !is FilterAreaRequest",
+              "lineNumber": 17,
+              "branches": [
+                {
+                  "id": "then",
+                  "case": "true",
+                  "nestedCalls": [
+                    {
+                      "targetName": "Response",
+                      "targetFile": "Response.kt",
+                      "targetId": "Response.kt.Response",
+                      "targetType": "INTERNAL",
+                      "callOrder": 1,
+                      "lineNumber": 18,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": false,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "apply",
+                      "targetFile": "System",
+                      "targetId": "System.apply",
+                      "targetType": "STORAGE",
+                      "callOrder": 2,
+                      "lineNumber": 18,
+                      "nestedCalls": [
+                        {
+                          "targetName": "resultCode \u003d",
+                          "targetFile": "UI",
+                          "targetId": "ui.resultCode",
+                          "targetType": "DATA_FLOW",
+                          "callOrder": 1,
+                          "lineNumber": 19,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "networkConnectivityChecker",
+                          "targetFile": "NetworkConnectivityChecker.kt",
+                          "targetId": "NetworkConnectivityChecker.kt.networkConnectivityChecker",
+                          "targetType": "UNKNOWN",
+                          "callOrder": 2,
+                          "lineNumber": 19,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": [
+                        {
+                          "type": "IF",
+                          "condition": "!networkConnectivityChecker(context)",
+                          "lineNumber": 19,
+                          "branches": [
+                            {
+                              "id": "then",
+                              "case": "true",
+                              "nestedCalls": [],
+                              "branches": []
+                            },
+                            {
+                              "id": "else",
+                              "case": "false",
+                              "nestedCalls": [],
+                              "branches": []
+                            }
+                          ]
+                        }
+                      ],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                }
+              ]
+            }
+          ],
+          "inboundCalls": []
+        },
+        {
+          "id": "RetrofitNetworkClient.kt.searchVacancies",
+          "name": "searchVacancies",
+          "type": "ASYNC",
+          "signature": "override suspend fun searchVacancies(dto: Any): Response",
+          "parameters": [
+            {
+              "name": "dto",
+              "type": "Any"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Response",
+          "isEntryPoint": false,
+          "lineStart": 32,
+          "lineEnd": 47,
+          "calls": [
+            {
+              "targetName": "val hasConnection \u003d",
+              "targetFile": "Local",
+              "targetId": "local.hasConnection",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 33,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "networkConnectivityChecker",
+              "targetFile": "NetworkConnectivityChecker.kt",
+              "targetId": "NetworkConnectivityChecker.kt.networkConnectivityChecker",
+              "targetType": "UNKNOWN",
+              "callOrder": 2,
+              "lineNumber": 33,
+              "nestedCalls": [
+                {
+                  "targetName": "val connectivityManager \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.connectivityManager",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 1,
+                  "lineNumber": 7,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "getSystemService",
+                  "targetFile": "System",
+                  "targetId": "System.getSystemService",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 7,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "val capabilities \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.capabilities",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 3,
+                  "lineNumber": 8,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "getNetworkCapabilities",
+                  "targetFile": "System",
+                  "targetId": "System.getNetworkCapabilities",
+                  "targetType": "ACTION",
+                  "callOrder": 4,
+                  "lineNumber": 8,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "hasTransport",
+                  "targetFile": "System",
+                  "targetId": "System.hasTransport",
+                  "targetType": "ACTION",
+                  "callOrder": 5,
+                  "lineNumber": 11,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "hasTransport",
+                  "targetFile": "System",
+                  "targetId": "System.hasTransport",
+                  "targetType": "ACTION",
+                  "callOrder": 6,
+                  "lineNumber": 12,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "hasTransport",
+                  "targetFile": "System",
+                  "targetId": "System.hasTransport",
+                  "targetType": "ACTION",
+                  "callOrder": 7,
+                  "lineNumber": 13,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "withContext",
+              "targetFile": "System",
+              "targetId": "System.withContext",
+              "targetType": "ASYNC",
+              "callOrder": 3,
+              "lineNumber": 40,
+              "nestedCalls": [],
+              "branches": [
+                {
+                  "type": "ERROR",
+                  "condition": "try-catch",
+                  "lineNumber": 41,
+                  "branches": [
+                    {
+                      "id": "try",
+                      "case": "try",
+                      "nestedCalls": [
+                        {
+                          "targetName": "searchVacancies",
+                          "targetFile": "PracticumApiService.kt",
+                          "targetId": "PracticumApiService.kt.searchVacancies",
+                          "targetType": "REQUEST",
+                          "callOrder": 1,
+                          "lineNumber": 42,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "apply",
+                          "targetFile": "System",
+                          "targetId": "System.apply",
+                          "targetType": "STORAGE",
+                          "callOrder": 2,
+                          "lineNumber": 42,
+                          "nestedCalls": [
+                            {
+                              "targetName": "resultCode \u003d",
+                              "targetFile": "UI",
+                              "targetId": "ui.resultCode",
+                              "targetType": "DATA_FLOW",
+                              "callOrder": 1,
+                              "lineNumber": 42,
+                              "nestedCalls": [],
+                              "branches": [],
+                              "isRecursive": false,
+                              "isSystemCall": false,
+                              "isImplicit": false
+                            }
+                          ],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    },
+                    {
+                      "id": "catch",
+                      "case": "_: Throwable",
+                      "nestedCalls": [
+                        {
+                          "targetName": "Response",
+                          "targetFile": "Response.kt",
+                          "targetId": "Response.kt.Response",
+                          "targetType": "INTERNAL",
+                          "callOrder": 1,
+                          "lineNumber": 44,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "apply",
+                          "targetFile": "System",
+                          "targetId": "System.apply",
+                          "targetType": "STORAGE",
+                          "callOrder": 2,
+                          "lineNumber": 44,
+                          "nestedCalls": [
+                            {
+                              "targetName": "resultCode \u003d",
+                              "targetFile": "UI",
+                              "targetId": "ui.resultCode",
+                              "targetType": "DATA_FLOW",
+                              "callOrder": 1,
+                              "lineNumber": 44,
+                              "nestedCalls": [],
+                              "branches": [],
+                              "isRecursive": false,
+                              "isSystemCall": false,
+                              "isImplicit": false
+                            }
+                          ],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    }
+                  ]
+                }
+              ],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [
+            {
+              "type": "IF",
+              "condition": "!hasConnection || dto !is VacanciesRequest",
+              "lineNumber": 34,
+              "branches": [
+                {
+                  "id": "then",
+                  "case": "true",
+                  "nestedCalls": [
+                    {
+                      "targetName": "Response",
+                      "targetFile": "Response.kt",
+                      "targetId": "Response.kt.Response",
+                      "targetType": "INTERNAL",
+                      "callOrder": 1,
+                      "lineNumber": 35,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": false,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "apply",
+                      "targetFile": "System",
+                      "targetId": "System.apply",
+                      "targetType": "STORAGE",
+                      "callOrder": 2,
+                      "lineNumber": 35,
+                      "nestedCalls": [
+                        {
+                          "targetName": "resultCode \u003d",
+                          "targetFile": "UI",
+                          "targetId": "ui.resultCode",
+                          "targetType": "DATA_FLOW",
+                          "callOrder": 1,
+                          "lineNumber": 36,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": [
+                        {
+                          "type": "IF",
+                          "condition": "!hasConnection",
+                          "lineNumber": 36,
+                          "branches": [
+                            {
+                              "id": "then",
+                              "case": "true",
+                              "nestedCalls": [],
+                              "branches": []
+                            },
+                            {
+                              "id": "else",
+                              "case": "false",
+                              "nestedCalls": [],
+                              "branches": []
+                            }
+                          ]
+                        }
+                      ],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                }
+              ]
+            }
+          ],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "SalaryConverter.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/converters/SalaryConverter.kt",
+      "packageName": "ru.practicum.android.diploma.data.converters",
+      "functions": [
+        {
+          "id": "SalaryConverter.kt.toModel",
+          "name": "toModel",
+          "type": "REQUEST",
+          "signature": "fun SalaryDto.toModel(): Salary \u003d Salary(\n    salaryFrom \u003d this.from,\n    salaryTo \u003d this.to,\n    currency \u003d this.currency\n)",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "Salary",
+          "isEntryPoint": false,
+          "lineStart": 5,
+          "lineEnd": 9,
+          "calls": [
+            {
+              "targetName": "Salary",
+              "targetFile": "Salary.kt",
+              "targetId": "Salary.kt.Salary",
+              "targetType": "INTERNAL",
+              "callOrder": 1,
+              "lineNumber": 5,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "SalaryConverter.kt.toDto",
+          "name": "toDto",
+          "type": "REQUEST",
+          "signature": "fun Salary.toDto(): SalaryDto \u003d SalaryDto(\n    from \u003d this.salaryFrom,\n    to \u003d this.salaryTo,\n    currency \u003d this.currency\n)",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "SalaryDto",
+          "isEntryPoint": false,
+          "lineStart": 11,
+          "lineEnd": 15,
+          "calls": [
+            {
+              "targetName": "SalaryDto",
+              "targetFile": "SalaryDto.kt",
+              "targetId": "SalaryDto.kt.SalaryDto",
+              "targetType": "INTERNAL",
+              "callOrder": 1,
+              "lineNumber": 11,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacancyConverter.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/converters/VacancyConverter.kt",
+      "packageName": "ru.practicum.android.diploma.data.converters",
+      "functions": [
+        {
+          "id": "VacancyConverter.kt.toModel",
+          "name": "toModel",
+          "type": "REQUEST",
+          "signature": "fun VacanciesResponse.toModel(): VacanciesSearchResult \u003d VacanciesSearchResult(\n    vacancies \u003d this.items.map",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "VacanciesSearchResult",
+          "isEntryPoint": false,
+          "lineStart": 8,
+          "lineEnd": 13,
+          "calls": [
+            {
+              "targetName": "VacanciesSearchResult",
+              "targetFile": "VacanciesSearchResult.kt",
+              "targetId": "VacanciesSearchResult.kt.VacanciesSearchResult",
+              "targetType": "INTERNAL",
+              "callOrder": 1,
+              "lineNumber": 8,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancyConverter.kt.toModel",
+          "name": "toModel",
+          "type": "REQUEST",
+          "signature": "fun VacancyDto.toModel(): Vacancy \u003d Vacancy(\n    vacancyId \u003d this.id,\n    vacancyName \u003d this.name,\n    employerId \u003d this.employer?.id,\n    companyName \u003d this.employer?.name,\n    areaId \u003d this.area?.id,\n    areaName \u003d this.area?.name,\n    salaryFrom \u003d this.salary?.from,\n    salaryTo \u003d this.salary?.to,\n    currency \u003d this.salary?.currency,\n    logoUrl \u003d this.employer?.logoUrls?.original,\n    description \u003d this.description,\n    experienceName \u003d this.experience?.name,\n    scheduleName \u003d this.schedule?.name,\n    employmentName \u003d this.employment?.name,\n    addressRaw \u003d this.address?.formatted,\n    skills \u003d this.keySkills?.mapNotNull",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "Vacancy",
+          "isEntryPoint": false,
+          "lineStart": 15,
+          "lineEnd": 36,
+          "calls": [
+            {
+              "targetName": "Vacancy",
+              "targetFile": "Vacancy.kt",
+              "targetId": "Vacancy.kt.Vacancy",
+              "targetType": "INTERNAL",
+              "callOrder": 1,
+              "lineNumber": 15,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "VacancyConverter.kt.toDto",
+          "name": "toDto",
+          "type": "REQUEST",
+          "signature": "fun Vacancy.toDto(): VacancyDto \u003d VacancyDto(\n    id \u003d this.vacancyId,\n    name \u003d this.vacancyName,\n    salary \u003d SalaryDto(\n        from \u003d this.salaryFrom,\n        to \u003d this.salaryTo,\n        currency \u003d this.currency\n    ),\n    employer \u003d ru.practicum.android.diploma.data.dto.EmployerDto(\n        id \u003d this.employerId,\n        name \u003d this.companyName,\n        logoUrls \u003d ru.practicum.android.diploma.data.dto.LogoUrlsDto(\n            original \u003d this.logoUrl\n        )\n    ),\n    area \u003d ru.practicum.android.diploma.data.dto.AreaDto(\n        id \u003d this.areaId,\n        name \u003d this.areaName\n    ),\n    description \u003d this.description,\n    keySkills \u003d this.skills?.map",
+          "parameters": [],
+          "hasReturn": true,
+          "returnType": "VacancyDto",
+          "isEntryPoint": false,
+          "lineStart": 38,
+          "lineEnd": 69,
+          "calls": [
+            {
+              "targetName": "VacancyDto",
+              "targetFile": "VacancyDto.kt",
+              "targetId": "VacancyDto.kt.VacancyDto",
+              "targetType": "INTERNAL",
+              "callOrder": 1,
+              "lineNumber": 38,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacancyRepositoryImpl.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/repository/VacancyRepositoryImpl.kt",
+      "packageName": "ru.practicum.android.diploma.data.repository",
+      "functions": [
+        {
+          "id": "VacancyRepositoryImpl.kt.searchVacancies",
+          "name": "searchVacancies",
+          "type": "REQUEST",
+          "signature": "override fun searchVacancies(\n        query: String,\n        page: Int\n    ): Flow\u003cApiResult\u003cVacanciesSearchResult\u003e\u003e \u003d flow",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "String"
+            },
+            {
+              "name": "page",
+              "type": "Int"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Flow\u003cApiResult\u003cVacanciesSearchResult\u003e\u003e",
+          "isEntryPoint": false,
+          "lineStart": 13,
+          "lineEnd": 25,
+          "calls": [
+            {
+              "targetName": "flow",
+              "targetFile": "System",
+              "targetId": "System.flow",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 16,
+              "nestedCalls": [
+                {
+                  "targetName": "emit",
+                  "targetFile": "System",
+                  "targetId": "System.emit",
+                  "targetType": "STATE",
+                  "callOrder": 1,
+                  "lineNumber": 17,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "val data \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.data",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 2,
+                  "lineNumber": 19,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "searchVacancies",
+                  "targetFile": "NetworkClient.kt",
+                  "targetId": "NetworkClient.kt.searchVacancies",
+                  "targetType": "UNKNOWN",
+                  "callOrder": 3,
+                  "lineNumber": 19,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [
+                {
+                  "type": "IF",
+                  "condition": "data.resultCode \u003d\u003d 200 \u0026\u0026 data is VacanciesResponse",
+                  "lineNumber": 20,
+                  "branches": [
+                    {
+                      "id": "then",
+                      "case": "true",
+                      "nestedCalls": [
+                        {
+                          "targetName": "emit",
+                          "targetFile": "System",
+                          "targetId": "System.emit",
+                          "targetType": "STATE",
+                          "callOrder": 1,
+                          "lineNumber": 21,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    },
+                    {
+                      "id": "else",
+                      "case": "false",
+                      "nestedCalls": [
+                        {
+                          "targetName": "emit",
+                          "targetFile": "System",
+                          "targetId": "System.emit",
+                          "targetType": "STATE",
+                          "callOrder": 1,
+                          "lineNumber": 23,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": []
+                    }
+                  ]
+                }
+              ],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "NetworkClient.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/data/NetworkClient.kt",
+      "packageName": "ru.practicum.android.diploma.data",
+      "functions": [
+        {
+          "id": "NetworkClient.kt.filterAreaRequest",
+          "name": "filterAreaRequest",
+          "type": "REQUEST",
+          "signature": "suspend fun filterAreaRequest(dto: Any): Response",
+          "parameters": [
+            {
+              "name": "dto",
+              "type": "Any"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Response",
+          "isEntryPoint": false,
+          "lineStart": 5,
+          "lineEnd": 5,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "NetworkClient.kt.searchVacancies",
+          "name": "searchVacancies",
+          "type": "REQUEST",
+          "signature": "suspend fun searchVacancies(dto: Any): Response",
+          "parameters": [
+            {
+              "name": "dto",
+              "type": "Any"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Response",
+          "isEntryPoint": false,
+          "lineStart": 6,
+          "lineEnd": 6,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "Debounce.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/util/Debounce.kt",
+      "packageName": "ru.practicum.android.diploma.util",
+      "functions": [
+        {
+          "id": "Debounce.kt.debounce",
+          "name": "debounce",
+          "type": "REQUEST",
+          "signature": "fun \u003cT\u003e debounce(\n    delayMillis: Long,\n    coroutineScope: CoroutineScope,\n    useLastParam: Boolean,\n    action: (T) -\u003e Unit\n): (T) -\u003e Unit",
+          "parameters": [
+            {
+              "name": "delayMillis",
+              "type": "Long"
+            },
+            {
+              "name": "coroutineScope",
+              "type": "CoroutineScope"
+            },
+            {
+              "name": "useLastParam",
+              "type": "Boolean"
+            },
+            {
+              "name": "action",
+              "type": "(T) -\u003e Unit"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "(T) -\u003e Unit",
+          "isEntryPoint": false,
+          "lineStart": 7,
+          "lineEnd": 25,
+          "calls": [
+            {
+              "targetName": "val debounceJob \u003d",
+              "targetFile": "Local",
+              "targetId": "local.debounceJob",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 13,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            }
+          ],
+          "branches": [
+            {
+              "type": "IF",
+              "condition": "useLastParam",
+              "lineNumber": 15,
+              "branches": [
+                {
+                  "id": "then",
+                  "case": "true",
+                  "nestedCalls": [
+                    {
+                      "targetName": "cancel",
+                      "targetFile": "System",
+                      "targetId": "System.cancel",
+                      "targetType": "ACTION",
+                      "callOrder": 1,
+                      "lineNumber": 16,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                }
+              ]
+            },
+            {
+              "type": "IF",
+              "condition": "debounceJob?.isCompleted !\u003d false || useLastParam",
+              "lineNumber": 18,
+              "branches": [
+                {
+                  "id": "then",
+                  "case": "true",
+                  "nestedCalls": [
+                    {
+                      "targetName": "debounceJob \u003d",
+                      "targetFile": "UI",
+                      "targetId": "ui.debounceJob",
+                      "targetType": "DATA_FLOW",
+                      "callOrder": 1,
+                      "lineNumber": 19,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": false,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "launch",
+                      "targetFile": "System",
+                      "targetId": "System.launch",
+                      "targetType": "ASYNC",
+                      "callOrder": 2,
+                      "lineNumber": 19,
+                      "nestedCalls": [
+                        {
+                          "targetName": "delay",
+                          "targetFile": "System",
+                          "targetId": "System.delay",
+                          "targetType": "ASYNC",
+                          "callOrder": 1,
+                          "lineNumber": 20,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        },
+                        {
+                          "targetName": "action",
+                          "targetFile": "Debounce.kt",
+                          "targetId": "Debounce.kt.action",
+                          "targetType": "INTERNAL",
+                          "callOrder": 2,
+                          "lineNumber": 21,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": false,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                }
+              ]
+            }
+          ],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "NetworkConnectivityChecker.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/util/NetworkConnectivityChecker.kt",
+      "packageName": "ru.practicum.android.diploma.util",
+      "functions": [
+        {
+          "id": "NetworkConnectivityChecker.kt.networkConnectivityChecker",
+          "name": "networkConnectivityChecker",
+          "type": "REQUEST",
+          "signature": "fun networkConnectivityChecker(context: Context): Boolean",
+          "parameters": [
+            {
+              "name": "context",
+              "type": "Context"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Boolean",
+          "isEntryPoint": false,
+          "lineStart": 6,
+          "lineEnd": 15,
+          "calls": [
+            {
+              "targetName": "val connectivityManager \u003d",
+              "targetFile": "Local",
+              "targetId": "local.connectivityManager",
+              "targetType": "DATA_FLOW",
+              "callOrder": 1,
+              "lineNumber": 7,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "getSystemService",
+              "targetFile": "System",
+              "targetId": "System.getSystemService",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 7,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "val capabilities \u003d",
+              "targetFile": "Local",
+              "targetId": "local.capabilities",
+              "targetType": "DATA_FLOW",
+              "callOrder": 3,
+              "lineNumber": 8,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": false,
+              "isImplicit": false
+            },
+            {
+              "targetName": "getNetworkCapabilities",
+              "targetFile": "System",
+              "targetId": "System.getNetworkCapabilities",
+              "targetType": "ACTION",
+              "callOrder": 4,
+              "lineNumber": 8,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "hasTransport",
+              "targetFile": "System",
+              "targetId": "System.hasTransport",
+              "targetType": "ACTION",
+              "callOrder": 5,
+              "lineNumber": 11,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "hasTransport",
+              "targetFile": "System",
+              "targetId": "System.hasTransport",
+              "targetType": "ACTION",
+              "callOrder": 6,
+              "lineNumber": 12,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "hasTransport",
+              "targetFile": "System",
+              "targetId": "System.hasTransport",
+              "targetType": "ACTION",
+              "callOrder": 7,
+              "lineNumber": 13,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": [
+            {
+              "fileName": "RetrofitNetworkClient.kt",
+              "functionName": "filterAreaRequest",
+              "functionId": "RetrofitNetworkClient.kt.filterAreaRequest"
+            },
+            {
+              "fileName": "RetrofitNetworkClient.kt",
+              "functionName": "searchVacancies",
+              "functionId": "RetrofitNetworkClient.kt.searchVacancies"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fileName": "App.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/App.kt",
+      "packageName": "ru.practicum.android.diploma",
+      "functions": [
+        {
+          "id": "App.kt.onCreate",
+          "name": "onCreate",
+          "type": "ACTION",
+          "signature": "override fun onCreate()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": true,
+          "lineStart": 13,
+          "lineEnd": 30,
+          "calls": [
+            {
+              "targetName": "onCreate",
+              "targetFile": "System",
+              "targetId": "System.onCreate",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 14,
+              "nestedCalls": [],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            },
+            {
+              "targetName": "startKoin",
+              "targetFile": "System",
+              "targetId": "System.startKoin",
+              "targetType": "ACTION",
+              "callOrder": 2,
+              "lineNumber": 16,
+              "nestedCalls": [
+                {
+                  "targetName": "printLogger",
+                  "targetFile": "System",
+                  "targetId": "System.printLogger",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 17,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "androidContext",
+                  "targetFile": "System",
+                  "targetId": "System.androidContext",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 18,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "modules",
+                  "targetFile": "System",
+                  "targetId": "System.modules",
+                  "targetType": "ACTION",
+                  "callOrder": 3,
+                  "lineNumber": 19,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VacanciesRepository.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/domain/api/VacanciesRepository.kt",
+      "packageName": "ru.practicum.android.diploma.domain.api",
+      "functions": [
+        {
+          "id": "VacanciesRepository.kt.searchVacancies",
+          "name": "searchVacancies",
+          "type": "REQUEST",
+          "signature": "fun searchVacancies(query: String, page: Int): Flow\u003cApiResult\u003cVacanciesSearchResult\u003e\u003e",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "String"
+            },
+            {
+              "name": "page",
+              "type": "Int"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Flow\u003cApiResult\u003cVacanciesSearchResult\u003e\u003e",
+          "isEntryPoint": false,
+          "lineStart": 7,
+          "lineEnd": 7,
+          "calls": [],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "Salary.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/domain/models/Salary.kt",
+      "packageName": "ru.practicum.android.diploma.domain.models",
+      "functions": []
+    },
+    {
+      "fileName": "Vacancy.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/domain/models/Vacancy.kt",
+      "packageName": "ru.practicum.android.diploma.domain.models",
+      "functions": []
+    },
+    {
+      "fileName": "ApiResult.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/domain/models/ApiResult.kt",
+      "packageName": "ru.practicum.android.diploma.domain.models",
+      "functions": []
+    },
+    {
+      "fileName": "VacanciesSearchResult.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/domain/models/VacanciesSearchResult.kt",
+      "packageName": "ru.practicum.android.diploma.domain.models",
+      "functions": []
+    },
+    {
+      "fileName": "SomeViewModel.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/app/src/main/java/ru/practicum/android/diploma/presentation/SomeViewModel.kt",
+      "packageName": "ru.practicum.android.diploma.presentation",
+      "functions": [
+        {
+          "id": "SomeViewModel.kt.fillData",
+          "name": "fillData",
+          "type": "ASYNC",
+          "signature": "fun fillData()",
+          "parameters": [],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 19,
+          "lineEnd": 24,
+          "calls": [
+            {
+              "targetName": "launch",
+              "targetFile": "System",
+              "targetId": "System.launch",
+              "targetType": "ASYNC",
+              "callOrder": 1,
+              "lineNumber": 20,
+              "nestedCalls": [
+                {
+                  "targetName": "val dataFromRepo \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.dataFromRepo",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 1,
+                  "lineNumber": 21,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "getBusinessLogicData",
+                  "targetFile": "System",
+                  "targetId": "System.getBusinessLogicData",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 21,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "_data.value \u003d",
+                  "targetFile": "UI",
+                  "targetId": "ui._data.value",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 3,
+                  "lineNumber": 22,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "VersionCatalogExt.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/build-logic/gradle-ext/src/main/kotlin/ru/practicum/android/VersionCatalogExt.kt",
+      "packageName": "ru.practicum.android",
+      "functions": [
+        {
+          "id": "VersionCatalogExt.kt.withVersionCatalog",
+          "name": "withVersionCatalog",
+          "type": "DATA_FLOW",
+          "signature": "/**\n * Workaround to make version catalog accessible in convention plugins\n * https://github.com/gradle/gradle/issues/15383\n */\nfun Project.withVersionCatalog(block: (libs: LibrariesForLibs) -\u003e Unit)",
+          "parameters": [
+            {
+              "name": "block",
+              "type": "(libs: LibrariesForLibs) -\u003e Unit"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 6,
+          "lineEnd": 15,
+          "calls": [],
+          "branches": [
+            {
+              "type": "IF",
+              "condition": "project.name !\u003d \"gradle-kotlin-dsl-accessors\"",
+              "lineNumber": 11,
+              "branches": [
+                {
+                  "id": "then",
+                  "case": "true",
+                  "nestedCalls": [
+                    {
+                      "targetName": "val libs \u003d",
+                      "targetFile": "Local",
+                      "targetId": "local.libs",
+                      "targetType": "DATA_FLOW",
+                      "callOrder": 1,
+                      "lineNumber": 12,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": false,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "the",
+                      "targetFile": "System",
+                      "targetId": "System.the",
+                      "targetType": "ACTION",
+                      "callOrder": 2,
+                      "lineNumber": 12,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "invoke",
+                      "targetFile": "System",
+                      "targetId": "System.invoke",
+                      "targetType": "ACTION",
+                      "callOrder": 3,
+                      "lineNumber": 13,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": []
+                }
+              ]
+            }
+          ],
+          "inboundCalls": []
+        }
+      ]
+    },
+    {
+      "fileName": "DevelopPropertiesPlugin.kt",
+      "filePath": "C:/Users/1/AndroidStudioProjects/practicum-android-diploma/build-logic/develop-properties/src/main/kotlin/ru/practicum/android/diploma/plugins/developproperties/DevelopPropertiesPlugin.kt",
+      "packageName": "ru.practicum.android.diploma.plugins.developproperties",
+      "functions": [
+        {
+          "id": "DevelopPropertiesPlugin.kt.apply",
+          "name": "apply",
+          "type": "DATA_FLOW",
+          "signature": "override fun apply(target: Project)",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "Project"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 20,
+          "lineEnd": 27,
+          "calls": [
+            {
+              "targetName": "with",
+              "targetFile": "System",
+              "targetId": "System.with",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 21,
+              "nestedCalls": [
+                {
+                  "targetName": "val extension \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.extension",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 1,
+                  "lineNumber": 22,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "create",
+                  "targetFile": "System",
+                  "targetId": "System.create",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 22,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "val properties \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.properties",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 3,
+                  "lineNumber": 23,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "readProperties",
+                  "targetFile": "DevelopPropertiesPlugin.kt",
+                  "targetId": "DevelopPropertiesPlugin.kt.readProperties",
+                  "targetType": "UNKNOWN",
+                  "callOrder": 4,
+                  "lineNumber": 23,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "let",
+                  "targetFile": "System",
+                  "targetId": "System.let",
+                  "targetType": "ACTION",
+                  "callOrder": 5,
+                  "lineNumber": 25,
+                  "nestedCalls": [
+                    {
+                      "targetName": "writePropertiesToExtension",
+                      "targetFile": "DevelopPropertiesPlugin.kt",
+                      "targetId": "DevelopPropertiesPlugin.kt.writePropertiesToExtension",
+                      "targetType": "UNKNOWN",
+                      "callOrder": 1,
+                      "lineNumber": 25,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": false,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "DevelopPropertiesPlugin.kt.readProperties",
+          "name": "readProperties",
+          "type": "REQUEST",
+          "signature": "private fun readProperties(target: Project): Properties?",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "Project"
+            }
+          ],
+          "hasReturn": true,
+          "returnType": "Properties?",
+          "isEntryPoint": false,
+          "lineStart": 29,
+          "lineEnd": 42,
+          "calls": [
+            {
+              "targetName": "with",
+              "targetFile": "System",
+              "targetId": "System.with",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 30,
+              "nestedCalls": [
+                {
+                  "targetName": "val fileContent \u003d",
+                  "targetFile": "Local",
+                  "targetId": "local.fileContent",
+                  "targetType": "DATA_FLOW",
+                  "callOrder": 1,
+                  "lineNumber": 31,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": false,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "fileContents",
+                  "targetFile": "System",
+                  "targetId": "System.fileContents",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 32,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "let",
+                  "targetFile": "System",
+                  "targetId": "System.let",
+                  "targetType": "ACTION",
+                  "callOrder": 3,
+                  "lineNumber": 36,
+                  "nestedCalls": [
+                    {
+                      "targetName": "Properties",
+                      "targetFile": "System",
+                      "targetId": "System.Properties",
+                      "targetType": "ACTION",
+                      "callOrder": 1,
+                      "lineNumber": 37,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    },
+                    {
+                      "targetName": "apply",
+                      "targetFile": "System",
+                      "targetId": "System.apply",
+                      "targetType": "STORAGE",
+                      "callOrder": 2,
+                      "lineNumber": 37,
+                      "nestedCalls": [
+                        {
+                          "targetName": "load",
+                          "targetFile": "System",
+                          "targetId": "System.load",
+                          "targetType": "ACTION",
+                          "callOrder": 1,
+                          "lineNumber": 38,
+                          "nestedCalls": [],
+                          "branches": [],
+                          "isRecursive": false,
+                          "isSystemCall": true,
+                          "isImplicit": false
+                        }
+                      ],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": true,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        },
+        {
+          "id": "DevelopPropertiesPlugin.kt.writePropertiesToExtension",
+          "name": "writePropertiesToExtension",
+          "type": "DATA_FLOW",
+          "signature": "private fun writePropertiesToExtension(\n        properties: Properties,\n        extension: DevelopPropertiesPluginExtension,\n    )",
+          "parameters": [
+            {
+              "name": "properties",
+              "type": "Properties"
+            },
+            {
+              "name": "extension",
+              "type": "DevelopPropertiesPluginExtension"
+            }
+          ],
+          "hasReturn": false,
+          "isEntryPoint": false,
+          "lineStart": 44,
+          "lineEnd": 53,
+          "calls": [
+            {
+              "targetName": "with",
+              "targetFile": "System",
+              "targetId": "System.with",
+              "targetType": "ACTION",
+              "callOrder": 1,
+              "lineNumber": 48,
+              "nestedCalls": [
+                {
+                  "targetName": "getProperty",
+                  "targetFile": "System",
+                  "targetId": "System.getProperty",
+                  "targetType": "ACTION",
+                  "callOrder": 1,
+                  "lineNumber": 49,
+                  "nestedCalls": [],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                },
+                {
+                  "targetName": "let",
+                  "targetFile": "System",
+                  "targetId": "System.let",
+                  "targetType": "ACTION",
+                  "callOrder": 2,
+                  "lineNumber": 49,
+                  "nestedCalls": [
+                    {
+                      "targetName": "apiAccessToken \u003d",
+                      "targetFile": "UI",
+                      "targetId": "ui.apiAccessToken",
+                      "targetType": "DATA_FLOW",
+                      "callOrder": 1,
+                      "lineNumber": 50,
+                      "nestedCalls": [],
+                      "branches": [],
+                      "isRecursive": false,
+                      "isSystemCall": false,
+                      "isImplicit": false
+                    }
+                  ],
+                  "branches": [],
+                  "isRecursive": false,
+                  "isSystemCall": true,
+                  "isImplicit": false
+                }
+              ],
+              "branches": [],
+              "isRecursive": false,
+              "isSystemCall": true,
+              "isImplicit": false
+            }
+          ],
+          "branches": [],
+          "inboundCalls": []
+        }
+      ]
+    }
+  ],
+  "intentLinks": []
+}
