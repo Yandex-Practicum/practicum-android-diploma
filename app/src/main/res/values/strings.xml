@@ -28,4 +28,7 @@
 
     <string name="country">Страна</string>
     <string name="region">Region</string>
+
+    <!--    Экран команда-->
+    <string name="team_subtitle">Над приложением работали</string>
 </resources>
