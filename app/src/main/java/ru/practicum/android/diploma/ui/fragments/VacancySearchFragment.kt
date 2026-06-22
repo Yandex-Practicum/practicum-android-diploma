@@ -1,23 +1,46 @@
 package ru.practicum.android.diploma.ui.fragments
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancySearchBinding
+import ru.practicum.android.diploma.domain.models.VacancyCard
+import ru.practicum.android.diploma.ui.adapter.VacancyAdapter
+import ru.practicum.android.diploma.ui.viewmodels.SearchState
+import ru.practicum.android.diploma.ui.viewmodels.SearchViewModel
 import ru.practicum.android.diploma.util.ViewStateHelper
+import ru.practicum.android.diploma.util.debounce
 
 class VacancySearchFragment : Fragment() {
     private var _binding: FragmentVacancySearchBinding? = null
     private val binding get() = _binding!!
-
+    private val viewModel: SearchViewModel by viewModel()
     private lateinit var viewStateHelper: ViewStateHelper
+    private var adapter: VacancyAdapter? = null
+    private val onVacancySearchDebounce: (VacancyCard) -> Unit by lazy {
+        debounce<VacancyCard>(
+            CLICK_DEBOUNCE_DELAY,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) { vacancy ->
+            findNavController().navigate(
+                R.id.action_vacancySearchFragment_to_vacancyDetailsFragment,
+                // добавить вызов и передачу vacancyId или vacancy в VacancyDetailsFragment.createArgs(?)
+            )
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVacancySearchBinding.inflate(inflater, container, false)
@@ -42,6 +65,35 @@ class VacancySearchFragment : Fragment() {
         setupNoFoundState()
         setupServerErrorState()
 
+        adapter = VacancyAdapter()
+        binding.vacancyList.adapter = adapter
+        binding.vacancyList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        viewModel.searchState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                SearchState.IsLoading -> showLoadingState()
+                SearchState.IsLoadingNextPage -> {
+                    //
+                }
+                is SearchState.Content -> showContent(state.pageData)
+                is SearchState.ConnectionError -> showNoInternetState()
+                is SearchState.NotFoundError -> setupNoFoundState()
+                is SearchState.VacanciesCount -> {
+                    if (state.vacanciesCount == 0) {
+                        showEmptyResultState()
+                    }
+                }
+                is SearchState.ServerError500 -> showServerErrorState()
+                is SearchState.QueryIsEmpty -> {
+                    //
+                }
+                is SearchState.SearchText -> {
+                    //
+                }
+            }
+        }
+
         binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_filtersFragment)
         }
@@ -59,8 +111,10 @@ class VacancySearchFragment : Fragment() {
                     showInitialState()
                 } else {
                     binding.searchIcon.setImageResource(R.drawable.ic_close_24)
+                    viewModel.searchDebounce(searchQuery = s.toString())
                 }
             }
+
             override fun afterTextChanged(s: Editable?) = Unit
         }
 
@@ -93,6 +147,7 @@ class VacancySearchFragment : Fragment() {
     private fun showInitialState() {
         viewStateHelper.showOnly(binding.layoutInitial.root)
         binding.tvResultInfo.isVisible = false
+        binding.vacancyList.isVisible = false
     }
 
     private fun showNoInternetState() {
@@ -112,12 +167,36 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showLoadingState() {
+        closeKeyboard()
         viewStateHelper.showOnly(binding.layoutLoading.root)
         binding.tvResultInfo.isVisible = false
+    }
+
+    private fun showContent(searchData: List<VacancyCard>) {
+        viewStateHelper.showOnly(binding.vacancyList)
+        if (!binding.vacancyList.isVisible) {
+            binding.vacancyList.isVisible = true
+        }
+        showFoundVacancies(vacancies = searchData)
+    }
+
+    private fun showFoundVacancies(vacancies: List<VacancyCard>? = null) {
+        adapter?.submitList(vacancies)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun closeKeyboard() {
+        requireActivity().currentFocus?.let { view ->
+            val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 }

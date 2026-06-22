@@ -12,15 +12,41 @@ import ru.practicum.android.diploma.data.dto.PhoneDto
 import ru.practicum.android.diploma.data.dto.SalaryDto
 import ru.practicum.android.diploma.data.dto.ScheduleDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponse
+import ru.practicum.android.diploma.data.dto.VacancyCardDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.models.VacanciesSearchResult
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyCard
 
 fun VacanciesResponse.toModel(): VacanciesSearchResult = VacanciesSearchResult(
     vacancies = this.items.map { it.toModel() },
     vacanciesFound = this.found,
     pagesCount = this.pages,
     currentPage = this.page
+)
+
+fun VacancyCardDto.toModel(): VacancyCard = VacancyCard(
+    vacancyId = this.vacancyId,
+    vacancyName = this.vacancyName,
+    companyName = this.companyName,
+    areaName = this.areaName,
+    salaryFrom = this.salary?.from,
+    salaryTo = this.salary?.to,
+    currency = this.salary?.currency,
+    shareUrl = this.shareUrl
+)
+
+fun VacancyCard.toDto(): VacancyCardDto = VacancyCardDto(
+    vacancyId = this.vacancyId,
+    vacancyName = this.vacancyName,
+    companyName = this.companyName,
+    areaName = this.areaName,
+    salary = SalaryDto(
+        from = this.salaryFrom,
+        to = this.salaryTo,
+        currency = this.currency
+    ),
+    shareUrl = this.shareUrl
 )
 
 fun VacancyDto.toModel(): Vacancy = Vacancy(

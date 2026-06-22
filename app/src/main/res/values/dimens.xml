@@ -5,6 +5,7 @@
     <dimen name="max_button_height">59dp</dimen>
     <dimen name="edit_text_height">56dp</dimen>
     <dimen name="edit_text_radius">12dp</dimen>
+    <dimen name="item_icon">48dp</dimen>
 
     <dimen name="padding_143">143dp</dimen>
     <dimen name="padding_120">120dp</dimen>
