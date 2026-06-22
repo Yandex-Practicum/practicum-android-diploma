@@ -43,6 +43,7 @@ fun VacancyDto.toModel(): Vacancy = Vacancy(
     contactName = this.contacts?.name,
     contactEmail = this.contacts?.email,
     phoneFormatted = this.contacts?.phones?.firstOrNull()?.formatted,
+    phoneComment = this.contacts?.phones?.firstOrNull()?.comment,
     shareUrl = this.alternateUrl
 )
 
@@ -75,7 +76,7 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
         name = this.contactName,
         email = this.contactEmail,
         phones = if (this.phoneFormatted != null) {
-            listOf(PhoneDto(this.phoneFormatted))
+            listOf(PhoneDto(this.phoneFormatted, this.phoneComment))
         } else {
             null
         }

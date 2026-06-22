@@ -9,6 +9,7 @@ class ApiKeyInterceptor : Interceptor {
         val originalRequest = chain.request()
         val modifiedRequest = originalRequest.newBuilder()
             .header("Authorization", "Bearer " + BuildConfig.API_ACCESS_TOKEN)
+            .header("HH-User-Agent", "Practicum-Android-Diploma/1.0 (support@practicum.ru)")
             .build()
         return chain.proceed(modifiedRequest)
     }

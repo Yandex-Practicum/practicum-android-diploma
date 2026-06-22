@@ -7,6 +7,8 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.FilterAreaRequest
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacanciesRequest
+import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
+import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
 import ru.practicum.android.diploma.util.networkConnectivityChecker
 
 class RetrofitNetworkClient(
@@ -45,6 +47,24 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 apiService.searchVacancies(dto.text, dto.page).apply { resultCode = SUCCESS_CODE }
+            } catch (_: Throwable) {
+                Response().apply { resultCode = SERVER_ERROR_CODE }
+            }
+        }
+    }
+
+    override suspend fun getVacancyDetails(dto: Any): Response {
+        val hasConnection = networkConnectivityChecker(context)
+        if (!hasConnection || dto !is VacancyDetailsRequest) {
+            return Response().apply {
+                resultCode = if (!hasConnection) NO_CONNECTION_CODE else BAD_REQUEST_CODE
+            }
+        }
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val vacancyDto = apiService.getVacancyDetails(dto.vacancyId)
+                VacancyDetailsResponse(vacancyDto).apply { resultCode = SUCCESS_CODE }
             } catch (_: Throwable) {
                 Response().apply { resultCode = SERVER_ERROR_CODE }
             }

@@ -29,6 +29,10 @@
     <string name="country">Страна</string>
     <string name="region">Region</string>
 
+<!--    Экран деталей вакансии-->
+    <string name="contacts_title">Контакты:</string>
+    <string name="expirience_title">Требуемый опыт работы:</string>
+
     <!--    Экран команда-->
     <string name="team_subtitle">Над приложением работали</string>
 </resources>

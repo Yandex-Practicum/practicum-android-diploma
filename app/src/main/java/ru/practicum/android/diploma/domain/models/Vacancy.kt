@@ -20,5 +20,6 @@ data class Vacancy(
     val contactName: String?,
     val contactEmail: String?,
     val phoneFormatted: String?,
+    val phoneComment: String?,
     val shareUrl: String?
 )
