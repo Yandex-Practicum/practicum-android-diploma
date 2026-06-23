@@ -86,10 +86,10 @@ class VacancySearchFragment : Fragment() {
                 }
                 is SearchState.ServerError500 -> showServerErrorState()
                 is SearchState.QueryIsEmpty -> {
-                    //
+                    if (state.isEmpty) showInitialState()
                 }
                 is SearchState.SearchText -> {
-                    //
+
                 }
             }
         }

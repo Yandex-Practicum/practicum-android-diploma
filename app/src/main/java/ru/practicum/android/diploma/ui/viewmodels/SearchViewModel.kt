@@ -37,9 +37,7 @@ class SearchViewModel(
         }
 
     init {
-        viewModelScope.launch(Dispatchers.Main) {
-            //
-        }
+        _searchState.setValue(SearchState.QueryIsEmpty(isEmpty = true))
     }
 
     fun searchDebounce(searchQuery: String) {

@@ -120,12 +120,12 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
     ),
     employment = EmploymentDto(
         id = this.employmentId,
-        name = this.companyName
+        name = this.employmentName
     ),
     address = AddressDto(
         id = this.addressId,
         city = this.addressCity,
-        street = this.addressRaw,
+        street = this.addressStreet,
         building = this.addressBuilding,
         raw = this.addressRaw
     ),
@@ -146,57 +146,89 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
     )
 )
 
+fun Vacancy.toVacancyCard(): VacancyCard = VacancyCard(
+    vacancyId = this.vacancyId,
+    vacancyName = this.vacancyName,
+    companyName = this.companyName,
+    areaName = this.areaName,
+    salaryFrom = this.salaryFrom,
+    salaryTo = this.salaryTo,
+    currency = this.currency,
+    shareUrl = this.shareUrl
+)
+
 fun Vacancy.toDatabaseEntity(): VacancyEntity = VacancyEntity(
-    this.vacancyId,
-    this.vacancyName,
-    EmployerEntity(
-        this.employerId,
-        this.companyName,
-        this.logoUrl
+    vacancyId = this.vacancyId,
+    vacancyName = this.vacancyName,
+    vacancyEmployer = EmployerEntity(
+        companyId = this.employerId,
+        companyName = this.companyName,
+        logoUrl = this.logoUrl
     ),
-    AreaEntity(
-        this.areaId,
-        this.areaName
+    vacancyArea = AreaEntity(
+        areaId = this.areaId,
+        areaName = this.areaName
     ),
-    SalaryEntity(
-        this.salaryFrom,
-        this.salaryTo,
-        this.currency
+    vacancySalary = SalaryEntity(
+        salaryFrom = this.salaryFrom,
+        salaryTo = this.salaryTo,
+        currency = this.currency
     ),
-    this.description,
-    this.experienceName,
-    this.scheduleName,
-    this.employmentName,
-    this.addressRaw,
-    this.skills,
-    ContactsEntity(
-        this.contactName,
-        this.contactEmail,
-        this.phoneFormatted,
-        this.phoneComment
+    vacancyDescription = this.description,
+    vacancyExperienceId = this.experienceId,
+    vacancyExperienceName = this.experienceName,
+    vacancyScheduleId = this.scheduleId,
+    vacancyScheduleName = this.scheduleName,
+    vacancyEmploymentId = this.employmentId,
+    vacancyEmploymentName = this.employmentName,
+    vacancyAddressId = this.addressId,
+    vacancyAddressCity = this.addressCity,
+    vacancyAddressStreet = this.addressStreet,
+    vacancyAddressBuilding = this.addressBuilding,
+    vacancyAddressRaw = this.addressRaw,
+    vacancySkills = this.skills,
+    vacancyContacts = ContactsEntity(
+        contactId = this.contactId,
+        contactName = this.contactName,
+        contactEmail = this.contactEmail,
+        contactPhoneFormatted = this.phoneFormatted,
+        contactPhoneComment = this.phoneComment
     ),
-    this.shareUrl
+    vacancyShareUrl = this.shareUrl,
+    vacancyIndustryId = this.industryId,
+    vacancyIndustryName = this.industryName
 )
 
 fun VacancyEntity.toModel(): Vacancy = Vacancy(
-    this.vacancyId,
-    this.vacancyName,
-    this.vacancyEmployer?.companyId,
-    this.vacancyEmployer?.companyName,
-    this.vacancyArea?.areaId,
-    this.vacancyArea?.areaName,
-    this.vacancySalary?.salaryFrom,
-    this.vacancySalary?.salaryTo,
-    this.vacancySalary?.currency,
-    this.vacancyEmployer?.logoUrl,
-    this.vacancyDescription,
-    this.vacancyExperienceName,
-    this.vacancyScheduleName,
-    this.vacancyEmploymentName,
-    this.vacancyAddressRaw,
-    this.vacancySkills,
-    this.vacancyContacts?.contactName,
-    this.vacancyContacts?.contactEmail,
-    this.vacancyContacts?.contactPhoneFormatted,
-    this.vacancyContacts?.contactPhoneComment,
-    this.vacancyShareUrl)
+    vacancyId = this.vacancyId,
+    vacancyName = this.vacancyName,
+    employerId = this.vacancyEmployer?.companyId,
+    companyName = this.vacancyEmployer?.companyName,
+    areaId = this.vacancyArea?.areaId,
+    areaName = this.vacancyArea?.areaName,
+    salaryFrom = this.vacancySalary?.salaryFrom,
+    salaryTo = this.vacancySalary?.salaryTo,
+    currency = this.vacancySalary?.currency,
+    logoUrl = this.vacancyEmployer?.logoUrl,
+    description = this.vacancyDescription,
+    experienceId = this.vacancyExperienceId,
+    experienceName = this.vacancyExperienceName,
+    scheduleId = this.vacancyScheduleId,
+    scheduleName = this.vacancyScheduleName,
+    employmentName = this.vacancyEmploymentName,
+    employmentId = this.vacancyEmploymentId,
+    addressId = this.vacancyAddressId,
+    addressCity = this.vacancyAddressCity,
+    addressStreet = this.vacancyAddressStreet,
+    addressBuilding = this.vacancyAddressBuilding,
+    addressRaw = this.vacancyAddressRaw,
+    skills = this.vacancySkills,
+    contactId = this.vacancyContacts?.contactId,
+    contactName = this.vacancyContacts?.contactName,
+    contactEmail = this.vacancyContacts?.contactEmail,
+    phoneFormatted = this.vacancyContacts?.contactPhoneFormatted,
+    phoneComment = this.vacancyContacts?.contactPhoneComment,
+    shareUrl = this.vacancyShareUrl,
+    industryId = this.vacancyIndustryId,
+    industryName = this.vacancyIndustryName
+)

@@ -4,15 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.data.converters.toVacancyCard
 import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.adapter.VacancyAdapter
+import ru.practicum.android.diploma.ui.viewmodels.FavoritesState
+import ru.practicum.android.diploma.ui.viewmodels.FavouritesViewModel
 
 class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
-
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val viewModel: FavouritesViewModel by viewModel()
+
+    private var adapter: VacancyAdapter? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -20,14 +30,56 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Установка внутренних переходов
-//        binding.goToVacancyDetailsButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_favouritesFragment_to_vacancyDetailsFragment)
-//        }
+        adapter = VacancyAdapter()
+        binding.vacancyList.adapter = adapter
+
+        observeViewModel()
+        viewModel.fetchFavorites()
+    }
+
+    private fun observeViewModel() {
+        viewModel.favoritesViewState().observe(viewLifecycleOwner) { state ->
+            render(state)
+        }
+    }
+
+    private fun render(state: FavoritesState) {
+        when (state) {
+            is FavoritesState.Loading -> showLoading()
+            is FavoritesState.Content -> showContent(state.vacancies)
+            is FavoritesState.Empty -> showEmpty()
+            is FavoritesState.Error -> showError()
+        }
+    }
+
+    private fun showLoading() {
+        binding.vacancyList.isVisible = false
+        binding.noItemsPlaceholder.isVisible = false
+        binding.errorPlaceholder.isVisible = false
+    }
+
+    private fun showEmpty() {
+        binding.vacancyList.isVisible = false
+        binding.errorPlaceholder.isVisible = false
+        binding.noItemsPlaceholder.isVisible = true
+    }
+
+    private fun showError() {
+        binding.vacancyList.isVisible = false
+        binding.noItemsPlaceholder.isVisible = false
+        binding.errorPlaceholder.isVisible = true
+    }
+
+    private fun showContent(vacancies: List<Vacancy>) {
+        binding.vacancyList.isVisible = true
+        binding.noItemsPlaceholder.isVisible = false
+        binding.errorPlaceholder.isVisible = false
+        adapter?.submitList(vacancies.map { it.toVacancyCard() })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter = null
     }
 }

@@ -23,12 +23,26 @@ data class VacancyEntity(
     val vacancySalary: SalaryEntity?, // Данные о зарплате
     @ColumnInfo(name = "vacancy_description")
     val vacancyDescription: String?, // Описание вакансии (HTML)
+    @ColumnInfo(name = "vacancy_experience_id")
+    val vacancyExperienceId: String?, // ID опыта работы
     @ColumnInfo(name = "vacancy_experience_name")
     val vacancyExperienceName: String?, // Требуемый опыт работы
+    @ColumnInfo(name = "vacancy_schedule_id")
+    val vacancyScheduleId: String?, // ID графика работы
     @ColumnInfo(name = "vacancy_schedule_name")
     val vacancyScheduleName: String?, // График работы
+    @ColumnInfo(name = "vacancy_employment_id")
+    val vacancyEmploymentId: String?, // ID типа занятости
     @ColumnInfo(name = "vacancy_employment_name")
     val vacancyEmploymentName: String?, // Тип занятости
+    @ColumnInfo(name = "vacancy_address_id")
+    val vacancyAddressId: String?, // ID адреса
+    @ColumnInfo(name = "vacancy_address_city")
+    val vacancyAddressCity: String?, // Город
+    @ColumnInfo(name = "vacancy_address_street")
+    val vacancyAddressStreet: String?, // Улица
+    @ColumnInfo(name = "vacancy_address_building")
+    val vacancyAddressBuilding: String?, // Дом
     @ColumnInfo(name = "vacancy_address_raw")
     val vacancyAddressRaw: String?, // Полный адрес
     @TypeConverters(StringListConverter::class)
@@ -37,7 +51,11 @@ data class VacancyEntity(
     @Embedded(prefix = "contacts_")
     val vacancyContacts: ContactsEntity?, // Контактная информация
     @ColumnInfo(name = "vacancy_share_url")
-    val vacancyShareUrl: String? // Ссылка на вакансию для шеринга
+    val vacancyShareUrl: String?, // Ссылка на вакансию для шеринга
+    @ColumnInfo(name = "vacancy_industry_id")
+    val vacancyIndustryId: Int, // ID отрасли
+    @ColumnInfo(name = "vacancy_industry_name")
+    val vacancyIndustryName: String // Название отрасли
 )
 
 /**
