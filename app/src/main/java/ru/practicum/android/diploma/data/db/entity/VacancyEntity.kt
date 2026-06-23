@@ -40,7 +40,6 @@ data class VacancyEntity(
     val vacancyShareUrl: String? // Ссылка на вакансию для шеринга
 )
 
-
 /**
  * ИНФОРМАЦИЯ ДЛЯ РАЗРАБОТКИ ЭКРАНА ОТРАСЛЕЙ (Victoria):
  *

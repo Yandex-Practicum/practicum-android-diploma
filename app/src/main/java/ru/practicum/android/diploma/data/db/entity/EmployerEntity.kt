@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.data.db.entity
 
 import androidx.room.ColumnInfo
 
-
 data class EmployerEntity(
     @ColumnInfo(name = "id")
     val companyId: String?, // ID работодателя

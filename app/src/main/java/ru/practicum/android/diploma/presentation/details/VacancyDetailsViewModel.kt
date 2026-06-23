@@ -8,16 +8,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.ApiResult
 
 class VacancyDetailsViewModel(
     private val vacancyId: String,
-    private val interactor: VacanciesInteractor
+    private val vacanciesInteractor: VacanciesInteractor,
+    private val favoritesInteractor: FavoritesInteractor
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<VacancyDetailsState>(VacancyDetailsState.Loading)
     val state: StateFlow<VacancyDetailsState> = _state.asStateFlow()
+
+    private val _isFavoriteState = MutableStateFlow(false)
+    val isFavoriteState: StateFlow<Boolean> = _isFavoriteState.asStateFlow()
 
     private val _events = MutableSharedFlow<VacancyDetailsEvent>()
     val events = _events.asSharedFlow()
@@ -28,7 +33,9 @@ class VacancyDetailsViewModel(
 
     private fun loadVacancyDetails() {
         viewModelScope.launch {
-            interactor.getVacancyDetails(vacancyId).collect { result ->
+            _isFavoriteState.value = favoritesInteractor.isInFavorites(vacancyId)
+
+            vacanciesInteractor.getVacancyDetails(vacancyId).collect { result ->
                 when (result) {
                     is ApiResult.Loading -> {
                         _state.value = VacancyDetailsState.Loading
@@ -66,10 +73,26 @@ class VacancyDetailsViewModel(
             viewModelScope.launch {
                 val email = currentState.vacancy.contactEmail
 
-                if(email != null) {
+                if (email != null) {
                     _events.emit(VacancyDetailsEvent.OpenEmail(email))
                 }
             }
+        }
+    }
+
+    fun onFavoritesClick() {
+        val state = _state.value
+
+        if (state !is VacancyDetailsState.Content) return
+
+        viewModelScope.launch {
+            val currentValue = favoritesInteractor.isInFavorites(vacancyId)
+            if (currentValue) {
+                favoritesInteractor.removeVacancy(vacancyId)
+            } else {
+                favoritesInteractor.addVacancy(state.vacancy)
+            }
+            _isFavoriteState.emit(favoritesInteractor.isInFavorites(vacancyId))
         }
     }
 
@@ -80,7 +103,7 @@ class VacancyDetailsViewModel(
             viewModelScope.launch {
                 val shareUrl = currentState.vacancy.shareUrl
 
-                if(shareUrl != null) {
+                if (shareUrl != null) {
                     _events.emit(
                         VacancyDetailsEvent.Share(
                             shareUrl

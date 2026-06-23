@@ -35,4 +35,10 @@
 
     <!--    Экран команда-->
     <string name="team_subtitle">Над приложением работали</string>
+
+    <!-- Экран избранного -->
+    <string name="no_items">Список пуст</string>
+    <string name="organization_icon">Логотип организации</string>
+
+
 </resources>

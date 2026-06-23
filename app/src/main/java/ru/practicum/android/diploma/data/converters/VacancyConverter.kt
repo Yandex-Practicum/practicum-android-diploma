@@ -1,5 +1,10 @@
 package ru.practicum.android.diploma.data.converters
 
+import ru.practicum.android.diploma.data.db.entity.AreaEntity
+import ru.practicum.android.diploma.data.db.entity.ContactsEntity
+import ru.practicum.android.diploma.data.db.entity.EmployerEntity
+import ru.practicum.android.diploma.data.db.entity.SalaryEntity
+import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.dto.AddressDto
 import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.ContactsDto
@@ -140,3 +145,58 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
         name = this.industryName
     )
 )
+
+fun Vacancy.toDatabaseEntity(): VacancyEntity = VacancyEntity(
+    this.vacancyId,
+    this.vacancyName,
+    EmployerEntity(
+        this.employerId,
+        this.companyName,
+        this.logoUrl
+    ),
+    AreaEntity(
+        this.areaId,
+        this.areaName
+    ),
+    SalaryEntity(
+        this.salaryFrom,
+        this.salaryTo,
+        this.currency
+    ),
+    this.description,
+    this.experienceName,
+    this.scheduleName,
+    this.employmentName,
+    this.addressRaw,
+    this.skills,
+    ContactsEntity(
+        this.contactName,
+        this.contactEmail,
+        this.phoneFormatted,
+        this.phoneComment
+    ),
+    this.shareUrl
+)
+
+fun VacancyEntity.toModel(): Vacancy = Vacancy(
+    this.vacancyId,
+    this.vacancyName,
+    this.vacancyEmployer?.companyId,
+    this.vacancyEmployer?.companyName,
+    this.vacancyArea?.areaId,
+    this.vacancyArea?.areaName,
+    this.vacancySalary?.salaryFrom,
+    this.vacancySalary?.salaryTo,
+    this.vacancySalary?.currency,
+    this.vacancyEmployer?.logoUrl,
+    this.vacancyDescription,
+    this.vacancyExperienceName,
+    this.vacancyScheduleName,
+    this.vacancyEmploymentName,
+    this.vacancyAddressRaw,
+    this.vacancySkills,
+    this.vacancyContacts?.contactName,
+    this.vacancyContacts?.contactEmail,
+    this.vacancyContacts?.contactPhoneFormatted,
+    this.vacancyContacts?.contactPhoneComment,
+    this.vacancyShareUrl)

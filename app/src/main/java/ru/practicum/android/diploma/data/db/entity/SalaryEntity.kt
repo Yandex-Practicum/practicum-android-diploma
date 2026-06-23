@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.data.db.entity
 
 import androidx.room.ColumnInfo
 
-
 data class SalaryEntity(
     @ColumnInfo(name = "from")
     val salaryFrom: Long?, // Зарплата "от"

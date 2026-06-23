@@ -6,15 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.domain.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.ApiResult
-import ru.practicum.android.diploma.domain.models.VacanciesSearchResult
 import ru.practicum.android.diploma.domain.models.VacancyCard
 import ru.practicum.android.diploma.util.CustomLiveData
 import ru.practicum.android.diploma.util.debounce
@@ -71,56 +67,56 @@ class SearchViewModel(
             searchJob = viewModelScope.launch {
                 runCatching {
                     repository.searchVacancies(searchQuery, currentSearchPage)
-                    //generateVacancySearchData()
+                        // generateVacancySearchData()
                         .collect { result ->
-                        withContext(Dispatchers.Main) {
-                            val replaceVacancyList = currentSearchPage == 0
-                            when (result) {
-                                is ApiResult.Loading -> {
-                                    renderState(SearchState.IsLoading, replaceVacancyList)
-                                }
-                                is ApiResult.Error -> {
-                                    when (result.httpCode) {
-                                        -1 -> {
-                                            if (currentSearchPage == 0) {
-                                                renderState(SearchState.ConnectionError(true), true)
-                                            } else {
-                                                _searchState.setSingleEventValue(SearchState.ConnectionError(false))
+                            withContext(Dispatchers.Main) {
+                                val replaceVacancyList = currentSearchPage == 0
+                                when (result) {
+                                    is ApiResult.Loading -> {
+                                        renderState(SearchState.IsLoading, replaceVacancyList)
+                                    }
+                                    is ApiResult.Error -> {
+                                        when (result.httpCode) {
+                                            -1 -> {
+                                                if (currentSearchPage == 0) {
+                                                    renderState(SearchState.ConnectionError(true), true)
+                                                } else {
+                                                    _searchState.setSingleEventValue(SearchState.ConnectionError(false))
+                                                }
+                                            }
+                                            400, 404 -> {
+                                                renderState(
+                                                    SearchState.NotFoundError(replaceVacancyList),
+                                                    replaceVacancyList
+                                                )
+                                            }
+                                            500 -> {
+                                                renderState(
+                                                    SearchState.ServerError500(replaceVacancyList),
+                                                    replaceVacancyList
+                                                )
                                             }
                                         }
-                                        400, 404 -> {
-                                            renderState(
-                                                SearchState.NotFoundError(replaceVacancyList),
-                                                replaceVacancyList
-                                            )
-                                        }
-                                        500 -> {
-                                            renderState(
-                                                SearchState.ServerError500(replaceVacancyList),
-                                                replaceVacancyList
-                                            )
-                                        }
                                     }
-                                }
-                                is ApiResult.Success -> {
-                                    with(result.data) {
-                                        isNextPageLoading = false
-                                        maxPages = result.data.pagesCount
-                                        if (result.data.vacanciesFound > 0) {
-                                            vacanciesList.addAll(result.data.vacancies)
-                                            renderState(SearchState.Content(vacanciesList, currentPage == 0), true)
-                                            renderState(SearchState.VacanciesCount(result.data.vacanciesFound))
-                                            ++currentSearchPage
-                                        } else if (currentPage == 0) {
-                                            renderState(SearchState.NotFoundError(true), true)
-                                        } else {
-                                            Unit
+                                    is ApiResult.Success -> {
+                                        with(result.data) {
+                                            isNextPageLoading = false
+                                            maxPages = result.data.pagesCount
+                                            if (result.data.vacanciesFound > 0) {
+                                                vacanciesList.addAll(result.data.vacancies)
+                                                renderState(SearchState.Content(vacanciesList, currentPage == 0), true)
+                                                renderState(SearchState.VacanciesCount(result.data.vacanciesFound))
+                                                ++currentSearchPage
+                                            } else if (currentPage == 0) {
+                                                renderState(SearchState.NotFoundError(true), true)
+                                            } else {
+                                                Unit
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
                 }.onFailure { er ->
                     Log.d("WEB", "Vacancy search error: $er")
                 }
