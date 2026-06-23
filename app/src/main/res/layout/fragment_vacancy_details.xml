@@ -68,9 +68,7 @@
 
         app:layout_constraintTop_toTopOf="@id/vacancyTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/padding_20"
-
-        app:tint="?attr/colorOnSurface" />
+        android:layout_marginEnd="@dimen/padding_20" />
 
 
     <!-- Слой ошибки сервера -->

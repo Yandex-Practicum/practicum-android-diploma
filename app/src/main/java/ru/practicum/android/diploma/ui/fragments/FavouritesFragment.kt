@@ -82,7 +82,7 @@ class FavouritesFragment : Fragment() {
 
     private fun clickOnVacancy(vacancy: VacancyCard) {
         findNavController().navigate(
-            R.id.action_vacancySearchFragment_to_vacancyDetailsFragment,
+            R.id.action_favouritesFragment_to_vacancyDetailsFragment,
             VacancyDetailsFragment.createArgs(vacancy.vacancyId)
         )
     }

@@ -26,7 +26,7 @@ class VacancyDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: VacancyDetailsViewModel by viewModel {
-        parametersOf(arguments?.getString("vacancyId") ?: "")
+        parametersOf(arguments?.getString("VACANCY_ID_KEY") ?: "")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

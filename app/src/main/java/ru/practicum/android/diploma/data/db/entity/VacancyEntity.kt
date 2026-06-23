@@ -50,7 +50,7 @@ data class VacancyEntity(
     val vacancySkills: List<String>?, // Список ключевых навыков
     @Embedded(prefix = "contacts_")
     val vacancyContacts: ContactsEntity?, // Контактная информация
-    @ColumnInfo(name = "vacancy_share_url")
+    @ColumnInfo(name = "url")
     val vacancyShareUrl: String?, // Ссылка на вакансию для шеринга
     @ColumnInfo(name = "vacancy_industry_id")
     val vacancyIndustryId: Int, // ID отрасли
