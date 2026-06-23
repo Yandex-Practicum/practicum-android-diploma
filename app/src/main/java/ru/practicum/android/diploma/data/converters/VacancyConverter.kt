@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.data.dto.ContactsDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
 import ru.practicum.android.diploma.data.dto.EmploymentDto
 import ru.practicum.android.diploma.data.dto.ExperienceDto
+import ru.practicum.android.diploma.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.data.dto.KeySkillDto
 import ru.practicum.android.diploma.data.dto.LogoUrlsDto
 import ru.practicum.android.diploma.data.dto.PhoneDto
@@ -54,6 +55,10 @@ fun VacancyDto.toModel(): Vacancy = Vacancy(
     vacancyName = this.name,
     employerId = this.employer?.id,
     companyName = this.employer?.name,
+    addressId = this.address?.id,
+    addressCity = this.address?.city,
+    addressStreet = this.address?.street,
+    addressBuilding = this.address?.building,
     areaId = this.area?.id,
     areaName = this.area?.name,
     salaryFrom = this.salary?.from,
@@ -61,16 +66,22 @@ fun VacancyDto.toModel(): Vacancy = Vacancy(
     currency = this.salary?.currency,
     logoUrl = this.employer?.logoUrls?.original,
     description = this.description,
+    experienceId = this.experience?.id,
     experienceName = this.experience?.name,
+    scheduleId = this.schedule?.id,
     scheduleName = this.schedule?.name,
     employmentName = this.employment?.name,
-    addressRaw = this.address?.formatted,
+    addressRaw = this.address?.raw,
+    employmentId = this.employment?.id,
     skills = this.keySkills?.mapNotNull { it.name },
+    contactId = this.contacts?.id,
     contactName = this.contacts?.name,
     contactEmail = this.contacts?.email,
     phoneFormatted = this.contacts?.phones?.firstOrNull()?.formatted,
     phoneComment = this.contacts?.phones?.firstOrNull()?.comment,
-    shareUrl = this.alternateUrl
+    shareUrl = this.alternateUrl,
+    industryId = this.industry.id,
+    industryName = this.industry.name
 )
 
 fun Vacancy.toDto(): VacancyDto = VacancyDto(
@@ -94,11 +105,27 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
     ),
     description = this.description,
     keySkills = this.skills?.map { KeySkillDto(it) },
-    experience = ExperienceDto(this.experienceName),
-    schedule = ScheduleDto(this.scheduleName),
-    employment = EmploymentDto(this.employmentName),
-    address = AddressDto(this.addressRaw),
+    experience = ExperienceDto(
+        id = this.experienceId,
+        name = this.experienceName
+    ),
+    schedule = ScheduleDto(
+        id = this.scheduleId,
+        name = this.scheduleName
+    ),
+    employment = EmploymentDto(
+        id = this.employmentId,
+        name = this.companyName
+    ),
+    address = AddressDto(
+        id = this.addressId,
+        city = this.addressCity,
+        street = this.addressRaw,
+        building = this.addressBuilding,
+        raw = this.addressRaw
+    ),
     contacts = ContactsDto(
+        id = this.contactId,
         name = this.contactName,
         email = this.contactEmail,
         phones = if (this.phoneFormatted != null) {
@@ -107,5 +134,9 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
             null
         }
     ),
-    alternateUrl = this.shareUrl
+    alternateUrl = this.shareUrl,
+    industry = FilterIndustryDto(
+        id = this.industryId,
+        name = this.industryName
+    )
 )

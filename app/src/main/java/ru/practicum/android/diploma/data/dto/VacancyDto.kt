@@ -26,7 +26,8 @@ data class VacancyDto(
     val address: AddressDto?,
     val contacts: ContactsDto?,
     @SerializedName("alternate_url")
-    val alternateUrl: String?
+    val alternateUrl: String?,
+    val industry: FilterIndustryDto
 )
 
 data class EmployerDto(
@@ -50,22 +51,30 @@ data class KeySkillDto(
 )
 
 data class ExperienceDto(
+    val id: String?,
     val name: String?
 )
 
 data class ScheduleDto(
+    val id: String?,
     val name: String?
 )
 
 data class EmploymentDto(
+    val id: String?,
     val name: String?
 )
 
 data class AddressDto(
-    val formatted: String?
+    val id: String?,
+    val city: String?,
+    val street: String?,
+    val building: String?,
+    val raw: String?
 )
 
 data class ContactsDto(
+    val id: String?,
     val name: String?,
     val email: String?,
     val phones: List<PhoneDto>?
@@ -74,4 +83,9 @@ data class ContactsDto(
 data class PhoneDto(
     val formatted: String?,
     val comment: String?
+)
+
+data class FilterIndustryDto(
+    val id: Int,
+    val name: String
 )
