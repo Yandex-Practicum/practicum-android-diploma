@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyCard
 
-class VacancyAdapter : RecyclerView.Adapter<VacancyViewHolder>() {
+class VacancyAdapter(
+    private val itemClickListener: ItemClickListener
+): RecyclerView.Adapter<VacancyViewHolder>() {
 
     private var items: List<VacancyCard> = emptyList()
 
@@ -30,7 +32,12 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyViewHolder>() {
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
         holder.bind(items[position])
+        holder.itemView.setOnClickListener { itemClickListener.onItemClick(items[position]) }
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun interface ItemClickListener {
+        fun onItemClick(item: VacancyCard)
+    }
 }

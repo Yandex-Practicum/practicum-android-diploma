@@ -120,12 +120,12 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
     ),
     employment = EmploymentDto(
         id = this.employmentId,
-        name = this.employmentName
+        name = this.companyName
     ),
     address = AddressDto(
         id = this.addressId,
         city = this.addressCity,
-        street = this.addressStreet,
+        street = this.addressRaw,
         building = this.addressBuilding,
         raw = this.addressRaw
     ),

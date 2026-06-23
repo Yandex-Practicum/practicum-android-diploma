@@ -3,11 +3,17 @@ package ru.practicum.android.diploma.data.dto
 import com.google.gson.annotations.SerializedName
 
 data class VacancyCardDto(
+    @SerializedName("id")
     val vacancyId: String,
+    @SerializedName("name")
     val vacancyName: String,
+    @SerializedName("company")
     val companyName: String?,
+    @SerializedName("city")
     val areaName: String?,
+    @SerializedName("salary")
     val salary: SalaryDto?,
+    @SerializedName("logo")
     val shareUrl: String?
 )
 

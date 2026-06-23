@@ -32,6 +32,7 @@
 <!--    Экран деталей вакансии-->
     <string name="contacts_title">Контакты:</string>
     <string name="expirience_title">Требуемый опыт работы:</string>
+    <string name="founded_vacancies_count">Найдено %s вакансий</string>
 
     <!--    Экран команда-->
     <string name="team_subtitle">Над приложением работали</string>

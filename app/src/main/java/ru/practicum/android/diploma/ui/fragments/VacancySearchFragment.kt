@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancySearchBinding
@@ -65,7 +67,7 @@ class VacancySearchFragment : Fragment() {
         setupNoFoundState()
         setupServerErrorState()
 
-        adapter = VacancyAdapter()
+        adapter = VacancyAdapter { clickOnVacancy(it) }
         binding.vacancyList.adapter = adapter
         binding.vacancyList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -74,14 +76,20 @@ class VacancySearchFragment : Fragment() {
             when (state) {
                 SearchState.IsLoading -> showLoadingState()
                 SearchState.IsLoadingNextPage -> {
-                    //
+                    showLoadingState()
                 }
-                is SearchState.Content -> showContent(state.pageData)
+                is SearchState.Content -> showContent(state.pageData, state.listNeedsScrollTop)
                 is SearchState.ConnectionError -> showNoInternetState()
-                is SearchState.NotFoundError -> setupNoFoundState()
+                is SearchState.NotFoundError -> showEmptyResultState()
                 is SearchState.VacanciesCount -> {
                     if (state.vacanciesCount == 0) {
                         showEmptyResultState()
+                    } else {
+                        binding.tvResultInfo.isVisible = true
+                        binding.tvResultInfo.text = getString(
+                            R.string.founded_vacancies_count,
+                            state.vacanciesCount.toString()
+                        )
                     }
                 }
                 is SearchState.ServerError500 -> showServerErrorState()
@@ -117,6 +125,20 @@ class VacancySearchFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) = Unit
         }
+
+        binding.vacancyList.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val pos =
+                        (binding.vacancyList.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    if (pos >= adapter!!.itemCount - 1) {
+                        viewModel.onLastItemReached()
+                    }
+                    viewModel.setNoScrollOnViewCreated()
+                }
+            }
+        })
 
         binding.searchEditText.addTextChangedListener(textWatcher)
     }
@@ -172,21 +194,35 @@ class VacancySearchFragment : Fragment() {
         binding.tvResultInfo.isVisible = false
     }
 
-    private fun showContent(searchData: List<VacancyCard>) {
+    private fun showContent(searchData: List<VacancyCard>, listNeedsScrollTop: Boolean) {
         viewStateHelper.showOnly(binding.vacancyList)
         if (!binding.vacancyList.isVisible) {
             binding.vacancyList.isVisible = true
         }
-        showFoundVacancies(vacancies = searchData)
+        showFoundVacancies(vacancies = searchData, scrollToTop = listNeedsScrollTop)
     }
 
-    private fun showFoundVacancies(vacancies: List<VacancyCard>? = null) {
+    private fun showFoundVacancies(vacancies: List<VacancyCard>? = null, scrollToTop: Boolean = false) {
+        if (adapter == null)
+            return
+
         adapter?.submitList(vacancies)
+        adapter?.notifyDataSetChanged()
+        if (scrollToTop) {
+            binding.vacancyList.scrollToPosition(0)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun clickOnVacancy(vacancy: VacancyCard) {
+        findNavController().navigate(
+            R.id.action_vacancySearchFragment_to_vacancyDetailsFragment,
+            VacancyDetailsFragment.createArgs(vacancy.vacancyId)
+        )
     }
 
     private fun closeKeyboard() {

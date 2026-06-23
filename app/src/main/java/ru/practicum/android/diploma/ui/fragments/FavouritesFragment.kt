@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converters.toVacancyCard
 import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyCard
 import ru.practicum.android.diploma.ui.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.viewmodels.FavoritesState
 import ru.practicum.android.diploma.ui.viewmodels.FavouritesViewModel
@@ -30,7 +33,7 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = VacancyAdapter()
+        adapter = VacancyAdapter { clickOnVacancy(it) }
         binding.vacancyList.adapter = adapter
 
         observeViewModel()
@@ -75,6 +78,13 @@ class FavouritesFragment : Fragment() {
         binding.noItemsPlaceholder.isVisible = false
         binding.errorPlaceholder.isVisible = false
         adapter?.submitList(vacancies.map { it.toVacancyCard() })
+    }
+
+    private fun clickOnVacancy(vacancy: VacancyCard) {
+        findNavController().navigate(
+            R.id.action_vacancySearchFragment_to_vacancyDetailsFragment,
+            VacancyDetailsFragment.createArgs(vacancy.vacancyId)
+        )
     }
 
     override fun onDestroyView() {
