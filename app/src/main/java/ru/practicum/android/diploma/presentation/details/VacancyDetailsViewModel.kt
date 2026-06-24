@@ -44,7 +44,12 @@ class VacancyDetailsViewModel(
                         _state.value = VacancyDetailsState.Content(result.data)
                     }
                     is ApiResult.Error -> {
-                        _state.value = VacancyDetailsState.Error
+                        val vacancy = favoritesInteractor.getVacancy(vacancyId)
+                        if (vacancy != null) {
+                            _state.value = VacancyDetailsState.Content(vacancy)
+                        } else {
+                            _state.value = VacancyDetailsState.Error
+                        }
                     }
                 }
             }
