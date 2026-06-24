@@ -31,18 +31,6 @@ class VacancySearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModel()
     private lateinit var viewStateHelper: ViewStateHelper
     private var adapter: VacancyAdapter? = null
-    private val onVacancySearchDebounce: (VacancyCard) -> Unit by lazy {
-        debounce<VacancyCard>(
-            CLICK_DEBOUNCE_DELAY,
-            viewLifecycleOwner.lifecycleScope,
-            false
-        ) { vacancy ->
-            findNavController().navigate(
-                R.id.action_vacancySearchFragment_to_vacancyDetailsFragment,
-                // добавить вызов и передачу vacancyId или vacancy в VacancyDetailsFragment.createArgs(?)
-            )
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVacancySearchBinding.inflate(inflater, container, false)
@@ -230,9 +218,5 @@ class VacancySearchFragment : Fragment() {
             val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
-    }
-
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 }
