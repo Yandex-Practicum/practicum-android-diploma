@@ -13,5 +13,6 @@
         <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="colorSurface">@color/color_surface_primary</item>
         <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:statusBarColor">@color/color_background</item>
     </style>
 </resources>
