@@ -8,5 +8,5 @@ data class VacancyCard(
     val salaryFrom: Long?,
     val salaryTo: Long?,
     val currency: String?,
-    val shareUrl: String?
+    val logoUrl: String?
 )

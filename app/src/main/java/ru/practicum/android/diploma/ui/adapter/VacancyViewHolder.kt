@@ -39,8 +39,8 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         Glide.with(itemView.context)
-            .load(item.shareUrl)
-            .placeholder(R.drawable.icon_view_shape)
+            .load(item.logoUrl)
+            .placeholder(R.drawable.ic_droid)
             .transform(CenterInside())
             .into(companyIcon)
     }

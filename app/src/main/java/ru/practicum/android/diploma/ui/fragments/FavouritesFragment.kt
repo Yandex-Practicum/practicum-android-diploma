@@ -13,9 +13,9 @@ import ru.practicum.android.diploma.data.converters.toVacancyCard
 import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyCard
+import ru.practicum.android.diploma.presentation.viewmodels.FavoritesState
+import ru.practicum.android.diploma.presentation.viewmodels.FavouritesViewModel
 import ru.practicum.android.diploma.ui.adapter.VacancyAdapter
-import ru.practicum.android.diploma.ui.viewmodels.FavoritesState
-import ru.practicum.android.diploma.ui.viewmodels.FavouritesViewModel
 
 class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null

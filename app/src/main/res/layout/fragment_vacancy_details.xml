@@ -118,22 +118,63 @@
                 android:textColor="?attr/colorOnSurface"
                 tools:text="100 000 — 150 000 ₽" />
 
-            <TextView
-                android:id="@+id/tvCompanyName"
-                style="@style/TextDisplayMedium16"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textColor="?attr/colorOnSurface"
-                tools:text="Яндекс" />
+                app:cardBackgroundColor="@color/light_gray"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
 
-            <TextView
-                android:id="@+id/tvArea"
-                style="@style/TextDisplayRegular16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="?attr/colorOnSurface"
-                tools:text="Москва" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/ivEmployerLogoContainer"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivEmployerLogoValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerInside"
+                            tools:src="@drawable/ic_droid" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/tvCompanyName"
+                        style="@style/TextDisplayMedium16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivEmployerLogoContainer"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Яндекс" />
+
+                    <TextView
+                        android:id="@+id/tvArea"
+                        style="@style/TextDisplayRegular16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tvCompanyName"
+                        app:layout_constraintTop_toBottomOf="@id/tvCompanyName"
+                        tools:text="Москва" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tvExperienceLabel"

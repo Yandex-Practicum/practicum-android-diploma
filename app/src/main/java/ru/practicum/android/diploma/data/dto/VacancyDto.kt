@@ -14,7 +14,7 @@ data class VacancyCardDto(
     @SerializedName("salary")
     val salary: SalaryDto?,
     @SerializedName("logo")
-    val shareUrl: String?
+    val logoUrl: String?
 )
 
 data class VacancyDto(
@@ -39,12 +39,8 @@ data class VacancyDto(
 data class EmployerDto(
     val id: String?,
     val name: String?,
-    @SerializedName("logo_urls")
-    val logoUrls: LogoUrlsDto?
-)
-
-data class LogoUrlsDto(
-    val original: String?
+    @SerializedName("logo")
+    val logoUrl: String?
 )
 
 data class AreaDto(

@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.data.dto.EmploymentDto
 import ru.practicum.android.diploma.data.dto.ExperienceDto
 import ru.practicum.android.diploma.data.dto.FilterIndustryDto
 import ru.practicum.android.diploma.data.dto.KeySkillDto
-import ru.practicum.android.diploma.data.dto.LogoUrlsDto
 import ru.practicum.android.diploma.data.dto.PhoneDto
 import ru.practicum.android.diploma.data.dto.SalaryDto
 import ru.practicum.android.diploma.data.dto.ScheduleDto
@@ -39,7 +38,7 @@ fun VacancyCardDto.toModel(): VacancyCard = VacancyCard(
     salaryFrom = this.salary?.from,
     salaryTo = this.salary?.to,
     currency = this.salary?.currency,
-    shareUrl = this.shareUrl
+    logoUrl = this.logoUrl
 )
 
 fun VacancyCard.toDto(): VacancyCardDto = VacancyCardDto(
@@ -52,7 +51,7 @@ fun VacancyCard.toDto(): VacancyCardDto = VacancyCardDto(
         to = this.salaryTo,
         currency = this.currency
     ),
-    shareUrl = this.shareUrl
+    logoUrl = this.logoUrl
 )
 
 fun VacancyDto.toModel(): Vacancy = Vacancy(
@@ -69,7 +68,7 @@ fun VacancyDto.toModel(): Vacancy = Vacancy(
     salaryFrom = this.salary?.from,
     salaryTo = this.salary?.to,
     currency = this.salary?.currency,
-    logoUrl = this.employer?.logoUrls?.original,
+    logoUrl = this.employer?.logoUrl,
     description = this.description,
     experienceId = this.experience?.id,
     experienceName = this.experience?.name,
@@ -100,9 +99,7 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
     employer = EmployerDto(
         id = this.employerId,
         name = this.companyName,
-        logoUrls = LogoUrlsDto(
-            original = this.logoUrl
-        )
+        logoUrl = this.logoUrl
     ),
     area = AreaDto(
         id = this.areaId,
@@ -154,7 +151,7 @@ fun Vacancy.toVacancyCard(): VacancyCard = VacancyCard(
     salaryFrom = this.salaryFrom,
     salaryTo = this.salaryTo,
     currency = this.currency,
-    shareUrl = this.shareUrl
+    logoUrl = this.logoUrl
 )
 
 fun Vacancy.toDatabaseEntity(): VacancyEntity = VacancyEntity(

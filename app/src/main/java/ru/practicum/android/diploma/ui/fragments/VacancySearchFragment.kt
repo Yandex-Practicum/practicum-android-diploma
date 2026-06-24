@@ -19,9 +19,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancySearchBinding
 import ru.practicum.android.diploma.domain.models.VacancyCard
+import ru.practicum.android.diploma.presentation.viewmodels.SearchState
+import ru.practicum.android.diploma.presentation.viewmodels.SearchViewModel
 import ru.practicum.android.diploma.ui.adapter.VacancyAdapter
-import ru.practicum.android.diploma.ui.viewmodels.SearchState
-import ru.practicum.android.diploma.ui.viewmodels.SearchViewModel
 import ru.practicum.android.diploma.util.ViewStateHelper
 import ru.practicum.android.diploma.util.debounce
 
