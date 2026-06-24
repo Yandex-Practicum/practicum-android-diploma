@@ -13,10 +13,8 @@
         style="@style/TextDisplayMedium22"
         android:text="@string/favourites_title"
         android:textColor="?attr/colorOnSurface"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"/>
+        android:paddingVertical="19dp"/>
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -57,6 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+
+        android:paddingHorizontal="@dimen/padding_16">
     </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
