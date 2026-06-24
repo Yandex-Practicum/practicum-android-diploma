@@ -14,5 +14,6 @@
         <item name="colorSurface">@color/color_surface_primary</item>
         <item name="android:windowBackground">@color/color_background</item>
         <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
