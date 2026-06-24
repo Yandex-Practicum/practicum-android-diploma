@@ -81,18 +81,20 @@ class VacancyDetailsViewModel(
     }
 
     fun onFavoritesClick() {
-        val state = _state.value
-
-        if (state !is VacancyDetailsState.Content) return
-
         viewModelScope.launch {
-            val currentValue = favoritesInteractor.isInFavorites(vacancyId)
-            if (currentValue) {
+            val isFavorite = favoritesInteractor.isInFavorites(vacancyId)
+
+            if (isFavorite) {
                 favoritesInteractor.removeVacancy(vacancyId)
             } else {
-                favoritesInteractor.addVacancy(state.vacancy)
+                val state = _state.value
+                if (state is VacancyDetailsState.Content) {
+                    favoritesInteractor.addVacancy(state.vacancy)
+                }
             }
-            _isFavoriteState.emit(favoritesInteractor.isInFavorites(vacancyId))
+
+            _isFavoriteState.value =
+                favoritesInteractor.isInFavorites(vacancyId)
         }
     }
 
