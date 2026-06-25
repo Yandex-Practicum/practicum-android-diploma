@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.databinding.FragmentIndustrySelectionBinding
 
 class IndustrySelectionFragment : Fragment() {
-    private var _binding: FragmentIndustrySelectionBinding? = null
+    private var _binding: FragmentFilterIndustryBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentIndustrySelectionBinding.inflate(inflater, container, false)
+        _binding = FragmentFilterIndustryBinding.inflate(inflater, container, false)
         return binding.root
     }
 

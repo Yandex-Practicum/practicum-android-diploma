@@ -69,7 +69,7 @@
         android:id="@+id/industrySelectionFragment"
         android:name="ru.practicum.android.diploma.ui.fragments.filter.IndustrySelectionFragment"
         android:label="fragment_industry_selection"
-        tools:layout="@layout/fragment_industry_selection" />
+        tools:layout="@layout/fragment_filter_industry" />
     <fragment
         android:id="@+id/regionSelectionFragment"
         android:name="ru.practicum.android.diploma.ui.fragments.filter.RegionSelectionFragment"
