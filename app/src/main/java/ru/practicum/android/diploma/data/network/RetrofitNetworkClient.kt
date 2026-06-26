@@ -17,65 +17,50 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
 
     override suspend fun filterAreaRequest(dto: Any): Response {
-        if (!networkConnectivityChecker(context) || dto !is FilterAreaRequest) {
-            return Response().apply {
-                resultCode = if (!networkConnectivityChecker(context)) {
-                    NO_CONNECTION_CODE
-                } else {
-                    BAD_REQUEST_CODE
-                }
-            }
-        }
+        if (!networkConnectivityChecker(context)) return Response().apply { resultCode = NO_CONNECTION_CODE }
+        if (dto !is FilterAreaRequest) return Response().apply { resultCode = BAD_REQUEST_CODE }
 
-        return withContext(Dispatchers.IO) {
-            try {
-                apiService.getAreas().apply { resultCode = SUCCESS_CODE }
-            } catch (_: Throwable) {
-                Response().apply { resultCode = SERVER_ERROR_CODE }
-            }
-        }
+        return executeRequest { apiService.getAreas() }
     }
 
     override suspend fun searchVacancies(dto: Any): Response {
-        val hasConnection = networkConnectivityChecker(context)
-        if (!hasConnection || dto !is VacanciesRequest) {
-            return Response().apply {
-                resultCode = if (!hasConnection) NO_CONNECTION_CODE else BAD_REQUEST_CODE
-            }
-        }
+        if (!networkConnectivityChecker(context)) return Response().apply { resultCode = NO_CONNECTION_CODE }
+        if (dto !is VacanciesRequest) return Response().apply { resultCode = BAD_REQUEST_CODE }
 
-        return withContext(Dispatchers.IO) {
-            try {
-                val options = mutableMapOf<String, String>()
-                options["text"] = dto.text
-                options["page"] = dto.page.toString()
-                dto.salary?.let { options["salary"] = it.toString() }
-                if (dto.onlyWithSalary) options["only_with_salary"] = "true"
-                dto.area?.let { options["area"] = it }
-                dto.industry?.let { options["industry"] = it }
-
-                apiService.searchVacancies(options).apply { resultCode = SUCCESS_CODE }
-            } catch (_: Throwable) {
-                Response().apply { resultCode = SERVER_ERROR_CODE }
-            }
+        return executeRequest {
+            val options = createSearchOptions(dto)
+            apiService.searchVacancies(options)
         }
     }
 
     override suspend fun getVacancyDetails(dto: Any): Response {
-        val hasConnection = networkConnectivityChecker(context)
-        if (!hasConnection || dto !is VacancyDetailsRequest) {
-            return Response().apply {
-                resultCode = if (!hasConnection) NO_CONNECTION_CODE else BAD_REQUEST_CODE
-            }
-        }
+        if (!networkConnectivityChecker(context)) return Response().apply { resultCode = NO_CONNECTION_CODE }
+        if (dto !is VacancyDetailsRequest) return Response().apply { resultCode = BAD_REQUEST_CODE }
 
+        return executeRequest {
+            val vacancyDto = apiService.getVacancyDetails(dto.vacancyId)
+            VacancyDetailsResponse(vacancyDto)
+        }
+    }
+
+    private suspend fun executeRequest(request: suspend () -> Response): Response {
         return withContext(Dispatchers.IO) {
             try {
-                val vacancyDto = apiService.getVacancyDetails(dto.vacancyId)
-                VacancyDetailsResponse(vacancyDto).apply { resultCode = SUCCESS_CODE }
+                request().apply { resultCode = SUCCESS_CODE }
             } catch (_: Throwable) {
                 Response().apply { resultCode = SERVER_ERROR_CODE }
             }
+        }
+    }
+
+    private fun createSearchOptions(dto: VacanciesRequest): Map<String, String> {
+        return mutableMapOf<String, String>().apply {
+            put("text", dto.text)
+            put("page", dto.page.toString())
+            dto.salary?.let { put("salary", it.toString()) }
+            if (dto.onlyWithSalary) put("only_with_salary", "true")
+            dto.area?.let { put("area", it) }
+            dto.industry?.let { put("industry", it) }
         }
     }
 

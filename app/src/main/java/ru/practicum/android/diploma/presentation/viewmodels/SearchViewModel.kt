@@ -79,71 +79,66 @@ class SearchViewModel(
 
     private fun searchVacancies(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
-            checkFilterState() // Проверяем состояние фильтров перед поиском
+            checkFilterState()
             renderLoadingState()
             searchJob?.cancel()
             searchJob = viewModelScope.launch {
                 // Получаем текущие настройки фильтрации перед каждым поиском
                 val settings = filterInteractor.getFilterSettings()
-
                 runCatching {
                     interactor.searchVacancies(searchQuery, currentSearchPage, settings)
                         .collect { result ->
                             withContext(Dispatchers.Main) {
-                                val replaceVacancyList = currentSearchPage == 0
-                                when (result) {
-                                    is ApiResult.Error -> {
-                                        when (result.httpCode.toHttpErrorType()) {
-                                            HttpErrorType.NETWORK,
-                                            HttpErrorType.UNKNOWN -> {
-                                                if (currentSearchPage == 0) {
-                                                    renderState(SearchState.ConnectionError(true), true)
-                                                } else {
-                                                    _searchState.setSingleEventValue(SearchState.ConnectionError(false))
-                                                }
-                                            }
-
-                                            HttpErrorType.CLIENT -> {
-                                                renderState(
-                                                    SearchState.NotFoundError(replaceVacancyList),
-                                                    replaceVacancyList
-                                                )
-                                            }
-
-                                            HttpErrorType.SERVER -> {
-                                                renderState(
-                                                    SearchState.ServerError500(replaceVacancyList),
-                                                    replaceVacancyList
-                                                )
-                                            }
-                                        }
-                                    }
-
-                                    is ApiResult.Success -> {
-                                        with(result.data) {
-                                            isNextPageLoading = false
-                                            maxPages = result.data.pagesCount
-                                            if (result.data.vacanciesFound > 0) {
-                                                vacanciesList.addAll(result.data.vacancies)
-                                                renderState(
-                                                    SearchState.Content(vacanciesList, currentSearchPage == 0),
-                                                    true
-                                                )
-                                                renderState(SearchState.VacanciesCount(result.data.vacanciesFound))
-                                                ++currentSearchPage
-                                            } else if (currentSearchPage == 0) {
-                                                renderState(SearchState.NotFoundError(true), true)
-                                            } else {
-                                                renderState(SearchState.NotFoundError(true), true)
-                                            }
-                                        }
-                                    }
-
-                                    else -> Unit
-                                }
+                                processSearchResult(result)
                             }
                         }
                 }
+            }
+        }
+    }
+
+    private fun processSearchResult(result: ApiResult<ru.practicum.android.diploma.domain.models.VacanciesSearchResult>) {
+        val replaceVacancyList = currentSearchPage == 0
+        when (result) {
+            is ApiResult.Error -> handleError(result.httpCode, replaceVacancyList)
+            is ApiResult.Success -> handleSuccess(result.data, replaceVacancyList)
+            else -> Unit
+        }
+    }
+
+    private fun handleSuccess(data: ru.practicum.android.diploma.domain.models.VacanciesSearchResult, replaceVacancyList: Boolean) {
+        isNextPageLoading = false
+        maxPages = data.pagesCount
+        if (data.vacanciesFound > 0) {
+            vacanciesList.addAll(data.vacancies)
+            renderState(
+                SearchState.Content(vacanciesList, currentSearchPage == 0),
+                true
+            )
+            renderState(SearchState.VacanciesCount(data.vacanciesFound))
+            ++currentSearchPage
+        } else {
+            renderState(SearchState.NotFoundError(true), true)
+        }
+    }
+
+    private fun handleError(httpCode: Int, replaceVacancyList: Boolean) {
+        when (httpCode.toHttpErrorType()) {
+            HttpErrorType.NETWORK,
+            HttpErrorType.UNKNOWN -> {
+                if (currentSearchPage == 0) {
+                    renderState(SearchState.ConnectionError(true), true)
+                } else {
+                    _searchState.setSingleEventValue(SearchState.ConnectionError(false))
+                }
+            }
+
+            HttpErrorType.CLIENT -> {
+                renderState(SearchState.NotFoundError(replaceVacancyList), replaceVacancyList)
+            }
+
+            HttpErrorType.SERVER -> {
+                renderState(SearchState.ServerError500(replaceVacancyList), replaceVacancyList)
             }
         }
     }

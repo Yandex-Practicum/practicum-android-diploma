@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.impl.FavoritesInteractorImpl
 import ru.practicum.android.diploma.domain.impl.FilterSettingsInteractorImpl
 import ru.practicum.android.diploma.domain.impl.VacanciesInteractorImpl
 
-val interactorModule = module {
+val InteractorModule = module {
     single<VacanciesInteractor> {
         VacanciesInteractorImpl(get())
     }

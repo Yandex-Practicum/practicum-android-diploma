@@ -40,7 +40,7 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             salary.visibility = View.VISIBLE
             salary.text = salaryText
         } else {
-            salary.text = "Зарплата не указана"
+            salary.text = itemView.context.getString(R.string.salary_not_specified)
             salary.visibility = View.VISIBLE
         }
 
@@ -48,8 +48,12 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .load(item.logoUrl)
             .placeholder(R.drawable.ic_placeholder_32)
             .centerInside()
-            .transform(CenterInside(), RoundedCorners(dpToPx(12f, itemView.context)))
+            .transform(CenterInside(), RoundedCorners(dpToPx(ROUNDED_CORNERS_RADIUS, itemView.context)))
             .into(companyIcon)
+    }
+
+    companion object {
+        private const val ROUNDED_CORNERS_RADIUS = 12f
     }
 
     fun dpToPx(dp: Float, context: Context): Int {

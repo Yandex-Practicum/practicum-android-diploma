@@ -18,12 +18,16 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
     }
 
     fun getMockData(): List<TeamItem> = listOf(
-        TeamItem("Бодалин Роман", "Разработчик"),
-        TeamItem("Давыдова Ксения", "Разработчик"),
-        TeamItem("Маканаев Хазрет", "Разработчик"),
-        TeamItem("Максимова Виктория", "Разработчик"),
-        TeamItem("Ставицкий Виктор", "Разработчик")
+        TeamItem("Бодалин Роман", DEVELOPER_ROLE),
+        TeamItem("Давыдова Ксения", DEVELOPER_ROLE),
+        TeamItem("Маканаев Хазрет", DEVELOPER_ROLE),
+        TeamItem("Максимова Виктория", DEVELOPER_ROLE),
+        TeamItem("Ставицкий Виктор", DEVELOPER_ROLE)
     )
+
+    companion object {
+        private const val DEVELOPER_ROLE = "Разработчик"
+    }
 
     inner class TeamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val memberName: TextView = itemView.findViewById(R.id.memberName)

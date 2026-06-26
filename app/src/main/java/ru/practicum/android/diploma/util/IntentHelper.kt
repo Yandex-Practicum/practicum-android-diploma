@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import ru.practicum.android.diploma.R
 
 /**
  * Помощник для работы с внешними Интентами (звонки, почта, браузер).
@@ -60,9 +61,8 @@ object IntentHelper {
     private fun startIntentSafely(context: Context, intent: Intent) {
         try {
             context.startActivity(intent)
-        } catch (e: Exception) {
-            // В случае отсутствия подходящего приложения показываем уведомление
-            Toast.makeText(context, "Нет подходящего приложения", Toast.LENGTH_SHORT).show()
+        } catch (_: android.content.ActivityNotFoundException) {
+            Toast.makeText(context, context.getString(R.string.no_suitable_app), Toast.LENGTH_SHORT).show()
         }
     }
 }

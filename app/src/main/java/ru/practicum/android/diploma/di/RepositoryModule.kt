@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.api.FilterSettingsRepository
 import ru.practicum.android.diploma.domain.api.VacanciesRepository
 
-val repositoryModule = module {
+val RepositoryModule = module {
 
     single<VacanciesRepository> {
         VacancyRepositoryImpl(get())

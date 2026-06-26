@@ -91,34 +91,14 @@ fun VacancyDto.toModel(): Vacancy = Vacancy(
 fun Vacancy.toDto(): VacancyDto = VacancyDto(
     id = this.vacancyId,
     name = this.vacancyName,
-    salary = SalaryDto(
-        from = this.salaryFrom,
-        to = this.salaryTo,
-        currency = this.currency
-    ),
-    employer = EmployerDto(
-        id = this.employerId,
-        name = this.companyName,
-        logoUrl = this.logoUrl
-    ),
-    area = AreaDto(
-        id = this.areaId,
-        name = this.areaName
-    ),
+    salary = SalaryDto(from = this.salaryFrom, to = this.salaryTo, currency = this.currency),
+    employer = EmployerDto(id = this.employerId, name = this.companyName, logoUrl = this.logoUrl),
+    area = AreaDto(id = this.areaId, name = this.areaName),
     description = this.description,
     keySkills = this.skills?.map { KeySkillDto(it) },
-    experience = ExperienceDto(
-        id = this.experienceId,
-        name = this.experienceName
-    ),
-    schedule = ScheduleDto(
-        id = this.scheduleId,
-        name = this.scheduleName
-    ),
-    employment = EmploymentDto(
-        id = this.employmentId,
-        name = this.companyName
-    ),
+    experience = ExperienceDto(id = this.experienceId, name = this.experienceName),
+    schedule = ScheduleDto(id = this.scheduleId, name = this.scheduleName),
+    employment = EmploymentDto(id = this.employmentId, name = this.companyName),
     address = AddressDto(
         id = this.addressId,
         city = this.addressCity,
@@ -126,21 +106,20 @@ fun Vacancy.toDto(): VacancyDto = VacancyDto(
         building = this.addressBuilding,
         raw = this.addressRaw
     ),
-    contacts = ContactsDto(
-        id = this.contactId,
-        name = this.contactName,
-        email = this.contactEmail,
-        phones = if (this.phoneFormatted != null) {
-            listOf(PhoneDto(this.phoneFormatted, this.phoneComment))
-        } else {
-            null
-        }
-    ),
+    contacts = mapToContactsDto(this),
     alternateUrl = this.shareUrl,
-    industry = FilterIndustryDto(
-        id = this.industryId,
-        name = this.industryName
-    )
+    industry = FilterIndustryDto(id = this.industryId, name = this.industryName)
+)
+
+private fun mapToContactsDto(vacancy: Vacancy): ContactsDto = ContactsDto(
+    id = vacancy.contactId,
+    name = vacancy.contactName,
+    email = vacancy.contactEmail,
+    phones = if (vacancy.phoneFormatted != null) {
+        listOf(PhoneDto(vacancy.phoneFormatted, vacancy.phoneComment))
+    } else {
+        null
+    }
 )
 
 fun Vacancy.toVacancyCard(): VacancyCard = VacancyCard(
@@ -162,10 +141,7 @@ fun Vacancy.toDatabaseEntity(): VacancyEntity = VacancyEntity(
         companyName = this.companyName,
         logoUrl = this.logoUrl
     ),
-    vacancyArea = AreaEntity(
-        areaId = this.areaId,
-        areaName = this.areaName
-    ),
+    vacancyArea = AreaEntity(areaId = this.areaId, areaName = this.areaName),
     vacancySalary = SalaryEntity(
         salaryFrom = this.salaryFrom,
         salaryTo = this.salaryTo,

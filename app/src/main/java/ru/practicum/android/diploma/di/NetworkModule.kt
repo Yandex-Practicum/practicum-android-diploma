@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.data.network.createLoggingInterceptor
 
 private const val BASE_URL = "https://android-diploma.education-services.ru/"
 
-val networkModule = module {
+val NetworkModule = module {
     single<PracticumApiService> {
         val okHttpClient = OkHttpClient.Builder().apply {
             addInterceptor(ApiKeyInterceptor())

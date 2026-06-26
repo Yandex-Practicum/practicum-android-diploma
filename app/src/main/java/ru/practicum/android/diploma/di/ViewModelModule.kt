@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.presentation.viewmodels.FavouritesViewModel
 import ru.practicum.android.diploma.presentation.viewmodels.FiltersViewModel
 import ru.practicum.android.diploma.presentation.viewmodels.SearchViewModel
 
-val viewModelModule = module {
+val ViewModelModule = module {
     viewModel { SearchViewModel(get(), get()) }
 
     viewModel { FavouritesViewModel(get()) }
