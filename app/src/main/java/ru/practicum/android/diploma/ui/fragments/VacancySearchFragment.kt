@@ -82,7 +82,9 @@ class VacancySearchFragment : Fragment() {
 
                 is SearchState.ServerError500 -> showServerErrorState()
                 is SearchState.QueryIsEmpty -> {
-                    if (state.isEmpty) showInitialState()
+                    if (state.isEmpty) {
+                        showInitialState()
+                    }
                 }
 
                 is SearchState.SearchText -> {
@@ -210,8 +212,9 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showFoundVacancies(vacancies: List<VacancyCard>? = null, scrollToTop: Boolean = false) {
-        if (adapter == null)
+        if (adapter == null) {
             return
+        }
 
         adapter?.submitList(vacancies)
         adapter?.notifyDataSetChanged()

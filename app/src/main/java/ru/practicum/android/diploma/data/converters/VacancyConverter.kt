@@ -160,16 +160,18 @@ fun Vacancy.toDatabaseEntity(): VacancyEntity = VacancyEntity(
     vacancyAddressBuilding = this.addressBuilding,
     vacancyAddressRaw = this.addressRaw,
     vacancySkills = this.skills,
-    vacancyContacts = ContactsEntity(
-        contactId = this.contactId,
-        contactName = this.contactName,
-        contactEmail = this.contactEmail,
-        contactPhoneFormatted = this.phoneFormatted,
-        contactPhoneComment = this.phoneComment
-    ),
+    vacancyContacts = mapToContactsEntity(this),
     vacancyShareUrl = this.shareUrl,
     vacancyIndustryId = this.industryId,
     vacancyIndustryName = this.industryName
+)
+
+private fun mapToContactsEntity(vacancy: Vacancy): ContactsEntity = ContactsEntity(
+    contactId = vacancy.contactId,
+    contactName = vacancy.contactName,
+    contactEmail = vacancy.contactEmail,
+    contactPhoneFormatted = vacancy.phoneFormatted,
+    contactPhoneComment = vacancy.phoneComment
 )
 
 fun VacancyEntity.toModel(): Vacancy = Vacancy(

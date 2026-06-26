@@ -38,30 +38,8 @@ class FiltersFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.workPlaceContainer.setOnClickListener {
-            findNavController().navigate(R.id.action_filtersFragment_to_workPlaceSelectionFragment)
-        }
-
-        binding.industryContainer.setOnClickListener {
-            findNavController().navigate(R.id.action_filtersFragment_to_industrySelectionFragment)
-        }
-
-        binding.workPlaceClear.setOnClickListener {
-            viewModel.clearWorkPlace()
-        }
-
-        binding.industryClear.setOnClickListener {
-            viewModel.clearIndustry()
-        }
-
-        binding.salaryEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.setSalary(s?.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        setupClickListeners()
+        setupTextWatcher()
 
         binding.noSalaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setNotShowWithoutSalary(isChecked)
@@ -79,12 +57,38 @@ class FiltersFragment : Fragment() {
         viewModel.loadSettings()
     }
 
-    private fun render(state: FiltersState) {
-        when (state) {
-            is FiltersState.Loading -> {
-                // Можно добавить ProgressBar если нужно
+    private fun setupClickListeners() {
+        binding.workPlaceContainer.setOnClickListener {
+            findNavController().navigate(R.id.action_filtersFragment_to_workPlaceSelectionFragment)
+        }
+
+        binding.industryContainer.setOnClickListener {
+            findNavController().navigate(R.id.action_filtersFragment_to_industrySelectionFragment)
+        }
+
+        binding.workPlaceClear.setOnClickListener {
+            viewModel.clearWorkPlace()
+        }
+
+        binding.industryClear.setOnClickListener {
+            viewModel.clearIndustry()
+        }
+    }
+
+    private fun setupTextWatcher() {
+        binding.salaryEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.setSalary(s?.toString())
             }
 
+            override fun afterTextChanged(s: Editable?) = Unit
+        })
+    }
+
+    private fun render(state: FiltersState) {
+        when (state) {
+            is FiltersState.Loading -> Unit
             is FiltersState.Content -> {
                 renderContent(state.settings, state.canApply, state.canReset)
             }
@@ -92,7 +96,22 @@ class FiltersFragment : Fragment() {
     }
 
     private fun renderContent(settings: FilterSettings, canApply: Boolean, canReset: Boolean) {
-        // Место работы
+        renderWorkPlace(settings)
+        renderIndustry(settings)
+
+        if (binding.salaryEditText.text.toString() != (settings.expectedSalary?.toString() ?: "")) {
+            binding.salaryEditText.setText(settings.expectedSalary?.toString() ?: "")
+        }
+
+        if (binding.noSalaryCheckbox.isChecked != settings.notShowWithoutSalary) {
+            binding.noSalaryCheckbox.isChecked = settings.notShowWithoutSalary
+        }
+
+        binding.applyButton.isVisible = canApply
+        binding.resetButton.isVisible = canReset
+    }
+
+    private fun renderWorkPlace(settings: FilterSettings) {
         if (settings.countryName != null) {
             binding.workPlaceValue.isVisible = true
             binding.workPlaceValue.text = if (settings.regionName != null) {
@@ -110,8 +129,9 @@ class FiltersFragment : Fragment() {
             binding.workPlaceArrow.isVisible = true
             binding.workPlaceClear.isVisible = false
         }
+    }
 
-        // Отрасль
+    private fun renderIndustry(settings: FilterSettings) {
         if (settings.industryName != null) {
             binding.industryValue.isVisible = true
             binding.industryValue.text = settings.industryName
@@ -125,20 +145,6 @@ class FiltersFragment : Fragment() {
             binding.industryArrow.isVisible = true
             binding.industryClear.isVisible = false
         }
-
-        // Зарплата
-        if (binding.salaryEditText.text.toString() != (settings.expectedSalary?.toString() ?: "")) {
-            binding.salaryEditText.setText(settings.expectedSalary?.toString() ?: "")
-        }
-
-        // Чекбокс
-        if (binding.noSalaryCheckbox.isChecked != settings.notShowWithoutSalary) {
-            binding.noSalaryCheckbox.isChecked = settings.notShowWithoutSalary
-        }
-
-        // Кнопки
-        binding.applyButton.isVisible = canApply
-        binding.resetButton.isVisible = canReset
     }
 
     override fun onDestroyView() {

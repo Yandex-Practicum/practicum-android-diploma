@@ -17,29 +17,32 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
 
     override suspend fun filterAreaRequest(dto: Any): Response {
-        if (!networkConnectivityChecker(context)) return Response().apply { resultCode = NO_CONNECTION_CODE }
-        if (dto !is FilterAreaRequest) return Response().apply { resultCode = BAD_REQUEST_CODE }
-
-        return executeRequest { apiService.getAreas() }
+        return when {
+            !networkConnectivityChecker(context) -> Response().apply { resultCode = NO_CONNECTION_CODE }
+            dto !is FilterAreaRequest -> Response().apply { resultCode = BAD_REQUEST_CODE }
+            else -> executeRequest { apiService.getAreas() }
+        }
     }
 
     override suspend fun searchVacancies(dto: Any): Response {
-        if (!networkConnectivityChecker(context)) return Response().apply { resultCode = NO_CONNECTION_CODE }
-        if (dto !is VacanciesRequest) return Response().apply { resultCode = BAD_REQUEST_CODE }
-
-        return executeRequest {
-            val options = createSearchOptions(dto)
-            apiService.searchVacancies(options)
+        return when {
+            !networkConnectivityChecker(context) -> Response().apply { resultCode = NO_CONNECTION_CODE }
+            dto !is VacanciesRequest -> Response().apply { resultCode = BAD_REQUEST_CODE }
+            else -> executeRequest {
+                val options = createSearchOptions(dto)
+                apiService.searchVacancies(options)
+            }
         }
     }
 
     override suspend fun getVacancyDetails(dto: Any): Response {
-        if (!networkConnectivityChecker(context)) return Response().apply { resultCode = NO_CONNECTION_CODE }
-        if (dto !is VacancyDetailsRequest) return Response().apply { resultCode = BAD_REQUEST_CODE }
-
-        return executeRequest {
-            val vacancyDto = apiService.getVacancyDetails(dto.vacancyId)
-            VacancyDetailsResponse(vacancyDto)
+        return when {
+            !networkConnectivityChecker(context) -> Response().apply { resultCode = NO_CONNECTION_CODE }
+            dto !is VacancyDetailsRequest -> Response().apply { resultCode = BAD_REQUEST_CODE }
+            else -> executeRequest {
+                val vacancyDto = apiService.getVacancyDetails(dto.vacancyId)
+                VacancyDetailsResponse(vacancyDto)
+            }
         }
     }
 
@@ -58,7 +61,9 @@ class RetrofitNetworkClient(
             put("text", dto.text)
             put("page", dto.page.toString())
             dto.salary?.let { put("salary", it.toString()) }
-            if (dto.onlyWithSalary) put("only_with_salary", "true")
+            if (dto.onlyWithSalary) {
+                put("only_with_salary", "true")
+            }
             dto.area?.let { put("area", it) }
             dto.industry?.let { put("industry", it) }
         }
