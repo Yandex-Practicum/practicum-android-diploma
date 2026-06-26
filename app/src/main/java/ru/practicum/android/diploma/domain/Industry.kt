@@ -1,5 +1,9 @@
-package ru.practicum.android.diploma.data.db
+package ru.practicum.android.diploma.domain
 
+class Industry (
+    val industryId: String,
+    val industryName: String
+)
 /**
  * ИНФОРМАЦИЯ ДЛЯ РАЗРАБОТКИ ЭКРАНА ОТРАСЛЕЙ (Victoria):
  *

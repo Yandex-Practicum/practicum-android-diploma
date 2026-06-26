@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.ui.fragments
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.data.db.Industry
+import ru.practicum.android.diploma.domain.Industry
 import ru.practicum.android.diploma.R
 
 class IndustryAdapter() :
