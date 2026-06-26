@@ -1,44 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/filtersFragment"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.fragments.filter.FiltersFragment"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:background="@android:color/transparent"
+    tools:context=".ui.fragments.filter.FiltersFragment">
 
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingStart="16dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_16"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back_24"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/back_button_desc"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back_24"
+            app:tint="?attr/colorOnSurface" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextDisplayMedium22"
+            android:layout_marginStart="@dimen/padding_16"
             android:text="@string/filters_title"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginStart="16dp"/>
+            android:textAppearance="@style/TextDisplayMedium22"
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <Button
-        android:id="@+id/goToWorkPlaceSelectionButton"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_16">
+
+            <!-- Место работы -->
+            <LinearLayout
+                android:id="@+id/workPlaceContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/max_text_view_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/workPlaceLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/work_place"
+                        android:textAppearance="@style/TextDisplayRegular16"
+                        android:textColor="@color/color_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/workPlaceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextDisplayRegular16"
+                        android:textColor="?attr/colorOnSurface"
+                        android:visibility="gone"
+                        tools:text="Россия, Москва"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/workPlaceArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/go_to_selection"
+                    android:src="@drawable/ic_arrow_forward_24"
+                    app:tint="?attr/colorOnSurface" />
+
+                <ImageView
+                    android:id="@+id/workPlaceClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/clear_button_desc"
+                    android:focusable="true"
+                    android:src="@drawable/ic_close_24"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurface" />
+            </LinearLayout>
+
+            <!-- Отрасль -->
+            <LinearLayout
+                android:id="@+id/industryContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/max_text_view_height"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/industryLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/industry"
+                        android:textAppearance="@style/TextDisplayRegular16"
+                        android:textColor="@color/color_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/industryValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextDisplayRegular16"
+                        android:textColor="?attr/colorOnSurface"
+                        android:visibility="gone"
+                        tools:text="Программирование"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/industryArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/go_to_selection"
+                    android:src="@drawable/ic_arrow_forward_24"
+                    app:tint="?attr/colorOnSurface" />
+
+                <ImageView
+                    android:id="@+id/industryClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/clear_button_desc"
+                    android:focusable="true"
+                    android:src="@drawable/ic_close_24"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurface" />
+            </LinearLayout>
+
+            <!-- Зарплата -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/salaryInputLayout"
+                style="@style/inputEditLayoutSumStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_32"
+                android:hint="@string/salary"
+                app:endIconMode="clear_text"
+                app:endIconTint="?attr/colorOnSurface"
+                app:hintTextColor="@color/blue">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/salaryEditText"
+                    style="@style/inputEditTextSumStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/color_text_secondary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Чекбокс -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/do_not_show_without_salary"
+                    android:textAppearance="@style/TextDisplayRegular16"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <CheckBox
+                    android:id="@+id/noSalaryCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/blue" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/work_place"/>
+        android:orientation="vertical"
+        android:padding="@dimen/padding_16"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <Button
-        android:id="@+id/goIndustrySelectionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/industry"/>
+        <Button
+            android:id="@+id/applyButton"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="@string/apply"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/resetButton"
+            style="@style/ButtonErrorStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_8"
+            android:text="@string/reset"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

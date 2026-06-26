@@ -40,9 +40,11 @@ class VacancyDetailsViewModel(
                     is ApiResult.Loading -> {
                         _state.value = VacancyDetailsState.Loading
                     }
+
                     is ApiResult.Success -> {
                         _state.value = VacancyDetailsState.Content(result.data)
                     }
+
                     is ApiResult.Error -> {
                         val vacancy = favoritesInteractor.getVacancy(vacancyId)
                         if (vacancy != null) {

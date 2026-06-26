@@ -48,9 +48,10 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .load(item.logoUrl)
             .placeholder(R.drawable.ic_placeholder_32)
             .centerInside()
-            .transform(CenterInside(),RoundedCorners(dpToPx(12f, itemView.context)))
+            .transform(CenterInside(), RoundedCorners(dpToPx(12f, itemView.context)))
             .into(companyIcon)
     }
+
     fun dpToPx(dp: Float, context: Context): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

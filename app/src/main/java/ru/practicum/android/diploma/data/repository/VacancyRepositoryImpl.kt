@@ -16,11 +16,23 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 class VacancyRepositoryImpl(private var networkClient: NetworkClient) : VacanciesRepository {
     override fun searchVacancies(
         query: String,
-        page: Int
+        page: Int,
+        settings: ru.practicum.android.diploma.domain.models.FilterSettings?
     ): Flow<ApiResult<VacanciesSearchResult>> = flow {
         emit(ApiResult.Loading)
 
-        val data = networkClient.searchVacancies(VacanciesRequest(query, page))
+        // Формируем запрос, передавая параметры фильтрации
+        // Если параметры (ЗП, регион, отрасль) выбраны, они будут подставлены здесь
+        val request = VacanciesRequest(
+            text = query,
+            page = page,
+            salary = settings?.expectedSalary,
+            onlyWithSalary = settings?.notShowWithoutSalary ?: false,
+            area = settings?.regionId ?: settings?.countryId, // Если выбран город, берем его ID, иначе ID страны
+            industry = settings?.industryId
+        )
+
+        val data = networkClient.searchVacancies(request)
         if (data.resultCode == SUCCESS_CODE && data is VacanciesResponse) {
             emit(ApiResult.Success(data.toModel()))
         } else {

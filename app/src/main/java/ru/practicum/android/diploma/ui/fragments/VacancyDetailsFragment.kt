@@ -72,8 +72,10 @@ class VacancyDetailsFragment : Fragment() {
                 when (event) {
                     is VacancyDetailsEvent.OpenPhone ->
                         IntentHelper.callPhone(requireContext(), event.phone)
+
                     is VacancyDetailsEvent.OpenEmail ->
                         IntentHelper.sendEmail(requireContext(), event.email)
+
                     is VacancyDetailsEvent.Share ->
                         IntentHelper.shareText(requireContext(), event.text)
                 }
@@ -107,9 +109,11 @@ class VacancyDetailsFragment : Fragment() {
                 binding.vacancyContent.isVisible = false
                 binding.layoutServerError.root.isVisible = false
             }
+
             is VacancyDetailsState.Content -> {
                 showContent(state.vacancy)
             }
+
             is VacancyDetailsState.Error -> {
                 showServerError()
             }
@@ -173,12 +177,15 @@ class VacancyDetailsFragment : Fragment() {
             vacancy.salaryFrom != null && vacancy.salaryTo != null -> {
                 "От ${vacancy.salaryFrom} до ${vacancy.salaryTo} ${vacancy.currency}"
             }
+
             vacancy.salaryFrom != null -> {
                 "От ${vacancy.salaryFrom} ${vacancy.currency}"
             }
+
             vacancy.salaryTo != null -> {
                 "До ${vacancy.salaryTo} ${vacancy.currency}"
             }
+
             else -> "Зарплата не указана"
         }
     }

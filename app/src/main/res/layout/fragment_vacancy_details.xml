@@ -208,11 +208,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_24"
-                
+
                 android:text="@string/contacts_title"
                 android:textAppearance="@style/TextDisplayMedium22"
-                android:textColor="?attr/colorOnSurface"/>
-            
+                android:textColor="?attr/colorOnSurface" />
+
             <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                 android:layout_marginTop="@dimen/padding_16"
 
                 android:textAppearance="@style/TextDisplayRegular16"
-                android:textColor="?attr/colorOnSurface"/>
+                android:textColor="?attr/colorOnSurface" />
 
             <TextView
                 android:id="@+id/phone"
@@ -229,7 +229,7 @@
                 android:layout_marginTop="@dimen/padding_4"
 
                 android:textAppearance="@style/TextDisplayRegular16"
-                android:textColor="?attr/colorOnSurface"/>
+                android:textColor="?attr/colorOnSurface" />
 
             <TextView
                 android:id="@+id/phoneComment"
@@ -239,7 +239,7 @@
                 android:visibility="gone"
 
                 android:textAppearance="@style/TextDisplayRegular16"
-                android:textColor="?attr/colorOnSurface"/>
+                android:textColor="?attr/colorOnSurface" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

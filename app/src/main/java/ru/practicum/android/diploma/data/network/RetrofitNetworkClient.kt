@@ -46,7 +46,15 @@ class RetrofitNetworkClient(
 
         return withContext(Dispatchers.IO) {
             try {
-                apiService.searchVacancies(dto.text, dto.page).apply { resultCode = SUCCESS_CODE }
+                val options = mutableMapOf<String, String>()
+                options["text"] = dto.text
+                options["page"] = dto.page.toString()
+                dto.salary?.let { options["salary"] = it.toString() }
+                if (dto.onlyWithSalary) options["only_with_salary"] = "true"
+                dto.area?.let { options["area"] = it }
+                dto.industry?.let { options["industry"] = it }
+
+                apiService.searchVacancies(options).apply { resultCode = SUCCESS_CODE }
             } catch (_: Throwable) {
                 Response().apply { resultCode = SERVER_ERROR_CODE }
             }

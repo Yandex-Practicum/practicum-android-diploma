@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.VacancyCard
 
 class VacancyAdapter(
     private val itemClickListener: ItemClickListener
-): RecyclerView.Adapter<VacancyViewHolder>() {
+) : RecyclerView.Adapter<VacancyViewHolder>() {
 
     private var items: List<VacancyCard> = emptyList()
 
