@@ -60,15 +60,32 @@ class VacancySearchFragment : Fragment() {
 
         viewModel.searchState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                SearchState.IsLoading -> showLoadingState()
-                SearchState.IsLoadingNextPage -> {
+                SearchState.IsLoading -> {
+                    binding.progressBarNextPage.isVisible = false
                     showLoadingState()
                 }
 
-                is SearchState.Content -> showContent(state.pageData, state.listNeedsScrollTop)
-                is SearchState.ConnectionError -> showNoInternetState()
-                is SearchState.NotFoundError -> showEmptyResultState()
+                SearchState.IsLoadingNextPage -> {
+                    binding.progressBarNextPage.isVisible = true
+                }
+
+                is SearchState.Content -> {
+                    binding.progressBarNextPage.isVisible = false
+                    showContent(state.pageData, state.listNeedsScrollTop)
+                }
+
+                is SearchState.ConnectionError -> {
+                    binding.progressBarNextPage.isVisible = false
+                    showNoInternetState()
+                }
+
+                is SearchState.NotFoundError -> {
+                    binding.progressBarNextPage.isVisible = false
+                    showEmptyResultState()
+                }
+
                 is SearchState.VacanciesCount -> {
+                    binding.progressBarNextPage.isVisible = false
                     if (state.vacanciesCount == 0) {
                         showEmptyResultState()
                     } else {
@@ -80,15 +97,20 @@ class VacancySearchFragment : Fragment() {
                     }
                 }
 
-                is SearchState.ServerError500 -> showServerErrorState()
+                is SearchState.ServerError500 -> {
+                    binding.progressBarNextPage.isVisible = false
+                    showServerErrorState()
+                }
+
                 is SearchState.QueryIsEmpty -> {
+                    binding.progressBarNextPage.isVisible = false
                     if (state.isEmpty) {
                         showInitialState()
                     }
                 }
 
                 is SearchState.SearchText -> {
-
+                    binding.progressBarNextPage.isVisible = false
                 }
             }
         }
