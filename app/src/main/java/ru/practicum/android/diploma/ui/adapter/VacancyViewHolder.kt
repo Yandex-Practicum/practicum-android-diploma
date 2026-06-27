@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyCard
+import ru.practicum.android.diploma.util.CurrencyMapper
 
 class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val vacancyName: TextView = itemView.findViewById(R.id.vacancyName)
@@ -33,7 +34,7 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         if (item.currency != null) {
-            salaryText += " ${item.currency}"
+            salaryText += " ${CurrencyMapper.map(item.currency)}"
         }
 
         if (!salaryText.isEmpty() && (item.salaryFrom != null || item.salaryTo != null)) {

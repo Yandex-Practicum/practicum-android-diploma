@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.details.VacancyDetailsEvent
 import ru.practicum.android.diploma.presentation.details.VacancyDetailsState
 import ru.practicum.android.diploma.presentation.details.VacancyDetailsViewModel
+import ru.practicum.android.diploma.util.CurrencyMapper
 import ru.practicum.android.diploma.util.HtmlUtils
 import ru.practicum.android.diploma.util.IntentHelper
 
@@ -173,17 +174,18 @@ class VacancyDetailsFragment : Fragment() {
     }
 
     private fun formatSalary(vacancy: Vacancy): String {
+        val currencySymbol = CurrencyMapper.map(vacancy.currency)
         return when {
             vacancy.salaryFrom != null && vacancy.salaryTo != null -> {
-                "От ${vacancy.salaryFrom} до ${vacancy.salaryTo} ${vacancy.currency}"
+                "От ${vacancy.salaryFrom} до ${vacancy.salaryTo} $currencySymbol"
             }
 
             vacancy.salaryFrom != null -> {
-                "От ${vacancy.salaryFrom} ${vacancy.currency}"
+                "От ${vacancy.salaryFrom} $currencySymbol"
             }
 
             vacancy.salaryTo != null -> {
-                "До ${vacancy.salaryTo} ${vacancy.currency}"
+                "До ${vacancy.salaryTo} $currencySymbol"
             }
 
             else -> "Зарплата не указана"
