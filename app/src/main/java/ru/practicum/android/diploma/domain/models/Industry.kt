@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain
+package ru.practicum.android.diploma.domain.models
 
 class Industry (
     val industryId: String,

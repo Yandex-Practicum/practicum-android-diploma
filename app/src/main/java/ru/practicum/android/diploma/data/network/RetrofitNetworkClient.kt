@@ -33,7 +33,6 @@ class RetrofitNetworkClient(
         }
     }
 
-
     override suspend fun searchVacancies(dto: Any): Response {
         return when {
             !networkConnectivityChecker(context) -> Response().apply { resultCode = NO_CONNECTION_CODE }

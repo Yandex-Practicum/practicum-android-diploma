@@ -86,8 +86,3 @@ data class PhoneDto(
     val formatted: String?,
     val comment: String?
 )
-
-data class FilterIndustryDto(
-    val id: Int,
-    val name: String
-)
