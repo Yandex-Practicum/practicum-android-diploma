@@ -30,6 +30,7 @@ class SearchViewModel(
 
     private var lastSearchRequest: String = ""
     private var searchJob: Job? = null
+    private var lastAppliedFilterSettings: FilterSettings? = null
 
     private val _searchState: CustomLiveData<SearchState> = CustomLiveData()
     internal val searchState: LiveData<SearchState> get() = _searchState
@@ -50,6 +51,14 @@ class SearchViewModel(
     fun checkFilterState() {
         val settings = filterInteractor.getFilterSettings()
         _isFilterSelected.value = settings != FilterSettings()
+
+        if (lastAppliedFilterSettings != null && settings != lastAppliedFilterSettings) {
+            if (lastSearchRequest.isNotBlank()) {
+                clearPagingHistory()
+                searchVacancies(lastSearchRequest)
+            }
+        }
+        lastAppliedFilterSettings = settings
     }
 
     fun searchDebounce(searchQuery: String) {
@@ -79,7 +88,6 @@ class SearchViewModel(
 
     private fun searchVacancies(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
-            checkFilterState()
             renderLoadingState()
             searchJob?.cancel()
             searchJob = viewModelScope.launch {
