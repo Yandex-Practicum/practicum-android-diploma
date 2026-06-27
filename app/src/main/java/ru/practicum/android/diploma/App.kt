@@ -4,7 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.di.AppModule
-import ru.practicum.android.diploma.di.DataBaseModule
+import ru.practicum.android.diploma.di.DatabaseModule
 import ru.practicum.android.diploma.di.InteractorModule
 import ru.practicum.android.diploma.di.NetworkModule
 import ru.practicum.android.diploma.di.RepositoryModule
@@ -20,7 +20,7 @@ class App : Application() {
             modules(
                 listOf(
                     AppModule,
-                    DataBaseModule,
+                    DatabaseModule,
                     NetworkModule,
                     RepositoryModule,
                     InteractorModule,

@@ -11,6 +11,7 @@
         <item name="contentInsetStartWithNavigation">0dp</item>
         <item name="android:padding">0dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="titleMarginStart">0dp</item>
     </style>
 
     <style name="inputEditTextSearchStyle">
@@ -51,6 +52,7 @@
         <item name="itemIconTint">@color/bottom_nav_colors</item>
         <item name="itemTextColor">@color/bottom_nav_colors</item>
         <item name="android:textAppearance">@style/TextDisplayRegular12</item>
+        <item name="elevation">0dp</item>
         <!--        <item name="menu">@menu/bottom_nav_menu</item>
         раскомментировать в момент мержа с задачей по Bottom Navigation-->
     </style>

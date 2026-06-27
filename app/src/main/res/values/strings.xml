@@ -14,10 +14,25 @@
     <string name="filters_title">Настройки фильтрации</string>
     <string name="vacancy_details_title">Вакансия</string>
     <string name="vacancy_search_title">Поиск вакансий</string>
+    <string name="search_hint">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="error_fetching_vacancies">Не удалось получить\n список вакансий</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="pictures_ratio">1:1</string>
+    <string name="placeholder_picture_desc">Иллюстрация состояния экрана</string>
 
-<!--    Экран настроек фильтрации-->
+    <!--    Экран настроек фильтрации-->
     <string name="work_place">Место работы</string>
     <string name="industry">Отрасль</string>
+
+    <string name="salary">Ожидаемая зарплата</string>
+    <string name="do_not_show_without_salary">Не показывать без зарплаты</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
+    <string name="back_button_desc">Кнопка назад</string>
+    <string name="go_to_selection">Перейти к выбору</string>
+    <string name="clear_button_desc">Очистить поле</string>
 
     <string name="country">Страна</string>
     <string name="region">Регион</string>

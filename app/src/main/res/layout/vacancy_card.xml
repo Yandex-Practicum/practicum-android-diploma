@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="9dp"
+    android:paddingHorizontal="16dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/company_logo"
+        android:src="@drawable/ic_vacancy_placeholder_48"
+        android:contentDescription="@string/organization_icon" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/vacancy_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Android-разработчик, Москва"
+            style="@style/TextDisplayMedium22"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/organization_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Еда"
+            style="@style/TextDisplayRegular16"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="от 100 000 Р"
+            style="@style/TextDisplayRegular16"
+            android:textColor="?attr/colorOnSurface" />
+
+    </LinearLayout>
+</LinearLayout>

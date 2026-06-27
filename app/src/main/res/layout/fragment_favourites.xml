@@ -2,21 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_favourites"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.fragments.FavouritesFragment"
-    android:gravity="center"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextDisplayMedium22"
         android:text="@string/favourites_title"
-        android:textColor="@color/black"/>
+        android:textColor="?attr/colorOnSurface"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="19dp" />
 
-    <Button
-        android:id="@+id/goToVacancyDetailsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Открыть вакансию"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/no_items_placeholder"
+        android:visibility="gone"
+        tools:visibility="visible">
 
+        <TextView
+            app:drawableTopCompat="@drawable/placeholder_no_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="16dp"
+            android:textAlignment="center"
+            style="@style/TextDisplayMedium22"
+            android:text="@string/no_items"
+            android:textColor="?attr/colorOnSurface" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/error_placeholder"
+        android:visibility="gone">
+
+        <TextView
+            app:drawableTopCompat="@drawable/placeholder_no_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="16dp"
+            android:textAlignment="center"
+            style="@style/TextDisplayMedium22"
+            android:text="@string/error_fetching_vacancies"
+            android:textColor="?attr/colorOnSurface" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/vacancy_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="16dp"
+
+        android:paddingHorizontal="@dimen/padding_16"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
