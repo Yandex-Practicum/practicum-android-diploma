@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -76,7 +77,11 @@ class VacancySearchFragment : Fragment() {
 
                 is SearchState.ConnectionError -> {
                     binding.progressBarNextPage.isVisible = false
-                    showNoInternetState()
+                    if (adapter?.itemCount ?: 0 > 0) {
+                        Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+                    } else {
+                        showNoInternetState()
+                    }
                 }
 
                 is SearchState.NotFoundError -> {
@@ -99,7 +104,11 @@ class VacancySearchFragment : Fragment() {
 
                 is SearchState.ServerError500 -> {
                     binding.progressBarNextPage.isVisible = false
-                    showServerErrorState()
+                    if (adapter?.itemCount ?: 0 > 0) {
+                        Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+                    } else {
+                        showServerErrorState()
+                    }
                 }
 
                 is SearchState.QueryIsEmpty -> {
