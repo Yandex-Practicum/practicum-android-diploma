@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
 
-<!--    BottomBar-->
+    <!--    BottomBar-->
     <string name="main_title">Главная</string>
     <string name="favourites_title">Избранное</string>
     <string name="team_title">Команда</string>
 
-<!--    Названия экранов-->
+    <!--    Названия экранов-->
     <string name="country_selection_title">Выбор страны</string>
     <string name="region_selection_title">Выбор региона</string>
     <string name="industry_selection_title">Выбор отрасли</string>
@@ -37,6 +37,23 @@
     <string name="country">Страна</string>
     <string name="region">Регион</string>
 
-<!-- Названия кнопок -->
+    <!-- Названия кнопок -->
     <string name="choose">Выбрать</string>
+
+    <!--    Экран команда-->
+    <string name="team_subtitle">Над приложением работали</string>
+
+    <!-- Экран избранного -->
+    <string name="no_items">Список пуст</string>
+    <string name="organization_icon">Логотип организации</string>
+    <string name="salary_not_specified">Зарплата не указана</string>
+    <string name="no_suitable_app">Нет подходящего приложения</string>
+    <string name="error_occurred">Проверьте подключение к интернету</string>
+
+    <!--    Экран деталей вакансии-->
+    <string name="contacts_title">Контакты:</string>
+    <string name="expirience_title">Требуемый опыт работы:</string>
+    <string name="founded_vacancies_count">Найдено %s вакансий</string>
+
+
 </resources>

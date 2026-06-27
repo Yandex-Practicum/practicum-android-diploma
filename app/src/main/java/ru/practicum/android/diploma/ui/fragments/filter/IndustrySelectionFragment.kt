@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
-import ru.practicum.android.diploma.databinding.FragmentIndustrySelectionBinding
 
 class IndustrySelectionFragment : Fragment() {
     private var _binding: FragmentFilterIndustryBinding? = null

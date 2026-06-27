@@ -9,6 +9,6 @@ import ru.practicum.android.diploma.domain.Industry
 class IndustryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val name: TextView = itemView.findViewById(R.id.name)
     fun bind(model: Industry) {
-        name.text = model.name
+        name.text = model.industryName
     }
 }
