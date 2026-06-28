@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionSelectionBinding
 
 class RegionSelectionFragment : Fragment() {
@@ -20,6 +21,11 @@ class RegionSelectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Подготовка экрана "Ничего не найдено" (для демонстрации/заглушки)
+        binding.layoutNoFound.ivPlaceholderPicture.setImageResource(R.drawable.placeholder_no_found)
+        binding.layoutNoFound.tvPlaceholderText.text = getString(R.string.no_region)
+
         // Установка кнопки "Назад"
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
