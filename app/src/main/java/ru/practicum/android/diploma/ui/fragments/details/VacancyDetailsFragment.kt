@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.fragments
+package ru.practicum.android.diploma.ui.fragments.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,9 +17,9 @@ import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyDetailsBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.presentation.details.VacancyDetailsEvent
-import ru.practicum.android.diploma.presentation.details.VacancyDetailsState
-import ru.practicum.android.diploma.presentation.details.VacancyDetailsViewModel
+import ru.practicum.android.diploma.presentation.viewmodels.details.VacancyDetailsEvent
+import ru.practicum.android.diploma.presentation.viewmodels.details.VacancyDetailsState
+import ru.practicum.android.diploma.presentation.viewmodels.details.VacancyDetailsViewModel
 import ru.practicum.android.diploma.util.CurrencyMapper
 import ru.practicum.android.diploma.util.HtmlUtils
 import ru.practicum.android.diploma.util.IntentHelper
@@ -40,7 +40,7 @@ class VacancyDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupServerErrorState()
+        hideErrorMessage()
 
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
@@ -116,13 +116,18 @@ class VacancyDetailsFragment : Fragment() {
             }
 
             is VacancyDetailsState.Error -> {
-                showServerError()
+                setErrorContent(R.drawable.placeholder_server_error_vacancy, R.string.server_error)
             }
+
+            VacancyDetailsState.NotFound -> setErrorContent(
+                R.drawable.placeholder_vacancy_not_found,
+                R.string.vacancy_not_found
+            )
         }
     }
 
     private fun showContent(vacancy: Vacancy) {
-        binding.layoutServerError.root.isVisible = false
+        hideErrorMessage()
         binding.vacancyContent.isVisible = true
 
         with(binding) {
@@ -192,16 +197,25 @@ class VacancyDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupServerErrorState() {
-        binding.layoutServerError.ivPlaceholderPicture.setImageResource(R.drawable.placeholder_server_error_vacancy)
-        binding.layoutServerError.tvPlaceholderText.text = getString(R.string.server_error)
-        binding.layoutServerError.tvPlaceholderText.isVisible = true
+    private fun setErrorContent(imageResourceId: Int, descriptionResourceId: Int) {
+        binding.layoutServerError.root.isVisible = true
+        binding.layoutServerError.ivPlaceholderPicture.setImageResource(imageResourceId)
+        binding.layoutServerError.tvPlaceholderText.text = getString(descriptionResourceId)
     }
 
-    private fun showServerError() {
-        binding.layoutServerError.root.isVisible = true
-        binding.vacancyContent.isVisible = false
+    private fun hideErrorMessage() {
+        binding.layoutServerError.root.isVisible = false
     }
+
+//    private fun showServerError() {
+//        binding.layoutServerError.root.isVisible = true
+//        binding.vacancyContent.isVisible = false
+//    }
+//
+//    private fun showNotFoundError() {
+//        binding.layoutServerError.root.isVisible = true
+//        binding.vacancyContent.isVisible = false
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

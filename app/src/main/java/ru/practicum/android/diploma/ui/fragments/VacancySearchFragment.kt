@@ -22,6 +22,7 @@ import ru.practicum.android.diploma.domain.models.VacancyCard
 import ru.practicum.android.diploma.presentation.viewmodels.SearchState
 import ru.practicum.android.diploma.presentation.viewmodels.SearchViewModel
 import ru.practicum.android.diploma.ui.adapter.VacancyAdapter
+import ru.practicum.android.diploma.ui.fragments.details.VacancyDetailsFragment
 import ru.practicum.android.diploma.util.ViewStateHelper
 
 class VacancySearchFragment : Fragment() {
@@ -77,7 +78,7 @@ class VacancySearchFragment : Fragment() {
 
                 is SearchState.ConnectionError -> {
                     binding.progressBarNextPage.isVisible = false
-                    if (adapter?.itemCount ?: 0 > 0) {
+                    if ((adapter?.itemCount ?: 0) > 0) {
                         Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
                     } else {
                         showNoInternetState()
@@ -104,7 +105,7 @@ class VacancySearchFragment : Fragment() {
 
                 is SearchState.ServerError500 -> {
                     binding.progressBarNextPage.isVisible = false
-                    if (adapter?.itemCount ?: 0 > 0) {
+                    if ((adapter?.itemCount ?: 0) > 0) {
                         Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
                     } else {
                         showServerErrorState()
@@ -210,6 +211,7 @@ class VacancySearchFragment : Fragment() {
         viewStateHelper?.showOnly(binding.layoutInitial.root)
         binding.tvResultInfo.isVisible = false
         binding.vacancyList.isVisible = false
+        viewModel.searchDebounce("")
     }
 
     private fun showNoInternetState() {

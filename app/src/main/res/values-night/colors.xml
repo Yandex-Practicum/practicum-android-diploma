@@ -8,4 +8,6 @@
     <color name="color_accent">@color/blue</color><!-- blue -->
     <color name="color_surface_primary">@color/gray</color><!-- edittext-->
     <color name="color_primary">@color/blue</color> <!--кнопки и курсор-->
+    <color name="color_text_hint">@color/white</color>
+
 </resources>

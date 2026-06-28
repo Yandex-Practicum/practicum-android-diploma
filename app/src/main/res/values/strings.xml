@@ -19,6 +19,7 @@
     <string name="no_vacancies">Таких вакансий нет</string>
     <string name="error_fetching_vacancies">Не удалось получить\n список вакансий</string>
     <string name="server_error">Ошибка сервера</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
     <string name="pictures_ratio">1:1</string>
     <string name="placeholder_picture_desc">Иллюстрация состояния экрана</string>
 
@@ -27,6 +28,7 @@
     <string name="industry">Отрасль</string>
 
     <string name="salary">Ожидаемая зарплата</string>
+    <string name="input_salary">Введите сумму</string>
     <string name="do_not_show_without_salary">Не показывать без зарплаты</string>
     <string name="apply">Применить</string>
     <string name="reset">Сбросить</string>

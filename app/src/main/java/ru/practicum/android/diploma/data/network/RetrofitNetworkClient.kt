@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.FilterAreaRequest
 import ru.practicum.android.diploma.data.dto.Response
@@ -50,8 +51,8 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 request().apply { resultCode = SUCCESS_CODE }
-            } catch (_: Throwable) {
-                Response().apply { resultCode = SERVER_ERROR_CODE }
+            } catch (ex: HttpException) {
+                Response().apply { resultCode = ex.code() }
             }
         }
     }

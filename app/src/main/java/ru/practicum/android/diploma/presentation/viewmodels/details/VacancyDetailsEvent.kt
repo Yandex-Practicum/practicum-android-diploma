@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.details
+package ru.practicum.android.diploma.presentation.viewmodels.details
 
 sealed interface VacancyDetailsEvent {
     data class OpenPhone(val phone: String) : VacancyDetailsEvent

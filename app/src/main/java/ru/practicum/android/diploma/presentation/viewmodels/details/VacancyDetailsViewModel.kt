@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.details
+package ru.practicum.android.diploma.presentation.viewmodels.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,12 +45,21 @@ class VacancyDetailsViewModel(
                         _state.value = VacancyDetailsState.Content(result.data)
                     }
 
-                    is ApiResult.Error -> {
-                        val vacancy = favoritesInteractor.getVacancy(vacancyId)
-                        if (vacancy != null) {
-                            _state.value = VacancyDetailsState.Content(vacancy)
-                        } else {
+                    is ApiResult.Error -> when (result.httpCode) {
+                        404 -> {
+                            _state.value = VacancyDetailsState.NotFound
+                        }
+                        500 -> {
                             _state.value = VacancyDetailsState.Error
+                        }
+
+                        else -> {
+                            val vacancy = favoritesInteractor.getVacancy(vacancyId)
+                            _state.value = if (vacancy != null) {
+                                VacancyDetailsState.Content(vacancy)
+                            } else {
+                                VacancyDetailsState.Error
+                            }
                         }
                     }
                 }

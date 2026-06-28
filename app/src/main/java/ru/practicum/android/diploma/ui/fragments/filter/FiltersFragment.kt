@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.ui.fragments.filter
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -75,14 +77,34 @@ class FiltersFragment : Fragment() {
         }
     }
 
+    private fun updateSalaryHintColor() {
+        val hasText = !binding.salaryEditText.text.isNullOrEmpty()
+        val isFocused = binding.salaryEditText.isFocused
+
+        val color = when {
+            isFocused -> R.color.blue
+            hasText -> R.color.color_text_hint_filled
+            else -> R.color.color_text_hint
+        }
+
+        binding.salaryInputLayout.defaultHintTextColor = ColorStateList.valueOf(
+            ContextCompat.getColor(requireContext(), color)
+        )
+    }
+
     private fun setupTextWatcher() {
+        binding.salaryEditText.setOnFocusChangeListener { _, _ ->
+            updateSalaryHintColor()
+        }
         binding.salaryEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.setSalary(s?.toString())
             }
 
-            override fun afterTextChanged(s: Editable?) = Unit
+            override fun afterTextChanged(s: Editable?) {
+                updateSalaryHintColor()
+            }
         })
     }
 

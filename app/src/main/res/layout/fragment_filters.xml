@@ -173,16 +173,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_32"
                 android:hint="@string/salary"
+                android:textColorHint="@color/color_text_hint"
                 app:endIconMode="clear_text"
-                app:endIconTint="?attr/colorOnSurface"
-                app:hintTextColor="@color/blue">
+                app:endIconTint="?attr/colorOnSurface">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/salaryEditText"
                     style="@style/inputEditTextSumStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/color_text_secondary" />
+                    android:textColorHint="@color/color_text_hint"
+                    android:hint="@string/input_salary"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Чекбокс -->

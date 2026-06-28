@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/vacancyDetailsFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.VacancyDetailsFragment"
+        android:name="ru.practicum.android.diploma.ui.fragments.details.VacancyDetailsFragment"
         android:label="fragment_vacancy_details"
         tools:layout="@layout/fragment_vacancy_details">
         <argument
