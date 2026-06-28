@@ -55,5 +55,7 @@
     <string name="expirience_title">Требуемый опыт работы:</string>
     <string name="founded_vacancies_count">Найдено %s вакансий</string>
 
+    <!--    Экран фильтра отрасль-->
+    <string name="enter_industries">Введите отрасль</string>
 
 </resources>
