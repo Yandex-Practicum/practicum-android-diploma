@@ -52,11 +52,9 @@ class SearchViewModel(
         val settings = filterInteractor.getFilterSettings()
         _isFilterSelected.value = settings != FilterSettings()
 
-        if (lastAppliedFilterSettings != null && settings != lastAppliedFilterSettings) {
-            if (lastSearchRequest.isNotBlank()) {
-                clearPagingHistory()
-                searchVacancies(lastSearchRequest)
-            }
+        if (lastAppliedFilterSettings != null && settings != lastAppliedFilterSettings && lastSearchRequest.isNotBlank()) {
+            clearPagingHistory()
+            searchVacancies(lastSearchRequest)
         }
         lastAppliedFilterSettings = settings
     }
