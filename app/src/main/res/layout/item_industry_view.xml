@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/padding_16"
+    android:paddingVertical= "@dimen/padding_11dp">
+
     <RadioButton
         android:id="@+id/name"
         style="@style/SelectTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:button="@null"
-        android:drawableTint="@color/color_accent"
-        android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
-        android:text="IT"
         android:checked="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+        android:drawableTint="@color/color_accent"
+        android:text="IT" />
+</LinearLayout>

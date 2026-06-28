@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.ui.fragments.filter
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.presentation.viewmodels.IndustryState
@@ -33,23 +36,36 @@ class IndustrySelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = IndustryAdapter{}
+        binding.industryList.adapter = adapter
+        binding.industryList.layoutManager = LinearLayoutManager(requireContext())
 
+        // Теперь подписываемся на LiveData
         viewModel.observeLiveData().observe(viewLifecycleOwner) {
             render(it)
         }
-
-        adapter = IndustryAdapter()
-        binding.industryList.adapter = adapter
-        binding.industryList.layoutManager =
-            LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL, false
-            )
-
         // Установка кнопки "Назад"
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s?.toString() ?: ""
+
+                if (query.isEmpty()) {
+                    binding.searchIcon.setImageResource(R.drawable.ic_search_24)
+                    viewModel.searchDebounce("")
+                } else {
+                    binding.searchIcon.setImageResource(R.drawable.ic_close_24)
+                    viewModel.searchDebounce(query)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) = Unit
+        }
+        binding.searchIndustry.addTextChangedListener(textWatcher)
     }
 
     override fun onDestroyView() {
@@ -67,9 +83,9 @@ class IndustrySelectionFragment : Fragment() {
     }
 
     fun showContent(found: List<Industry>) {
-        binding.industryList.visibility = View.VISIBLE
         adapter?.industrys = found
         adapter?.notifyDataSetChanged()
+        binding.industryList.visibility = View.VISIBLE
         binding.layoutServerError.root.visibility = View.GONE
         binding.layoutNoFound.root.visibility = View.GONE
         binding.layoutNoInternet.root.visibility = View.GONE

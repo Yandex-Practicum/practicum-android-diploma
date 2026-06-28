@@ -41,6 +41,21 @@
         app:layout_constraintTop_toBottomOf="@id/backButton"
         android:hint="@string/enter_industries"/>
 
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:focusable="true"
+        android:padding="12dp"
+        android:src="@drawable/ic_search_24"
+        app:layout_constraintBottom_toBottomOf="@id/searchEditText"
+        app:layout_constraintEnd_toEndOf="@id/searchEditText"
+
+        app:layout_constraintTop_toTopOf="@id/searchEditText"/>
+
     <!--    <RadioGroup-->
     <!--        android:id="@+id/radioGroup"-->
     <!--        android:layout_width="0dp"-->
@@ -115,7 +130,7 @@
         app:layout_constraintEnd_toStartOf="@id/glRightBorder_16"
         app:layout_constraintStart_toEndOf="@id/glLeftBorder_16"
         app:layout_constraintTop_toBottomOf="@id/searchIndustry"
-        tools:listitem="@layout/item_vacancy" />
+        tools:listitem="@layout/item_industry_view" />
 
     <!--</RadioGroup>-->
 

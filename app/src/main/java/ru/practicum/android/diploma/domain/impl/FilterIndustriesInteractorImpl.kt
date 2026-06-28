@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.domain.models.Industry
 
 class FilterIndustriesInteractorImpl(private val repository: FilterIndustriesRepository) :
     FilterIndustriesInteractor {
-    override fun getIndustries(): Flow<List<Industry>> {
-       return repository.getIndustries()
+    override fun getIndustries(query: String): Flow<List<Industry>> {
+       return repository.getIndustries(query)
     }
 }

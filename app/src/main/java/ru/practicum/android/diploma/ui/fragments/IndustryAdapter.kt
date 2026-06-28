@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.R
 
-class IndustryAdapter() :
+class IndustryAdapter(private val onItemClick: (Industry) -> Unit) :
         RecyclerView.Adapter<IndustryViewHolder>() {
         var industrys = listOf<Industry>()
     override fun onCreateViewHolder(
@@ -22,9 +22,9 @@ class IndustryAdapter() :
             holder: IndustryViewHolder,
             position: Int
         ) {
-            holder.bind(industrys.get(position))
-//            holder.itemView.setOnClickListener { clickListener.onTrackClick(tracks.get(position)) }
-        }
+            val industry = industrys[position]
+            holder.bind(industry)
+            holder.itemView.setOnClickListener { onItemClick(industry) }     }
 
         override fun getItemCount(): Int {
             return industrys.size

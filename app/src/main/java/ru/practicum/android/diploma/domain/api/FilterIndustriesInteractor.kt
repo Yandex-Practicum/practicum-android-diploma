@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.Industry
 
 interface FilterIndustriesInteractor {
-    fun  getIndustries(): Flow<List<Industry>>
+    fun  getIndustries(query: String): Flow<List<Industry>>
 }
