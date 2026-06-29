@@ -82,17 +82,6 @@
 
 На это есть отдельный макет, [выглядит вот так](https://www.figma.com/file/NbfNWDqi3nGTIqtqH5X1Fz/HH-Sample-(YP)?type=design&node-id=30%3A1433&mode=design&t=oH3W2XAaSfCBfm0L-1).
 
-> Как выглядит экран списка похожих вакансий, когда идёт загрузка списка?
-
-На это есть отдельный
-макет, [выглядит вот так](https://www.figma.com/file/NbfNWDqi3nGTIqtqH5X1Fz/HH-Sample-(YP)?type=design&node-id=8%3A3060&mode=design&t=hyeCQURU44AYF5Vy-1).
-
-> Как выглядит экран списка похожих вакансий, если в ходе загрузки списка произошла ошибка?
-
-- Если у пользователя не было интернета, экран
-  выглядит [вот так](https://www.figma.com/file/NbfNWDqi3nGTIqtqH5X1Fz/HH-Sample-(YP)?type=design&node-id=8%3A3107&mode=design&t=hyeCQURU44AYF5Vy-1).
-- Если случилась ошибка сервера, экран
-  выглядит [вот так](https://www.figma.com/file/NbfNWDqi3nGTIqtqH5X1Fz/HH-Sample-(YP)?type=design&node-id=8%3A3140&mode=design&t=hyeCQURU44AYF5Vy-1).
 
 ## Экран избранных вакансий
 
