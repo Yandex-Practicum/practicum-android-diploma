@@ -10,6 +10,13 @@
 /.idea/gradle.xml
 /.idea/compiler.xml
 /.idea/misc.xml
+/.idea/deploymentTargetDropDown.xml
+/.idea/render.experimental.xml
+
+# Android Studio local settings
+.idea/AndroidProjectSystem.xml
+.idea/deploymentTargetSelector.xml
+.idea/runConfigurations.xml
 
 # Gradle files
 .gradle/
@@ -30,6 +37,7 @@ captures/
 .externalNativeBuild/
 .cxx/
 output.json
+output-metadata.json
 
 # Built application files
 *.apk
