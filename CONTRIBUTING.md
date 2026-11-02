@@ -39,6 +39,8 @@
 - `design-system` — дизайн-система
 - `gradle` — настройки Gradle
 - `git` — настройки Git
+- `core` - общие утилиты и классы
+- `app` - Application, RootActivity, манифест
 
 ## Правила оформления
 
