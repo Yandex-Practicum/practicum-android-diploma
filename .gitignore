@@ -1,22 +1,8 @@
 # IntelliJ
 *.iml
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/kotlinc.xml
-/.idea/gradle.xml
-/.idea/compiler.xml
-/.idea/misc.xml
-/.idea/deploymentTargetDropDown.xml
-/.idea/render.experimental.xml
-
-# Android Studio local settings
-.idea/AndroidProjectSystem.xml
-.idea/deploymentTargetSelector.xml
-.idea/runConfigurations.xml
+/.idea/*
+!/.idea/.name
+!/.idea/vcs.xml
 
 # Gradle files
 .gradle/
@@ -38,6 +24,7 @@ captures/
 .cxx/
 output.json
 output-metadata.json
+.kotlin/
 
 # Built application files
 *.apk
